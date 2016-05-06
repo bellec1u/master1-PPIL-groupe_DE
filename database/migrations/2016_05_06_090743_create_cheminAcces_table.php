@@ -12,28 +12,26 @@ class CreateCheminAccesTable extends Migration
      */
     public function up()
     {
-         Schema::create('cheminAcces', function(Blueprint $table) {
+        Schema::create('cheminAcces', function (Blueprint $table) {
 
-        $table->increments('id');
-        $table->integer('idClient')->unsigned();
-        $table->integer('idLivre')->unsigned();
-        $table->string('url');
-        $table->string('device');
-        $table->timestamps();
-        
-        $table->foreign('idClient')
-            ->references('id')
-            ->on('client')
-            ->onDelete('cascade'); 
-    
-        $table->foreign('idLivre')
-            ->references('id')
-            ->on('livre')
-            ->onDelete('cascade'); 
-   
-    
-        
-        
+            $table->increments('id');
+            $table->integer('idClient')->unsigned();
+            $table->integer('idLivre')->unsigned();
+            $table->string('url');
+            $table->string('device');
+            $table->timestamps();
+
+            $table->foreign('idClient')
+                ->references('id')
+                ->on('client')
+                ->onDelete('cascade');
+
+            $table->foreign('idLivre')
+                ->references('id')
+                ->on('livre')
+                ->onDelete('cascade');
+
+
         });
     }
 
@@ -44,11 +42,11 @@ class CreateCheminAccesTable extends Migration
      */
     public function down()
     {
-         Schema::table('cheminAcces', function(Blueprint $table) {
+        Schema::table('cheminAcces', function (Blueprint $table) {
             $table->dropForeign('cheminAcces_idLivre_foreign');
             $table->dropForeign('cheminAcces_idClient_foreign');
         });
-       
-         Schema::drop('cheminAcces');
+
+        Schema::drop('cheminAcces');
     }
 }

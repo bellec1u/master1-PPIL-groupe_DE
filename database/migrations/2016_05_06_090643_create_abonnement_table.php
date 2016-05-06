@@ -12,24 +12,25 @@ class CreateAbonnementTable extends Migration
      */
     public function up()
     {
-         Schema::create('abonnement', function(Blueprint $table) {
+        Schema::create('abonnement', function (Blueprint $table) {
 
-        $table->increments('id');
-        $table->integer('idClientSuiveur')->unsigned();
-        $table->integer('idClientSuivi')->unsigned();
-        $table->boolean('notification');
-        $table->timestamps();
-        $table->foreign('idClientSuiveur')
+            $table->increments('id');
+            $table->integer('idClientSuiveur')->unsigned();
+            $table->integer('idClientSuivi')->unsigned();
+            $table->boolean('notification');
+            $table->timestamps();
+
+            $table->foreign('idClientSuiveur')
                 ->references('id')
                 ->on('client')
-                ->onDelete('cascade'); 
-        $table->foreign('idClientSuivi')
+                ->onDelete('cascade');
+            $table->foreign('idClientSuivi')
                 ->references('id')
                 ->on('client')
-                ->onDelete('cascade'); 
-       
+                ->onDelete('cascade');
 
-    }); 
+
+        });
     }
 
     /**
@@ -39,12 +40,12 @@ class CreateAbonnementTable extends Migration
      */
     public function down()
     {
-        
-        Schema::table('abonnement', function(Blueprint $table) {
+
+        Schema::table('abonnement', function (Blueprint $table) {
             $table->dropForeign('abonnement_idClientSuiveur_foreign');
             $table->dropForeign('abonnement_idClientSuivi_foreign');
         });
-        
+
         Schema::drop('abonnement');
     }
 }

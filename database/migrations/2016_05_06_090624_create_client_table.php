@@ -12,22 +12,22 @@ class CreateClientTable extends Migration
      */
     public function up()
     {
-       Schema::create('client', function(Blueprint $table) {
+        Schema::create('client', function (Blueprint $table) {
 
-        $table->increments('id');
-        $table->string('adresseMail');
-        $table->string('motDePasse');
-        $table->string('nom');
-        $table->string('prenom');
-        $table->char('sexe', 1);
-        $table->date('dateNaissance');
-        $table->string('imageProfil');
-        $table->boolean('etreSuivi');
-        $table->boolean('mailValide');
-        $table->date('dateInscription');
-        $table->timestamps();
-    }); 
-        
+            $table->increments('id');
+            $table->string('adresseMail');
+            $table->string('motDePasse');
+            $table->string('nom');
+            $table->string('prenom');
+            $table->char('sexe', 1);
+            $table->date('dateNaissance');
+            $table->string('imageProfil');
+            $table->boolean('etreSuivi');
+            $table->boolean('mailValide');
+            $table->date('dateInscription');
+            $table->timestamps();
+        });
+
     }
 
     /**

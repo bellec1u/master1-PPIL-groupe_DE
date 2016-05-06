@@ -12,7 +12,7 @@ class CreateReseauSocialTable extends Migration
      */
     public function up()
     {
-        Schema::create('reseauSocial', function(Blueprint $table) {
+        Schema::create('reseauSocial', function (Blueprint $table) {
 
             $table->increments('id');
             $table->integer('idClient')->unsigned();
@@ -20,12 +20,12 @@ class CreateReseauSocialTable extends Migration
             $table->timestamps();
 
             $table->foreign('idClient')
-                  ->references('id')
-                  ->on('client')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('client')
+                ->onDelete('cascade');
 
 
-        }); 
+        });
     }
 
     /**
@@ -35,6 +35,6 @@ class CreateReseauSocialTable extends Migration
      */
     public function down()
     {
-         Schema::drop('reseauSocial');
+        Schema::drop('reseauSocial');
     }
 }

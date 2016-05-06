@@ -12,30 +12,30 @@ class CreateAnnotationTable extends Migration
      */
     public function up()
     {
-        Schema::create('annotation', function(Blueprint $table) {
+        Schema::create('annotation', function (Blueprint $table) {
 
-        $table->increments('id');
-        $table->integer('idLivre')->unsigned();
-        $table->integer('idClient')->unsigned();
-        $table->integer('numLigne');
-        $table->integer('nbMotsDebutLigne');
-        $table->longText('texteAnnote');
-        $table->longText('commentaire');
-        $table->integer('numeroDePage');
-        $table->timestamps();
+            $table->increments('id');
+            $table->integer('idLivre')->unsigned();
+            $table->integer('idClient')->unsigned();
+            $table->integer('numLigne');
+            $table->integer('nbMotsDebutLigne');
+            $table->longText('texteAnnote');
+            $table->longText('commentaire');
+            $table->integer('numeroDePage');
+            $table->timestamps();
+
             $table->foreign('idClient')
                 ->references('id')
                 ->on('client')
-                ->onDelete('cascade'); 
-        
-     
-         $table->foreign('idLivre')
+                ->onDelete('cascade');
+            
+            $table->foreign('idLivre')
                 ->references('id')
                 ->on('livre')
-                ->onDelete('cascade'); 
-   
-    
-    });
+                ->onDelete('cascade');
+
+
+        });
     }
 
     /**
@@ -45,7 +45,7 @@ class CreateAnnotationTable extends Migration
      */
     public function down()
     {
-          Schema::table('annotation', function(Blueprint $table) {
+        Schema::table('annotation', function (Blueprint $table) {
             $table->dropForeign('annotation_idLivre_foreign');
             $table->dropForeign('annotation_idClient_foreign');
         });

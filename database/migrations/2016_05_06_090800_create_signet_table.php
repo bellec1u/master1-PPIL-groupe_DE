@@ -12,24 +12,23 @@ class CreateSignetTable extends Migration
      */
     public function up()
     {
-          Schema::create('signet', function(Blueprint $table) {
+        Schema::create('signet', function (Blueprint $table) {
 
-        $table->increments('id');
-        $table->integer('idLivre')->unsigned();
-        $table->integer('idClient')->unsigned();
-        $table->integer('page');
-        $table->timestamps();
-           $table->foreign('idClient')
+            $table->increments('id');
+            $table->integer('idLivre')->unsigned();
+            $table->integer('idClient')->unsigned();
+            $table->integer('page');
+            $table->timestamps();
+            $table->foreign('idClient')
                 ->references('id')
                 ->on('client')
-                ->onDelete('cascade'); 
-        
-     
-         $table->foreign('idLivre')
+                ->onDelete('cascade');
+            
+            $table->foreign('idLivre')
                 ->references('id')
                 ->on('livre')
                 ->onDelete('cascade');
-    });
+        });
     }
 
     /**
@@ -39,7 +38,7 @@ class CreateSignetTable extends Migration
      */
     public function down()
     {
-        Schema::table('signet', function(Blueprint $table) {
+        Schema::table('signet', function (Blueprint $table) {
             $table->dropForeign('signet_idLivre_foreign');
             $table->dropForeign('signet_idClient_foreign');
         });

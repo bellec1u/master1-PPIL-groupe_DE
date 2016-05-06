@@ -12,20 +12,20 @@ class CreateLivreTable extends Migration
      */
     public function up()
     {
-        Schema::create('livre', function(Blueprint $table) {
+        Schema::create('livre', function (Blueprint $table) {
 
-        $table->increments('id');
-        $table->string('titre');
-        $table->string('auteur');
-        $table->date('dateDeParution');
-        $table->longText('resume');
-        $table->string('genre');
-        $table->string('langue');
-        $table->integer('noteMoyenne');
-        $table->string('imageCouverture');
-        $table->integer('nombreDePage');
-        $table->timestamps();
-    }); 
+            $table->increments('id');
+            $table->string('titre');
+            $table->string('auteur');
+            $table->date('dateDeParution');
+            $table->longText('resume');
+            $table->string('genre');
+            $table->string('langue');
+            $table->integer('noteMoyenne');
+            $table->string('imageCouverture');
+            $table->integer('nombreDePage');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -35,6 +35,6 @@ class CreateLivreTable extends Migration
      */
     public function down()
     {
-         Schema::drop('livre');
+        Schema::drop('livre');
     }
 }
