@@ -42,6 +42,12 @@ Nom de code : CallMeIshmael
 ## Rappels Git
 
 ```
+git status : informations sur l'état courant
+git add fichier [fichier ...] : ajouter les fichiers au suivi ou valider les modifications de fichiers déjà suivis
+git commit -m '{message}' : enregistrer les changements de fichiers validés
+git commit -am '{message}' : valider et enregistrer les fichiers déjà suivis
 
+git pull [origin master] : récupérer depuis le dépôt distant et fusionner en local
+git push [origin master] : envoyer au dépôt distant les changements enregistrés
 ```
 
