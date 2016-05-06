@@ -1,7 +1,7 @@
 # PPIL-groupe-DE-web
 
 Projet d'application web en groupe utilisant Laravel 5.2.  
-Nom de code : CallMeIshmael
+Nom de code : _CallMeIshmael_
 
 ## Installation
 
