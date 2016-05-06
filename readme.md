@@ -17,7 +17,7 @@ Nom de code : _CallMeIshmael_
 
   De plus, vérifier que le `rewrite_module` d'Apache est activé.
 
-- Commencer par créer un projet vierge :  
+- Commencer par créer un projet vierge après avoir installé [Composer](https://getcomposer.org/download/) :  
   `composer create-project --prefer-dist laravel/laravel ppil 5.2.*` ppil étant un nom de dossier
 
 - Placez-vous dans le dossier créé, puis :  
