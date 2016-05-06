@@ -1,27 +1,35 @@
-# Laravel PHP Framework
+# PPIL-groupe-DE-web
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Projet d'application web en groupe utilisant Laravel 5.2.  
+Nom de code : CallMeIshmael
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Installation
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+[Référence](https://openclassrooms.com/courses/decouvrez-le-framework-php-laravel-1/installation-et-organisation-1)
 
-## Official Documentation
+- Installer WAMP ou une autre application avec Apache et MySQL.  
+  Vérifier que les composants suivants de PHP sont activés :
+    - Version >= 5.5.9
+    - Extension PDO
+    - Extension Mbstring
+    - Extension OpenSSL
+    - Extension Tokenizer
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+  De plus, vérifier que le `rewrite_module` d'Apache est activé.
 
-## Contributing
+- Commencer par créer un projet vierge :  
+`composer create-project --prefer-dist laravel/laravel PPIL 5.2.*` PPIL étant un nom de dossier
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+- Placez-vous dans le dossier créé, puis :  
+  ```
+  git init
+  git add .
+  git commit -m "votre message"
+  git remote add origin https://github.com/bellec1u/PPIL-groupe-DE-web.git
+  git pull origin master
+  ```
+  Après cala, vous devriez être à jour dans votre copie locale.
 
-## Security Vulnerabilities
+- Mettre à jour Laravel : `composer update` depuis la racine du projet.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+- Tester le fonctionnement en visitant la page : `http://localhost/{dossier_de_projets}/ppil/public/`
