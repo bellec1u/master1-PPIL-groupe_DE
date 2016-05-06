@@ -43,12 +43,11 @@ Nom de code : CallMeIshmael
 ## Laravel
 
 - Laravel peut démarrer le serveur de développement fourni avec PHP avec la commande :  
-`php artisan serve`
-
-Page de démarrage accessible avec l'url : `http://localhost:8000`
+  `php artisan serve`  
+  Page de démarrage accessible avec l'url : `http://localhost:8000`
 
 - Si vous avez une erreur `Class '...' not found`, essayez :  
-`composer dump-autoload`
+  `composer dump-autoload`
 
 
 ## Rappels Git
