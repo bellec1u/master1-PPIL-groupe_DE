@@ -27,9 +27,21 @@ Nom de code : CallMeIshmael
   git commit -m "votre message"
   git remote add origin https://github.com/bellec1u/PPIL-groupe-DE-web.git
   git pull origin master
+
+  Résoudre conflits :
+  git checkout --theirs readme.md config/app.php composer.* .gitignore
+  git add readme.md config/app.php composer.* .gitignore
+  git commit
   ```
   Après cala, vous devriez être à jour dans votre copie locale.
 
 - Mettre à jour Laravel : `composer update` depuis la racine du projet.
 
-- Tester le fonctionnement en visitant la page : `http://localhost/{dossier_de_projets}/ppil/public/`
+- Tester le fonctionnement en visitant la page : `http://localhost/{dossier_de_projet}/ppil/public/`
+
+## Rappels Git
+
+```
+
+```
+
