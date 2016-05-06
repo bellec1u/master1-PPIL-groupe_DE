@@ -18,7 +18,7 @@ Nom de code : CallMeIshmael
   De plus, vérifier que le `rewrite_module` d'Apache est activé.
 
 - Commencer par créer un projet vierge :  
-`composer create-project --prefer-dist laravel/laravel PPIL 5.2.*` PPIL étant un nom de dossier
+`composer create-project --prefer-dist laravel/laravel *ppil* 5.2.*` PPIL étant un nom de dossier
 
 - Placez-vous dans le dossier créé, puis :  
   ```
@@ -28,7 +28,8 @@ Nom de code : CallMeIshmael
   git remote add origin https://github.com/bellec1u/PPIL-groupe-DE-web.git
   git pull origin master
 
-  Résoudre conflits :
+  Résoudre les conflits :
+  ajouter les fichiers incriminés au bout des deux commandes s'il y en a d'autres
   git checkout --theirs readme.md config/app.php composer.* .gitignore
   git add readme.md config/app.php composer.* .gitignore
   git commit
@@ -39,15 +40,28 @@ Nom de code : CallMeIshmael
 
 - Tester le fonctionnement en visitant la page : `http://localhost/{dossier_de_projet}/ppil/public/`
 
+## Laravel
+
+Laravel peut démarrer le serveur de développement fourni avec PHP avec la commande :  
+`php artisan serve`
+
+Page de démarrage accessible avec l'url : `http://localhost:8000`
+
+
 ## Rappels Git
 
 ```
-git status : informations sur l'état courant
+git status                    : informations sur l'état courant
 git add fichier [fichier ...] : ajouter les fichiers au suivi ou valider les modifications de fichiers déjà suivis
-git commit -m '{message}' : enregistrer les changements de fichiers validés
-git commit -am '{message}' : valider et enregistrer les fichiers déjà suivis
+git commit -m '{message}'     : enregistrer les changements de fichiers validés
+git commit -am '{message}'    : valider et enregistrer les fichiers déjà suivis
 
 git pull [origin master] : récupérer depuis le dépôt distant et fusionner en local
 git push [origin master] : envoyer au dépôt distant les changements enregistrés
+
+Résoudre les conflits :
+Corriger les fichiers incriminés à la main puis :
+git add fichier-corrigé [fichier-corrigé] : valider les corrections
+git commit -m 'conflits corrigés'         : enregistrer la jointure
 ```
 
