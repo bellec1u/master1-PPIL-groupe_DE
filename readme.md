@@ -40,6 +40,19 @@ Nom de code : _CallMeIshmael_
 
 - Tester le fonctionnement en visitant la page : `http://localhost/{chemin}/ppil/public/`
 
+### Base de données
+
+Modifier le fichier _.env_ :
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ppil
+DB_USERNAME=root
+DB_PASSWORD=
+```
+Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
+
 ## Laravel
 
 - Laravel peut démarrer le serveur de développement fourni avec PHP avec la commande :  
