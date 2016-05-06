@@ -49,14 +49,10 @@ class CreateNotificationTable extends Migration
     {
          Schema::table('notification', function(Blueprint $table) {
             $table->dropForeign('notification_idLivre_foreign');
-        });
-        Schema::table('notification', function(Blueprint $table) {
             $table->dropForeign('notification_idClientNotifie_foreign');
-        });
-         Schema::table('notification', function(Blueprint $table) {
             $table->dropForeign('notification_idClientNotifieur_foreign');
         });
         
-          Schema::drop('notification');
+        Schema::drop('notification');
     }
 }

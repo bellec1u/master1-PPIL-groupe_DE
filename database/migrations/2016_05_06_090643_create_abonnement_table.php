@@ -23,7 +23,7 @@ class CreateAbonnementTable extends Migration
                 ->references('id')
                 ->on('client')
                 ->onDelete('cascade'); 
-         $table->foreign('idClientSuivi')
+        $table->foreign('idClientSuivi')
                 ->references('id')
                 ->on('client')
                 ->onDelete('cascade'); 
@@ -42,12 +42,9 @@ class CreateAbonnementTable extends Migration
         
         Schema::table('abonnement', function(Blueprint $table) {
             $table->dropForeign('abonnement_idClientSuiveur_foreign');
-        });
-        Schema::table('abonnement', function(Blueprint $table) {
             $table->dropForeign('abonnement_idClientSuivi_foreign');
         });
-
-
-          Schema::drop('abonnement');
+        
+        Schema::drop('abonnement');
     }
 }

@@ -24,7 +24,7 @@ class CreateClientTable extends Migration
         $table->string('imageProfil');
         $table->boolean('etreSuivi');
         $table->boolean('mailValide');
-        $table->date(' dateInscription');
+        $table->date('dateInscription');
         $table->timestamps();
     }); 
         

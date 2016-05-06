@@ -17,7 +17,7 @@ class CreateLectureTable extends Migration
         $table->increments('id');
         $table->integer('idClient')->unsigned();
         $table->integer('idLivre')->unsigned();
-        $table->integer(' pageCourante');
+        $table->integer('pageCourante');
         $table->timestamps();
           $table->foreign('idClient')
                 ->references('id')
@@ -41,11 +41,10 @@ class CreateLectureTable extends Migration
     public function down()
     {
          Schema::table('lecture', function(Blueprint $table) {
-            $table->dropForeign('notification_idLivre_foreign');
-        });
-        Schema::table('lecture', function(Blueprint $table) {
+            $table->dropForeign('lecture_idLivre_foreign');
             $table->dropForeign('lecture_idClient_foreign');
         });
-         Schema::drop('lecture');
+
+        Schema::drop('lecture');
     }
 }

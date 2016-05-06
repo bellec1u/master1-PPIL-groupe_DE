@@ -41,11 +41,9 @@ class CreateEvaluationTable extends Migration
     {
         Schema::table('evaluation', function(Blueprint $table) {
             $table->dropForeign('evaluation_idLivre_foreign');
-        });
-        Schema::table('evaluation', function(Blueprint $table) {
             $table->dropForeign('evaluation_idClient_foreign');
         });
-        
-         Schema::drop('evaluation');
+       
+        Schema::drop('evaluation');
     }
 }

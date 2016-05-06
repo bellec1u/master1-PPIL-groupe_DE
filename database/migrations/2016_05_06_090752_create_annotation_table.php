@@ -47,10 +47,9 @@ class CreateAnnotationTable extends Migration
     {
           Schema::table('annotation', function(Blueprint $table) {
             $table->dropForeign('annotation_idLivre_foreign');
-        });
-        Schema::table('lecture', function(Blueprint $table) {
             $table->dropForeign('annotation_idClient_foreign');
         });
-         Schema::drop('annotation');
+
+        Schema::drop('annotation');
     }
 }
