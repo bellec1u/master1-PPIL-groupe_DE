@@ -38,7 +38,7 @@ Nom de code : CallMeIshmael
 
 - Mettre à jour Laravel : `composer update` depuis la racine du projet.
 
-- Tester le fonctionnement en visitant la page : `http://localhost/{dossier_de_projet}/ppil/public/`
+- Tester le fonctionnement en visitant la page : `http://localhost/{chemin}/ppil/public/`
 
 ## Laravel
 
