@@ -7,3 +7,4 @@ Homestead.json
 /.idea
 /nbproject
 .DS_Store
+*.DS_Store
