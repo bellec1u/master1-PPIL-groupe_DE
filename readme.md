@@ -18,13 +18,13 @@ Nom de code : CallMeIshmael
   De plus, vérifier que le `rewrite_module` d'Apache est activé.
 
 - Commencer par créer un projet vierge :  
-`composer create-project --prefer-dist laravel/laravel *ppil* 5.2.*` PPIL étant un nom de dossier
+`composer create-project --prefer-dist laravel/laravel ppil 5.2.*` ppil étant un nom de dossier
 
 - Placez-vous dans le dossier créé, puis :  
   ```
   git init
   git add .
-  git commit -m "votre message"
+  git commit -m "{votre message}"
   git remote add origin https://github.com/bellec1u/PPIL-groupe-DE-web.git
   git pull origin master
 
@@ -52,9 +52,9 @@ Page de démarrage accessible avec l'url : `http://localhost:8000`
 
 ```
 git status                    : informations sur l'état courant
-git add fichier [fichier ...] : ajouter les fichiers au suivi ou valider les modifications de fichiers déjà suivis
+git add fichier [fichier ...] : ajouter des fichiers au suivi ou valider les modifications de fichiers déjà suivis
 git commit -m '{message}'     : enregistrer les changements de fichiers validés
-git commit -am '{message}'    : valider et enregistrer les fichiers déjà suivis
+git commit -am '{message}'    : valider et enregistrer les fichiers déjà suivis ('git add' inutile)
 
 git pull [origin master] : récupérer depuis le dépôt distant et fusionner en local
 git push [origin master] : envoyer au dépôt distant les changements enregistrés
