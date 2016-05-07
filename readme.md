@@ -83,6 +83,14 @@ Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
 ## Rappels Git
 
 ```
+Configuration :
+git config --list                    : afficher les paramètres courants
+git config user.name "{votre_nom}"   
+git config user.email "{votre_mail}" : mail doit être le même que pour github si vous voulez que github calcule vos statistiques
+                                       vous pouvez passer l'option --global pour que ces paramètres soient les mêmes pour tous les dépôts
+git config --global core.editor nano : idiquer l'éditeur que vous voulez utiliser
+
+
 git status                    : informations sur l'état courant
 git add fichier [fichier ...] : ajouter des fichiers au suivi ou valider les modifications de fichiers déjà suivis
 git commit -m '{message}'     : enregistrer les changements de fichiers validés
@@ -90,6 +98,7 @@ git commit -am '{message}'    : valider et enregistrer les fichiers déjà suivi
 
 git pull [origin master] : récupérer depuis le dépôt distant et fusionner en local
 git push [origin master] : envoyer au dépôt distant les changements enregistrés
+
 
 Résoudre les conflits :
 Corriger les fichiers incriminés à la main puis :
