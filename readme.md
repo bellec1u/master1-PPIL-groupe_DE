@@ -3,6 +3,23 @@
 Projet d'application web en groupe utilisant Laravel 5.2.  
 Nom de code : _CallMeIshmael_
 
+## Coding Style
+
+Toute l'application sera codée en **anglais** (noms de variables, classes, méthodes, commentaires).  
+L'indentation est de **4 espaces** (pas de tabulations) comme suit :  
+```php
+class Foo extends Bar implements FooInterface
+{
+    public function sampleFunction($a, $b = null)
+    {
+        if ($a === $b) {
+            bar();
+        }
+        ...
+```
+[Référence PSR](http://www.php-fig.org/psr/psr-2/) 
+
+
 ## Installation
 
 [Référence](https://openclassrooms.com/courses/decouvrez-le-framework-php-laravel-1/installation-et-organisation-1)
