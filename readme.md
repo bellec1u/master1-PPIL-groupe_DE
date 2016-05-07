@@ -47,8 +47,8 @@ class Foo extends Bar implements FooInterface
 
   Résoudre les conflits :
   ajouter les fichiers incriminés au bout des deux commandes s'il y en a d'autres
-  git checkout --theirs readme.md config/app.php composer.* .gitignore
-  git add readme.md config/app.php composer.* .gitignore
+  git checkout --theirs .
+  git add .
   git commit
   ```
   Après cala, vous devriez être à jour dans votre copie locale.
