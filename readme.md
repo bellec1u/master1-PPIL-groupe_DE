@@ -74,7 +74,8 @@ Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
 
 - Laravel peut démarrer le serveur de développement fourni avec PHP avec la commande :  
   `php artisan serve`  
-  Page de démarrage accessible avec l'url : `http://localhost:8000`
+  Page de démarrage accessible avec l'url : `http://localhost:8000`  
+  En revanche, la base de données ne sera pas accessible.
 
 - Si vous avez une erreur `Class '...' not found`, essayez :  
   `composer dump-autoload`
