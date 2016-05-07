@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCheminAccesTable extends Migration
+class CreateAccessPathsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,23 +12,23 @@ class CreateCheminAccesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cheminAcces', function (Blueprint $table) {
+        Schema::create('access_paths', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->integer('idClient')->unsigned();
-            $table->integer('idLivre')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('book_id')->unsigned();
             $table->string('url');
             $table->string('device');
             $table->timestamps();
 
-            $table->foreign('idClient')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('client')
+                ->on('users')
                 ->onDelete('cascade');
 
-            $table->foreign('idLivre')
+            $table->foreign('book_id')
                 ->references('id')
-                ->on('livre')
+                ->on('books')
                 ->onDelete('cascade');
 
 
@@ -42,11 +42,11 @@ class CreateCheminAccesTable extends Migration
      */
     public function down()
     {
-        Schema::table('cheminAcces', function (Blueprint $table) {
-            $table->dropForeign('cheminAcces_idLivre_foreign');
-            $table->dropForeign('cheminAcces_idClient_foreign');
+        Schema::table('access_paths', function (Blueprint $table) {
+            $table->dropForeign('access_paths_user_id_foreign');
+            $table->dropForeign('access_paths_book_id_foreign');
         });
 
-        Schema::drop('cheminAcces');
+        Schema::drop('access_paths');
     }
 }

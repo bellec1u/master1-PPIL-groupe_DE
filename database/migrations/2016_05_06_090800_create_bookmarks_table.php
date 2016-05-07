@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSignetTable extends Migration
+class CreateBookmarksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,21 +12,22 @@ class CreateSignetTable extends Migration
      */
     public function up()
     {
-        Schema::create('signet', function (Blueprint $table) {
+        Schema::create('bookmarks', function (Blueprint $table) {
 
             $table->increments('id');
-            $table->integer('idLivre')->unsigned();
-            $table->integer('idClient')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('book_id')->unsigned();
             $table->integer('page');
             $table->timestamps();
-            $table->foreign('idClient')
+
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('client')
+                ->on('users')
                 ->onDelete('cascade');
             
-            $table->foreign('idLivre')
+            $table->foreign('book_id')
                 ->references('id')
-                ->on('livre')
+                ->on('books')
                 ->onDelete('cascade');
         });
     }
@@ -38,11 +39,11 @@ class CreateSignetTable extends Migration
      */
     public function down()
     {
-        Schema::table('signet', function (Blueprint $table) {
-            $table->dropForeign('signet_idLivre_foreign');
-            $table->dropForeign('signet_idClient_foreign');
+        Schema::table('bookmarks', function (Blueprint $table) {
+            $table->dropForeign('bookmarks_user_id_foreign');
+            $table->dropForeign('bookmarks_book_id_foreign');
         });
 
-        Schema::drop('signet');
+        Schema::drop('bookmarks');
     }
 }
