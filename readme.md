@@ -46,7 +46,6 @@ class Foo extends Bar implements FooInterface
   git pull origin master
 
   Résoudre les conflits :
-  ajouter les fichiers incriminés au bout des deux commandes s'il y en a d'autres
   git checkout --theirs .
   git add .
   git commit
