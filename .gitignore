@@ -4,3 +4,8 @@
 Homestead.yaml
 Homestead.json
 .env
+/.idea
+/nbproject
+.DS_Store
+*.DS_Store
+*~
