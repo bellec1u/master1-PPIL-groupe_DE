@@ -14,16 +14,16 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title', 512);
             $table->string('author');
             $table->date('publication_date');
-            $table->longText('resume');
+            $table->longText('resume')->nullable();
             $table->string('genre');
             $table->string('language');
-            $table->integer('stars_average');
-            $table->string('cover_image');
-            $table->integer('page_number');
-            $table->timestamps();
+            $table->integer('stars_average')->default(0);
+            $table->string('url');
+            $table->string('cover_url')->nullable();
+            $table->integer('page_number')->default(0);
         });
     }
 
