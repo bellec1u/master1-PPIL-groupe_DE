@@ -1,16 +1,16 @@
 # PPIL-groupe-DE-web
 
-Contributeurs :
-    BELLEC Léopold
-    DAUZVARDIS Juozas
-    MAZROU Abdelghami
-    JUNGES Pierre-Marie
-    BOUQUIN Laurent
-    BEN TOUNES Samy
-    DEMIR Yasar
-    CHABAUX Paul
-    GREINER Billy
-    AJDARPASIC Nihad
+Contributeurs :  
+    BELLEC Léopold    
+    DAUZVARDIS Juozas  
+    MAZROU Abdelghami  
+    JUNGES Pierre-Marie  
+    BOUQUIN Laurent  
+    BEN TOUNES Samy  
+    DEMIR Yasar  
+    CHABAUX Paul  
+    GREINER Billy  
+    AJDARPASIC Nihad  
 
 Projet d'application web en groupe utilisant Laravel 5.2.  
 Nom de code : _CallMeIshmael_
