@@ -14,8 +14,22 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('home', array('as' => 'home', 'uses' => function(){
+  return view('home');
+}));
+// création d'utilisateur standard 
 Route::get('user', 'UserController@create');
 Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
+
+
+// création dutilisateur facebook 
+
+Route::get('/redirect', 'SocialAuthController@redirect');
+Route::get('/callback', 'SocialAuthController@callback');;
+
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');

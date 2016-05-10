@@ -8,7 +8,7 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Your Application's Landing Page.
+                    <a class="btn btn-info" href="auth/facebook" role="button">login with Facebook </a>
                 </div>
             </div>
         </div>
