@@ -1,14 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragment.InscriptionFragment">
+    tools:context=".fragment.InscriptionFragment"
+    android:scrollIndicators="right">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_margin="20px"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -16,17 +19,19 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Inscription"
                 android:id="@+id/textView"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="nom :"
+                    android:text="Nom :"
                     android:id="@+id/editText7"
                     android:textAlignment="gravity" />
 
@@ -41,12 +46,13 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:layout_marginTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:text="prenom :"
+                    android:text="Prenom :"
                     android:id="@+id/editText6" />
 
                 <EditText
@@ -59,12 +65,13 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="adresse email :"
+                    android:text="Adresse email :"
                     android:id="@+id/editText5" />
 
                 <EditText
@@ -78,16 +85,17 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="répéter adresse email :"
+                    android:text="Répéter adresse email :"
                     android:id="@+id/editText4" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:ems="10"
@@ -97,12 +105,13 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="mot de passe :"
+                    android:text="Mot de passe :"
                     android:id="@+id/editText3" />
 
                 <EditText
@@ -116,16 +125,17 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="répéter mot de passe :"
+                    android:text="Répéter mot de passe :"
                     android:id="@+id/editText2" />
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:minEms="8"
@@ -136,12 +146,13 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:layout_marginTop="2dp" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="date de naissance :"
+                    android:text="Date de naissance :"
                     android:id="@+id/idBirthDate" />
 
                 <EditText
@@ -151,7 +162,7 @@
                     android:maxLength="2"
                     android:digits="1234567890"
                     android:id="@+id/dateDay"
-                    android:layout_weight="0.07" />
+                    android:layout_weight="0.1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -166,7 +177,7 @@
                     android:maxLength="2"
                     android:digits="1234567890"
                     android:id="@+id/dateMonth"
-                    android:layout_weight="0.07" />
+                    android:layout_weight="0.1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -181,7 +192,7 @@
                     android:maxLength="4"
                     android:digits="1234567890"
                     android:id="@+id/dateYear"
-                    android:layout_weight="0.15" />
+                    android:layout_weight="0.2" />
 
             </LinearLayout>
 
@@ -189,12 +200,13 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.08">
+                android:layout_weight="0.08"
+                android:layout_marginTop="2dp" >
 
                 <TextView
                     android:layout_width="49dp"
                     android:layout_height="32dp"
-                    android:text="sexe :"
+                    android:text="Sexe :"
                     android:id="@+id/idSex" />
 
                 <RadioGroup
@@ -221,11 +233,16 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/idConfirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirmer"
-                android:id="@+id/idConfirm"
-                android:layout_gravity="center_horizontal" />
+                android:text="  Confirmer  "
+                android:layout_gravity="center_horizontal"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:background="@drawable/button_style"
+                android:layout_margin="30dp"
+                android:width="200dp"/>
 
         </LinearLayout>
-</FrameLayout>
+</ScrollView>
