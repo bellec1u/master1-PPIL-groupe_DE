@@ -3,6 +3,7 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +43,21 @@ public class ConnexionFragment extends Fragment {
                 String emailS, pwdS;
                 emailS = email.getText().toString();
                 pwdS = password.getText().toString();
-                if (emailS.equals("") || pwdS.equals("")) {
-                    Toast.makeText(getActivity(), "Champ(s) vide(s) !", Toast.LENGTH_SHORT);
+                Log.i("INFORMATION", "---" + emailS.length() + " : " + pwdS.length() + "---");
+                emailS.replaceAll(" ", "");
+                pwdS.replaceAll(" ","");
+                if ((emailS.length() == 0)) {
+                    Toast.makeText(getActivity(), "Email vide !", Toast.LENGTH_SHORT).show();
                 }
+                if((pwdS.length() == 0)) {
+                    Toast.makeText(getActivity(), "Mot de passe vide !", Toast.LENGTH_SHORT).show();
+                }
+                
+                if((emailS.length() != 0) && (pwdS.length() != 0))
+                {
+                    //// TODO: 10/05/16  
+                }
+
             }
         });
         return view;
