@@ -32,15 +32,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataManager dm = new DataManager();
-        String url = DataManager.urlLogin;
-        //dm.setUrlLogin("A","B");
-        dm.setUrlBookDetail(1);
-        System.out.println("URL : "+dm.getAdresseDesti());
-        dm.run();
-        String res = dm.getResult();
-        System.out.println(res);
-
         // Set the title initially
         this.setTitle("Accueil");
         // Set the fragment initially
