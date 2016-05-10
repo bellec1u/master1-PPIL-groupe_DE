@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
@@ -30,6 +31,15 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DataManager dm = new DataManager();
+        String url = DataManager.urlLogin;
+        //dm.setUrlLogin("A","B");
+        dm.setUrlBookDetail(1);
+        System.out.println("URL : "+dm.getAdresseDesti());
+        dm.run();
+        String res = dm.getResult();
+        System.out.println(res);
 
         // Set the title initially
         this.setTitle("Accueil");
