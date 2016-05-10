@@ -106,4 +106,15 @@ public class DataManager implements Runnable {
     {
         adresseDesti = urlBookDetail + "id=" + id;
     }
+
+    public void setUrlRegister(String prenom, String nom, String email, String password, String sexe, String date)
+    {
+        adresseDesti = urlRegister +
+                "email=" +email +
+                "&password=" + password +
+                "&prenom=" + prenom +
+                "&nom=" + nom +
+                "&sexe=" + sexe +
+                "&date=" + date;
+    }
 }
