@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.ppil.groupede.callmeishmael.R;
 
 
@@ -52,6 +53,7 @@ public class ConnexionFragment extends Fragment {
                 emailS = email.getText().toString();
                 pwdS = password.getText().toString();
                 Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
+                //// TODO: 10/05/16 connexion to database
             }
         });
         return view;
@@ -74,14 +76,14 @@ public class ConnexionFragment extends Fragment {
         public void afterTextChanged(Editable s) {
             String verif = s.toString();
             verif.replaceAll("\\s*", "");
-            if(verif.length() > 0)
+            if(verif.length() > 7)
             {
                 pwdOk = true;
             }
             else
             {
                 pwdOk = false;
-                Toast.makeText(getActivity(), "Mot de passe incorrect !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Le mot de passe doit faire au moins 8 caractères !", Toast.LENGTH_SHORT).show();
             }
             logIn.setClickable(mailOk && pwdOk);
         }
@@ -106,7 +108,7 @@ public class ConnexionFragment extends Fragment {
             verif.replaceAll("\\s*", "");
             if(verif.length() > 0)
             {
-                if(verif.contains("@")) {
+                if(android.util.Patterns.EMAIL_ADDRESS.matcher(verif).matches()) {
                     mailOk = true;
                 }
                 else
