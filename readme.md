@@ -34,6 +34,8 @@ class Foo extends Bar implements FooInterface
 
 ## Installation
 
+### Web
+
 [Référence](https://openclassrooms.com/courses/decouvrez-le-framework-php-laravel-1/installation-et-organisation-1)
 
 - Installer WAMP ou une autre application avec Apache et MySQL.  
@@ -56,6 +58,7 @@ class Foo extends Bar implements FooInterface
   git commit -m "{votre message}"
   git remote add origin https://github.com/bellec1u/PPIL-groupe-DE-web.git
   git pull origin master
+  git branch --set-upstream-to=origin/master master
 
   Résoudre les conflits :
   git checkout --theirs .
@@ -67,6 +70,12 @@ class Foo extends Bar implements FooInterface
 - Mettre à jour Laravel : `composer update` depuis la racine du projet.
 
 - Tester le fonctionnement en visitant la page : `http://localhost/{chemin}/ppil/public/`
+
+### Mobile
+
+```
+git clone -b mobile https://github.com/bellec1u/PPIL-groupe-DE-web.git ppil_mobile
+```
 
 ### Base de données
 
