@@ -54,15 +54,6 @@
             android:layout_margin="30dp"
             android:width="200dp"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="2.13"
-            android:weightSum="1">
-
-        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>
