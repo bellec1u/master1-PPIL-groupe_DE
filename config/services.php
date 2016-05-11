@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'facebook' => [
+    'client_id' => '1690609124519276',
+    'client_secret' => '115d87bd4ca68652935271a553451753',
+    'redirect' => 'http://localhost/PPILresetA/public/callback',
+ ],
 
 ];
