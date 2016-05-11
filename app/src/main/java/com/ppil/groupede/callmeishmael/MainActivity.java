@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
@@ -17,12 +18,14 @@ import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
 import com.ppil.groupede.callmeishmael.fragment.FAQFragment;
 import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
 import com.ppil.groupede.callmeishmael.fragment.RechercheFragment;
+import com.ppil.groupede.callmeishmael.fragment.ReglagesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    NavigationView navigationView = null;
-    Toolbar toolbar = null;
+    private NavigationView navigationView = null;
+    private Toolbar toolbar = null;
+    private boolean isConnected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        this.setConnection(false);
     }
 
     @Override
@@ -137,6 +142,20 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
 
+        } else if (id == R.id.nav_deconnexion) {
+            // Deconnect the user
+            this.setConnection(false);
+
+        } else if (id == R.id.nav_reglages) {
+            // Set the page's title
+            this.setTitle("Reglages");
+            // Set the fragment of view
+            ReglagesFragment fragment = new ReglagesFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+
         } else if (id == R.id.nav_faq) {
             // Set the page's title
             this.setTitle("FAQ");
@@ -161,6 +180,54 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    public boolean setConnection(boolean b) {
+        if (b == true) { //connection
+            this.setMenuConnected();
+            this.isConnected = true;
+        } else { //deconnexion
+            this.setMenuNoConnected();
+            this.isConnected = false;
+        }
+
+        return true;
+    }
+
+    public boolean setMenuConnected() {
+        android.support.design.widget.NavigationView navigationView =
+                (android.support.design.widget.NavigationView) findViewById(R.id.nav_view);
+        Menu m = navigationView.getMenu();
+
+        // Hide "Inscription" and "Connection"
+        MenuItem mi = m.getItem(2).getSubMenu().getItem(0);
+        mi.setVisible(false);
+        mi = m.getItem(2).getSubMenu().getItem(1);
+        mi.setVisible(false);
+
+        // Set visible "Deconnection"
+        mi = m.getItem(2).getSubMenu().getItem(2);
+        mi.setVisible(true);
+
+        return true;
+    }
+
+    public boolean setMenuNoConnected() {
+        android.support.design.widget.NavigationView navigationView =
+                (android.support.design.widget.NavigationView) findViewById(R.id.nav_view);
+        Menu m = navigationView.getMenu();
+
+        // Set visible "Inscription" and "Connection"
+        MenuItem mi = m.getItem(2).getSubMenu().getItem(0);
+        mi.setVisible(true);
+        mi = m.getItem(2).getSubMenu().getItem(1);
+        mi.setVisible(true);
+
+        // Hide "Deconnection"
+        mi = m.getItem(2).getSubMenu().getItem(2);
+        mi.setVisible(false);
 
         return true;
     }

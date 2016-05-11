@@ -22,6 +22,14 @@
                 android:id="@+id/nav_connexion"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Connexion" />
+            <item
+                android:id="@+id/nav_deconnexion"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Deconnexion" />
+            <item
+                android:id="@+id/nav_reglages"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Reglages" />
         </menu>
     </item>
 
