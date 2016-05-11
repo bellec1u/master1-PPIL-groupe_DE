@@ -72,7 +72,6 @@ public class ConnexionFragment extends Fragment {
                 }
                 else
                 {
-                    System.out.println("ok");
                     SessionManager session = new SessionManager(getContext());
                     session.createUserSession(emailS);
                     // Set the fragment of view
@@ -114,7 +113,7 @@ public class ConnexionFragment extends Fragment {
             else
             {
                 pwdOk = false;
-                Toast.makeText(getActivity(), "Le mot de passe doit faire au moins 8 caractères !", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Le mot de passe doit faire au moins 8 caractères !", Toast.LENGTH_SHORT).show();
             }
             logIn.setClickable(mailOk && pwdOk);
         }
@@ -145,12 +144,12 @@ public class ConnexionFragment extends Fragment {
                 else
                 {
                     mailOk = false;
-                    Toast.makeText(getActivity(), "Email incorrect !", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Email incorrect !", Toast.LENGTH_SHORT).show();
                 }
             }
             else {
                 mailOk = false;
-                Toast.makeText(getActivity(), "Email incorrect !", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Email incorrect !", Toast.LENGTH_SHORT).show();
             }
             logIn.setClickable(mailOk && pwdOk);
         }
