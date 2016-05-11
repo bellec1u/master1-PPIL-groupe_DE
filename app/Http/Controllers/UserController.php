@@ -6,7 +6,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 
 use App\Repositories\UserRepository;
-use  Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 
 class UserController extends Controller

@@ -30,14 +30,15 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => App\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
     'facebook' => [
-    'client_id' => '1690609124519276',
-    'client_secret' => '115d87bd4ca68652935271a553451753',
-    'redirect' => 'http://localhost/PPILresetA/public/callback',
+        'client_id' => env('FB_CLIENT_ID'),
+        'client_secret' => env('FB_CLIENT_SECRET'),
+        'redirect' => env('FB_CALLBACK'),
  ],
 
 ];

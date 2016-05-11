@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\user;
+use App\Models\User;
 use Auth;
 use Socialite;
 use Validator;
