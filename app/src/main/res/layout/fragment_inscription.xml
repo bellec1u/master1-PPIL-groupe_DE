@@ -247,7 +247,9 @@
                 <ImageButton
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:id="@+id/imageButton11" />
+                    android:id="@+id/ProfilImage"
+                    android:background="@drawable/whale"
+                    />
             </LinearLayout>
 
             <Button
