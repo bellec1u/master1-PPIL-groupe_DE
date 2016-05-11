@@ -32,7 +32,7 @@ import org.json.JSONStringer;
  */
 public class ConnexionFragment extends Fragment {
 
-    private Button logIn;
+    private Button logIn, facebook, google;
     private AutoCompleteTextView email;
     private EditText password;
     private boolean mailOk,pwdOk;
@@ -47,6 +47,8 @@ public class ConnexionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_connexion, container, false);
         logIn = (Button) view.findViewById(R.id.action_sign_in);
+        facebook = (Button) view.findViewById(R.id.action_facebook);
+        google = (Button) view.findViewById(R.id.action_google);
         mailOk = false;
         pwdOk = false;
         logIn.setClickable(mailOk && pwdOk);
@@ -86,6 +88,10 @@ public class ConnexionFragment extends Fragment {
                 //// TODO: 10/05/16 connexion to database
             }
         });
+
+        //facebook.setOnClickListener( QQCHOSE ICI );
+        //google.setOnClickListener( QQCHOSE ICI );
+
         return view;
     }
 

@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ConnexionFragment">
+    tools:context=".fragment.ConnexionFragment"
+    android:fillViewport="false">
 
     <LinearLayout
         android:id="@+id/email_login_form"
@@ -54,6 +55,24 @@
             android:clickable="false"
             android:layout_margin="30dp"
             android:width="200dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Facebook"
+            android:id="@+id/action_facebook"
+            android:background="#3e5bff"
+            android:layout_margin="30dp"
+            android:forceHasOverlappingRendering="false" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Google +"
+            android:id="@+id/action_google"
+            android:elegantTextHeight="false"
+            android:background="#ff9854"
+            android:layout_margin="30dp" />
 
     </LinearLayout>
 

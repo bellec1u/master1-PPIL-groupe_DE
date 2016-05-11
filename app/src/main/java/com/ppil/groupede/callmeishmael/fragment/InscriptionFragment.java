@@ -30,7 +30,7 @@ public class InscriptionFragment extends Fragment {
 
     final static String DATE_FORMAT = "dd-MM-yyyy"; // format de la date
 
-    private Button register;
+    private Button register, facebook, google;
     private ImageButton imageButton;
     private RadioButton genre;
     private EditText dateJour;
@@ -65,6 +65,9 @@ public class InscriptionFragment extends Fragment {
         genre = (RadioButton)view.findViewById(R.id.Female);
         imageButton = (ImageButton)view.findViewById(R.id.ProfilImage);
         register = (Button)view.findViewById(R.id.idConfirm);
+        facebook = (Button)view.findViewById(R.id.facebook);
+        google = (Button)view.findViewById(R.id.google);
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +141,11 @@ public class InscriptionFragment extends Fragment {
                 }
             }
         });
+
+        //facebook.setOnClickListener(); STUFF
+        //google.setOnClickListener(); STUFF
+
+
         return view;
     }
 

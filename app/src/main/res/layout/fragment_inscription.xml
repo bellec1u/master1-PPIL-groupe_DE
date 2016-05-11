@@ -26,6 +26,31 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:weightSum="1"
+                android:layout_weight="0.23">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="184dp"
+                    android:layout_height="wrap_content"
+                    android:text="FACEBOOK"
+                    android:id="@+id/facebook"
+                    android:background="#3e5bff" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GOOGLE+"
+                    android:id="@+id/google"
+                    android:background="#ff9854" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" >
 
                 <TextView
