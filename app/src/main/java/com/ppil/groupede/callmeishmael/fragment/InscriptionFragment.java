@@ -2,6 +2,9 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -110,6 +114,21 @@ public class InscriptionFragment extends Fragment {
                             dm.setUrlRegister(prenm, nm, mail, pwd, sexe, date);
                             dm.run();
                             String result = dm.getResult();
+                            if(result.equals("true"))
+                            {
+                                Toast.makeText(getContext(),"Bienvenue "+prenm,Toast.LENGTH_SHORT);
+                                SessionManager session = new SessionManager(getContext());
+                                session.createUserSession(mail);
+                                // Set the fragment of view
+                                AccueilFragment fragment = new AccueilFragment();
+                                getActivity().setTitle("Accueil");
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+                            }
+                            Log.i("INFO", result);
                         }
                         else
                         {

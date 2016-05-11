@@ -50,7 +50,6 @@ public class DataManager implements Runnable {
                 A remplacer par votre adresse IP, ipconfig ou ifconfig
              */
             ipMachine = "192.168.1.10";
-            System.out.println("URL : "+ipMachine+":"+port);
             urlServeur = "http://"+ipMachine+":"+port+"/requetes/";
             urlLogin = "http://"+ipMachine+":"+port+"/requetes/login.php?";
             urlRegister = "http://"+ipMachine+":"+port+"/requetes/register.php?";
