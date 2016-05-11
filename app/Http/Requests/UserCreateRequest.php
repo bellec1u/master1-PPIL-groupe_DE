@@ -17,7 +17,7 @@ class UserCreateRequest extends Request
 		return [
 		'last_name' => 'required|max:255',
                 'first_name' => 'required|max:255',
-		'email' => 'required|email|confirmed|max:255|unique:users',
+		'email' => 'required|email|max:255|unique:users', // a envlever confirm
 		'password' => 'required|confirmed|min:8', 
                 'birth_date' => 'required|date',
 		];

@@ -48,17 +48,22 @@
                                         <div class="form-group">
 						<div class="file">
 							<label>
-							 {!! Form::file('profile_image') !!} image profil	
+							 {!! Form::file('profile_image') !!} image profil
+                                                           
 							</label>
 						</div>
 					</div>
 					{!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
+                                      
+                                          
+                                        <a href="redirect" target="_blank"> <input type="button" value="FB Login"> </a>
+                                        <?php echo '     OR' ;?> 
 					{!! Form::close() !!}
 				</div>
 			</div>
 		</div>
-		<a href="javascript:history.back()" class="btn btn-primary">
-			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+		<!--<a href="javascript:history.back()" class="btn btn-primary">
+			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour-->
 		</a>
 	</div>
 @stop
