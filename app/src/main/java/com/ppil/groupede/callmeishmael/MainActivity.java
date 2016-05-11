@@ -1,7 +1,11 @@
 package com.ppil.groupede.callmeishmael;
 
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.os.PersistableBundle;
+=======
+import android.os.StrictMode;
+>>>>>>> 4e16ef4f24e6737374877e864aba722333fd3a1b
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.Gravity;
@@ -37,6 +41,13 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         setContentView(R.layout.activity_main);
 
         // Set the title initially
