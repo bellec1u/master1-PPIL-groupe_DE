@@ -100,6 +100,8 @@ Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
 - Si vous avez une erreur `Class '...' not found`, essayez :  
   `composer dump-autoload`
 
+- Nettoyer le cache de la config Laravel :  
+  `php artisan config:clear`
 
 ## Rappels Git
 
