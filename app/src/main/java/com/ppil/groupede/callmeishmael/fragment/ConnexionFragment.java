@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.JsonReader;
@@ -75,10 +77,12 @@ public class ConnexionFragment extends Fragment {
                     session.createUserSession(emailS);
                     // Set the fragment of view
                     AccueilFragment fragment = new AccueilFragment();
+                    getActivity().setTitle("Accueil");
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, fragment);
                     fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
                 //// TODO: 10/05/16 connexion to database
             }
