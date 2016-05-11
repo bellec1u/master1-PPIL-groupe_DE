@@ -56,23 +56,37 @@
             android:layout_margin="30dp"
             android:width="200dp"/>
 
-        <Button
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Facebook"
-            android:id="@+id/action_facebook"
-            android:background="#3e5bff"
-            android:layout_margin="30dp"
-            android:forceHasOverlappingRendering="false" />
+            android:layout_gravity="center_horizontal">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Google +"
-            android:id="@+id/action_google"
-            android:elegantTextHeight="false"
-            android:background="#ff9854"
-            android:layout_margin="30dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Connexion réseau social"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Facebook"
+                android:id="@+id/action_facebook"
+                android:background="#3e5bff"
+                android:layout_margin="30dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Google +"
+                android:id="@+id/action_google"
+                android:elegantTextHeight="false"
+                android:background="#ff9854"
+                android:layout_margin="30dp" />
+        </LinearLayout>
 
     </LinearLayout>
 

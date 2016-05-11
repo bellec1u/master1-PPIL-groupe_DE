@@ -20,7 +20,8 @@
                 android:text="Inscription"
                 android:id="@+id/textView"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.22" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -45,6 +46,21 @@
                     android:text="GOOGLE+"
                     android:id="@+id/google"
                     android:background="#ff9854" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_weight="0.22">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="OU"
+                    android:id="@+id/textView6"
+                    android:layout_gravity="center_horizontal" />
             </LinearLayout>
 
             <LinearLayout
