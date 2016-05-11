@@ -22,10 +22,10 @@ public class ConnexionFragment extends Fragment {
     private Button logIn;
     private AutoCompleteTextView email;
     private EditText password;
+
     public ConnexionFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
