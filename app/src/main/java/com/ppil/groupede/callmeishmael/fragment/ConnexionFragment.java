@@ -35,11 +35,8 @@ public class ConnexionFragment extends Fragment {
     private Button logIn;
     private AutoCompleteTextView email;
     private EditText password;
-<<<<<<< HEAD
-
-=======
     private boolean mailOk,pwdOk;
->>>>>>> 4e16ef4f24e6737374877e864aba722333fd3a1b
+
     public ConnexionFragment() {
         // Required empty public constructor
     }

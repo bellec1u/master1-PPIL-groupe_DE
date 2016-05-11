@@ -232,6 +232,24 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Image de profile :"
+                    android:id="@+id/textView4" />
+
+                <ImageButton
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/imageButton11" />
+            </LinearLayout>
+
             <Button
                 android:id="@+id/idConfirm"
                 android:layout_width="wrap_content"
