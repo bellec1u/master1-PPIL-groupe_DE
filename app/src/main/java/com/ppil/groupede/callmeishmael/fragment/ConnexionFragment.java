@@ -3,8 +3,11 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,10 @@ import android.widget.Toast;
 
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
+
+import org.json.JSONStringer;
 
 
 /**
@@ -52,7 +59,27 @@ public class ConnexionFragment extends Fragment {
                 String emailS, pwdS;
                 emailS = email.getText().toString();
                 pwdS = password.getText().toString();
-                Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
+                DataManager dm = new DataManager();
+                dm.setUrlLogin(emailS, pwdS);
+                dm.run();
+                String ok = dm.getResult();
+                Log.i("INFO", ok);
+                if(ok.equals("\"0\""))
+                {
+                    Toast.makeText(getActivity(),"Combinaison email/mot de passe incorrect !", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    System.out.println("ok");
+                    SessionManager session = new SessionManager(getContext());
+                    session.createUserSession(emailS);
+                    // Set the fragment of view
+                    AccueilFragment fragment = new AccueilFragment();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_container, fragment);
+                    fragmentTransaction.addToBackStack(null);
+                }
                 //// TODO: 10/05/16 connexion to database
             }
         });
