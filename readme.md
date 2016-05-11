@@ -60,7 +60,7 @@ class Foo extends Bar implements FooInterface
   git pull origin master
   git branch --set-upstream-to=origin/master master
 
-  Résoudre les conflits :
+  Résoudre les conflits (dans ce cas là) :
   git checkout --theirs .
   git add .
   git commit
@@ -115,17 +115,23 @@ git config --global core.editor nano : idiquer l'éditeur que vous voulez utilis
 
 
 git status                    : informations sur l'état courant
-git add fichier [fichier ...] : ajouter des fichiers au suivi ou valider les modifications de fichiers déjà suivis
-git commit -m '{message}'     : enregistrer les changements de fichiers validés
-git commit -am '{message}'    : valider et enregistrer les fichiers déjà suivis ('git add' inutile)
+git add fichier [fichier ..]  : ajoute des fichiers au suivi ou valide les modifications de fichiers déjà suivis
+git commit -m '{message}'     : enregistre les changements de fichiers validés
+git commit -am '{message}'    : valide et enregistrer les fichiers déjà suivis ('git add' inutile pour valider les changements)
 
-git pull [origin master] : récupérer depuis le dépôt distant et fusionner en local
-git push [origin master] : envoyer au dépôt distant les changements enregistrés
+git pull [origin master] : récupére depuis le dépôt distant et fusionne en local
+git push [origin master] : envoye au dépôt distant les changements enregistrés
 
 
 Résoudre les conflits :
 Corriger les fichiers incriminés à la main puis :
-git add fichier-corrigé [fichier-corrigé] : valider les corrections
-git commit -m 'conflits corrigés'         : enregistrer la jointure
+git add fichier-corrigé [fichier-corrigé] : valide les corrections
+git commit -m 'conflits corrigés'         : enregistre la fusion
+
+    A utiliser avec précautions :
+git checkout --theirs fichier [fichier ..] : récupère la version des fichiers du dépôt distant et écrase vos modifications
+git checkout --ours fichier [fichier ..]   : applique votre version des fichiers et écrase la version du dépôt distant
+git add fichier [fichier ..]               : valide les modifications
+git commit                                 : enregistre la fusion
 ```
 
