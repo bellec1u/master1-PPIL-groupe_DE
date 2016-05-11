@@ -12,5 +12,41 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+/*Route::get('index', 'IndexController@index');*/
+
+Route::get('faq', function () {
+    return view('faq');
+});
+
+Route::get('inscription', function () {
+    return view('inscription');
+});
+
+Route::get('connexion', function () {
+    return view('connexion');
+});
+
+Route::get('contact', function () {
+    return view('contact');
+});
+
+
+
+Route::get('create', function () {
+    return view('create');
+});
+
+Route::get('home', function () {
+    return view('home');
+});
+
+Route::get('email_contact', function () {
+    return view('email_contact');
+});
+
+Route::get('photo', function () {
+    return view('photo');
 });
