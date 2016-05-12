@@ -50,12 +50,16 @@ public class DataManager implements Runnable {
             /*
                 A remplacer par votre port, celui de la base de donnée
              */
-            port = "8888";
+            port = "";
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             /*
                 A remplacer par votre adresse IP, ipconfig ou ifconfig
              */
+<<<<<<< HEAD
             ipMachine = "192.168.212.157";
+=======
+            ipMachine = "10.10.191.86";
+>>>>>>> d5939e15cfadc4ff09a82ae5d98f12d5da99554e
             urlServeur = "http://"+ipMachine+":"+port+"/requetes/";
             urlLogin = "http://"+ipMachine+":"+port+"/requetes/login.php?";
             urlRegister = "http://"+ipMachine+":"+port+"/requetes/register.php?";
