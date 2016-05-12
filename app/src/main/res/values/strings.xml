@@ -9,6 +9,8 @@
     <string name="prompt_password">Mot de passe</string>
     <string name="action_sign_in">Connexion</string>
 
+    <string name="facebook_app_id">1068801693155664</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

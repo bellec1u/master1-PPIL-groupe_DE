@@ -1,5 +1,6 @@
 package com.ppil.groupede.callmeishmael;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -11,8 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
@@ -27,10 +33,14 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView = null;
     private Toolbar toolbar = null;
     private boolean isConnected = false;
+    private CallbackManager callbackManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        inscriptionFacebook();
+        connexionFacebook();
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
         {
@@ -234,6 +244,62 @@ public class MainActivity extends AppCompatActivity
         mi.setVisible(false);
 
         return true;
+    }
+
+    public void connexionFacebook(){
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println("connexion reussi" + loginResult.getAccessToken().getUserId());
+            }
+
+            @Override
+            public void onCancel() {
+                System.out.println("connexion annulé");
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                System.out.println("erreur lors de la co");
+
+            }
+        });
+
+    }
+
+
+    public void inscriptionFacebook(){
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_inscription, null).findViewById(R.id.sign_in_button);
+        sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println("isncription reussi" + loginResult.getAccessToken().getUserId());
+            }
+
+            @Override
+            public void onCancel() {
+                System.out.println("inscription annulé");
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                System.out.println("erreur lors de l'inscription");
+
+            }
+        });
+
+    }
+
+    public void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
 }
