@@ -2,6 +2,8 @@ package com.ppil.groupede.callmeishmael.data;
 
 import android.app.ActivityManager;
 
+import org.json.JSONArray;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +35,8 @@ public class DataManager implements Runnable {
 
     public static String urlBookDetail;
 
+    public static String urlTop10;
+
     public String adresseDesti;
 
     public String result; // resultat de la requete
@@ -44,16 +48,18 @@ public class DataManager implements Runnable {
             /*
                 A remplacer par votre port, celui de la base de donnée
              */
-            port = "";
+            port = "8888";
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             /*
                 A remplacer par votre adresse IP, ipconfig ou ifconfig
              */
-            ipMachine = "10.10.191.86";
+            ipMachine = "192.168.1.10";
             urlServeur = "http://"+ipMachine+":"+port+"/requetes/";
             urlLogin = "http://"+ipMachine+":"+port+"/requetes/login.php?";
             urlRegister = "http://"+ipMachine+":"+port+"/requetes/register.php?";
             urlBookDetail = "http://"+ipMachine+":"+port+"/requetes/bookDetails.php?";
+            urlTop10 = "http://"+ipMachine+":"+port+"/requetes/top10.php";
+
             adresseDesti = "";
             result = "";
         } catch (UnknownHostException e) {
@@ -122,5 +128,15 @@ public class DataManager implements Runnable {
                 "&nom=" + nom +
                 "&sexe=" + sexe +
                 "&date=" + date;
+    }
+
+    public void setUrl10()
+    {
+        adresseDesti = urlTop10 ;
+    }
+
+    public JSONArray getJSONArray()
+    {
+        return null;
     }
 }

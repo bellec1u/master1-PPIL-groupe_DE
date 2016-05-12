@@ -2,6 +2,7 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.data.DataManager;
 
 
 /**
@@ -34,6 +36,11 @@ public class AccueilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
+
+        DataManager dm = new DataManager();
+        dm.setUrl10();
+        dm.run();
+        String res = dm.getResult();
 
         // ---------- ---------- ---------- ---------- ---------- Liste de suggestion
 
