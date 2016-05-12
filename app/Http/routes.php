@@ -53,20 +53,23 @@ Route::get('photo', function () {
 Route::get('home', array('as' => 'home', 'uses' => function(){
   return view('home');
 }));
+
+
 // création d'utilisateur standard 
 Route::get('user', 'UserController@create');
 Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
 
 
-// création dutilisateur facebook 
+// création dutilisateur facebook et google +
 
 Route::get('/Redirect/{provider}', 'SocialAuthController@Redirect');
 Route::get('/Callback/{provider}', 'SocialAuthController@Callback');
 
-// creation et connexion google +
 
-Route::get('/GoogleRedirect', 'SocialAuthController@GoogleRedirect');
-Route::get('/GoogleCallback', 'SocialAuthController@GoogleCallback');
+// accès livre 
+
+        // détails
+        Route::get('/book/show/{id}', 'BookController@show');
 
 
 Route::auth();
