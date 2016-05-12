@@ -60,8 +60,13 @@ Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
 
 // création dutilisateur facebook 
 
-Route::get('/redirect', 'SocialAuthController@redirect');
-Route::get('/callback', 'SocialAuthController@callback');;
+Route::get('/Redirect/{provider}', 'SocialAuthController@Redirect');
+Route::get('/Callback/{provider}', 'SocialAuthController@Callback');
+
+// creation et connexion google +
+
+Route::get('/GoogleRedirect', 'SocialAuthController@GoogleRedirect');
+Route::get('/GoogleCallback', 'SocialAuthController@GoogleCallback');
 
 
 Route::auth();

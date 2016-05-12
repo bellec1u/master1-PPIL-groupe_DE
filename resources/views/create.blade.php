@@ -55,9 +55,12 @@
 					</div>
 					{!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
                                       
-                                          
-                                        <a href="redirect"> <input type="button" value="FB Login"> </a>
-                                        <?php echo '     OR' ;?> 
+
+						<a href="Redirect/Facebook"> <input type="button" value="FB Login"> </a>
+						<?php echo '     OR' ;?>
+						<a href="Redirect/Google"> <input type="button" value="G+ Login"> </a>
+
+
 					{!! Form::close() !!}
 				</div>
 			</div>
