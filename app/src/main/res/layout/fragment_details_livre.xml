@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -5,8 +6,6 @@
     tools:context="com.ppil.groupede.callmeishmael.fragment.DetailsLivreFragment"
     android:fillViewport="false">
 
-
-    <?xml version="1.0" encoding="utf-8"?>
 
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -196,6 +195,7 @@
             android:layout_toEndOf="@+id/title" />
 
     </RelativeLayout>
+
 
 
 

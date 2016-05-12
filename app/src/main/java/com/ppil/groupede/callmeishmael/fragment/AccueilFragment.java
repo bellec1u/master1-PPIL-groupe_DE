@@ -16,6 +16,11 @@ import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.data.DataManager;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -34,6 +39,21 @@ public class AccueilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
+
+        // recuperation des liens cover_url et titre des livres (top10)
+        DataManager dm = new DataManager();
+        dm.setUrlTop10();
+        dm.run();
+        JSONArray jsonarray = dm.getResultJson();
+        for (int i = 0; i < jsonarray.length(); i++) {
+            try {
+                System.out.println(jsonarray.getString(i));
+                JSONObject object = jsonarray.getJSONObject(i);
+                System.out.println(object.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
         // ---------- ---------- ---------- ---------- ---------- Liste de suggestion
 

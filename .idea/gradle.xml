@@ -8,9 +8,19 @@
 <<<<<<< HEAD
         <option name="gradleJvm" value="1.7" />
 =======
+<<<<<<< HEAD
         <option name="gradleJvm" value="1.8" />
 >>>>>>> 32b5b5b5b4123fc9496972c2b7d5393dae05eb59
+=======
+>>>>>>> d5939e15cfadc4ff09a82ae5d98f12d5da99554e
+>>>>>>> 30d86bfd96bd86356800f641a6bf8f7312dde2bd
         <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+          </set>
+        </option>
+        <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
