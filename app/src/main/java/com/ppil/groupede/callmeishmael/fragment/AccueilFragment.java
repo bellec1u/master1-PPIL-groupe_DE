@@ -48,6 +48,8 @@ public class AccueilFragment extends Fragment {
         for (int i = 0; i < jsonarray.length(); i++) {
             try {
                 System.out.println(jsonarray.getString(i));
+                JSONObject object = jsonarray.getJSONObject(i);
+                System.out.println(object.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
