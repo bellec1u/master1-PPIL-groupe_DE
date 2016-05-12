@@ -289,8 +289,7 @@
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:id="@+id/ProfilImage"
-                    android:background="@drawable/whale"
-                    />
+                    android:background="@drawable/whale" />
             </LinearLayout>
 
             <Button

@@ -44,12 +44,12 @@ public class DataManager implements Runnable {
             /*
                 A remplacer par votre port, celui de la base de donnée
              */
-            port = "8888";
+            port = "";
             ipMachine = InetAddress.getLocalHost().getHostAddress();
             /*
                 A remplacer par votre adresse IP, ipconfig ou ifconfig
              */
-            ipMachine = "192.168.1.10";
+            ipMachine = "10.10.191.86";
             urlServeur = "http://"+ipMachine+":"+port+"/requetes/";
             urlLogin = "http://"+ipMachine+":"+port+"/requetes/login.php?";
             urlRegister = "http://"+ipMachine+":"+port+"/requetes/register.php?";
