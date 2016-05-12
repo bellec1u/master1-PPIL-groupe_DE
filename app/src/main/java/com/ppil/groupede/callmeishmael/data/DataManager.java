@@ -2,6 +2,10 @@ package com.ppil.groupede.callmeishmael.data;
 
 import android.app.ActivityManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,6 +37,8 @@ public class DataManager implements Runnable {
 
     public static String urlBookDetail;
 
+    public static String urlTop10;
+
     public String adresseDesti;
 
     public String result; // resultat de la requete
@@ -49,11 +55,12 @@ public class DataManager implements Runnable {
             /*
                 A remplacer par votre adresse IP, ipconfig ou ifconfig
              */
-            ipMachine = "192.168.1.10";
+            ipMachine = "192.168.212.157";
             urlServeur = "http://"+ipMachine+":"+port+"/requetes/";
             urlLogin = "http://"+ipMachine+":"+port+"/requetes/login.php?";
             urlRegister = "http://"+ipMachine+":"+port+"/requetes/register.php?";
             urlBookDetail = "http://"+ipMachine+":"+port+"/requetes/bookDetails.php?";
+            urlTop10 = "http://"+ipMachine+":"+port+"/requetes/top10.php";
             adresseDesti = "";
             result = "";
         } catch (UnknownHostException e) {
@@ -123,4 +130,22 @@ public class DataManager implements Runnable {
                 "&sexe=" + sexe +
                 "&date=" + date;
     }
+
+    public void setUrlTop10()
+    {
+        adresseDesti = urlTop10;
+    }
+
+    public JSONArray getResultJson()
+    {
+
+        JSONArray json = null;
+        try {
+            json = new JSONArray(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
 }
+

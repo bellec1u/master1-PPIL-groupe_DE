@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
@@ -40,6 +41,7 @@ public class ConnexionFragment extends Fragment {
     public ConnexionFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,12 +87,8 @@ public class ConnexionFragment extends Fragment {
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
-                //// TODO: 10/05/16 connexion to database
             }
         });
-
-        //facebook.setOnClickListener( QQCHOSE ICI );
-        //google.setOnClickListener( QQCHOSE ICI );
 
         return view;
     }
