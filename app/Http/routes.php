@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/home', 'HomeController@index');
 
 Route::get('faq', function () {
     return view('faq');
@@ -55,23 +56,26 @@ Route::get('home', array('as' => 'home', 'uses' => function(){
 }));
 
 
-// création d'utilisateur standard 
+Route::auth();
+// standard
 Route::get('user', 'UserController@create');
 Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
 
+Route::group(['prefix' => 'api'], function () {
+    Route::post('user/register', 'Api\JWTAuthController@store');
+    Route::post('user/login', 'Api\JWTAuthController@login');
+});
 
-// création dutilisateur facebook et google +
+
+// facebook and google+ users connection
 
 Route::get('/Redirect/{provider}', 'SocialAuthController@Redirect');
 Route::get('/Callback/{provider}', 'SocialAuthController@Callback');
 
 
-// accès livre 
+// book access
 
-        // détails
-        Route::get('/book/show/{id}', 'BookController@show');
+// details
+Route::get('/book/show/{id}', 'BookController@show');
 
 
-Route::auth();
-
-Route::get('/home', 'HomeController@index');
