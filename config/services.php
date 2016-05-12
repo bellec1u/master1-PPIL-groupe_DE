@@ -40,5 +40,11 @@ return [
         'client_secret' => env('FB_CLIENT_SECRET'),
         'redirect' => env('FB_CALLBACK'),
  ],
+     'google' => [
+        'client_id' => env('Google_CLIENT_ID'),
+        'client_secret' => env('Google_CLIENT_SECRET'),
+        'redirect' => env('Google_CALLBACK'),
+ ],
+    
 
 ];

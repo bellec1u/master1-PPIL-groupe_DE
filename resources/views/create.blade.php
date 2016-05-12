@@ -56,7 +56,9 @@
 					{!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
                                       
                                           
-                                        <a href="redirect" target="_blank"> <input type="button" value="FB Login"> </a>
+                                        <a href="Redirect/Facebook" target="_blank"> <input type="button" value="FB Login"> </a>
+                                         
+                                        <a href="Redirect/Google">G+</a>
                                         <?php echo '     OR' ;?> 
 					{!! Form::close() !!}
 				</div>

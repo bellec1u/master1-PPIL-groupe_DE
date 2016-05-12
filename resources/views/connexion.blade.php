@@ -11,6 +11,11 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">Connectez-vous :</div>
                     <div class="panel-body">
+                         @if (Auth::check())
+                         <li>  {{ link_to('auth/logout', 'Deconnexion') }}</li>
+                             @else                 
+                        <li>{{ link_to('auth/login', 'Connexion', ($actif == -1)? array('class' => 'actif'): null) }}</li>
+  @endif                
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             {!! csrf_field() !!}
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
