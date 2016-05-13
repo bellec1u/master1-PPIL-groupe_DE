@@ -76,6 +76,6 @@ Route::get('/Callback/{provider}', 'SocialAuthController@Callback');
 // book access
 
 // details
-Route::get('/book/show/{id}', 'BookController@show');
+Route::get('/book/{id}', 'BookController@show');
 
 
