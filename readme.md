@@ -3,7 +3,7 @@
 Contributeurs :  
     BELLEC Léopold    
     DAUZVARDIS Juozas  
-    MAZROU Abdelghami  
+    MAZROU Abdelghani  
     JUNGES Pierre-Marie  
     BOUQUIN Laurent  
     BEN TOUNES Samy  
@@ -60,7 +60,7 @@ class Foo extends Bar implements FooInterface
   git pull origin master
   git branch --set-upstream-to=origin/master master
 
-  Résoudre les conflits (dans ce cas là) :
+  Résoudre les conflits (dans ce cas là UNIQUEMENT) :
   git checkout --theirs .
   git add .
   git commit
