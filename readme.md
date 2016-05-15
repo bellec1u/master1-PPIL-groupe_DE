@@ -3,7 +3,7 @@
 Contributeurs :  
     BELLEC Léopold    
     DAUZVARDIS Juozas  
-    MAZROU Abdelghami  
+    MAZROU Abdelghani  
     JUNGES Pierre-Marie  
     BOUQUIN Laurent  
     BEN TOUNES Samy  
