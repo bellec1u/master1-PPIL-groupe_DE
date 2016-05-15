@@ -28,6 +28,10 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        /* // Example
+        $events->listen('tymon.jwt.invalid', function () {
+            return response()->json(['error' => 'invalid token']);
+        });
+        */
     }
 }

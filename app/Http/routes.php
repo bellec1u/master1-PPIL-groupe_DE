@@ -11,71 +11,85 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+/*
+ * Web Routes
+ */
+Route::group(['middleware' => 'web'], function () {
+
+    Route::get('/', function () {
+        return view('index');
+    });
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::get('faq', function () {
+        return view('faq');
+    });
+
+    Route::get('inscription', function () {
+        return view('inscription');
+    });
+
+    Route::get('connexion', function () {
+        return view('connexion');
+    });
+
+    Route::get('contact', function () {
+        return view('contact');
+    });
+
+
+    Route::get('create', function () {
+        return view('create');
+    });
+
+    Route::get('home', function () {
+        return view('home');
+    });
+
+    Route::get('email_contact', function () {
+        return view('email_contact');
+    });
+
+    Route::get('photo', function () {
+        return view('photo');
+    });
+
+    Route::get('home', array(
+        'as'   => 'home',
+        'uses' => function () {
+            return view('home');
+        }
+    ));
+
+
+    Route::auth();
+    // standard
+    Route::get('user', 'UserController@create');
+    Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
+
+
+    // facebook and google+ users connection
+    Route::get('/Redirect/{provider}', 'SocialAuthController@Redirect');
+    Route::get('/Callback/{provider}', 'SocialAuthController@Callback');
+
+
+    // book access
+    // details
+    Route::get('/book/{id}', 'BookController@show');
+
 });
 
-Route::get('/home', 'HomeController@index');
 
-Route::get('faq', function () {
-    return view('faq');
-});
+/*
+ * API Routes
+ */
+Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
 
-Route::get('inscription', function () {
-    return view('inscription');
-});
-
-Route::get('connexion', function () {
-    return view('connexion');
-});
-
-Route::get('contact', function () {
-    return view('contact');
-});
-
-
-
-Route::get('create', function () {
-    return view('create');
-});
-
-Route::get('home', function () {
-    return view('home');
-});
-
-Route::get('email_contact', function () {
-    return view('email_contact');
-});
-
-Route::get('photo', function () {
-    return view('photo');
-});
-
-Route::get('home', array('as' => 'home', 'uses' => function(){
-  return view('home');
-}));
-
-
-Route::auth();
-// standard
-Route::get('user', 'UserController@create');
-Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
-
-Route::group(['prefix' => 'api'], function () {
     Route::post('user/register', 'Api\JWTAuthController@store');
     Route::post('user/login', 'Api\JWTAuthController@login');
+    Route::get('user/logout', ['middleware' => 'jwt.auth',
+                               'uses' => 'Api\JWTAuthController@logout']);
+
 });
-
-
-// facebook and google+ users connection
-
-Route::get('/Redirect/{provider}', 'SocialAuthController@Redirect');
-Route::get('/Callback/{provider}', 'SocialAuthController@Callback');
-
-
-// book access
-
-// details
-Route::get('/book/{id}', 'BookController@show');
-
 

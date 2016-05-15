@@ -71,4 +71,17 @@ class JWTAuthController extends Controller
         return response()->json(compact('token'));
     }
 
+    /**
+     * Invalidates a token passed as parameter, thus logging out a user.
+     *
+     * @param Request $request
+     * @return json status message
+     */
+    public function logout(Request $request)
+    {
+        JWTAuth::parseToken()->invalidate();
+
+        return response()->json(['status' => 'logged out'], 200);
+    }
+
 }
