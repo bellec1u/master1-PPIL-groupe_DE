@@ -60,6 +60,16 @@ class BookController extends Controller
     }
 
     /**
+     * ouverture d'un livre
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function open(){
+
+        return view('basic');
+
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int $id
