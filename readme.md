@@ -105,6 +105,9 @@ Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
 
 ## Rappels Git
 
+Quand j'utilise Git pour la première fois sans lire la doc.  
+![Gif git](http://ljdchost.com/14u7r2W.gif)
+
 ```
 Configuration :
 git config --list                    : afficher les paramètres courants
