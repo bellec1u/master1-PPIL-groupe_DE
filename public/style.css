@@ -1,0 +1,21 @@
+/* Footer fixe de 4em en bas de page (qu'on va sûrement pas garder)
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 4em;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+}
+
+.container .text-muted {
+    margin: 1em 0;
+    text-align: center;
+}

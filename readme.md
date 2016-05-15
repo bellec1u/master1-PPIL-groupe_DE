@@ -1,27 +1,137 @@
-# Laravel PHP Framework
+# PPIL-groupe-DE-web
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Contributeurs :  
+    BELLEC Léopold    
+    DAUZVARDIS Juozas  
+    MAZROU Abdelghami  
+    JUNGES Pierre-Marie  
+    BOUQUIN Laurent  
+    BEN TOUNES Samy  
+    DEMIR Yasar  
+    CHABAUX Paul  
+    GREINER Billy  
+    AJDARPASIC Nihad  
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+Projet d'application web en groupe utilisant Laravel 5.2.  
+Nom de code : _CallMeIshmael_
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## Coding Style
 
-## Official Documentation
+Toute l'application sera codée en **anglais** (noms de variables, classes, méthodes, commentaires).  
+L'indentation est de **4 espaces** (pas de tabulations) comme suit :  
+```php
+class Foo extends Bar implements FooInterface
+{
+    public function sampleFunction($a, $b = null)
+    {
+        if ($a === $b) {
+            bar();
+        }
+        ...
+```
+[Référence PSR](http://www.php-fig.org/psr/psr-2/) 
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
 
-## Contributing
+## Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+### Web
 
-## Security Vulnerabilities
+[Référence](https://openclassrooms.com/courses/decouvrez-le-framework-php-laravel-1/installation-et-organisation-1)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+- Installer WAMP ou une autre application avec Apache et MySQL.  
+  Vérifier que les composants suivants de PHP sont activés :
+    - Version >= 5.5.9
+    - Extension PDO
+    - Extension Mbstring
+    - Extension OpenSSL
+    - Extension Tokenizer
 
-## License
+  De plus, vérifier que le `rewrite_module` d'Apache est activé.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+- Commencer par créer un projet vierge après avoir installé [Composer](https://getcomposer.org/download/) :  
+  `composer create-project --prefer-dist laravel/laravel ppil 5.2.*` ppil étant un nom de dossier
+
+- Placez-vous dans le dossier créé, puis :  
+  ```
+  git init
+  git add .
+  git commit -m "{votre message}"
+  git remote add origin https://github.com/bellec1u/PPIL-groupe-DE-web.git
+  git pull origin master
+  git branch --set-upstream-to=origin/master master
+
+  Résoudre les conflits (dans ce cas là) :
+  git checkout --theirs .
+  git add .
+  git commit
+  ```
+  Après cala, vous devriez être à jour dans votre copie locale.
+
+- Mettre à jour Laravel : `composer update` depuis la racine du projet.
+
+- Tester le fonctionnement en visitant la page : `http://localhost/{chemin}/ppil/public/`
+
+### Mobile
+
+```
+git clone -b mobile https://github.com/bellec1u/PPIL-groupe-DE-web.git ppil_mobile
+```
+
+### Base de données
+
+Modifier le fichier _.env_ :
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ppil
+DB_USERNAME=root
+DB_PASSWORD=
+```
+Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
+
+## Laravel
+
+- Laravel peut démarrer le serveur de développement fourni avec PHP avec la commande :  
+  `php artisan serve`  
+  Page de démarrage accessible avec l'url : `http://localhost:8000`  
+  En revanche, la base de données ne sera pas accessible.
+
+- Si vous avez une erreur `Class '...' not found`, essayez :  
+  `composer dump-autoload`
+
+- Nettoyer le cache de la config Laravel :  
+  `php artisan config:clear`
+
+## Rappels Git
+
+```
+Configuration :
+git config --list                    : afficher les paramètres courants
+git config user.name "{votre_nom}"   
+git config user.email "{votre_mail}" : mail doit être le même que pour github si vous voulez que github calcule vos statistiques
+                                       vous pouvez passer l'option --global pour que ces paramètres soient les mêmes pour tous les dépôts
+git config --global core.editor nano : idiquer l'éditeur que vous voulez utiliser
+
+
+git status                    : informations sur l'état courant
+git add fichier [fichier ..]  : ajoute des fichiers au suivi ou valide les modifications de fichiers déjà suivis
+git commit -m '{message}'     : enregistre les changements de fichiers validés
+git commit -am '{message}'    : valide et enregistrer les fichiers déjà suivis ('git add' inutile pour valider les changements)
+
+git pull [origin master] : récupére depuis le dépôt distant et fusionne en local
+git push [origin master] : envoye au dépôt distant les changements enregistrés
+
+
+Résoudre les conflits :
+Corriger les fichiers incriminés à la main puis :
+git add fichier-corrigé [fichier-corrigé] : valide les corrections
+git commit -m 'conflits corrigés'         : enregistre la fusion
+
+    A utiliser avec précautions :
+git checkout --theirs fichier [fichier ..] : récupère la version des fichiers du dépôt distant et écrase vos modifications
+git checkout --ours fichier [fichier ..]   : applique votre version des fichiers et écrase la version du dépôt distant
+git add fichier [fichier ..]               : valide les modifications
+git commit                                 : enregistre la fusion
+```
+
