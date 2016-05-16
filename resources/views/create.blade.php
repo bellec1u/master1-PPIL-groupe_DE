@@ -7,7 +7,8 @@
 			<div class="panel-heading">Création d'un utilisateur</div>
 			<div class="panel-body"> 
 				<div class="col-sm-12">
-					{!! Form::open(array('route'=>'storeUser','method'=>'POST', 'files'=>true)) !!}	
+
+					{!! Form::open(array('route'=>'storeUser','method'=>'POST', 'files'=>'true')) !!}
 					  {!! csrf_field() !!}
 					<div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
 						{!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
@@ -56,9 +57,9 @@
 					{!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
                                       
 
-						<a href="Redirect/Facebook"> <input type="button" value="FB Login"> </a>
+						<a href="redirect/Facebook"> <input type="button" value="FB Login"> </a>
 						<?php echo '     OR' ;?>
-						<a href="Redirect/Google"> <input type="button" value="G+ Login"> </a>
+						<a href="redirect/Google"> <input type="button" value="G+ Login"> </a>
 
 
 					{!! Form::close() !!}
