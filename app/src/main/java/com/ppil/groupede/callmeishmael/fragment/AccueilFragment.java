@@ -4,23 +4,21 @@ package com.ppil.groupede.callmeishmael.fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+<<<<<<< HEAD
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+=======
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.DataManager;

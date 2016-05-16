@@ -15,11 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+<<<<<<< HEAD
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+=======
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -29,9 +32,12 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+<<<<<<< HEAD
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
+=======
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
@@ -52,18 +58,26 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView = null;
     private Toolbar toolbar = null;
     private boolean isConnected = false;
+<<<<<<< HEAD
     private TextView nomPrenom;
     private TextView adresseMail;
     private ImageView imagePerso;
     private CallbackManager callbackManager;
+=======
+    private CallbackManager callbackManager;
+
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         connexionFacebook(); // initialise la connexion à Facebook
+=======
+        connexionFacebook();
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
+        if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -285,6 +299,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+<<<<<<< HEAD
     public void setUtilisateur(String nom, String prenom, String mail, String urlImage, boolean co)
     {
         if(co) {
@@ -315,12 +330,16 @@ public class MainActivity extends AppCompatActivity
             demir.yasar@sfr.fr
             Azerty123
          */
+=======
+    public void connexionFacebook() {
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+<<<<<<< HEAD
                 System.out.println(loginResult.toString());
                 setConnection(true);
                 SessionManager sessionManager = new SessionManager(getBaseContext());
@@ -335,16 +354,27 @@ public class MainActivity extends AppCompatActivity
                         getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment);
                 fragmentTransaction.commit();
+=======
+               getInfo(loginResult);
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
             }
 
             @Override
             public void onCancel() {
+<<<<<<< HEAD
                 Toast.makeText(getBaseContext(), "Annulation !", Toast.LENGTH_SHORT).show();
+=======
+                System.out.println("annulé");
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
             }
 
             @Override
             public void onError(FacebookException error) {
+<<<<<<< HEAD
                 Toast.makeText(getBaseContext(), "Connexion impossible !", Toast.LENGTH_SHORT).show();
+=======
+                System.out.println("erreur");
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
             }
         });
 
@@ -355,4 +385,59 @@ public class MainActivity extends AppCompatActivity
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+<<<<<<< HEAD
+=======
+
+    public void getInfo(LoginResult loginResult){
+        String accessToken = loginResult.getAccessToken().getToken();
+        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                Log.i("LoginActivity", response.toString());
+                // Get facebook data from login
+                try {
+                    Bundle bFacebookData = getFacebookData(object);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+    private Bundle getFacebookData(JSONObject object) throws JSONException {
+            Bundle bundle = new Bundle();
+            String id = object.getString("id");
+
+            try {
+                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+                Log.i("profile_pic", profile_pic + "");
+                bundle.putString("profile_pic", profile_pic.toString());
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+            bundle.putString("idFacebook", id);
+            if (object.has("first_name"))
+                bundle.putString("first_name", object.getString("first_name"));
+            if (object.has("last_name"))
+                bundle.putString("last_name", object.getString("last_name"));
+            if (object.has("email"))
+                bundle.putString("email", object.getString("email"));
+            if (object.has("gender"))
+                bundle.putString("gender", object.getString("gender"));
+            if (object.has("birthday"))
+                bundle.putString("birthday", object.getString("birthday"));
+            if (object.has("location"))
+                bundle.putString("location", object.getJSONObject("location").getString("name"));
+
+            return bundle;
+
+    }
+>>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 }
