@@ -55,12 +55,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('user', 'UserController@create');
     Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
     // facebook and google+ users connection
-    Route::get('/Redirect/{provider}', 'SocialAuthController@Redirect');
-    Route::get('/Callback/{provider}', 'SocialAuthController@Callback');
+    Route::get('/redirect/{provider}', 'SocialAuthController@Redirect');
+    Route::get('/callback/{provider}', 'SocialAuthController@Callback');
     // book access
     // details
-    Route::get('/book/{id}', 'BookController@show');
-    Route::get('/book/open', 'BookController@open');
+    Route::get('/book/{id}', 'BookController@show')->where('id', '[0-9]+');
+    Route::get('/book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
 });
 
 /*
