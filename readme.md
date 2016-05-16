@@ -3,7 +3,7 @@
 Contributeurs :  
     BELLEC Léopold    
     DAUZVARDIS Juozas  
-    MAZROU Abdelghami  
+    MAZROU Abdelghani  
     JUNGES Pierre-Marie  
     BOUQUIN Laurent  
     BEN TOUNES Samy  
@@ -104,6 +104,9 @@ Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
   `php artisan config:clear`
 
 ## Rappels Git
+
+Quand j'utilise Git pour la première fois sans lire la doc.  
+![Gif git](http://ljdchost.com/14u7r2W.gif)
 
 ```
 Configuration :
