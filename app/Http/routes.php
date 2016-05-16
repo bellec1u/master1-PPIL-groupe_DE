@@ -62,6 +62,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/book/{id}', 'BookController@show')->where('id', '[0-9]+');
     Route::get('/book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
 });
+
+
 /*
  * API Routes
  */
