@@ -59,8 +59,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/callback/{provider}', 'SocialAuthController@callback');
     // book access
     // details
-    Route::get('/book/{id}', 'BookController@show');
-    Route::get('/book/open', 'BookController@open');
+    Route::get('/book/{id}', 'BookController@show')->where('id', '[0-9]+');
+    Route::get('/book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
 });
 /*
  * API Routes
