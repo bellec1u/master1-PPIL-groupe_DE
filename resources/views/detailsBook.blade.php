@@ -6,7 +6,7 @@
 		<div class="panel panel-primary">	
 			<div class="panel-heading">Fiche d'utilisateur</div>
 			<div class="panel-body"> 
-				<p>Nom : {{ $book->title }}</p>
+				<p>Nom : {{ $book->title  }}</p>
 				
 			</div>
 		</div>				
