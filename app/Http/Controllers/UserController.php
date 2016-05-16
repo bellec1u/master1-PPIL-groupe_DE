@@ -48,14 +48,13 @@ class UserController extends Controller
                 $path = base_path() . '/public/imageUser/' . $fileName;
                 $request2 = $request->treatment($path);
                 $user = $this->userRepository->store($request2);
-                return view('index');
-                //return redirect('user')->withOk("L'utilisateur " . $user->last_name . " a été créé.");
-// uploading file to given path
+            return redirect('/');
+
             }
         } else {
             $user = $this->userRepository->store($request->all());
-            return view('index');
-            //return redirect('user')->withOk("L'utilisateur " . $user->last_name . " a été créé.");
+            return redirect('/');
+
         }
       }
      

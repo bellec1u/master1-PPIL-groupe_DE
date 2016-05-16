@@ -27,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+       
         $id = 4;
         $book = $this->bookRepository->getById($id);
         return view('index', compact('book'));
