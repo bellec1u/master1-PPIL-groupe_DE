@@ -21,6 +21,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('faq', function () {
         return view('faq');
     });
+
+    /*Route::get('/', function () {
+        return view('index');
+    });*/
+
+    Route::get('/', 'HomeController@index');
+
     Route::get('inscription', function () {
         return view('inscription');
     });
@@ -60,8 +67,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/callback/{provider}', 'SocialAuthController@callback');
     // book access
     // details
-    Route::get('/book/{id}', 'BookController@show')->where('id', '[0-9]+');
-    Route::get('/book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
+    Route::get('book/{id}', 'BookController@show')->where('id', '[0-9]+');
+    Route::get('book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
 });
 /*
  * API Routes
@@ -73,4 +80,4 @@ Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
         'uses' => 'Api\JWTAuthController@logout']);
 });
 
-
+Route::get('/home', 'HomeController@index');

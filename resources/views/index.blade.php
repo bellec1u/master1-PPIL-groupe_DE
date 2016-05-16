@@ -13,7 +13,7 @@
                 <br /><br /><br /><br /><br /><br /><br /><br />
                 <hr />
                 <span style="text-decoration: underline;font-weight: bold;">Top 10</span> :<br />
-                Là y aura le top 10.
+                <p><a href="{{ url('book/4') }}"><img src="{{ $book->cover_url  }}" alt="" /></a></p>
                 <br /><br /><br /><br /><br /><br /><br /><br />
                 <hr />
                 <span style="text-decoration: underline;font-weight: bold;">&Agrave; Découvrir</span> :<br />
