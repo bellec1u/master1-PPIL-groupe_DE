@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('index', function () {
+    return view('index');
+});
 
 Route::get('faq', function () {
     return view('faq');
@@ -32,7 +35,9 @@ Route::get('contact', function () {
     return view('contact');
 });
 
-
+Route::get('user_home', function () {
+    return view('user_home');
+});
 
 Route::get('create', function () {
     return view('create');

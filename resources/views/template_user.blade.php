@@ -17,8 +17,8 @@
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <title>@yield('titre')</title>
@@ -53,46 +53,15 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li @yield('active1')><a href="{{ url('faq') }}"><span class="glyphicon glyphicon-list-alt"></span> FAQ</a></li>
-                <li @yield('active2')><a href="{{ url('inscription') }}"><span class="glyphicon glyphicon-pencil"></span> Inscription</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <b>Connexion</b> <span class="caret"></span></a>
-                    <ul id="login-dp" class="dropdown-menu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    Connectez-vous via :
-                                    <div class="social-buttons">
-                                        <a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
-                                        <a href="#" class="btn btn-gp"><i class="fa fa-google-plus"></i> Google+</a>
-                                    </div>
-                                    <hr />
-                                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Adresse mail..." required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="passe">Password</label>
-                                            <input type="password" class="form-control" id="passe" placeholder="Mot de passe..." required>
-                                            <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Connexion</button>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Rester connecté
-                                            </label>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="bottom text-center">
-                                    Nouveau ? <a href="{{ url('inscription') }}"><b>Inscription</b></a>
-                                </div>
-                            </div>
-                        </li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <b>Utilisateur</b> <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Paramètres</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ url('#') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
             </ul>
         </div>
     </div>
