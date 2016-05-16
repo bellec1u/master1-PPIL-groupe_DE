@@ -4,8 +4,12 @@
     FAQ | Call Me Ishmael
 @stop
 
+@section('active1')
+    class="active"
+@stop
+
 @section('contenu')
-    <div class="col-sm-offset-2 col-sm-8">
+    <div class="container">
         <div class="panel panel-info">
             <div class="panel-heading">Foire aux Questions</div>
             <div class="panel-body">

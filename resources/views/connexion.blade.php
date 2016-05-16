@@ -4,6 +4,10 @@
     Connexion | Call Me Ishmael
 @stop
 
+@section('active3')
+    class="active"
+@stop
+
 @section('contenu')
     <div class="container">
         <div class="row">

@@ -1,4 +1,4 @@
-@extends('template')
+@extends('template_user')
 
 @section('titre')
     Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
@@ -13,7 +13,7 @@
                 <br /><br /><br /><br /><br /><br /><br /><br />
                 <hr />
                 <span style="text-decoration: underline;font-weight: bold;">Top 10</span> :<br />
-                <p><a href="{{ url('book/4') }}"><img src="{{ $book->cover_url  }}" alt="" /></a></p>
+                Là y aura le top 10.
                 <br /><br /><br /><br /><br /><br /><br /><br />
                 <hr />
                 <span style="text-decoration: underline;font-weight: bold;">&Agrave; Découvrir</span> :<br />

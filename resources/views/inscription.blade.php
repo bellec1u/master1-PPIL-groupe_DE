@@ -4,14 +4,67 @@
     Inscription | Call Me Ishmael
 @stop
 
+@section('active2')
+    class="active"
+@stop
+
 @section('contenu')
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-info">
                     <div class="panel-heading">Inscrivez-vous :</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                        {!! Form::open(array('route'=>'storeUser','method'=>'POST', 'files'=>'true')) !!}
+                        {!! csrf_field() !!}
+                        <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
+                            {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                            {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
+                        </div>
+                        <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
+                            {!! Form::email('email_confirmation', null, ['class' => 'form-control', 'placeholder' => 'confirmation Email']) !!}
+                            {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
+                        </div>
+                        <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
+                            {!! Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Prenom']) !!}
+                            {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
+                        </div>
+
+                        <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
+                            {!! Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
+                            {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
+                        </div>
+                        <div class="form-group {!! $errors->has('password') ? 'has-error' : '' !!}">
+                            {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Mot de passe']) !!}
+                            {!! $errors->first('password', '<small class="help-block">:message</small>') !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirmation mot de passe']) !!}
+                        </div>
+                        <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
+                            {!! Form::radio('sex', 'F') !!} F
+                            {!! Form::radio('sex', 'M') !!} M
+                            {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
+                        </div>
+                        <div class="form-group">
+                            <div class="date">
+                                <label>
+                                    {!! Form::date('birth_date',  \Carbon\Carbon::now()) !!} date de naissance
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="file">
+                                <label>
+                                    {!! Form::file('profile_image') !!} image profil
+
+                                </label>
+                            </div>
+                        </div>
+                        {!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
+                        {!! Form::close() !!}
+
+
+                        <!--<form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                             {!! csrf_field() !!}
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label class="col-md-4 control-label">Pseudo</label>
@@ -60,14 +113,13 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-btn fa-sign-in"></i>Inscription
+                                        <i class="fa fa-btn fa-sign-in"></i> Inscription
                                     </button>
                                 </div>
                             </div>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 @stop
