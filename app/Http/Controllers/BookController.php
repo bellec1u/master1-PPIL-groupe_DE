@@ -53,6 +53,7 @@ class BookController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+    
     public function show($id)
     {
         $book = $this->bookRepository->getById($id);

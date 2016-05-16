@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Repositories\BookRepository;
 
+
 class HomeController extends Controller
 {
     protected $bookRepository;
@@ -26,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+       
         $id = 4;
         $book = $this->bookRepository->getById($id);
         return view('index', compact('book'));

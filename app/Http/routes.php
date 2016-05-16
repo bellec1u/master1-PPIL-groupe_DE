@@ -13,9 +13,7 @@
  * Web Routes
  */
 Route::group(['middleware' => 'web'], function () {
-    Route::get('/', function () {
-        return view('index');
-    });
+
     Route::get('/home', 'HomeController@index');
     Route::get('faq', function () {
         return view('faq');
@@ -48,13 +46,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('photo', function () {
         return view('photo');
     });
-    Route::get('home', array(
-        'as'   => 'home',
-        'uses' => function () {
-            return view('home');
-        }
 
-    ));
 
 
     Route::auth();
@@ -68,6 +60,8 @@ Route::group(['middleware' => 'web'], function () {
     // details
     Route::get('book/{id}', 'BookController@show')->where('id', '[0-9]+');
     Route::get('book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
+
+   
 });
 
 
