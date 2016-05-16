@@ -9,6 +9,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Requests\loginRequest;
 
 class AuthController extends Controller
 {
@@ -30,7 +31,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/User';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -100,6 +101,17 @@ class AuthController extends Controller
         Auth::login($authUser, true);
  
         return redirect()->route('home');
+    }
+
+    public function logout()
+
+    {
+
+        Auth::guard($this->getGuard())->logout();
+
+
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+
     }
  
     /**

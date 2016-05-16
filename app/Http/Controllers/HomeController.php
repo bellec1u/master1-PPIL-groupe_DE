@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Repositories\BookRepository;
 
 class HomeController extends Controller
 {
+    protected $bookRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(BookRepository $bookRepository)
     {
-        $this->middleware('auth');
+        $this->bookRepository = $bookRepository;
     }
 
     /**
@@ -24,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $id = 4;
+        $book = $this->bookRepository->getById($id);
+        return view('index', compact('book'));
     }
 }
