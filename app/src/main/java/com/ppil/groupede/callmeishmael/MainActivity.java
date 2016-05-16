@@ -1,6 +1,9 @@
 package com.ppil.groupede.callmeishmael;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
@@ -9,10 +12,26 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.ppil.groupede.callmeishmael.data.BitmapManager;
+import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
@@ -21,16 +40,27 @@ import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
 import com.ppil.groupede.callmeishmael.fragment.RechercheFragment;
 import com.ppil.groupede.callmeishmael.fragment.ReglagesFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView = null;
     private Toolbar toolbar = null;
     private boolean isConnected = false;
+    private TextView nomPrenom;
+    private TextView adresseMail;
+    private ImageView imagePerso;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        connexionFacebook(); // initialise la connexion à Facebook
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8)
         {
@@ -39,7 +69,11 @@ public class MainActivity extends AppCompatActivity
             StrictMode.setThreadPolicy(policy);
         }
         setContentView(R.layout.activity_main);
-
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
+        nomPrenom = (TextView) hView.findViewById(R.id.header_nom_prenom);
+        adresseMail = (TextView) hView.findViewById(R.id.header_mail);
+        imagePerso = (ImageView) hView.findViewById(R.id.header_imagePerso);
         // Set the title initially
         this.setTitle("Accueil");
         // Set the fragment initially
@@ -59,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         // Lock the screen's orientation
@@ -148,6 +182,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_deconnexion) {
             // Deconnect the user
+            SessionManager sessionManager = new SessionManager(this);
+            sessionManager.logOut();
             this.setConnection(false);
 
         } else if (id == R.id.nav_reglages) {
@@ -192,9 +228,22 @@ public class MainActivity extends AppCompatActivity
         if (b == true) { //connection
             this.setMenuConnected();
             this.isConnected = true;
+            DataManager dm = new DataManager();
+            SessionManager session = new SessionManager(this);
+            String email = session.getSessionId();
+            dm.setUrlInfoClient(email);
+            dm.run();
+            String informations = dm.getResult();
+            try {
+                JSONObject o = new JSONObject(informations);
+                this.setUtilisateur(o.getString("last_name"),o.getString("first_name"),o.getString("email"),o.getString("profile_image"),true);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         } else { //deconnexion
             this.setMenuNoConnected();
             this.isConnected = false;
+            this.setUtilisateur("", "", "", "", false);
         }
 
         return true;
@@ -234,6 +283,76 @@ public class MainActivity extends AppCompatActivity
         mi.setVisible(false);
 
         return true;
+    }
+
+    public void setUtilisateur(String nom, String prenom, String mail, String urlImage, boolean co)
+    {
+        if(co) {
+            nomPrenom.clearComposingText();
+            nomPrenom.setText(nom + " " + prenom);
+            adresseMail.setText(mail);
+            BitmapManager bm = new BitmapManager(urlImage);
+            bm.run();
+            Bitmap bitmap = bm.getImage();
+            if(bitmap != null) {
+                imagePerso.setImageBitmap(bitmap);
+            }
+        }
+        else {
+            nomPrenom.clearComposingText();
+            nomPrenom.setText("Anonyme");
+            adresseMail.setText("anonyme@anonyme.fr");
+            Bitmap img = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.whale);
+            imagePerso.setImageBitmap(img);
+        }
+
+    }
+
+    public void connexionFacebook() {
+        /*
+            identifiant à utiliser :
+            demir.yasar@sfr.fr
+            Azerty123
+         */
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
+        sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println(loginResult.toString());
+                setConnection(true);
+                SessionManager sessionManager = new SessionManager(getBaseContext());
+                String id = loginResult.getAccessToken().getUserId();
+                System.out.println("---"+id);
+                sessionManager.createUserSession(id);
+                // Set the page's title
+                setTitle("Accueil");
+                // Set the fragment of view
+                AccueilFragment fragment = new AccueilFragment();
+                android.support.v4.app.FragmentTransaction fragmentTransaction =
+                        getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, fragment);
+                fragmentTransaction.commit();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getBaseContext(), "Annulation !", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getBaseContext(), "Connexion impossible !", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 }

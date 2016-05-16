@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
@@ -65,7 +66,6 @@ public class ConnexionFragment extends Fragment {
                 dm.setUrlLogin(emailS, pwdS);
                 dm.run();
                 String ok = dm.getResult();
-                Log.i("INFO", ok);
                 if(ok.equals("\"0\""))
                 {
                     Toast.makeText(getActivity(),"Combinaison email/mot de passe incorrect !", Toast.LENGTH_SHORT).show();
@@ -82,13 +82,13 @@ public class ConnexionFragment extends Fragment {
                     fragmentTransaction.replace(R.id.fragment_container, fragment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
+                    Toast.makeText(getContext(),"Bonjour !",Toast.LENGTH_SHORT).show();
+                    ((MainActivity) getActivity()).setConnection(true); // l'utilisateur est connecté
                 }
                 //// TODO: 10/05/16 connexion to database
             }
         });
 
-        //facebook.setOnClickListener( QQCHOSE ICI );
-        //google.setOnClickListener( QQCHOSE ICI );
 
         return view;
     }

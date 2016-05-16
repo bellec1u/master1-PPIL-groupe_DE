@@ -10,7 +10,7 @@ public class TestData {
         DataManager dm = new DataManager();
         String url = DataManager.urlLogin;
         //dm.setUrlLogin("A","B");
-        dm.setUrlBookDetail(1);
+        //dm.setUrlBookDetail(1);
         //dm.setUrlRegister("marie","junges","marie@orange.fr","a123","F","1333-01-01");
         //System.out.println("URL : " + dm.getAdresseDesti());
 

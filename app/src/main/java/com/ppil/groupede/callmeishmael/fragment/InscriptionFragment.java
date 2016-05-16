@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
@@ -94,6 +95,11 @@ public class InscriptionFragment extends Fragment {
                         Toast.makeText(getContext(), "Les mots de passe ne correspondent pas !", Toast.LENGTH_SHORT).show();
                         pwdOK = false;
                     }
+                    if(pwd.length() < 8 || pwdC.length() < 8)
+                    {
+                        pwdOK = false;
+                        Toast.makeText(getContext(), "Le mot de passe doit faire au minimum 8 caractères !", Toast.LENGTH_SHORT).show();
+                    }
                     if(pwdOK){
                         String jour,mois,annee;
                         jour = dateJour.getText().toString();
@@ -128,8 +134,11 @@ public class InscriptionFragment extends Fragment {
                                 fragmentTransaction.replace(R.id.fragment_container, fragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
+                                ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
+                            }else
+                            {
+                                Toast.makeText(getContext(), "Ce compte existe déjà !", Toast.LENGTH_SHORT).show();
                             }
-                            Log.i("INFO", result);
                         }
                         else
                         {
@@ -139,11 +148,6 @@ public class InscriptionFragment extends Fragment {
                 }
             }
         });
-
-        //facebook.setOnClickListener(); STUFF
-        //google.setOnClickListener(); STUFF
-
-
         return view;
     }
 

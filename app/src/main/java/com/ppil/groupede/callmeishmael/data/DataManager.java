@@ -1,19 +1,25 @@
 package com.ppil.groupede.callmeishmael.data;
 
 import android.app.ActivityManager;
+import android.util.JsonReader;
+import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.ListIterator;
 
 /**
  * Created by Pima on 10/05/16.
@@ -37,6 +43,8 @@ public class DataManager implements Runnable {
 
     public static String urlTop10;
 
+    public static String urlInfoClient;
+
     public String adresseDesti;
 
     public String result; // resultat de la requete
@@ -59,6 +67,7 @@ public class DataManager implements Runnable {
             urlRegister = "http://"+ipMachine+":"+port+"/requetes/register.php?";
             urlBookDetail = "http://"+ipMachine+":"+port+"/requetes/bookDetails.php?";
             urlTop10 = "http://"+ipMachine+":"+port+"/requetes/top10.php";
+            urlInfoClient = "http://"+ipMachine+":"+port+"/requetes/infoClient.php?";
 
             adresseDesti = "";
             result = "";
@@ -114,7 +123,7 @@ public class DataManager implements Runnable {
         adresseDesti = urlLogin + "email=" + email + "&password=" + pwd;
     }
 
-    public void setUrlBookDetail(int id)
+    public void setUrlBookDetail(String id)
     {
         adresseDesti = urlBookDetail + "id=" + id;
     }
@@ -135,8 +144,31 @@ public class DataManager implements Runnable {
         adresseDesti = urlTop10 ;
     }
 
-    public JSONArray getJSONArray()
+    // not used
+    public JSONArray getJSONArray() {
+        try {
+            result.replaceAll("\\\\","");
+            JSONObject o = new JSONObject(result);
+            return o.getJSONArray("cover_url");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new JSONArray();
+    }
+
+    public JSONArray toJSONArray()
     {
-        return null;
+        JSONArray o = null;
+        try {
+            o = new JSONArray(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return o;
+    }
+
+    public void setUrlInfoClient(String email)
+    {
+        adresseDesti = urlInfoClient + "email=" + email;
     }
 }

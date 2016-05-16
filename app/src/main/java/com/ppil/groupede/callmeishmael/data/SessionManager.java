@@ -49,11 +49,16 @@ public class SessionManager {
     }
 
     //remove a login session
-    public void removeUserSession()
+    public void logOut()
     {
         //clear editor's attributes
         editor.clear();
         editor.commit();
+    }
+
+    public String getSessionId()
+    {
+        return preferences.getString(KEY_EMAIL,"email");
     }
 
 }
