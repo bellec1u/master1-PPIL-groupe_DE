@@ -62,6 +62,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/book/{id}', 'BookController@show');
     Route::get('/book/open', 'BookController@open');
 });
+
 /*
  * API Routes
  */
