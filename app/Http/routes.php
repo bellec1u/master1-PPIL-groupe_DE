@@ -74,5 +74,3 @@ Route::group(['prefix' => 'api', 'middleware' => 'api'], function () {
     Route::get('user/logout', ['middleware' => 'jwt.auth',
         'uses' => 'Api\JWTAuthController@logout']);
 });
-
-Route::get('/home', 'HomeController@index');
