@@ -2,6 +2,8 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -216,6 +218,44 @@ public class AccueilFragment extends Fragment implements DataReceiver {
 
                 }
 
+            });
+
+            //fonction permettant de supprimer un livre de la liste de lecture
+            ib.setOnLongClickListener(new View.OnLongClickListener() {
+
+                @Override
+                public boolean onLongClick(View arg0) {
+
+                    //Toast.makeText(getActivity(), "long click : delete book", Toast.LENGTH_SHORT).show();
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( getContext() );
+
+                    // set title
+                    alertDialogBuilder.setTitle("Suppression");
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
+                            .setCancelable(false)
+                            .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    //fonction de suppression du livre dans la BDD
+
+                                }
+                            })
+                            .setNegativeButton("Non",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+
+                    return false;
+
+                }
             });
 
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
