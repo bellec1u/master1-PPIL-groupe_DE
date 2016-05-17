@@ -18,5 +18,8 @@ class RatingRepository extends ResourceRepository
 
         return $this->rating->where('book_id', '=' , $id_book);
     }
+    public function getRatingId($id_book){
+        return Rating::where('book_id', '=' , $id_book)->get();
+    }
 
 }

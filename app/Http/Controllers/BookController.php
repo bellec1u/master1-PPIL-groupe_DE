@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Repositories\BookRepository;
+use App\Repositories\book\RatingRepository;
 
 class BookController extends Controller
 {
     protected $bookRepository;
+    protected $ratingRapository;
 
-    public function __construct(BookRepository $bookRepository)
+    public function __construct(BookRepository $bookRepository, RatingRepository $ratingRepository)
     {
         $this->bookRepository = $bookRepository;
+        $this->ratingRapository = $ratingRepository;
     }
 
     /**
@@ -56,8 +59,15 @@ class BookController extends Controller
     
     public function show($id)
     {
+
         $book = $this->bookRepository->getById($id);
-        return view('book/detailsBook', compact('book'));
+        $ratings = $this->ratingRapository->getRatingId($id);
+        $data[] = "";
+        $ratings->each(function($rating){
+            $data[] = $rating;
+
+        });
+        return view('book/detailsBook', compact('book'))->with('data', $ratings);
     }
 
     /**

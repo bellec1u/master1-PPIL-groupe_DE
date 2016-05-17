@@ -17,10 +17,19 @@
 				@if(Auth::check())
 					{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}
 				@endif
+				@foreach($data as $rating)
+					@if(Auth::user()->id == $rating->user_id)
+						<p> modifier</p>
+					@endif
+					<p> Commentaire {{ $rating->comment }} </p>
+					<p> Notes {{ $rating->stars }} </p>
+				@endforeach
 			</div>
 		</div>				
 		<a href="javascript:history.back()" class="btn btn-primary">
 			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
 		</a>
+
+
 	</div>
 @stop
