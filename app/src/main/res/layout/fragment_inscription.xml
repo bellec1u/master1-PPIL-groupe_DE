@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-@._"
                 android:id="@+id/idEmail" />
         </LinearLayout>
 
@@ -104,6 +105,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-@._"
                 android:id="@+id/idEmailConfirm" />
         </LinearLayout>
 
@@ -124,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:minEms="8"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-._"
                 android:id="@+id/idPassword" />
         </LinearLayout>
 
@@ -144,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:minEms="8"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-._"
                 android:id="@+id/idPasswordConfirm" />
         </LinearLayout>
 
