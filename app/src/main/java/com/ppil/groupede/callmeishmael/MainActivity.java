@@ -17,13 +17,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
@@ -40,6 +44,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 /*
     Activity principale, permet de switcher d'un fragment à l'autre,
@@ -259,9 +264,43 @@ public class MainActivity extends AppCompatActivity
     public boolean setConnection(boolean b) {
         if (b == true) { //connection
             this.setMenuConnected();
+            /*
+                On recupère les informations liées à l'utilisateur
+             */
+            SessionManager sessionManager = new SessionManager(this);
+            String nom;
+            String prenom;
+            String email;
+            String url;
+            Bitmap img = null;
+            nom = sessionManager.getSessionName();
+            prenom = sessionManager.getSessionFirstName();
+            email = sessionManager.getSessionEmail();
+            url = sessionManager.getSessionURL();
+            /*
+                On charge l'image à partir de l'URL si l'URL n'est pas vide,
+                donc on va utiliser BitmapManager
+             */
+            if(url.equals("")) {
+                try {
+                    BitmapManager bitmapManager = new BitmapManager(img);
+                    img = bitmapManager.execute(url).get();
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                        /*
+                            On convertie le drawable en Bitmap (image par défault)
+                        */
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.whale);
+                imagePerso.setImageBitmap(img);
+            }
+            this.setProfileNavigation(nom, prenom, email, img); // on demande la mise à jour du menu de navigation
             this.isConnected = true;
         } else { //deconnexion
             this.setMenuNoConnected();
+            this.setProfileDefault(); // on affecte le profil par défaut
             this.isConnected = false;
         }
 
@@ -351,40 +390,31 @@ public class MainActivity extends AppCompatActivity
             demir.yasar@sfr.fr
             Azerty123
          */
-        /*FacebookSdk.sdkInitialize(getApplicationContext());
+        //initialisation du sdk
+        FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            //connexion avec succès
             @Override
             public void onSuccess(LoginResult loginResult) {
-<<<<<<< HEAD
-                System.out.println(loginResult.toString());
-                setConnection(true);
-                SessionManager sessionManager = new SessionManager(getBaseContext());
-                String id = loginResult.getAccessToken().getUserId();
-                System.out.println("---"+id);
-                sessionManager.createUserSession(id);
-                // Set the page's title
-                setTitle("Accueil");
-                // Set the fragment of view
-                AccueilFragment fragment = new AccueilFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction =
-                        getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
-
+                getInfo(loginResult);
             }
 
-*/
+            // connexion annulé
+            @Override
+            public void onCancel() {
+            }
 
+            //erruer lors de la connexion
+            @Override
+            public void onError(FacebookException error) {
+            }
+        });
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void getInfo(LoginResult loginResult){
+    //recupération des infos de l'utilisateur
+      public void getInfo(LoginResult loginResult){
         String accessToken = loginResult.getAccessToken().getToken();
         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
@@ -404,35 +434,50 @@ public class MainActivity extends AppCompatActivity
         request.executeAsync();
     }
 
+    //recupération des infos de l'utilisateur à partir de facebook
     private Bundle getFacebookData(JSONObject object) throws JSONException {
-            Bundle bundle = new Bundle();
-            String id = object.getString("id");
+        Bundle bundle = new Bundle();
+        String id = object.getString("id");
 
-            try {
-                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
-                Log.i("profile_pic", profile_pic + "");
-                bundle.putString("profile_pic", profile_pic.toString());
+        try {
+            URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+            Log.i("profile_pic", profile_pic + "");
+            bundle.putString("profile_pic", profile_pic.toString());
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return null;
-            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
+        }
 
-            bundle.putString("idFacebook", id);
-            if (object.has("first_name"))
-                bundle.putString("first_name", object.getString("first_name"));
-            if (object.has("last_name"))
-                bundle.putString("last_name", object.getString("last_name"));
-            if (object.has("email"))
-                bundle.putString("email", object.getString("email"));
-            if (object.has("gender"))
-                bundle.putString("gender", object.getString("gender"));
-            if (object.has("birthday"))
-                bundle.putString("birthday", object.getString("birthday"));
-            if (object.has("location"))
-                bundle.putString("location", object.getJSONObject("location").getString("name"));
+        bundle.putString("idFacebook", id);
+        if (object.has("first_name"))
+            bundle.putString("first_name", object.getString("first_name"));
+        if (object.has("last_name"))
+            bundle.putString("last_name", object.getString("last_name"));
+        if (object.has("email"))
+            bundle.putString("email", object.getString("email"));
+        if (object.has("gender"))
+            bundle.putString("gender", object.getString("gender"));
+        if (object.has("birthday"))
+            bundle.putString("birthday", object.getString("birthday"));
+        if (object.has("location"))
+            bundle.putString("location", object.getJSONObject("location").getString("name"));
+        return bundle;
+    }
 
-            return bundle;
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
+
+    //----------------------------------------------------------------------------
+    
+    /*
+        Gere l'API Google+
+     */
+    public void connexionGoogle()
+    {
+        //// TODO: 17/05/16  
     }
 }

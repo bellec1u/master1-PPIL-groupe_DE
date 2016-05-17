@@ -21,6 +21,10 @@ import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.sql.SQLOutput;
@@ -142,6 +146,7 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                 annee = dateAnnee.getText().toString();
                 ok5 = isDateValid(annee, mois, jour); // on verifie l'intégrité de la date ici...
 
+                System.out.println(ok1 + " "+ ok2 + " "+ ok3 + " "+ ok4 + " "+ ok5);
                 /*
                     On verifie le genre
                  */
@@ -176,6 +181,8 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                             cover_url,
                             sexe,
                             (annee + "-" + mois + "-" + jour));
+
+                    System.out.println("-> "+adresse);
 
                     // Procedure d'inscription
                     DataManager dataManager = new DataManager(InscriptionFragment.this);
@@ -333,17 +340,40 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
     public void receiveData(String resultat) {
 
         /*
-            Si l'inscription s'est bien passé alors
+            Si l'inscription s'est bien passé alors on convertie le String en JSONObject et on le traite
          */
-        if(resultat.equals("true"))
-        {
-            Toast.makeText(getContext(),"Inscription effectuée avec succès !",Toast.LENGTH_SHORT).show();
-            setAccueil(); // envoie vers l'accueil
-        }
-        else
-        {
-            Toast.makeText(getContext(),"L'adresse email est déjà présente dans notre base de donnée\n" +
-                    "Veuillez réessayer", Toast.LENGTH_SHORT).show();
+        try {
+            JSONObject json = new JSONObject(resultat);
+            /*
+                S'il a le champ nom alors c'est que l'inscription s'est bien déroulé, sinon
+                j'informe l'utilisateur qu'une erreur s'est produite lors de l'inscription.
+             */
+            if(json.getString("email") != null)
+            {
+                /*
+                    On charge SessionManager de facon à mieux gérer l'utilisateur
+                 */
+                SessionManager sessionManager = new SessionManager(getContext());
+                /*
+                    On créé la session
+                 */
+                sessionManager.createSession(json.getString("nom"),
+                        json.getString("prenom"),
+                        json.getString("email"),
+                        json.getString("password"),
+                        json.getString("ddn"),
+                        json.getString("image"),
+                        json.getString("follow"));
+
+                Toast.makeText(getContext(),"Un mail vous à été envoyé !",Toast.LENGTH_SHORT).show();
+                setAccueil(); // envoie vers l'accueil
+            }
+            else
+            {
+                Toast.makeText(getContext(),"L'adresse email indiquée est déjà présente !",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            Toast.makeText(getContext(),"Une erreur s'est produite\n Veuillez réessayer", Toast.LENGTH_SHORT).show();
         }
     }
 

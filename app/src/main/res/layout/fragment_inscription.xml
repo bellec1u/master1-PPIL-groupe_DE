@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-@._"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-@._"
                 android:id="@+id/idEmail" />
         </LinearLayout>
 
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:ems="10"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-@._"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-@._"
                 android:id="@+id/idEmailConfirm" />
         </LinearLayout>
 
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:minEms="8"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-._"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._"
                 android:id="@+id/idPassword" />
         </LinearLayout>
 
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:minEms="8"
-                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-._"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._"
                 android:id="@+id/idPasswordConfirm" />
         </LinearLayout>
 
@@ -277,13 +277,14 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal">
 
-           <!--  <com.facebook.login.widget.LoginButton
+           <com.facebook.login.widget.LoginButton
                 android:id="@+id/login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" /> -->
+                android:layout_marginBottom="30dp" />
+
 
         </GridLayout>
 
