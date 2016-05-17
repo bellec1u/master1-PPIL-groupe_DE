@@ -11,7 +11,7 @@
 				<p>Auteur : {{ $book->author  }}</p>
 				<p>Genre : {{ $book->genre  }}</p>
 				<p>Langue : {{ $book->language  }}</p>
-				<p>Date de Parution : {{ $book->publication_date  }}</p>
+				<p>Date de Parution : {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
 				<p>Note moyenne : {{ $book->stars_average  }}</p>
 				<p><a href="4/open" class="btn bg-primary">Ouvrir</a></p>
 				@if(Auth::check())

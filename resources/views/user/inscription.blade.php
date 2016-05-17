@@ -14,8 +14,8 @@
                 <div class="panel panel-info">
                     <div class="panel-heading">Inscrivez-vous :</div>
                     <div class="panel-body">
-                        {!! Form::open(array('route'=>'storeUser','method'=>'POST', 'files'=>'true')) !!}
-                        {!! csrf_field() !!}
+                        {!! Form::open(array('route'=>'user.store', 'method'=>'POST', 'files'=>'true')) !!}
+
                         <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
                             {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email...']) !!}
                             {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
@@ -42,13 +42,13 @@
                         </div>
                         <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
                             {!! Form::radio('sex', 'F') !!} Femme
-                            {!! Form::radio('sex', 'M') !!} Homme
-                            {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
+                            {!! Form::radio('sex', 'M', true) !!} Homme
+                            {!! $errors->first('sex', '<small class="help-block">:message</small>') !!}
                         </div>
                         <div class="form-group">
                             <div class="date">
                                 <label>
-                                    Date de naissance : {!! Form::date('birth_date',  \Carbon\Carbon::now()) !!}
+                                    Date de naissance : {!! Form::date('birth_date', \Carbon\Carbon::now()) !!}
                                     {!! $errors->first('birth_date', '<small class="help-block">:message</small>') !!}
                                 </label>
                             </div>
@@ -57,6 +57,7 @@
                             <div class="file">
                                 <label>
                                     Image de Profil : {!! Form::file('profile_image') !!}
+                                    {!! $errors->first('profile_image', '<small class="help-block">:message</small>') !!}
                                 </label>
                             </div>
                         </div>

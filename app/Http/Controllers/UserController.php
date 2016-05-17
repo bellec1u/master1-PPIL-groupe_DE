@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Managers\ImageManager;
 
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Input;
@@ -21,6 +22,7 @@ class UserController extends Controller
 		$this->userRepository = $userRepository;
 	}
 
+
 	public function index()
 	{
 		$users = $this->userRepository->getPaginate($this->nbrPerPage);
@@ -29,36 +31,46 @@ class UserController extends Controller
 		return view('index', compact('users', 'links'));
 	}
 
+
 	public function create()
 	{
-		return view('create');
+		return view('user.inscription');
 	}
+
 
     public function store(UserCreateRequest $request)
     {
-        // chargement de l'image pour copie sur le serveur.
-        $file = array('profile_image' => Input::file('profile_image'));
-        if (Input::hasFile('profile_image') && Input::file('profile_image')->isValid()) {
-            $destinationPath = 'uploads'; // upload path
-            $extension = Input::file('profile_image')->getClientOriginalExtension(); // getting image extension
-            $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
-            if (Input::file('profile_image')->move(base_path() . '/public/imageUser/',
-                $fileName)
-            ) {
-                $path = base_path() . '/public/imageUser/' . $fileName;
-                $request2 = $request->treatment($path);
-                $user = $this->userRepository->store($request2);
-            return redirect('/');
-
-            }
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $this->userRepository->storeWithImage($request->all(), $image);
         } else {
-            $user = $this->userRepository->store($request->all());
-            return redirect('/');
-
+            $this->userRepository->store($request->all());
         }
-      }
-     
-    
+
+        return redirect('/')->with('status', 'Vous avez bien été enregistré');
+    }
+
+
+    public function update(UserUpdateRequest $request, $id)
+    {
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $this->userRepository->updateWithImage($id, $request->all(), $image);
+        } else {
+            $this->userRepository->update($id, $request->all());
+        }
+
+        return redirect('user/'.$id)->with('status', 'Profil mis à jour');
+    }
+
+
+    public function show($id)
+    {
+        $user = $this->userRepository->getById($id);
+        return view('user.profile', compact('user'));
+    }
+
+
      
     
    
