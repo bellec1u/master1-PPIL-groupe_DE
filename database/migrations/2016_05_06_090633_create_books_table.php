@@ -24,7 +24,6 @@ class CreateBooksTable extends Migration
             $table->string('url');
             $table->string('cover_url')->nullable();
             $table->integer('page_number')->default(0);
-            $table->timestamps();
         });
     }
 
