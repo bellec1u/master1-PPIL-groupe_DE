@@ -56,8 +56,8 @@
       <file leaf-file-name="ConnexionFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ppil/groupede/callmeishmael/fragment/ConnexionFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6833773">
-              <caret line="130" column="35" selection-start-line="130" selection-start-column="35" selection-end-line="130" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.762533">
+              <caret line="139" column="67" selection-start-line="139" selection-start-column="67" selection-end-line="139" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -77,7 +77,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ppil/groupede/callmeishmael/fragment/InscriptionFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="367" column="59" selection-start-line="367" selection-start-column="59" selection-end-line="367" selection-end-column="59" />
+              <caret line="367" column="29" selection-start-line="367" selection-start-column="0" selection-end-line="368" selection-end-column="0" />
               <folding>
                 <element signature="docComment;class#InscriptionFragment#0" expanded="false" />
                 <element signature="method#InscriptionFragment#0;class#InscriptionFragment#0" expanded="false" />
@@ -2799,7 +2799,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ppil/groupede/callmeishmael/fragment/InscriptionFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="367" column="59" selection-start-line="367" selection-start-column="59" selection-end-line="367" selection-end-column="59" />
+          <caret line="367" column="29" selection-start-line="367" selection-start-column="0" selection-end-line="368" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#InscriptionFragment#0" expanded="false" />
             <element signature="method#InscriptionFragment#0;class#InscriptionFragment#0" expanded="false" />
@@ -2812,8 +2812,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/ppil/groupede/callmeishmael/fragment/ConnexionFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6833773">
-          <caret line="130" column="35" selection-start-line="130" selection-start-column="35" selection-end-line="130" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.762533">
+          <caret line="139" column="67" selection-start-line="139" selection-start-column="67" selection-end-line="139" selection-end-column="67" />
           <folding />
         </state>
       </provider>

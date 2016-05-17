@@ -128,6 +128,18 @@ public class ConnexionFragment extends Fragment implements DataReceiver{
                 on va parcourir ce dernier et créé un sessionManager
              */
             SessionManager sessionManager = new SessionManager(getContext());
+
+            // On commence le parcour du jsonObject
+            sessionManager.createSession(json.getString("nom"),
+                    json.getString("prenom"),
+                    json.getString("email"),
+                    json.getString("password"),
+                    json.getString("ddn"),
+                    json.getString("image"),
+                    json.getString("follow"));
+            Toast.makeText(getContext(),"Bonjour "+json.getString("nom")+" !",Toast.LENGTH_SHORT).show();
+            setAccueil();
+
         } catch (JSONException e) {
             Toast.makeText(getContext()," Combinaison email / mot de passe erronée ! ", Toast.LENGTH_SHORT);
         }
