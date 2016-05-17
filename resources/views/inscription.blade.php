@@ -17,53 +17,52 @@
                         {!! Form::open(array('route'=>'storeUser','method'=>'POST', 'files'=>'true')) !!}
                         {!! csrf_field() !!}
                         <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
-                            {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) !!}
+                            {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email...']) !!}
                             {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
                         </div>
                         <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
-                            {!! Form::email('email_confirmation', null, ['class' => 'form-control', 'placeholder' => 'confirmation Email']) !!}
+                            {!! Form::email('email_confirmation', null, ['class' => 'form-control', 'placeholder' => 'Confirmation du mail...']) !!}
                             {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
                         </div>
                         <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
-                            {!! Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Prenom']) !!}
+                            {!! Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Prénom...']) !!}
                             {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
                         </div>
 
                         <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
-                            {!! Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
+                            {!! Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Nom...']) !!}
                             {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
                         </div>
                         <div class="form-group {!! $errors->has('password') ? 'has-error' : '' !!}">
-                            {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Mot de passe']) !!}
+                            {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Mot de passe...']) !!}
                             {!! $errors->first('password', '<small class="help-block">:message</small>') !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirmation mot de passe']) !!}
+                            {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirmation du mot de passe...']) !!}
                         </div>
                         <div class="form-group {!! $errors->has('name') ? 'has-error' : '' !!}">
-                            {!! Form::radio('sex', 'F') !!} F
-                            {!! Form::radio('sex', 'M') !!} M
+                            {!! Form::radio('sex', 'F') !!} Femme
+                            {!! Form::radio('sex', 'M') !!} Homme
                             {!! $errors->first('name', '<small class="help-block">:message</small>') !!}
                         </div>
                         <div class="form-group">
                             <div class="date">
                                 <label>
-                                    {!! Form::date('birth_date',  \Carbon\Carbon::now()) !!} date de naissance
+                                    Date de naissance : {!! Form::date('birth_date',  \Carbon\Carbon::now()) !!}
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="file">
                                 <label>
-                                    {!! Form::file('profile_image') !!} image profil
-
+                                    Image de Profil : {!! Form::file('profile_image') !!}
                                 </label>
                             </div>
                         </div>
                         
 
-                        {!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
-                        <a href="javascript:history.back()" class="btn btn-primary pull-right">
+                        {!! Form::submit('Inscription', ['class' => 'btn btn-primary pull-right']) !!}
+                        <a href="javascript:history.back()" class="btn btn-primary pull-left">
                             <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
                         </a>
                         {!! Form::close() !!}
