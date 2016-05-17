@@ -50,6 +50,9 @@ public class SessionManager {
     // user's birthdate
     public static final String KEY_DATE = "date";
 
+    // user's sex
+    public static final String KEY_GENRE = "genre";
+
 
     public SessionManager(Context context)
     {
@@ -114,10 +117,20 @@ public class SessionManager {
     public String getSessionFollow() { return preferences.getString(KEY_FOLLOW,"image"); }
 
     /*
+        Retourne la date de naissance de l'utilisateur
+     */
+    public String getSessionDate() { return preferences.getString(KEY_DATE,"date"); }
+
+    /*
+    Retourne le genre de l'utilisateur
+       */
+    public String getSessionGenre() { return preferences.getString(KEY_GENRE,"genre"); }
+
+    /*
         Créé une session complète avec toutes les informations de l'utilisateur
      */
 
-    public void createSession(String nom, String prenom, String email, String mdp, String date, String img, String follow)
+    public void createSession(String nom, String prenom, String email, String mdp, String date, String img, String follow, String sexe)
     {
         //Indicate that a user is log
         editor.putBoolean(IS_USER_LOGIN, true);
@@ -137,6 +150,8 @@ public class SessionManager {
         editor.putString(KEY_IMAGE, img);
 
         editor.putString(KEY_FOLLOW, follow);
+
+        editor.putString(KEY_GENRE, sexe);
 
         //commit changes
         editor.commit();

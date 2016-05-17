@@ -136,7 +136,8 @@ public class ConnexionFragment extends Fragment implements DataReceiver{
                     json.getString("password"),
                     json.getString("ddn"),
                     json.getString("image"),
-                    json.getString("follow"));
+                    json.getString("follow"),
+                    json.getString("sexe"));
             Toast.makeText(getContext(),"Bonjour "+json.getString("nom")+" !",Toast.LENGTH_SHORT).show();
             setAccueil();
 

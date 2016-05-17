@@ -14,12 +14,18 @@ import com.ppil.groupede.callmeishmael.R;
  */
 public class ModificationMonProfilFragment extends Fragment {
 
-
+    /*
+        Classe permettant de modifier le profil d'un utilisateur
+     */
     public ModificationMonProfilFragment() {
         // Required empty public constructor
     }
 
 
+    /*
+    Fonction permettant de créer et de retourner le Fragment avec les divers
+    élements contenus dans ce dernier...
+    */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
