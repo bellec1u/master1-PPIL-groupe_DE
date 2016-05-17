@@ -9,7 +9,7 @@ class Reading extends Model
     protected $fillable = [
         'book_id',
         'user_id',
-        'current_page',
+        'current_page'
     ];
 
     public function user(){
