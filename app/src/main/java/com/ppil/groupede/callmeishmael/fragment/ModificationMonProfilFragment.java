@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,9 @@ import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.concurrent.ExecutionException;
@@ -63,7 +68,6 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_modification_mon_profil, container, false);
-
         /*
                On affecte à chaque attribut le bon élement
          */
@@ -216,6 +220,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                             sessionManager.getSessionEmail(),
                             sessionManager.getSessionPassword());
                     System.out.println(adresse);
+                    System.out.println(sessionManager.getSessionPassword());
                     //Acces a la base de donnée ici...
                     DataManager dataManager = new DataManager(ModificationMonProfilFragment.this);
                     dataManager.execute(adresse); // execution en arriere plan
@@ -374,6 +379,57 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
     */
     @Override
     public void receiveData(String resultat) {
+        /*
+            Si la modification s'est bien passé alors on convertie le String en JSONObject et on le traite
+         */
+        System.out.println(resultat);
+        try {
+            JSONObject json = new JSONObject(resultat);
+            /*
+                S'il a le champ nom alors c'est que l'inscription s'est bien déroulé, sinon
+                j'informe l'utilisateur qu'une erreur s'est produite lors de l'inscription.
+             */
+            if(json.getString("email") != null)
+            {
+                /*
+                    On charge SessionManager de facon à mieux gérer l'utilisateur
+                 */
+                SessionManager sessionManager = new SessionManager(getContext());
+                sessionManager.logOut();
+                /*
+                    On créé la session
+                 */
+                sessionManager.createSession(json.getString("nom"),
+                        json.getString("prenom"),
+                        json.getString("email"),
+                        json.getString("password"),
+                        json.getString("ddn"),
+                        json.getString("image"),
+                        json.getString("follow"),
+                        json.getString("sexe"));
+                setProfile();
+            }
+            else
+            {
+                Toast.makeText(getContext(),"Une erreur s'est produite\n" +
+                        " Veuillez réessayer",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            Toast.makeText(getContext(),"Une erreur s'est produite\n Veuillez réessayer", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    /*
+        Renvoie l'utilisateur vers son profil
+     */
+    public void setProfile()
+    {
+        MonCompteFragment fragment = new MonCompteFragment();
+        getActivity().setTitle("Profil");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

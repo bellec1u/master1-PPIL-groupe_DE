@@ -201,6 +201,13 @@ public class MainActivity extends AppCompatActivity
             SessionManager sessionManager = new SessionManager(this);
             sessionManager.logOut();
             this.setConnection(false);
+            this.setTitle("Accueil");
+            // Set the fragment of view
+            AccueilFragment fragment = new AccueilFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
 
         } else if (id == R.id.nav_mon_compte) {
             // Set the page's title

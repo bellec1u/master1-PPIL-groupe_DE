@@ -65,6 +65,9 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mon_compte, container, false);
 
+        getActivity().setTitle("Profil");
+
+
         /*
             On charge les divers éléments du fragment
          */
