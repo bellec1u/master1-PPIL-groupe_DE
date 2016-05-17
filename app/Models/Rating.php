@@ -9,7 +9,8 @@ class Rating extends Model
     protected $fillable = [
         'book_id',
         'user_id',
-        'current_page'
+        'current_page',
+        'stars'
     ];
 
     public function user(){
