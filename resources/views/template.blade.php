@@ -7,13 +7,13 @@
     <link rel="icon" href="favicon.ico" />
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link rel="stylesheet" type="text/css" href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css">
 
     <!-- Custom styles -->
-    {!! Html::style('style.css'); !!}
+    {!! Html::style('style.css') !!}
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>
@@ -100,7 +100,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                <input type="checkbox" name=remember"> Rester connecté
+                                                <input type="checkbox" name="remember"> Rester connecté
                                                 </label>
                                             </div>
                                         </div>
@@ -110,26 +110,6 @@
                                             </button>
                                         </div>
                                     </form>
-                                    <!--<form class="form" role="form" method="post" action="{{url ('login') }}" accept-charset="UTF-8" id="login-nav">
-                                        {!! csrf_field() !!}
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Adresse mail..." required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="passe">Password</label>
-                                            <input type="password" class="form-control" id="passe" placeholder="Mot de passe..." required>
-                                            <div class="help-block text-right"><a href="">Mot de passe oublié ?</a></div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Connexion</button>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> Rester connecté
-                                            </label>
-                                        </div>
-                                    </form>-->
                                 </div>
                                 <div class="bottom text-center">
                                     Nouveau ? <a href="{{ url('inscription') }}"><b>Inscription</b></a>
