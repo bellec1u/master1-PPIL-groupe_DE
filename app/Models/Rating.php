@@ -9,14 +9,13 @@ class Rating extends Model
     protected $fillable = [
         'book_id',
         'user_id',
-        'comment',
-        'stars'
-
+        'current_page'
     ];
 
     public function user(){
         return $this->belongsTo('App\Models\User');
     }
+    
     public function book(){
         return $this->belongsTo('App\Models\book');
     }
