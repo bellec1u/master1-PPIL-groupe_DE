@@ -209,12 +209,15 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
             mois = Integer.valueOf(moisS);
             jour = Integer.valueOf(jourS);
             if (annee < 1900 || annee > 2016) {
+                Toast.makeText(getContext()," Année incorrecte !",Toast.LENGTH_SHORT);
                 return false;
             }
             if (mois < 1 || mois > 12) {
+                Toast.makeText(getContext()," Mois incorrect !",Toast.LENGTH_SHORT);
                 return false;
             }
             if (jour < 1 || jour > 31) {
+                Toast.makeText(getContext()," Jour incorrect !",Toast.LENGTH_SHORT);
                 return false;
             }
 
