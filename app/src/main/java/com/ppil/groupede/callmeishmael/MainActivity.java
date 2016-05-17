@@ -21,9 +21,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
@@ -324,88 +327,16 @@ public class MainActivity extends AppCompatActivity
             demir.yasar@sfr.fr
             Azerty123
          */
-        /*FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
-        sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-<<<<<<< HEAD
-                System.out.println(loginResult.toString());
-                setConnection(true);
-                SessionManager sessionManager = new SessionManager(getBaseContext());
-                String id = loginResult.getAccessToken().getUserId();
-                System.out.println("---"+id);
-                sessionManager.createUserSession(id);
-                // Set the page's title
-                setTitle("Accueil");
-                // Set the fragment of view
-                AccueilFragment fragment = new AccueilFragment();
-                android.support.v4.app.FragmentTransaction fragmentTransaction =
-                        getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, fragment);
-                fragmentTransaction.commit();
-
-            }
-
-*/
-
+        //// TODO: 17/05/16  
     }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void getInfo(LoginResult loginResult){
-        String accessToken = loginResult.getAccessToken().getToken();
-        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                Log.i("LoginActivity", response.toString());
-                // Get facebook data from login
-                try {
-                    Bundle bFacebookData = getFacebookData(object);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
-
-    private Bundle getFacebookData(JSONObject object) throws JSONException {
-            Bundle bundle = new Bundle();
-            String id = object.getString("id");
-
-            try {
-                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
-                Log.i("profile_pic", profile_pic + "");
-                bundle.putString("profile_pic", profile_pic.toString());
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return null;
-            }
-
-            bundle.putString("idFacebook", id);
-            if (object.has("first_name"))
-                bundle.putString("first_name", object.getString("first_name"));
-            if (object.has("last_name"))
-                bundle.putString("last_name", object.getString("last_name"));
-            if (object.has("email"))
-                bundle.putString("email", object.getString("email"));
-            if (object.has("gender"))
-                bundle.putString("gender", object.getString("gender"));
-            if (object.has("birthday"))
-                bundle.putString("birthday", object.getString("birthday"));
-            if (object.has("location"))
-                bundle.putString("location", object.getJSONObject("location").getString("name"));
-
-            return bundle;
-
+    
+    //----------------------------------------------------------------------------
+    
+    /*
+        Gere l'API Google+
+     */
+    public void connexionGoogle()
+    {
+        //// TODO: 17/05/16  
     }
 }
