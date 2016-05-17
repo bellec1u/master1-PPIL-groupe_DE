@@ -30,6 +30,8 @@ import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
 import com.ppil.groupede.callmeishmael.fragment.FAQFragment;
 import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
+import com.ppil.groupede.callmeishmael.fragment.LectureLivreFragment;
+import com.ppil.groupede.callmeishmael.fragment.MonCompteFragment;
 import com.ppil.groupede.callmeishmael.fragment.RechercheFragment;
 import com.ppil.groupede.callmeishmael.fragment.ReglagesFragment;
 
@@ -195,6 +197,16 @@ public class MainActivity extends AppCompatActivity
             sessionManager.logOut();
             this.setConnection(false);
 
+        } else if (id == R.id.nav_mon_compte) {
+            // Set the page's title
+            this.setTitle("Mon compte");
+            // Set the fragment of view
+            MonCompteFragment fragment = new MonCompteFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+
         } else if (id == R.id.nav_reglages) {
             // Set the page's title
             this.setTitle("Reglages");
@@ -216,10 +228,21 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
 
         } else if (id == R.id.nav_contact) {
+            /*
             // Set the page's title
             this.setTitle("Contact");
             // Set the fragment of view
             ContactFragment fragment = new ContactFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+            */
+
+            // Set the page's title
+            this.setTitle("Lecture Livre");
+            // Set the fragment of view
+            LectureLivreFragment fragment = new LectureLivreFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
@@ -259,6 +282,28 @@ public class MainActivity extends AppCompatActivity
         // Set visible "Deconnection"
         mi = m.getItem(2).getSubMenu().getItem(2);
         mi.setVisible(true);
+        mi = m.getItem(2).getSubMenu().getItem(3);
+        mi.setVisible(true);
+
+        return true;
+    }
+
+    public boolean setMenuNoConnected() {
+        android.support.design.widget.NavigationView navigationView =
+                (android.support.design.widget.NavigationView) findViewById(R.id.nav_view);
+        Menu m = navigationView.getMenu();
+
+        // Set visible "Inscription" and "Connection"
+        MenuItem mi = m.getItem(2).getSubMenu().getItem(0);
+        mi.setVisible(true);
+        mi = m.getItem(2).getSubMenu().getItem(1);
+        mi.setVisible(true);
+
+        // Hide "Deconnection"
+        mi = m.getItem(2).getSubMenu().getItem(2);
+        mi.setVisible(false);
+        mi = m.getItem(2).getSubMenu().getItem(3);
+        mi.setVisible(false);
 
         return true;
     }
@@ -295,24 +340,6 @@ public class MainActivity extends AppCompatActivity
                 R.drawable.whale);
         imagePerso.setImageBitmap(img);
 
-    }
-
-    public boolean setMenuNoConnected() {
-        android.support.design.widget.NavigationView navigationView =
-                (android.support.design.widget.NavigationView) findViewById(R.id.nav_view);
-        Menu m = navigationView.getMenu();
-
-        // Set visible "Inscription" and "Connection"
-        MenuItem mi = m.getItem(2).getSubMenu().getItem(0);
-        mi.setVisible(true);
-        mi = m.getItem(2).getSubMenu().getItem(1);
-        mi.setVisible(true);
-
-        // Hide "Deconnection"
-        mi = m.getItem(2).getSubMenu().getItem(2);
-        mi.setVisible(false);
-
-        return true;
     }
 
     /*

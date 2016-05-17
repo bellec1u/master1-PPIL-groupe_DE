@@ -5,5 +5,9 @@
     tools:context="com.ppil.groupede.callmeishmael.fragment.LectureLivreFragment">
 
 
-
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webViewLectureLivre"
+        android:layout_gravity="center" />
 </FrameLayout>

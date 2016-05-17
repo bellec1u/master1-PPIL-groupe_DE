@@ -27,6 +27,10 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Deconnexion" />
             <item
+                android:id="@+id/nav_mon_compte"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Mon compte" />
+            <item
                 android:id="@+id/nav_reglages"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Reglages" />
