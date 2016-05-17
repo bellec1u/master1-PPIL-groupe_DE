@@ -210,14 +210,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Homme"
-                    android:id="@+id/radioButton"
+                    android:id="@+id/radioButtonHomme"
                     android:checked="true" />
 
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Femme"
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radioButtonFemme"
                     android:checked="false" />
             </RadioGroup>
         </LinearLayout>

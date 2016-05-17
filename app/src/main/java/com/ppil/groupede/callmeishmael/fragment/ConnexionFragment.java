@@ -121,29 +121,29 @@ public class ConnexionFragment extends Fragment implements DataReceiver{
             On instancie un JSONObject afin de parcourir le résultat
             si ce dernier est vide alors s'est que le compte n'existe pas
          */
-        try {
-            JSONObject json = new JSONObject(resultat);
+            try {
+                JSONObject json = new JSONObject(resultat);
             /*
                 Si on ne rentre pas dans l'exception alors on a un résultat,
                 on va parcourir ce dernier et créé un sessionManager
              */
-            SessionManager sessionManager = new SessionManager(getContext());
+                SessionManager sessionManager = new SessionManager(getContext());
 
-            // On commence le parcour du jsonObject
-            sessionManager.createSession(json.getString("nom"),
-                    json.getString("prenom"),
-                    json.getString("email"),
-                    json.getString("password"),
-                    json.getString("ddn"),
-                    json.getString("image"),
-                    json.getString("follow"),
-                    json.getString("sexe"));
-            Toast.makeText(getContext(),"Bonjour "+json.getString("nom")+" !",Toast.LENGTH_SHORT).show();
-            setAccueil();
+                // On commence le parcour du jsonObject
+                sessionManager.createSession(json.getString("nom"),
+                        json.getString("prenom"),
+                        json.getString("email"),
+                        json.getString("password"),
+                        json.getString("ddn"),
+                        json.getString("image"),
+                        json.getString("follow"),
+                        json.getString("sexe"));
+                Toast.makeText(getContext(), "Bonjour " + json.getString("nom") + " !", Toast.LENGTH_SHORT).show();
+                setAccueil();
 
-        } catch (JSONException e) {
-            Toast.makeText(getContext()," Combinaison email / mot de passe erronée ! ", Toast.LENGTH_SHORT);
-        }
+            } catch (JSONException e) {
+                Toast.makeText(getContext(), " Combinaison email / mot de passe erronée ! ", Toast.LENGTH_SHORT).show();
+            }
     }
 
     /*
