@@ -20,6 +20,8 @@ class Book extends Model
         'page_number'
     ];
 
+    public $timestamps = false;
+
     public function ratings(){
         return $this->hasMany('App\Models\Rating');
     }
