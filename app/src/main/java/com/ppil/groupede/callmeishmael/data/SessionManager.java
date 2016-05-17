@@ -32,6 +32,25 @@ public class SessionManager {
     // user's id
     public static final String KEY_ID = "id";
 
+    // user's firstname
+    public static final String KEY_FIRSTNAME = "firstname";
+
+    // user's lastname
+    public static final String KEY_LASTNAME = "lastname";
+
+    // user's password
+    public static final String KEY_PASSWORD = "password";
+
+    // user's image URL
+    public static final String KEY_IMAGE = "image";
+
+    // user's follower's decision
+    public static final String KEY_FOLLOW = "follow";
+
+    // user's birthdate
+    public static final String KEY_DATE = "date";
+
+
     public SessionManager(Context context)
     {
         this.__context = context;
@@ -61,9 +80,41 @@ public class SessionManager {
         editor.commit();
     }
 
+    /*
+        Retourne l'id de session de l'utilisateur connecté
+     */
     public String getSessionId()
     {
         return preferences.getString(KEY_EMAIL,"email");
+    }
+
+    /*
+        Créé une session complète avec toutes les informations de l'utilisateur
+     */
+
+    public void createSession(String nom, String prenom, String email, String mdp, String date, String img, String follow)
+    {
+        //Indicate that a user is log
+        editor.putBoolean(IS_USER_LOGIN,true);
+
+        editor.putString(KEY_EMAIL, email);
+
+        editor.putString(KEY_LASTNAME, nom);
+
+        editor.putString(KEY_FIRSTNAME, prenom);
+
+        editor.putString(KEY_EMAIL, email);
+
+        editor.putString(KEY_PASSWORD, mdp);
+
+        editor.putString(KEY_DATE, date);
+
+        editor.putString(KEY_IMAGE, img);
+
+        editor.putString(KEY_FOLLOW, follow);
+
+        //commit changes
+        editor.commit();
     }
 
 }
