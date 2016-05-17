@@ -5,12 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.JsonReader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,70 +18,71 @@ import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
-
-import org.json.JSONStringer;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConnexionFragment extends Fragment {
+public class ConnexionFragment extends Fragment implements DataReceiver{
 
-    private Button logIn, facebook, google;
-    private AutoCompleteTextView email;
-    private EditText password;
-    private boolean mailOk,pwdOk;
+    /*
+        Classe permettant à l'utilisateur de se connecter, soit en remplissant les champs
+        Email et Password ou bien en cliquant sur les boutons facebook ou google+
+     */
+    private Button logIn; // bouton de logIn
+    private AutoCompleteTextView email; // champ où l'utilisateur écrit son mail
+    private EditText password; // champ contenant le mot de passe
 
+    /*
+        Constructeur de ConnexionFragment, vide ...
+     */
     public ConnexionFragment() {
         // Required empty public constructor
     }
 
+    /*
+    Fonction permettant de créer et de retourner le Fragment avec les divers
+    élements contenus dans ce dernier...
+    */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_connexion, container, false);
-        logIn = (Button) view.findViewById(R.id.action_sign_in);
-        mailOk = false;
-        pwdOk = false;
-        logIn.setClickable(mailOk && pwdOk);
-        email = (AutoCompleteTextView) view.findViewById(R.id.email);
-        email.addTextChangedListener(new EmailWatcher());
-        password = (EditText) view.findViewById(R.id.password);
-        password.addTextChangedListener(new PasswordWatcher());
+        logIn = (Button) view.findViewById(R.id.action_sign_in); // bouton de connexion
+        email = (AutoCompleteTextView) view.findViewById(R.id.email); // on recupere le champ email
+        password = (EditText) view.findViewById(R.id.password); // on recupere le champ password
 
+        /*
+            On créé un listener anonyme pour le bouton de connexion
+         */
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailS, pwdS;
-                emailS = email.getText().toString();
-                pwdS = password.getText().toString();
-                DataManager dm = new DataManager();
-                dm.setUrlLogin(emailS, pwdS);
-                dm.run();
-                String ok = dm.getResult();
-                if(ok.equals("\"0\""))
+                boolean okEmail, okPassword;
+                /*
+                    On récupère la validité dans chacun de ces booléens
+                 */
+                okEmail = isValid(email.getText().toString(), "email");
+                okPassword = isValid(password.getText().toString(), "mot de passe");
+
+                if(okEmail && okPassword)
                 {
-                    Toast.makeText(getActivity(),"Combinaison email/mot de passe incorrect !", Toast.LENGTH_SHORT).show();
+                    /*
+                        On demande l'adresse à Data pour effectuer une connexion
+                     */
+                    String adresse = Data.getData().getConnexion(email.getText().toString(),password.getText().toString());
+
+                    /*
+                        On instancie DataManager pour effectuer une requete à la base
+                     */
+                    DataManager dataManager = new DataManager(ConnexionFragment.this);
+                    dataManager.execute(adresse); // execution ici...
                 }
-                else
-                {
-                    SessionManager session = new SessionManager(getContext());
-                    session.createUserSession(emailS);
-                    // Set the fragment of view
-                    AccueilFragment fragment = new AccueilFragment();
-                    getActivity().setTitle("Accueil");
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                    Toast.makeText(getContext(),"Bonjour !",Toast.LENGTH_SHORT).show();
-                    ((MainActivity) getActivity()).setConnection(true); // l'utilisateur est connecté
-                }
-                //// TODO: 10/05/16 connexion to database
             }
         });
 
@@ -93,69 +90,53 @@ public class ConnexionFragment extends Fragment {
         return view;
     }
 
-    private class PasswordWatcher implements TextWatcher
+    /*
+        Vérifie si le champs aVerifier est vide ou non
+     */
+    public boolean isValid(String aVerifier, String nomChamp)
     {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        /*
+            On enleve les espaces...
+         */
+        String tmp = aVerifier.replaceAll("\\s","");
+        if(tmp.length() == 0)
+        {
+            Toast.makeText(getContext(),"Le champ "+nomChamp+" est vide !", Toast.LENGTH_SHORT).show();
+            return false;
         }
+        return true;
+    }
 
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+    /*
+        Fonction permettant de traiter les résultats recu par une requete http (GET) du serveur,
+        dans ce Fragment, on récupera ici si la connexion s'est bien déroulée ou non
+     */
+    @Override
+    public void receiveData(String resultat) {
+        String res = resultat; // recuperation du resultat ici
+        if(res.equals("1"))
+        {
+            Toast.makeText(getContext()," Bonjour !", Toast.LENGTH_SHORT).show();
+            setAccueil();
         }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String verif = s.toString();
-            verif.replaceAll("\\s*", "");
-            if(verif.length() > 7)
-            {
-                pwdOk = true;
-            }
-            else
-            {
-                pwdOk = false;
-                //Toast.makeText(getActivity(), "Le mot de passe doit faire au moins 8 caractères !", Toast.LENGTH_SHORT).show();
-            }
-            logIn.setClickable(mailOk && pwdOk);
+        else
+        {
+            Toast.makeText(getContext()," La combinaison email / mot de passe est incorrecte !", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private class EmailWatcher implements TextWatcher
+    /*
+    Renvoie l'utilisateur vers le fragment Accueil, en vue cette fois ci connecté
+ */
+    public void setAccueil()
     {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String verif = s.toString();
-            verif.replaceAll("\\s*", "");
-            if(verif.length() > 0)
-            {
-                if(android.util.Patterns.EMAIL_ADDRESS.matcher(verif).matches()) {
-                    mailOk = true;
-                }
-                else
-                {
-                    mailOk = false;
-                    //Toast.makeText(getActivity(), "Email incorrect !", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else {
-                mailOk = false;
-                //Toast.makeText(getActivity(), "Email incorrect !", Toast.LENGTH_SHORT).show();
-            }
-            logIn.setClickable(mailOk && pwdOk);
-        }
+        AccueilFragment fragment = new AccueilFragment();
+        getActivity().setTitle("Accueil");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
     }
 }

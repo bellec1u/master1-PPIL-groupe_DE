@@ -15,29 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-=======
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-<<<<<<< HEAD
-import com.ppil.groupede.callmeishmael.data.BitmapManager;
-import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
-=======
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
@@ -58,24 +44,15 @@ public class MainActivity extends AppCompatActivity
     private NavigationView navigationView = null;
     private Toolbar toolbar = null;
     private boolean isConnected = false;
-<<<<<<< HEAD
     private TextView nomPrenom;
     private TextView adresseMail;
     private ImageView imagePerso;
     private CallbackManager callbackManager;
-=======
-    private CallbackManager callbackManager;
-
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
         connexionFacebook(); // initialise la connexion à Facebook
-=======
-        connexionFacebook();
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -84,10 +61,10 @@ public class MainActivity extends AppCompatActivity
         }
         setContentView(R.layout.activity_main);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View hView =  navigationView.inflateHeaderView(R.layout.nav_header_main);
-        nomPrenom = (TextView) hView.findViewById(R.id.header_nom_prenom);
-        adresseMail = (TextView) hView.findViewById(R.id.header_mail);
-        imagePerso = (ImageView) hView.findViewById(R.id.header_imagePerso);
+/*        nomPrenom = (TextView) findViewById(R.id.header_main).findViewById(R.id.header_nom_prenom);
+        nomPrenom.setText("rerer");
+        adresseMail = (TextView) findViewById(R.id.header_mail);
+        imagePerso = (ImageView) findViewById(R.id.header_imagePerso);*/
         // Set the title initially
         this.setTitle("Accueil");
         // Set the fragment initially
@@ -242,22 +219,9 @@ public class MainActivity extends AppCompatActivity
         if (b == true) { //connection
             this.setMenuConnected();
             this.isConnected = true;
-            DataManager dm = new DataManager();
-            SessionManager session = new SessionManager(this);
-            String email = session.getSessionId();
-            dm.setUrlInfoClient(email);
-            dm.run();
-            String informations = dm.getResult();
-            try {
-                JSONObject o = new JSONObject(informations);
-                this.setUtilisateur(o.getString("last_name"),o.getString("first_name"),o.getString("email"),o.getString("profile_image"),true);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         } else { //deconnexion
             this.setMenuNoConnected();
             this.isConnected = false;
-            this.setUtilisateur("", "", "", "", false);
         }
 
         return true;
@@ -299,30 +263,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-<<<<<<< HEAD
-    public void setUtilisateur(String nom, String prenom, String mail, String urlImage, boolean co)
-    {
-        if(co) {
-            nomPrenom.clearComposingText();
-            nomPrenom.setText(nom + " " + prenom);
-            adresseMail.setText(mail);
-            BitmapManager bm = new BitmapManager(urlImage);
-            bm.run();
-            Bitmap bitmap = bm.getImage();
-            if(bitmap != null) {
-                imagePerso.setImageBitmap(bitmap);
-            }
-        }
-        else {
-            nomPrenom.clearComposingText();
-            nomPrenom.setText("Anonyme");
-            adresseMail.setText("anonyme@anonyme.fr");
-            Bitmap img = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.whale);
-            imagePerso.setImageBitmap(img);
-        }
-
-    }
 
     public void connexionFacebook() {
         /*
@@ -330,10 +270,7 @@ public class MainActivity extends AppCompatActivity
             demir.yasar@sfr.fr
             Azerty123
          */
-=======
-    public void connexionFacebook() {
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
-        FacebookSdk.sdkInitialize(getApplicationContext());
+        /*FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -354,29 +291,10 @@ public class MainActivity extends AppCompatActivity
                         getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, fragment);
                 fragmentTransaction.commit();
-=======
-               getInfo(loginResult);
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
+
             }
 
-            @Override
-            public void onCancel() {
-<<<<<<< HEAD
-                Toast.makeText(getBaseContext(), "Annulation !", Toast.LENGTH_SHORT).show();
-=======
-                System.out.println("annulé");
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-<<<<<<< HEAD
-                Toast.makeText(getBaseContext(), "Connexion impossible !", Toast.LENGTH_SHORT).show();
-=======
-                System.out.println("erreur");
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
-            }
-        });
+*/
 
     }
 
@@ -384,9 +302,6 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
-<<<<<<< HEAD
-=======
 
     public void getInfo(LoginResult loginResult){
         String accessToken = loginResult.getAccessToken().getToken();
@@ -439,5 +354,4 @@ public class MainActivity extends AppCompatActivity
             return bundle;
 
     }
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 }

@@ -1,81 +1,133 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-<<<<<<< HEAD
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-=======
->>>>>>> 2bfa917abe09d1e0ba5faf7279758b2e359cb203
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
+import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.DataReceiver;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by Pima on 16/05/16.
  */
-public class AccueilFragment extends Fragment {
+public class AccueilFragment extends Fragment implements DataReceiver {
 
+    /*
+        Classe affichant l'accueil de l'application,
+        cette dernière sert de passerelle à d'autres fragments comme :
+        DetailsLivreFragment par exemple.
+
+        Cette classe possède le top10 représenté par 10 ImageButtons ayant comme image
+        la couverture du livre.
+
+        On pourra aussi à partir de cette classe avoir accès aux suggestions de lecture ainsi
+        qu'à la liste de lecture de l'utilisateur.
+        Ces deux fonctionnalités seront aussi représentés par des ImageButtons. (pas encore implémenté)
+
+        Cette classe implémente Fragment car elle a pour rôle de s'insérer dans le MainActivity,
+        elle implement aussi DataReceiver de facon à pouvoir traiter plus facilement les données
+        envoyés par la classe DataManager.
+
+        Au premier load, elle effectuera une requete vers la base afin de récupérer le top10,
+        puis gardera en mémoire ce dernier afin d'éviter de refaire des requetes inutilement
+     */
+
+    private boolean firstLoad; // booléen permettant de savoir si la classe est chargée pour la premiere fois ou non
+    public static int nbTop = 10; // static contenant le nombre de livre affiché dans le top(ici 10)
+    private ImageButton[] top; // tableau contenant les nbTop ImageButton
+    private int hauteur; // hauteur de chaque image (cover d'un livre)
+    private int largeur; // largeur de chaque image (cover d'un livre)
+
+    /*
+        Constructeur d'AccueilFragment, initialement vide...
+     */
     public AccueilFragment() {
         // Required empty public constructor
+        firstLoad = true; // premier chargement à faux : logique
+        /*
+            On instancie top
+         */
+        top = new ImageButton[nbTop];
     }
 
 
+    /*
+        Fonction permettant de créer et de retourner le Fragment avec les divers
+        élements contenus dans ce dernier...
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
 
-        // ---------- ---------- ---------- ---------- ---------- top 10
         /*
-
-        Chargement des images et titres des livres du top10
+            On donne le nom au fragment : Accueil
          */
-        DataManager dm = new DataManager();
-        dm.setUrl10();
-        dm.run();
-        String res = dm.getResult(); // pas en json par contre (que en string)
-        ArrayList<String> combinaisonURLTitre = new ArrayList<>(); // avec l'id
-        String [] split = res.split("\\|\\|\\|");
-        for(int i = 0; i < split.length ; i++)
-        {
-            combinaisonURLTitre.add(split[i]);
-        }
+        this.getActivity().setTitle("Accueil");
 
-        int nbLivre = 10;
+        // ---------- ---------- ---------- ---------- ---------- top 10
+
+        int nbLivre = nbTop; // livres à contenir dans la page
+        /*
+            On prepare la mémoire pour les ImageButtons
+         */
+        for(int i = 0 ; i < nbTop ; i++)
+        {
+            top[i] = new ImageButton(view.getContext()); // instanciation ici...
+        }
         int nbColonnes = 3;
         int nbLignes = ((int)(nbLivre/3)) + 1;
 
+        /*
+            Mise en place du GridLayout
+        */
         GridLayout gl = (GridLayout) view.findViewById(R.id.top_dix);
         gl.removeAllViews();
         gl.setColumnCount( nbColonnes );
         gl.setRowCount( nbLignes );
+
+
+        /*
+            On instancie DataManager
+         */
+            DataManager dataManager = new DataManager(this);
+        /*
+            On recupère l'URL nécessaire pour récupérer les informations du top(nbTop) grace à la classe Data
+         */
+            String url = Data.getData().getTop10();
+
+        /*
+            On demande maintenant au serveur les informations,
+            cette requete sera faite en arriere plan par rapport à UIThread
+            donc il n'y aura plus de latence de chargement, mais par contre
+            les résultats risquent de mettre un tout petit peu plus de résultat à apparaitre.
+            (dépend bien sur de la vitesse de connexion utilisée !)
+         */
+            try {
+                String wait = dataManager.execute(url).get();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
 
         for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
             if (c == nbColonnes) {
@@ -83,46 +135,14 @@ public class AccueilFragment extends Fragment {
                 r++;
             }
 
-            ImageButton ib = new ImageButton(view.getContext());
+            largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
+            hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
 
-            int largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
-            int hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
-
-            ib.setMinimumWidth(largeur);
-            ib.setMinimumHeight(hauteur);
-            final String[] nomTitreEtId = combinaisonURLTitre.get(i).split("\\|\\|");
-            final String id = nomTitreEtId[1] ; // recupere l'id du livre
-            final String nomTitre[] = nomTitreEtId[0].split("\\|");
-            final BitmapManager bm = new BitmapManager(nomTitre[0]);
-            bm.setUrl(nomTitre[0]);
-            bm.run();
-            Bitmap bitmap = bm.getImage();
-            bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
-            ib.setImageBitmap(bitmap);
-            ib.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-                    /*
-                        ON est redirigé vers la vue contenant les details d'un livre
-                        avec comme titre, le titre de l'ouvrage
-                     */
-                    final String titre = nomTitre[1];
-                    final String imgUrl = nomTitre[0];
-                    Toast.makeText(getActivity(), titre, Toast.LENGTH_SHORT).show();
-                    DetailsLivreFragment fragment = new DetailsLivreFragment(id,bm.getImage());
-                    getActivity().setTitle(titre);
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_container, fragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-
-            });
+            top[i].setMinimumWidth(largeur);
+            top[i].setMinimumHeight(hauteur);
 
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-            gl.addView(ib, gridParam);
+            gl.addView(top[i], gridParam);
         }
 
 
@@ -201,7 +221,104 @@ public class AccueilFragment extends Fragment {
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
             gl.addView(ib, gridParam);
         }
-
+        firstLoad = false; // la fonction aura donc été appelée au moins 1 fois
         return view;
+    }
+
+    /*
+        Fonction permettant de traiter les résultats recu par une requete http (GET) du serveur,
+        dans ce Fragment, on récupera ici les informations du top10 etc...
+     */
+    @Override
+    public void receiveData(String resultat) {
+        try {
+            JSONArray array = new JSONArray(resultat) ; // convertie le résultat en JSONArray
+            /*
+                On parcourt ensuite le JSONArray et on instancie les images correspondantes
+             */
+            for(int i = 0 ; i  < array.length() ; i++){
+                // On recupere le premier élement dans un Object, puis en JSONObject
+                Object object = array.get(i);
+                JSONObject jsonObject = new JSONObject(object.toString()); // instanciation du JSONObject
+
+                /*
+                    Utilisation de la classe BitmapManager pour charger dans un Bitmap
+                    une image venant d'un URL
+                */
+                Bitmap bitmap = null ; // parametre d'ImageManager
+                BitmapManager bitmapManager = new BitmapManager(bitmap); // instanciation ici...
+                /*
+                    On execute bitmapManager, donc requete,
+                    le get() fait en sorte que l'UIThread attend le resultat.
+                 */
+                bitmap = bitmapManager.execute(jsonObject.getString("cover_url")).get();
+                /*
+                    On redimensionne l'image (si besoin est)
+                 */
+                bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
+                /*
+                    On l'affecte à notre objet de classe
+                 */
+                top[i].setImageBitmap(bitmap);
+
+                /*
+                    On créer maintenant un onClickListener pour ouvrir le fragment DetailsLivreFragment
+                    associé à l'ImageButton.
+                    On récupère avant les attributs title et id présent dans le JSONObject
+                 */
+                String titre = jsonObject.getString("title");
+                String id = jsonObject.getString("id");
+                Activity activity = getActivity(); // activity courante
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager(); // objet permettant la gestion des Fragments
+                top[i].setOnClickListener(new ImageCliquable(bitmap,titre,id,activity,fragmentManager)); // affectation du Listener ici...
+            }
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+/*
+    Listener permettant lors d'un clique sur l'image de lancer le fragment DetailsLivreFragment associé
+    et affiche à l'écran le titre du livre cliqué
+ */
+class ImageCliquable implements View.OnClickListener
+{
+
+    public Bitmap image; // image associée au livre (couverture)...
+    public String titre; // titre du livre
+    public String id; // id du livre, afin de simplifier les recherches du livre si besoin est dans le futur
+    public Activity activity; // activity courante
+    public FragmentManager fragmentManager; // manager des fragments
+    public ImageCliquable(Bitmap img, String title, String idLivre, Activity activ, FragmentManager fmanager)
+    {
+        /*
+            On lie les attributs aux parametres
+         */
+        image = img;
+        titre = title;
+        id = idLivre;
+        activity = activ;
+        fragmentManager = fmanager;
+    }
+
+    /*
+        Fonction permettant de gérer le click sur une ImageButton
+     */
+    @Override
+    public void onClick(View v) {
+        /*
+            On affiche le titre
+         */
+        Toast.makeText(activity, titre, Toast.LENGTH_SHORT).show();
+        DetailsLivreFragment fragment = new DetailsLivreFragment(id, image);
+        /*
+            On change de fragment
+         */
+        activity.setTitle(titre);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit(); // on confirme le changement
     }
 }

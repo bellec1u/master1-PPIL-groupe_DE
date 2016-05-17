@@ -29,6 +29,9 @@ public class SessionManager {
     // Email adresse ( public access)
     public static final String KEY_EMAIL = "email";
 
+    // user's id
+    public static final String KEY_ID = "id";
+
     public SessionManager(Context context)
     {
         this.__context = context;
@@ -37,12 +40,14 @@ public class SessionManager {
     }
 
     //create a login session
-    public void createUserSession(String email)
+    public void createUserSession(String email, String id)
     {
         //Indicate that a user is log
         editor.putBoolean(IS_USER_LOGIN,true);
 
         editor.putString(KEY_EMAIL,email);
+
+        editor.putString(KEY_ID,id);
 
         //commit changes
         editor.commit();
