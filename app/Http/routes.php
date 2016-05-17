@@ -23,7 +23,7 @@ Route::group(['middleware' => 'web'], function () {
         return view('index');
     });*/
 
-    Route::get('/', 'HomeController@index');
+    Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
 
     Route::get('inscription', function () {
         return view('user/inscription');
@@ -54,11 +54,17 @@ Route::group(['middleware' => 'web'], function () {
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
     Route::get('/callback/{provider}', 'SocialAuthController@callback');
+    
+    
     // book access
     // details
     Route::get('book/{id}', 'BookController@show')->where('id', '[0-9]+');
     Route::get('book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
 
+    // book modif
+    Route::get('createRating/{id}', 'book\RatingController@create')->where('id', '[0-9]+');
+    Route::post('storeRating', ['uses' => 'book\RatingController@store', 'as' => 'storeRating']);
+    Route::get('destroyRating/{id}', 'book\RatingController@create')->where('id', '[0-9]+');
    
 });
 
