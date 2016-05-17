@@ -65,11 +65,11 @@ public class SessionManager {
     public void createUserSession(String email, String id)
     {
         //Indicate that a user is log
-        editor.putBoolean(IS_USER_LOGIN,true);
+        editor.putBoolean(IS_USER_LOGIN, true);
 
         editor.putString(KEY_EMAIL,email);
 
-        editor.putString(KEY_ID,id);
+        editor.putString(KEY_ID, id);
 
         //commit changes
         editor.commit();
@@ -155,6 +155,15 @@ public class SessionManager {
 
         //commit changes
         editor.commit();
+    }
+
+    /*
+        Indique si l'utilisateur est connecté ou non à l'application
+     */
+    public boolean isConnected()
+    {
+        System.out.println(preferences.getString(KEY_EMAIL,"email"));
+        return (preferences.getString(KEY_EMAIL,"email").equals("email"));
     }
 
 }

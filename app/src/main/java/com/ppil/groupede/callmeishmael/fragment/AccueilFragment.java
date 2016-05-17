@@ -20,6 +20,7 @@ import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -148,118 +149,127 @@ public class AccueilFragment extends Fragment implements DataReceiver {
         }
 
 
-        // ---------- ---------- ---------- ---------- ---------- Liste de suggestion
+        /*
+            SI l'utilisateur n'est pas connecté, il n'y a pas de liste de suggestion ni de liste de lecture
+            On verifie ca grace à SessionManager
+         */
+        SessionManager sessionManager = new SessionManager(getContext());
+        if(false) {
 
-        nbLivre = 8;
-        nbColonnes = 3;
-        nbLignes = ((int)(nbLivre/3)) + 1;
+            // ---------- ---------- ---------- ---------- ---------- Liste de suggestion
 
-        gl = (GridLayout) view.findViewById(R.id.liste_des_suggestions);
-        gl.removeAllViews();
-        gl.setColumnCount( nbColonnes );
-        gl.setRowCount( nbLignes );
+            nbLivre = 8;
+            nbColonnes = 3;
+            nbLignes = ((int) (nbLivre / 3)) + 1;
 
-        for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
-            if (c == nbColonnes) {
-                c = 0;
-                r++;
+            gl = (GridLayout) view.findViewById(R.id.liste_des_suggestions);
+            gl.removeAllViews();
+            gl.setColumnCount(nbColonnes);
+            gl.setRowCount(nbLignes);
+
+            for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
+                if (c == nbColonnes) {
+                    c = 0;
+                    r++;
+                }
+
+                ImageButton ib = new ImageButton(view.getContext());
+
+                int largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
+                int hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
+
+                ib.setMinimumWidth(largeur);
+                ib.setMinimumHeight(hauteur);
+                ib.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View arg0) {
+
+                        Toast.makeText(getActivity(), "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                });
+
+                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
+                gl.addView(ib, gridParam);
             }
 
-            ImageButton ib = new ImageButton(view.getContext());
+            // ---------- ---------- ---------- ---------- ---------- Liste de lecture
+            nbLivre = 4;
+            nbLignes = ((int) (nbLivre / 3)) + 1;
 
-            int largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
-            int hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
+            gl = (GridLayout) view.findViewById(R.id.liste_de_lecture);
+            gl.removeAllViews();
+            gl.setColumnCount(nbColonnes);
+            gl.setRowCount(nbLignes);
 
-            ib.setMinimumWidth(largeur);
-            ib.setMinimumHeight(hauteur);
-            ib.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    Toast.makeText(getActivity(), "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
-
+            for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
+                if (c == nbColonnes) {
+                    c = 0;
+                    r++;
                 }
 
-            });
+                ImageButton ib = new ImageButton(view.getContext());
 
-            GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-            gl.addView(ib, gridParam);
-        }
+                int largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
+                int hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
 
-        // ---------- ---------- ---------- ---------- ---------- Liste de lecture
-        nbLivre = 4;
-        nbLignes = ((int)(nbLivre/3)) + 1;
+                ib.setMinimumWidth(largeur);
+                ib.setMinimumHeight(hauteur);
+                ib.setOnClickListener(new View.OnClickListener() {
 
-        gl = (GridLayout) view.findViewById(R.id.liste_de_lecture);
-        gl.removeAllViews();
-        gl.setColumnCount( nbColonnes );
-        gl.setRowCount( nbLignes );
+                    @Override
+                    public void onClick(View arg0) {
 
-        for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
-            if (c == nbColonnes) {
-                c = 0;
-                r++;
+                        Toast.makeText(getActivity(), "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                });
+
+                //fonction permettant de supprimer un livre de la liste de lecture
+                ib.setOnLongClickListener(new View.OnLongClickListener() {
+
+                    @Override
+                    public boolean onLongClick(View arg0) {
+
+                        //Toast.makeText(getActivity(), "long click : delete book", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                        // set title
+                        alertDialogBuilder.setTitle("Suppression");
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
+                                .setCancelable(false)
+                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //fonction de suppression du livre dans la BDD
+
+                                    }
+                                })
+                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show it
+                        alertDialog.show();
+
+                        return false;
+
+                    }
+                });
+
+                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
+                gl.addView(ib, gridParam);
+
             }
-
-            ImageButton ib = new ImageButton(view.getContext());
-
-            int largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
-            int hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
-
-            ib.setMinimumWidth(largeur);
-            ib.setMinimumHeight(hauteur);
-            ib.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View arg0) {
-
-                    Toast.makeText(getActivity(), "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
-
-                }
-
-            });
-
-            //fonction permettant de supprimer un livre de la liste de lecture
-            ib.setOnLongClickListener(new View.OnLongClickListener() {
-
-                @Override
-                public boolean onLongClick(View arg0) {
-
-                    //Toast.makeText(getActivity(), "long click : delete book", Toast.LENGTH_SHORT).show();
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( getContext() );
-
-                    // set title
-                    alertDialogBuilder.setTitle("Suppression");
-                    // set dialog message
-                    alertDialogBuilder
-                            .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
-                            .setCancelable(false)
-                            .setPositiveButton("Oui",new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    //fonction de suppression du livre dans la BDD
-
-                                }
-                            })
-                            .setNegativeButton("Non",new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    // show it
-                    alertDialog.show();
-
-                    return false;
-
-                }
-            });
-
-            GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-            gl.addView(ib, gridParam);
         }
         firstLoad = false; // la fonction aura donc été appelée au moins 1 fois
         return view;

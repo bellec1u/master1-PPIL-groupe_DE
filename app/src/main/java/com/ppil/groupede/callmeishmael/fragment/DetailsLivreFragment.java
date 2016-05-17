@@ -8,13 +8,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +50,9 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     private TextView auteur; // objet contenant le nom de l'auteur
     private TextView titre; // objet contenant le titre du livre
     private TextView langue; // objet contenant la langue de l'ouvrage
+
+    private Button commenter; // bouton pour demander à effectuer un commentaire
+    private LinearLayout layoutCommentaire; // layout contenant les commentaires
 
     /*
         ImageView des étoiles correspondant à la note
@@ -94,6 +101,8 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         star3 = (ImageView)view.findViewById(R.id.star3);
         star4 = (ImageView)view.findViewById(R.id.star4);
         star5 = (ImageView)view.findViewById(R.id.star5);
+        commenter = (Button) view.findViewById(R.id.commenter);
+        layoutCommentaire = (LinearLayout) view.findViewById(R.id.layout_commentaires);
 
         //On affecte à l'imageView notre image Bitmap
         imageLivre.setImageBitmap(image);
@@ -110,6 +119,30 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         dataManager.execute(adresse);
 
 
+        /*
+            Mise en place du listener pour commenter un livre,
+            on verifiera que l'utilisateur est bien connecté
+         */
+        commenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                    On demande à sessionManager si un utilisateur est log ou non
+                 */
+                SessionManager sessionManager = new SessionManager(getContext());
+                if(sessionManager.getSessionEmail().equals("email"))
+                {
+                    Toast.makeText(getContext(),"Vous devez être connecté pour commenter un livre",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    /*
+                        L'utilisateur est connecté, on peut donc le rediriger vers la page de redaction d'un commentaire
+                     */
+                    setCommenter();
+                }
+            }
+        });
         return view; // et on retourne la vue complétée de nos informations
     }
 
@@ -235,5 +268,13 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 star5.setImageBitmap(img);
                 break;
         }
+    }
+
+    /*
+        Permet de rediriger l'utilisateur vers le fragment permettant la redaction d'un commentaire/note
+     */
+    public void setCommenter()
+    {
+        //// TODO: 17/05/16  
     }
 }
