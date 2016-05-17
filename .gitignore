@@ -9,4 +9,5 @@ Homestead.json
 .DS_Store
 *.DS_Store
 /public/imageUser/
+/public/image_uploads/
 *~

@@ -49,8 +49,10 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::auth();
     // standard
-    Route::get('user', 'UserController@create');
-    Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
+    Route::resource('user', 'UserController',
+        ['except' => ['index', 'edit', 'destroy']]);
+//    Route::get('user', 'UserController@create');
+//    Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
     Route::get('/callback/{provider}', 'SocialAuthController@callback');
