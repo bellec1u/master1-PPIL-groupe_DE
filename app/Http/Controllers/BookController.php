@@ -57,7 +57,7 @@ class BookController extends Controller
     public function show($id)
     {
         $book = $this->bookRepository->getById($id);
-        return view('detailsBook', compact('book'));
+        return view('book/detailsBook', compact('book'));
     }
 
     /**
@@ -66,7 +66,7 @@ class BookController extends Controller
      */
     public function open($id)
     {
-        return view('basic');
+        return view('book/basic');
     }
 
     /**

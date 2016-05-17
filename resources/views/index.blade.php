@@ -1,4 +1,4 @@
-@extends('template')
+@extends('user.template')
 
 @section('titre')
     Call Me Ishmael | Référencement et Lecture d&#039;Ebooks

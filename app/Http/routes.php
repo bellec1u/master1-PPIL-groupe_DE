@@ -26,26 +26,24 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'HomeController@index');
 
     Route::get('inscription', function () {
-        return view('inscription');
+        return view('user/inscription');
     });
     Route::get('connexion', function () {
-        return view('connexion');
+        return view('user/connexion');
     });
     Route::get('contact', function () {
-        return view('contact');
+        return view('user/contact');
     });
     Route::get('create', function () {
-        return view('create');
+        return view('user/create');
     });
     Route::get('home', function () {
         return view('home');
     });
     Route::get('email_contact', function () {
-        return view('email_contact');
+        return view('user/email_contact');
     });
-    Route::get('photo', function () {
-        return view('photo');
-    });
+   
 
 
 

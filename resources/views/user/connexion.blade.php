@@ -1,4 +1,4 @@
-@extends('template')
+@extends('user.template')
 
 @section('titre')
     Connexion | Call Me Ishmael

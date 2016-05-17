@@ -1,4 +1,4 @@
-@extends('template')
+@extends('user.template')
 
 @section('titre')
     Inscription | Call Me Ishmael
@@ -49,6 +49,7 @@
                             <div class="date">
                                 <label>
                                     Date de naissance : {!! Form::date('birth_date',  \Carbon\Carbon::now()) !!}
+                                    {!! $errors->first('birth_date', '<small class="help-block">:message</small>') !!}
                                 </label>
                             </div>
                         </div>
