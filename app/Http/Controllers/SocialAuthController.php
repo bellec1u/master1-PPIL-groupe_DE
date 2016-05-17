@@ -17,14 +17,14 @@ class SocialAuthController extends Controller
     } 
   
 
-    public function callback(SocialAccountService $service, $provider)
+    public function callback(SocialAccountService $service, Request $request, $provider)
     {
-      $user = $service->createOrGetUser(Socialite::driver($provider));
-
-        auth()->login($user);
+        if (!$request->has('error')) {
+            $user = $service->createOrGetUser(Socialite::driver($provider));
+            auth()->login($user);
+        }
 
         return redirect()->to('/');
-
     }
    
 }
