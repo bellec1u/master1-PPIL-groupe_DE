@@ -60,7 +60,12 @@
                                 </label>
                             </div>
                         </div>
+                        
+
                         {!! Form::submit('Envoyer', ['class' => 'btn btn-primary pull-right']) !!}
+                        <a href="javascript:history.back()" class="btn btn-primary pull-right">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+                        </a>
                         {!! Form::close() !!}
 
 
