@@ -23,6 +23,9 @@ import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,6 +79,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver{
                         On demande l'adresse à Data pour effectuer une connexion
                      */
                     String adresse = Data.getData().getConnexion(email.getText().toString(),password.getText().toString());
+                    System.out.println(adresse);
 
                     /*
                         On instancie DataManager pour effectuer une requete à la base
@@ -113,15 +117,19 @@ public class ConnexionFragment extends Fragment implements DataReceiver{
      */
     @Override
     public void receiveData(String resultat) {
-        String res = resultat; // recuperation du resultat ici
-        if(res.equals("1"))
-        {
-            Toast.makeText(getContext()," Bonjour !", Toast.LENGTH_SHORT).show();
-            setAccueil();
-        }
-        else
-        {
-            Toast.makeText(getContext()," La combinaison email / mot de passe est incorrecte !", Toast.LENGTH_SHORT).show();
+        /*
+            On instancie un JSONObject afin de parcourir le résultat
+            si ce dernier est vide alors s'est que le compte n'existe pas
+         */
+        try {
+            JSONObject json = new JSONObject(resultat);
+            /*
+                Si on ne rentre pas dans l'exception alors on a un résultat,
+                on va parcourir ce dernier et créé un sessionManager
+             */
+            SessionManager sessionManager = new SessionManager(getContext());
+        } catch (JSONException e) {
+            Toast.makeText(getContext()," Combinaison email / mot de passe erronée ! ", Toast.LENGTH_SHORT);
         }
     }
 

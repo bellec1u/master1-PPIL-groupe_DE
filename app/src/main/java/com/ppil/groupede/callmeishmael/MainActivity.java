@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity
                         R.drawable.whale);
                 imagePerso.setImageBitmap(img);
             }
-            this.setProfileNavigation(nom, prenom, email, img);
+            this.setProfileNavigation(nom, prenom, email, img); // on demande la mise à jour du menu de navigation
             this.isConnected = true;
         } else { //deconnexion
             this.setMenuNoConnected();
