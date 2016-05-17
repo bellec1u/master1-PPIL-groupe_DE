@@ -27,6 +27,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
@@ -41,6 +42,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.ExecutionException;
 
 /*
     Activity principale, permet de switcher d'un fragment à l'autre,
@@ -239,9 +241,43 @@ public class MainActivity extends AppCompatActivity
     public boolean setConnection(boolean b) {
         if (b == true) { //connection
             this.setMenuConnected();
+            /*
+                On recupère les informations liées à l'utilisateur
+             */
+            SessionManager sessionManager = new SessionManager(this);
+            String nom;
+            String prenom;
+            String email;
+            String url;
+            Bitmap img = null;
+            nom = sessionManager.getSessionName();
+            prenom = sessionManager.getSessionFirstName();
+            email = sessionManager.getSessionEmail();
+            url = sessionManager.getSessionURL();
+            /*
+                On charge l'image à partir de l'URL si l'URL n'est pas vide,
+                donc on va utiliser BitmapManager
+             */
+            if(url.equals("")) {
+                try {
+                    BitmapManager bitmapManager = new BitmapManager(img);
+                    img = bitmapManager.execute(url).get();
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                        /*
+                            On convertie le drawable en Bitmap (image par défault)
+                        */
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.whale);
+                imagePerso.setImageBitmap(img);
+            }
+            this.setProfileNavigation(nom, prenom, email, img);
             this.isConnected = true;
         } else { //deconnexion
             this.setMenuNoConnected();
+            this.setProfileDefault(); // on affecte le profil par défaut
             this.isConnected = false;
         }
 
@@ -337,10 +373,12 @@ public class MainActivity extends AppCompatActivity
             public void onSuccess(LoginResult loginResult) {
                 getInfo(loginResult);
             }
+
             // connexion annulé
             @Override
             public void onCancel() {
             }
+
             //erruer lors de la connexion
             @Override
             public void onError(FacebookException error) {

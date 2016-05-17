@@ -81,12 +81,37 @@ public class SessionManager {
     }
 
     /*
-        Retourne l'id de session de l'utilisateur connecté
+        Retourne l'email de session de l'utilisateur connecté
      */
-    public String getSessionId()
+    public String getSessionEmail()
     {
         return preferences.getString(KEY_EMAIL,"email");
     }
+
+    /*
+        Retourne le nom de l'utilisateur
+     */
+    public String getSessionName() { return preferences.getString(KEY_LASTNAME,"lastname"); }
+
+    /*
+        Retourne le prenom de l'utilisateur
+     */
+    public String getSessionFirstName() { return preferences.getString(KEY_FIRSTNAME,"firstname"); }
+
+    /*
+        Retourne le mot de passe de l'utilisateur
+     */
+    public String getSessionPassword() { return preferences.getString(KEY_PASSWORD,"password"); }
+
+    /*
+        Retourne l'URL de la cover image de l'utilisateur
+     */
+    public String getSessionURL() { return preferences.getString(KEY_IMAGE,"follow"); }
+
+    /*
+        Retourne la chaine de caractere indiquant si l'utilisateur souhaite être suivi ou non
+     */
+    public String getSessionFollow() { return preferences.getString(KEY_FOLLOW,"image"); }
 
     /*
         Créé une session complète avec toutes les informations de l'utilisateur
@@ -95,7 +120,7 @@ public class SessionManager {
     public void createSession(String nom, String prenom, String email, String mdp, String date, String img, String follow)
     {
         //Indicate that a user is log
-        editor.putBoolean(IS_USER_LOGIN,true);
+        editor.putBoolean(IS_USER_LOGIN, true);
 
         editor.putString(KEY_EMAIL, email);
 
