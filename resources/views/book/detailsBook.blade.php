@@ -14,7 +14,9 @@
 				<p>Date de Parution : {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
 				<p>Note moyenne : {{ $book->stars_average  }}</p>
 				<p><a href="4/open" class="btn bg-primary">Ouvrir</a></p>
-				{!! Form::open(array('route'=>'storeUser','method'=>'POST', 'files'=>'true')) !!}
+				@if(Auth::check())
+					{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}
+				@endif
 			</div>
 		</div>				
 		<a href="javascript:history.back()" class="btn btn-primary">

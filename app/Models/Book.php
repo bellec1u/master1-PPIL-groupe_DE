@@ -7,16 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     protected $fillable = [
+        'id',
         'title',
         'author',
         'publication_date',
         'resume',
         'genre',
         'language',
-        'star_average',
+        'stars_average',
         'url',
         'cover_url',
         'page_number'
     ];
 
+    public function ratings(){
+        return $this->hasMany('App\Models\Rating');
+    }
 }
