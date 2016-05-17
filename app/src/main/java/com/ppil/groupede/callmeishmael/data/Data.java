@@ -49,6 +49,23 @@ public class Data {
     }
 
     /*
+    Retourne l'URL nécessaire pour effectuer une modification des informations personnelles de l'utilisateur
+ */
+    public String getModification(String nom, String prenom, String email, String password, String profile_image, String genre, String date, String oldMail, String oldPwd)
+    {
+        return (adresse + "/requetes/modification.php?" +
+                "email=" + email +
+                "&password=" + password +
+                "&prenom=" + prenom +
+                "&nom=" + nom +
+                "&sexe=" + genre +
+                "&date=" + date +
+                "&cover_url=" + profile_image +
+                "&oldemail=" + oldMail +
+                "&oldpwd=" + oldPwd);
+
+    }
+    /*
         Retourne l'URL nécessaire pour vérifier une connexion
      */
     public String getConnexion(String email, String password)
