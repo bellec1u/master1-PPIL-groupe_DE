@@ -2,6 +2,8 @@ package com.ppil.groupede.callmeishmael;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
@@ -13,7 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -43,13 +47,13 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private NavigationView navigationView = null;
-    private Toolbar toolbar = null;
-    private boolean isConnected = false;
-    private TextView nomPrenom;
-    private TextView adresseMail;
-    private ImageView imagePerso;
-    private CallbackManager callbackManager;
+    private NavigationView navigationView = null; // attribut pour recuperer le NavigationView
+    private Toolbar toolbar = null; // toolbar
+    private boolean isConnected = false; // booleen qui indique si l'utilisateur est connecté
+    private TextView nomPrenom; // Permet de recupérer le nomPrenom dans notre nav_header_main
+    private TextView adresseMail; // Permet de recupérer l'adresse mail dans notre nav_header_main
+    private ImageView imagePerso; // Permet de recupérer l'image de l'utilisateur
+    private CallbackManager callbackManager; // permet de gérer les callBacks lors de la connexion avec Facebook est établit.
 
     /*
     Fonction permettant de créer et de retourner le Fragment avec les divers
@@ -66,12 +70,18 @@ public class MainActivity extends AppCompatActivity
             StrictMode.setThreadPolicy(policy);
         }
         setContentView(R.layout.activity_main);
+        /*
+            On récupère les élements du profil,
+            nomPrenom,
+            adresseMail,
+            imagePerso
+         */
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-/*        nomPrenom = (TextView) findViewById(R.id.header_main).findViewById(R.id.header_nom_prenom);
-        nomPrenom.setText("rerer");
-        adresseMail = (TextView) findViewById(R.id.header_mail);
-        imagePerso = (ImageView) findViewById(R.id.header_imagePerso);*/
-
+        View header = navigationView.getHeaderView(0);
+        nomPrenom = (TextView) header.findViewById(R.id.header_nom_prenom);
+        adresseMail = (TextView) header.findViewById(R.id.header_mail);
+        imagePerso = (ImageView) header.findViewById(R.id.header_imagePerso);
+        /* --------------------------------------------------------------------- */
 
         // Set the title initially
         this.setTitle("Accueil");
@@ -251,6 +261,40 @@ public class MainActivity extends AppCompatActivity
         mi.setVisible(true);
 
         return true;
+    }
+
+    /*
+        Affecte au profil situé en haut a gauche de l'application les données suivantes,
+        cette fonction est appelée lorsque l'utilisateur vient de se connecter, si l'utilisateur se déconnecte
+        on appelera plutôt la fonction setProfileDefault
+     */
+    public void setProfileNavigation(String nom, String prenom, String email, Bitmap imageProfile)
+    {
+        /*
+            On change les valeurs du profil en fonction des attributs liés à l'utilisateur
+         */
+        nomPrenom.setText(prenom+ " "+nom);
+        adresseMail.setText(email);
+        imagePerso.setImageBitmap(imageProfile);
+    }
+
+    /*
+        Affecte au profil les données standards
+     */
+    public void setProfileDefault()
+    {
+        String nomPm = "anonyme"; // nomPrenom par default
+        String mail = "anonyme@anonyme.fr"; // adresse mail de notre utilisateur anonyme
+        nomPrenom.setText(nomPm); // on y affecte la bonne valeure
+        adresseMail.setText(mail); // on y affecte l'adresse mail
+
+        /*
+            On convertie le drawable en Bitmap
+         */
+        Bitmap img = BitmapFactory.decodeResource(getResources(),
+                R.drawable.whale);
+        imagePerso.setImageBitmap(img);
+
     }
 
     public boolean setMenuNoConnected() {
