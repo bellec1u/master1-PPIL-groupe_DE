@@ -75,6 +75,13 @@ public class Data {
     }
 
     /*
+        Retourne l'URL nécessaire pour supprimer un utilisateur avec un email comme parametre
+     */
+    public String getDeleteUser(String email){
+        return (adresse + "/requetes/delete.php?email=" + email);
+    }
+
+    /*
         Retourne l'instance de Data, car singleton
      */
     public static Data getData()

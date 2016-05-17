@@ -1,6 +1,8 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,7 +20,13 @@ import android.widget.Toast;
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
+import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
@@ -26,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MonCompteFragment extends Fragment {
+public class MonCompteFragment extends Fragment implements DataReceiver{
 
     /*
         Classe permettant de visualiser le Compte d'un utilisateur, et de modifier ses informations personnelles
@@ -129,6 +137,43 @@ public class MonCompteFragment extends Fragment {
             }
         });
 
+        /*
+            Listener pour la demande de désinscription de l'utilisateur
+         */
+        desinscrire.setOnClickListener(new View.OnClickListener() {
+            /*
+                Création d'une fenetre de dialogue pour demander confirmation à l'utilisateur de son action
+             */
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(v.getContext())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Confirmation de désinscription")
+                        .setMessage("Voulez vous vraiment supprimer votre compte ?")
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                /*
+                                    L'utilisateur confirme donc son choix, on demande
+                                    au serveur de supprimer son compte.
+                                    On charge l'email de l'utilisateur grace à sessionManager
+                                 */
+                                SessionManager sessionManager = new SessionManager(getContext());
+                                String emailSession = sessionManager.getSessionEmail();
+                                String adresse = Data.getData().getDeleteUser(emailSession);
+                                /*
+                                    On instancie et execute DataManager
+                                 */
+                                DataManager dataManager = new DataManager(MonCompteFragment.this);
+                                dataManager.execute(adresse);
+                            }
+
+                        })
+                        .setNegativeButton("Non", null)
+                        .show();
+
+            }
+        });
         return view;
     }
 
@@ -146,4 +191,41 @@ public class MonCompteFragment extends Fragment {
         ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
     }
 
+    /*
+Renvoie l'utilisateur vers le fragment Accueil, en vue cette fois ci connecté
+*/
+    public void setAccueil()
+    {
+        AccueilFragment fragment = new AccueilFragment();
+        SessionManager sessionManager = new SessionManager(getContext());
+        sessionManager.logOut();
+        getActivity().setTitle("Accueil");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        ((MainActivity)getActivity()).setConnection(false); // l'utilisateur est connecté
+    }
+    /*
+    Fonction permettant de traiter les résultats recu par une requete http (GET) du serveur,
+    dans ce Fragment, on récupera ici si la suppresion s'est bien passé ou non.
+    */
+    @Override
+    public void receiveData(String resultat) {
+        /*
+            On verifie directement le résultat, soit true soit false
+        */
+        if(resultat.equals("true"))
+        {
+            // La desinscription a été faite avec succès
+            Toast.makeText(getContext()," Votre désinscription a bien été prise en compte",Toast.LENGTH_SHORT).show();
+            setAccueil();
+        }
+        else {
+            // Une erreur s'est produite
+            Toast.makeText(getContext(), " Oups ! Une erreur s'est produite...", Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }
