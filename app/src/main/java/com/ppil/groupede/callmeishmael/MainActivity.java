@@ -2,8 +2,6 @@ package com.ppil.groupede.callmeishmael;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
@@ -15,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +35,11 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/*
+    Activity principale, permet de switcher d'un fragment à l'autre,
+    cette activity genre aussi les modes de connexion : anonyme, et connecté.
+    On peut également avoir accès à un menu sur le côté à partir du clic sur l'icone en haut à gauche
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,6 +51,10 @@ public class MainActivity extends AppCompatActivity
     private ImageView imagePerso;
     private CallbackManager callbackManager;
 
+    /*
+    Fonction permettant de créer et de retourner le Fragment avec les divers
+    élements contenus dans ce dernier...
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +71,8 @@ public class MainActivity extends AppCompatActivity
         nomPrenom.setText("rerer");
         adresseMail = (TextView) findViewById(R.id.header_mail);
         imagePerso = (ImageView) findViewById(R.id.header_imagePerso);*/
+
+
         // Set the title initially
         this.setTitle("Accueil");
         // Set the fragment initially
@@ -263,7 +271,9 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
+    /*
+        Gere la connexion avec l'API Facebook
+     */
     public void connexionFacebook() {
         /*
             identifiant à utiliser :
