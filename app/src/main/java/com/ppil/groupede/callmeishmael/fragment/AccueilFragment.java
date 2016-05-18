@@ -302,14 +302,16 @@ public class AccueilFragment extends Fragment implements DataReceiver {
                     le get() fait en sorte que l'UIThread attend le resultat.
                  */
                 bitmap = bitmapManager.execute(jsonObject.getString("cover_url")).get();
+                if(bitmap != null) {
                 /*
                     On redimensionne l'image (si besoin est)
                  */
-                bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
+                    bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
                 /*
                     On l'affecte à notre objet de classe
                  */
-                top[i].setImageBitmap(bitmap);
+                    top[i].setImageBitmap(bitmap);
+                }
 
                 /*
                     On créer maintenant un onClickListener pour ouvrir le fragment DetailsLivreFragment

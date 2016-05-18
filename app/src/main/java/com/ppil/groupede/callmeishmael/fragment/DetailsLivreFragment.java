@@ -1,11 +1,11 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
-import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,7 +108,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
         for(int i = 0 ; i < (3) ; i++)
         {
-            ft.add(R.id.layout_commentaires, new CommentaireFragment(), "test" + i);
+            ft.add(R.id.layout_commentaires, new CommentaireFragment("test"+i,i,"super livre"+i), "test" + i);
             //System.out.println(new CommentaireFragment());
         }
         ft.commit();
@@ -293,6 +293,12 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     public void setCommenter()
     {
         //// TODO: 17/05/16
-
+        EcrireCommentaireFragment fragment = new EcrireCommentaireFragment();
+        getActivity().setTitle("Ecrire un commentaire");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
