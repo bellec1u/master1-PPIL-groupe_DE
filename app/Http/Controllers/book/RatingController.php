@@ -42,28 +42,32 @@ class RatingController extends Controller
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
         $this->ratingRepository->store($inputs);
 
-        // on recupère toutes les notes  du livre
-        $notesRepository = $this->ratingRepository->getArraycom($request->book_id);
+        if($request->stars !=0){
+            // on recupère toutes les notes  du livre
+            $notesRepository = $this->ratingRepository->getArraycom($request->book_id);
 
-        $nbNotes = $notesRepository->count();
-
-        // on calcule la somme de toutes les notes
-        $notesRepository->each(function($noteRepository){
-
-            $this->noteMoyenne += $noteRepository->stars;
-        });
-        // on calcule la moyenne
-        $this->noteMoyenne /= $nbNotes;
-
-        // on recupère le livre
-        $book = $this->bookRepository->getById($request->book_id);
-        // on modifie sa moyenne
-        $book->stars_average = $this->noteMoyenne;
+            $nbNotes = $notesRepository->count();
 
 
+            // on calcule la somme de toutes les notes
+            $notesRepository->each(function($noteRepository){
 
-        // on enregistre la modification dans la base de données.
-        $this->bookRepository->update($request->book_id, $book->toArray());
+                $this->noteMoyenne += $noteRepository->stars;
+            });
+            // on calcule la moyenne
+            $this->noteMoyenne /= $nbNotes;
+
+            // on recupère le livre
+            $book = $this->bookRepository->getById($request->book_id);
+            // on modifie sa moyenne
+            $book->stars_average = $this->noteMoyenne;
+
+
+
+            // on enregistre la modification dans la base de données.
+            $this->bookRepository->update($request->book_id, $book->toArray());
+        }
+
 
 
         return redirect()->route('bookReturn', ['id' => $request->book_id]);
@@ -85,8 +89,33 @@ class RatingController extends Controller
 
     public function update(RatingCreateRequest $request){
         $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
-        
         $this->ratingRepository->update($request->id,$inputs);
+            // on recupère toutes les notes  du livre
+            $notesRepository = $this->ratingRepository->getArraycom($request->book_id);
+
+            $nbNotes = $notesRepository->count();
+
+
+            // on calcule la somme de toutes les notes
+            $notesRepository->each(function($noteRepository){
+
+                $this->noteMoyenne += $noteRepository->stars;
+            });
+            // on calcule la moyenne
+            $this->noteMoyenne /= $nbNotes;
+
+            // on recupère le livre
+            $book = $this->bookRepository->getById($request->book_id);
+            // on modifie sa moyenne
+            $book->stars_average = $this->noteMoyenne;
+
+
+
+            // on enregistre la modification dans la base de données.
+            $this->bookRepository->update($request->book_id, $book->toArray());
+
+
+
         return redirect()->route('bookReturn', ['id' => $request->book_id]);
     }
     
@@ -96,6 +125,41 @@ class RatingController extends Controller
         if (Auth::user()->id == $rating->user_id) {
 
             $this->ratingRepository->destroy($id);
+                // on recupère toutes les notes  du livre
+
+            $notesRepository = $this->ratingRepository->getArraycom($idBook);
+                $nbNotes = $notesRepository->count();
+                if($nbNotes != 0) {
+                    $notesRepository->each(function ($noteRepository) {
+
+                        $this->noteMoyenne += $noteRepository->stars;
+                    });
+                    // on calcule la moyenne
+                    $this->noteMoyenne /= $nbNotes;
+                }
+                    else{
+                    $this->noteMoyenne =0;
+                    }
+
+
+                // on calcule la somme de toutes les notes
+
+                // on recupère le livre
+                $book = $this->bookRepository->getById($rating->book_id);
+                // on modifie sa moyenne
+                $book->stars_average = $this->noteMoyenne;
+
+
+
+                // on enregistre la modification dans la base de données.
+                $this->bookRepository->update($rating->book_id, $book->toArray());
+
+
+
+
+
+
+
             return redirect()->route('bookReturn', ['id' => $idBook]);
         }
         else{
