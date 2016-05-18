@@ -9,7 +9,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -26,59 +26,79 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/commentaire_star1"
-                android:background="@drawable/fullstar"/>
+                />
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/commentaire_star2"
-                android:background="@drawable/fullstar"/>
+                />
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/commentaire_star3"
-                android:background="@drawable/fullstar"/>
+                />
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/commentaire_star4"
-                android:background="@drawable/fullstar"/>
+               />
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/commentaire_star5"
-                android:background="@drawable/fullstar"/>
+                />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:weightSum="1">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <GridLayout
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:rowCount="1"
+                android:columnCount="3"
+                android:layout_marginLeft="50dp">
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="193dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:text="Modifier"
-                    android:id="@+id/commentaire_bouton1" />
+                    android:id="@+id/commentaire_modifier" />
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Suivre"
+                    android:id="@+id/commentaire_suivre"
+                    />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:text="Supprimer"
-                    android:id="@+id/commentaire_bouton2"
+                    android:id="@+id/commentaire_supprimer"
                     />
-            </LinearLayout>
+            </GridLayout>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:text="commentaire"
             android:id="@+id/commentaire_resume" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimary" />
+
     </LinearLayout>
+
 </FrameLayout>

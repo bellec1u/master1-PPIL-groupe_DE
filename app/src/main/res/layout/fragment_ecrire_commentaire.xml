@@ -1,0 +1,90 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EcrireCommentaireFragment">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:text="Votre évaluation : "
+                android:id="@+id/commentaire_ecrire_auteur" />
+
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/commentaire_ecrire_star1"
+                android:background="@drawable/empty_star"
+                />
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/commentaire_ecrire_star2"
+                android:background="@drawable/empty_star"
+                />
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/commentaire_ecrire_star3"
+                android:background="@drawable/empty_star"
+                />
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/commentaire_ecrire_star4"
+                android:background="@drawable/empty_star"
+                />
+            <ImageButton
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/commentaire_ecrire_star5"
+                android:background="@drawable/empty_star"
+                />
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="commentaire"
+            android:id="@+id/commentaire_ecrire_commentaire"
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?;.!-^'^= "
+            />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Valider"
+            android:id="@+id/commentaire_ecrire_valider"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:background="@drawable/button_style"
+            android:clickable="true"
+            android:width="200dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimary" />
+
+    </LinearLayout>
+
+</FrameLayout>
