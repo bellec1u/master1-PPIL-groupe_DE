@@ -19,7 +19,6 @@ class CreateAccessPathsTable extends Migration
             $table->integer('book_id')->unsigned();
             $table->string('url');
             $table->string('device');
-            $table->timestamps();
 
             $table->foreign('user_id')
                 ->references('id')
