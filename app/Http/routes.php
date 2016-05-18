@@ -59,8 +59,8 @@ Route::group(['middleware' => 'web'], function () {
     // standard
     Route::resource('user', 'UserController',
         ['except' => ['index', 'edit', 'destroy']]);
-//    Route::get('user', 'UserController@create');
-//    Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
+    Route::get('user/verify/{token}', 'UserController@confirmEmail')
+        ->where('token', '[a-zA-Z0-9]+');
     
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'SocialAuthController@redirect');

@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration
             $table->date('birth_date');
             $table->string('profile_image');
             $table->boolean('following_allowed');
-            $table->boolean('email_validated');
+            $table->boolean('email_validated')->default(false);
+            $table->string('validation_code')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
