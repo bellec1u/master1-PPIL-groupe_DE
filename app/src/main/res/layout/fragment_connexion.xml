@@ -67,6 +67,27 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp" />
 
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/bt_sign_in_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"   />
+
+        <Button
+            android:id="@+id/bt_deconnexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Déconnexion G+"
+            android:gravity="center_horizontal"
+            android:clickable="true"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"
+            android:width="200dp"
+            android:visibility="gone"
+            android:background="@drawable/button_style"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 
 </ScrollView>

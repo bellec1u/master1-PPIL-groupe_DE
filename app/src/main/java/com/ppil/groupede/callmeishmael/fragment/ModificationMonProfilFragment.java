@@ -412,7 +412,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                         json.getString("ddn"),
                         json.getString("image"),
                         json.getString("follow"),
-                        json.getString("sexe"));
+                        json.getString("sex"));
                 setProfile();
             }
             else
