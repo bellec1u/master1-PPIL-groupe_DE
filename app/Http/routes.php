@@ -60,13 +60,15 @@ Route::group(['middleware' => 'web'], function () {
     
     // book access
     // details
-    Route::get('book/{id}', 'BookController@show')->where('id', '[0-9]+');
+    Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'BookController@show'])->where('id', '[0-9]+');
     Route::get('book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
 
     // book modif
     Route::get('createRating/{id}', 'book\RatingController@create')->where('id', '[0-9]+');
     Route::post('storeRating', ['uses' => 'book\RatingController@store', 'as' => 'storeRating']);
-    Route::get('destroyRating/{id}', 'book\RatingController@create')->where('id', '[0-9]+');
+    Route::get('destroyRating/{id}/{idbook}', 'book\RatingController@destroy')->where('id', '[0-9]+')->where('idbook', '[0-9]+');
+    Route::get('editRating/{id}', 'book\RatingController@edit')->where('id', '[0-9]+');
+    Route::post('updateRating', ['uses' => 'book\RatingController@update', 'as' => 'updateRating']);
    
 });
 

@@ -11,3 +11,6 @@ use App\Http\Controllers\Controller;
 
 class ReadingController extends Controller
 {
+
+    
+}
