@@ -92,7 +92,7 @@ class RatingController extends Controller
         $this->ratingRepository->update($request->id,$inputs);
             // on recupère toutes les notes  du livre
             $notesRepository = $this->ratingRepository->getArraycom($request->book_id);
-$
+
             $nbNotes = $notesRepository->count();
 
 
