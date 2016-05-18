@@ -1,6 +1,7 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -169,6 +170,14 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             titre.setText(o.getString("title"));
             langue.setText("Langue : "+o.getString("language"));
 
+           /* android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+            for(int i = 0 ; i < (o.getInt("nbCommentaire")) ; i++)
+            {
+                ft.add(R.id.layout_commentaires, new CommentaireFragment(), "test" + i);
+                //System.out.println(new CommentaireFragment());
+            }
+            ft.commit();
+            */
             /*
                 On affiche les étoiles selon la note trouvée
              */
@@ -275,6 +284,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
      */
     public void setCommenter()
     {
-        //// TODO: 17/05/16  
+        //// TODO: 17/05/16
+
     }
 }

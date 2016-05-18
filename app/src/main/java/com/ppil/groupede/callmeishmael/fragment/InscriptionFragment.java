@@ -209,15 +209,15 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
             mois = Integer.valueOf(moisS);
             jour = Integer.valueOf(jourS);
             if (annee < 1900 || annee > 2016) {
-                Toast.makeText(getContext()," Année incorrecte !",Toast.LENGTH_SHORT);
+                Toast.makeText(getContext()," Année incorrecte !",Toast.LENGTH_SHORT).show();
                 return false;
             }
             if (mois < 1 || mois > 12) {
-                Toast.makeText(getContext()," Mois incorrect !",Toast.LENGTH_SHORT);
+                Toast.makeText(getContext()," Mois incorrect !",Toast.LENGTH_SHORT).show();
                 return false;
             }
             if (jour < 1 || jour > 31) {
-                Toast.makeText(getContext()," Jour incorrect !",Toast.LENGTH_SHORT);
+                Toast.makeText(getContext()," Jour incorrect !",Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -241,6 +241,12 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
          */
         if(tmp.length() == 0){
             Toast.makeText(getContext()," Le champ "+ nomChamp + " est vide !", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        champ = tmp.replaceAll("-","");
+        if(champ.length() == 0)
+        {
+            Toast.makeText(getContext()," Le champ "+ nomChamp + " est incorrect !", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

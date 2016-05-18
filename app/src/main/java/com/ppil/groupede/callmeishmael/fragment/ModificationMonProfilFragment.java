@@ -281,6 +281,12 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
             Toast.makeText(getContext()," Le champ "+ nomChamp + " est vide !", Toast.LENGTH_SHORT).show();
             return false;
         }
+        champ = tmp.replaceAll("-","");
+        if(champ.length() == 0)
+        {
+            Toast.makeText(getContext()," Le champ "+ nomChamp + " est incorrect !", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         return true;
     }
 
