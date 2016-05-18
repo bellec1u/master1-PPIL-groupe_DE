@@ -78,8 +78,8 @@
         </script>
     </head>
     <body>
-    <a href="{{URL::route('/')}}" class="btn btn-primary"> Quitter </a>
-        <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+    <a href="{{ $_GET['path'] }}" class="btn btn-primary"> Quitter </a>
+        <span class="glyphicon glyphicon-circle-arrow-left"></span>
     </a>
         <div id="main">
           <div id="prev" onclick="Book.prevPage();" class="arrow">‹</div>

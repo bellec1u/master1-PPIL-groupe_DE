@@ -70,7 +70,7 @@ Route::group(['middleware' => 'web'], function () {
     // book access
     // details
     Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'BookController@show'])->where('id', '[0-9]+');
-    Route::get('book/{id}/open', ['as' => 'bookOpen', 'uses' => 'BookController@open'])->where('id', '[0-9]+');
+    Route::get('book/{id}/open/', ['as' => 'bookOpen', 'uses' => 'BookController@open'])->where('id', '[0-9]+');
 
     // book modif
     Route::get('createRating/{id}', 'book\RatingController@create')->where('id', '[0-9]+');

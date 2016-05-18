@@ -72,6 +72,7 @@ class BookController extends Controller
      */
     public function open($id)
     {
+
         return view('book/basic');
     }
 

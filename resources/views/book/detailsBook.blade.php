@@ -13,7 +13,7 @@
 				<p>Langue : {{ $book->language  }}</p>
 				<p>Date de Parution : {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
 				<p>Note moyenne : {{ $book->stars_average  }}</p>
-				<p><a href="{{URL::route('bookOpen', array('id'=>'4'))}}" class="btn bg-primary">Ouvrir</a></p>
+				<p><a href="{{URL::route('bookOpen', array('id'=>'4', 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a></p>
 				@if(Auth::check())
 				<p>{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}</p>
 
