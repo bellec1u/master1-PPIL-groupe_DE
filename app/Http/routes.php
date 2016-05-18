@@ -48,7 +48,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('email_contact', function () {
         return view('user/email_contact');
     });
-    
+    //Juste un teste pour la consultation de la bibliotheque perso
     Route::get('consulter_biblio', function () {
         return view('consulter');
     });
@@ -61,6 +61,7 @@ Route::group(['middleware' => 'web'], function () {
         ['except' => ['index', 'edit', 'destroy']]);
 //    Route::get('user', 'UserController@create');
 //    Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
+    
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
     Route::get('/callback/{provider}', 'SocialAuthController@callback');

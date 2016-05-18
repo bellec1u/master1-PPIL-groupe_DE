@@ -17,4 +17,5 @@ class Reading extends Model
     }
     public function book(){
         return $this->belongsTo('App\Models\book');
-    }}
+    }
+}
