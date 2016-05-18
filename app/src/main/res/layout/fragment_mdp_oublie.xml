@@ -16,19 +16,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Adresse mail :"
-            android:id="@+id/textView23" />
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/editText16" />
+            android:id="@+id/editText_mail"
+            android:hint="Adresse mail" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/button_ok"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 </LinearLayout>
