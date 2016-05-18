@@ -66,16 +66,18 @@ class RatingController extends Controller
         $this->bookRepository->update($request->book_id, $book->toArray());
 
 
-        return redirect(route('/'));
+        return redirect()->route('bookReturn', ['id' => $request->book_id]);
     }
     
     public function edit($id){
-        if (Auth::check())
+        $ratings = $this->ratingRepository->getById($id);
+        if (Auth::user()->id == $ratings->user_id)
         {
 
-
-            $ratings = $this->ratingRepository->getById($id);
             return view('book/editRating', compact('ratings'));
+        }
+        else{
+            return redirect()->route('bookReturn', ['id' => $ratings->book_id]);
         }
 
 
@@ -90,7 +92,14 @@ class RatingController extends Controller
     
     
     public function destroy($id, $idBook){
-        $this->ratingRepository->destroy($id);
-        return redirect()->route('bookReturn', ['id' => $idBook]);
+        $rating = $this->ratingRepository->getById($id);
+        if (Auth::user()->id == $rating->user_id) {
+
+            $this->ratingRepository->destroy($id);
+            return redirect()->route('bookReturn', ['id' => $idBook]);
+        }
+        else{
+            return redirect()->route('/');
+        }
     }
 }
