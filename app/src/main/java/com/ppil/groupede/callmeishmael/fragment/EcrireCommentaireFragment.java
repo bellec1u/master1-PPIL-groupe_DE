@@ -97,41 +97,18 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
                 else
                 {
                     /*
-                        Si le commentaire est un NOUVEAU commentaire alors on execute le code ci-dessous
-                     */
-                    if(!modification) {
-                    /*
                         J'instancie Data pour recuperer l'URL de creation d'un commentaire
                         J'instancie SessinManager pour recuperer egalement l'email de l'utilisateur
                      */
                         SessionManager sessionManager = new SessionManager(getContext());
                         String email = sessionManager.getSessionEmail();
-                        String adresse = Data.getData().getURLCommentaire(idLivre, email, tmp, note);
-
+                        String adresse = Data.getData().getURLCommentaire(idLivre, email, com, note);
+                    System.out.println(adresse);
                     /*
                         On demande a DataManager de faire la requete au serveur
                      */
                         DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
                         dataManager.execute(adresse);
-                    }
-                    else{
-                        //le commentaire soit etre update dans la base et pas INSERT
-                        /*
-                        J'instancie Data pour recuperer l'URL de creation d'un commentaire
-                        J'instancie SessinManager pour recuperer egalement l'email de l'utilisateur
-                     */
-                        SessionManager sessionManager = new SessionManager(getContext());
-                        String email = sessionManager.getSessionEmail();
-                        String adresse = Data.getData().getURLModifierCommentaire(idLivre, email, tmp, note);
-                        System.out.println(adresse);
-
-                                            /*
-                        On demande a DataManager de faire la requete au serveur
-                     */
-                        DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
-                        dataManager.execute(adresse);
-
-                    }
                 }
             }
         });

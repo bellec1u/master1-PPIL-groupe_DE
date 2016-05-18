@@ -222,9 +222,10 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
     public void receiveData(String resultat) {
         // effectue un refresh
         System.out.println("REFRESH");
+        DetailsLivreFragment fragment = new DetailsLivreFragment(fragmentHome.getIdLivre(),fragmentHome.getImage());
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragmentHome);
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
