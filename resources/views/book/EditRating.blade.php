@@ -19,8 +19,8 @@
         <div class="panel panel-info">
             <div class="panel-heading">Ajout d'un article</div>
             <div class="panel-body">
-                <A href="javascript:;" onClick="supprimer();">Suprimer</A>
-                {!! link_to('destroyRating/'.$ratings->id.'/'.$ratings->book_id, 'Supprimer', $attribute = array(), $secrure = null ) !!}
+                <A href="javascript:;" onClick="supprimer();">Supprimer</A>
+
 
                 {!! Form::open(array('route'=>'updateRating','method'=>'POST', 'files'=>'true')) !!}
                 {!! csrf_field() !!}

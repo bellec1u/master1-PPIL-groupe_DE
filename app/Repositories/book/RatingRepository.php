@@ -16,7 +16,7 @@ class RatingRepository extends ResourceRepository
 
     public function getArraycom($id_book){
 
-        return $this->rating->where('book_id', '=' , $id_book);
+        return $this->rating->where('book_id', '=' , $id_book)->where('stars', '>' , '0');
     }
     public function getRatingId($id_book){
         return Rating::where('book_id', '=' , $id_book)->get();
