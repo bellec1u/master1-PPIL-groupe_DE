@@ -58,6 +58,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <b>Utilisateur</b> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Paramètres</a></li>
+                            <li>{!! link_to('book/consultBibliotheque', 'voir sa bibliothèque', $attribute = array(), $secrure = null ) !!}</li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ url('logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                         </ul>
