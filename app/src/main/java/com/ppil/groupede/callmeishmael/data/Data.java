@@ -110,6 +110,15 @@ public class Data {
     }
 
     /*
+        Retourne l'URL nécessaire pour demander la suppression d'un commentaire
+     */
+    public String getURLSupprimerCommentaire(String emailUtilisateur, int idCommentaire)
+    {
+        return (adresse + "/requetes/decommenter.php?email=" + emailUtilisateur +
+        "&id=" + idCommentaire);
+    }
+
+    /*
         Retourne l'instance de Data, car singleton
      */
     public static Data getData()

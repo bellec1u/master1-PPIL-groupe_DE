@@ -2,24 +2,35 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.DataReceiver;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
+
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 @SuppressLint("ValidFragment")
-public class CommentaireFragment extends Fragment {
+public class CommentaireFragment extends Fragment implements DataReceiver{
 
     /*
         Fragment permettant la mise en place d'un commentaire,
@@ -52,9 +63,10 @@ public class CommentaireFragment extends Fragment {
     private boolean suiviCommentaire; // indique si l'utilisateur veut etre suivi ou non
     private boolean monCommentaire; // indique si ce commentaire est celui de l'utilisateur connecté
     private int idCommentaire; // id du commentaire dans la base de donnée
+    private DetailsLivreFragment fragmentHome;
 
     @SuppressLint("ValidFragment")
-    public CommentaireFragment(String auteur, float note, String resume, int follow, boolean mine, int id) {
+    public CommentaireFragment(String auteur, float note, String resume, int follow, boolean mine, int id, DetailsLivreFragment frag) {
         // Required empty public constructor
         auteurCommentaire = auteur;
         noteCommentaire = note;
@@ -62,6 +74,7 @@ public class CommentaireFragment extends Fragment {
         suiviCommentaire = (follow == 1) ; // indique si l'utilisateur veut etre suivi = à 1 donc...
         monCommentaire = mine;
         idCommentaire = id;
+        fragmentHome = frag;
     }
 
 
@@ -80,18 +93,33 @@ public class CommentaireFragment extends Fragment {
         resume = (TextView) view.findViewById(R.id.commentaire_resume);
 
         modifier = (Button) view.findViewById(R.id.commentaire_modifier);
-        modifier.setEnabled(monCommentaire);
         supprimer = (Button) view.findViewById(R.id.commentaire_supprimer);
-        supprimer.setEnabled(monCommentaire);
         suivre = (Button) view.findViewById(R.id.commentaire_suivre);
-        suivre.setEnabled(suiviCommentaire);
 
+        /*
+            On met à jour la visiblité des boutons selon les booléens présents
+         */
+        if(!(suiviCommentaire && !monCommentaire)){
+            suivre.setVisibility(View.GONE);
+        }
+        if(!monCommentaire)
+        {
+            modifier.setVisibility(View.GONE);
+            supprimer.setVisibility(View.GONE);
+        }
         /*
             On affecte aux bons éléments les bonnes valeurs
          */
         auteur.setText(auteurCommentaire);
         resume.setText(resumeCommentaire);
         setStars(noteCommentaire);
+
+        /*
+            On affecte aux boutons les listeners correspondants
+         */
+        modifier.setOnClickListener(new ModifierCommentaire());
+        supprimer.setOnClickListener(new SupprimerCommentaire());
+        suivre.setOnClickListener(new SuivreCommentaire());
 
 
         return view;
@@ -184,6 +212,80 @@ public class CommentaireFragment extends Fragment {
                         R.drawable.halfstar);
                 star5.setImageBitmap(img);
                 break;
+        }
+    }
+
+    /*
+        Fonction appelée lorsque le fragment recoit la reponse venant du serveur.
+     */
+    @Override
+    public void receiveData(String resultat) {
+        // effectue un refresh
+        System.out.println("REFRESH");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragmentHome);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    /*
+        Listener appelé lorsque le bouton 'modifier' est cliqué
+     */
+    class ModifierCommentaire implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
+    /*
+        Listener appelé lorsque le bouton 'supprimer' est cliqué
+        L'utilisateur se
+     */
+    class SupprimerCommentaire implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(v.getContext())
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Confirmation de suppression")
+                    .setMessage("Voulez vous vraiment supprimer votre commentaire ?")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                                /*
+                                    L'utilisateur confirme donc son choix, on demande
+                                    au serveur de supprimer son commentaire.
+                                    On charge l'email de l'utilisateur grace à sessionManager
+                                 */
+                            SessionManager sessionManager = new SessionManager(getContext());
+                            String emailSession = sessionManager.getSessionEmail();
+                            String adresse = Data.getData().getURLSupprimerCommentaire(emailSession, idCommentaire);
+                            System.out.println(adresse);
+                                /*
+                                    On instancie et execute DataManager
+                                 */
+                            DataManager dataManager = new DataManager(CommentaireFragment.this);
+                            dataManager.execute(adresse);
+                        }
+
+                    })
+                    .setNegativeButton("Non", null)
+                    .show();
+        }
+    }
+    
+    /*
+        Listener appelé lorsque le bouton 'suivre' est enclenché,
+        cependant cette fonctionnalité n'est pas encore implanté 
+     */
+    class SuivreCommentaire implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            //// TODO: 18/05/16
         }
     }
 }

@@ -219,8 +219,6 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                             (annee + "-" + mois + "-" + jour) ,
                             sessionManager.getSessionEmail(),
                             sessionManager.getSessionPassword());
-                    System.out.println(adresse);
-                    System.out.println(sessionManager.getSessionPassword());
                     //Acces a la base de donnée ici...
                     DataManager dataManager = new DataManager(ModificationMonProfilFragment.this);
                     dataManager.execute(adresse); // execution en arriere plan

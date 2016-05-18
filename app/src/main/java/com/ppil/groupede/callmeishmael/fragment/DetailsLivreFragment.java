@@ -217,8 +217,10 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 {
                     dejaCommenter = true; // l'utilisateur ne pourra donc plus refaire de NOUVEAU commentaire
                 }
-
-                CommentaireFragment com = new CommentaireFragment(auteur,note,resume,follow,mine, idCom);
+                /*
+                    On instancie le nouveau Commentaire et on l'ajoute au layout
+                 */
+                CommentaireFragment com = new CommentaireFragment(auteur,note,resume,follow,mine, idCom, this);
                 ft.add(R.id.layout_commentaires, com, "");
                 ft.commit();
             }
