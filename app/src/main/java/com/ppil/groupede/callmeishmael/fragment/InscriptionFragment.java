@@ -373,7 +373,7 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                         json.getString("ddn"),
                         json.getString("image"),
                         json.getString("follow"),
-                        json.getString("sexe"));
+                        json.getString("sex"));
 
                 Toast.makeText(getContext(),"Un mail vous à été envoyé !",Toast.LENGTH_SHORT).show();
                 setAccueil(); // envoie vers l'accueil
