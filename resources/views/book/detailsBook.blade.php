@@ -1,4 +1,4 @@
-@extends('user.template')
+@extends('template')
 
 @section('contenu')
     <div class="col-sm-offset-4 col-sm-4">
@@ -13,18 +13,20 @@
 				<p>Langue : {{ $book->language  }}</p>
 				<p>Date de Parution : {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
 				<p>Note moyenne : {{ $book->stars_average  }}</p>
-				<p><a href="4/open" class="btn bg-primary">Ouvrir</a></p>
+				<p><a href="{{URL::route('bookOpen', array('id'=>'4'))}}" class="btn bg-primary">Ouvrir</a></p>
 				@if(Auth::check())
-					{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}
+				<p>{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}</p>
 
 				{!! link_to('book/addBibliotheque/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
 				@endif
 				@foreach($data as $rating)
+					@if(Auth::Check())
 					@if(Auth::user()->id == $rating->user_id)
 						{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 					@endif
+					@endif
 					<p> Commentaire {{ $rating->comment }} </p>
-					<p> Notes {{ $rating->stars }} </p>
+					<p> Note {{ $rating->stars }} </p>
 				@endforeach
 			</div>
 		</div>				

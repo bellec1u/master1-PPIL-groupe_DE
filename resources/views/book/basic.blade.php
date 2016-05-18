@@ -10,12 +10,12 @@
 
 
         <!-- EPUBJS Renderer -->
-       
-          {!! Html::script('epub/build/epub.js'); !!} 
-           {!! Html::script('epub/build/libs/zip.min.js'); !!} 
-          
-          
-         
+
+          {!! Html::script('epub/build/epub.js') !!}
+           {!! Html::script('epub/build/libs/zip.min.js') !!}
+
+
+
         <style type="text/css">
 
           body {
@@ -78,6 +78,9 @@
         </script>
     </head>
     <body>
+    <a href="{{URL::route('/')}}" class="btn btn-primary"> Quitter </a>
+        <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+    </a>
         <div id="main">
           <div id="prev" onclick="Book.prevPage();" class="arrow">‹</div>
           <div id="area"></div>
