@@ -8,7 +8,8 @@ use App\Repositories\book\RatingRepository;
 use App\Http\Requests;
 use App\Repositories\BookRepository;
 use App\Http\Controllers\Controller;
-
+use Auth;
+use Redirect;
 class RatingController extends Controller
 {
 
@@ -67,8 +68,29 @@ class RatingController extends Controller
 
         return redirect(route('/'));
     }
-    public function destroy($id){
+    
+    public function edit($id){
+        if (Auth::check())
+        {
+
+
+            $ratings = $this->ratingRepository->getById($id);
+            return view('book/editRating', compact('ratings'));
+        }
+
+
+    }
+
+    public function update(RatingCreateRequest $request){
+        $inputs = array_merge($request->all(), ['user_id' => $request->user()->id]);
+        
+        $this->ratingRepository->update($request->id,$inputs);
+        return redirect()->route('bookReturn', ['id' => $request->book_id]);
+    }
+    
+    
+    public function destroy($id, $idBook){
         $this->ratingRepository->destroy($id);
-        return redirect_to('/');
+        return redirect()->route('bookReturn', ['id' => $idBook]);
     }
 }

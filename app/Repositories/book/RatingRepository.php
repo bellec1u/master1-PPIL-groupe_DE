@@ -21,5 +21,8 @@ class RatingRepository extends ResourceRepository
     public function getRatingId($id_book){
         return Rating::where('book_id', '=' , $id_book)->get();
     }
+    public function getRatingIdEtUser($id_book, $id_user){
+        return Rating::where('book_id', '=' , $id_book)->where('user_id', '=' , $id_user)->get();
+    }
 
 }

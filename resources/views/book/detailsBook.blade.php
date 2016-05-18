@@ -19,7 +19,7 @@
 				@endif
 				@foreach($data as $rating)
 					@if(Auth::user()->id == $rating->user_id)
-						<p> modifier</p>
+						{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 					@endif
 					<p> Commentaire {{ $rating->comment }} </p>
 					<p> Notes {{ $rating->stars }} </p>
