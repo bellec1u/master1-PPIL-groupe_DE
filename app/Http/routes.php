@@ -78,6 +78,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('destroyRating/{id}/{idbook}', 'book\RatingController@destroy')->where('id', '[0-9]+')->where('idbook', '[0-9]+');
     Route::get('editRating/{id}', 'book\RatingController@edit')->where('id', '[0-9]+');
     Route::post('updateRating', ['uses' => 'book\RatingController@update', 'as' => 'updateRating']);
+
+
+    Route::get('book/addBibliotheque/{id}', 'book\ReadingController@add')->where('id', '[0-9]+');
+    Route::get('book/consultBibliotheque', 'book\ReadingController@show');
+    Route::get('book/destroyBibliotheque/{id}', 'book\ReadingController@destroy')->where('id', '[0-9]+');;
+
    
 });
 
