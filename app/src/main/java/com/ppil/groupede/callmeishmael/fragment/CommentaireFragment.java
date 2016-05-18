@@ -236,7 +236,15 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
 
         @Override
         public void onClick(View v) {
-
+            //On envoie l'utilisateur vers la page d'écriture d'un commentaire
+            EcrireCommentaireFragment ecrire = new EcrireCommentaireFragment(fragmentHome.getIdLivre(),fragmentHome.getImage());
+            ecrire.setModification(true);
+            getActivity().setTitle("Ecrire un commentaire");
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, ecrire);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         }
     }
 

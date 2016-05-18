@@ -82,6 +82,21 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         image = img;
     }
 
+    /*
+        Retourne l'id du livre
+     */
+    public String getIdLivre()
+    {
+        return id;
+    }
+
+    /*
+        Retourne l'image Bitmap du Livre
+     */
+    public Bitmap getImage()
+    {
+        return image;
+    }
 
     /*
         Fonction permettant de créer et de retourner le Fragment avec les divers

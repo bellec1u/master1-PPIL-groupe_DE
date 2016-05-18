@@ -42,14 +42,22 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
     private String idLivre ; // id du livre
     private Bitmap imageLivre; // garde en mémoire
 
+    private boolean modification; // faux de base car l'utilisateur edite pour la premiere fois
+
 
     public EcrireCommentaireFragment(String id, Bitmap img) {
         // Required empty public constructor
         idLivre = id;
         imageLivre = img;
+        modification = false;
     }
 
-
+    /*
+        Affecte modification à true
+     */
+    public void setModification(boolean mod){
+        modification = mod;
+    }
     /*
         Fonction initialisant la vue avec ses divers éléments
      */
@@ -89,19 +97,41 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
                 else
                 {
                     /*
+                        Si le commentaire est un NOUVEAU commentaire alors on execute le code ci-dessous
+                     */
+                    if(!modification) {
+                    /*
                         J'instancie Data pour recuperer l'URL de creation d'un commentaire
                         J'instancie SessinManager pour recuperer egalement l'email de l'utilisateur
                      */
-                    SessionManager sessionManager = new SessionManager(getContext());
-                    String email = sessionManager.getSessionEmail();
-                    String adresse = Data.getData().getURLCommentaire(idLivre,email, tmp, note);
+                        SessionManager sessionManager = new SessionManager(getContext());
+                        String email = sessionManager.getSessionEmail();
+                        String adresse = Data.getData().getURLCommentaire(idLivre, email, tmp, note);
 
                     /*
                         On demande a DataManager de faire la requete au serveur
                      */
-                    DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
-                    dataManager.execute(adresse);
+                        DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
+                        dataManager.execute(adresse);
+                    }
+                    else{
+                        //le commentaire soit etre update dans la base et pas INSERT
+                        /*
+                        J'instancie Data pour recuperer l'URL de creation d'un commentaire
+                        J'instancie SessinManager pour recuperer egalement l'email de l'utilisateur
+                     */
+                        SessionManager sessionManager = new SessionManager(getContext());
+                        String email = sessionManager.getSessionEmail();
+                        String adresse = Data.getData().getURLModifierCommentaire(idLivre, email, tmp, note);
+                        System.out.println(adresse);
 
+                                            /*
+                        On demande a DataManager de faire la requete au serveur
+                     */
+                        DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
+                        dataManager.execute(adresse);
+
+                    }
                 }
             }
         });

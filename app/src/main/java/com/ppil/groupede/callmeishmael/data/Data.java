@@ -110,6 +110,17 @@ public class Data {
     }
 
     /*
+        Retourne l'URL nécessaire pour modifier un commentaire dans la base
+     */
+    public String getURLModifierCommentaire(String idLivre, String emailUtilisateur, String commentaire, int note)
+    {
+        return (adresse + "/requetes/editer.php?id="+ idLivre +
+                "&email=" + emailUtilisateur +
+                "&com=" + commentaire +
+                "&note=" + note);
+    }
+
+    /*
         Retourne l'URL nécessaire pour demander la suppression d'un commentaire
      */
     public String getURLSupprimerCommentaire(String emailUtilisateur, int idCommentaire)
