@@ -264,7 +264,6 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
     }
 
     /*    ***************************************Google + ****************************************** */
