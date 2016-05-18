@@ -28,22 +28,30 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('inscription', function () {
         return view('user/inscription');
     });
+    
     Route::get('connexion', function () {
         return view('user/connexion');
     });
+    
     Route::get('contact', function () {
         return view('user/contact');
     });
+    
     Route::get('create', function () {
         return view('user/create');
     });
+    
     Route::get('home', function () {
         return view('home');
     });
+    
     Route::get('email_contact', function () {
         return view('user/email_contact');
     });
-   
+    
+    Route::get('consulter_biblio', function () {
+        return view('consulter');
+    });
 
 
 
