@@ -29,7 +29,7 @@ class RatingController extends Controller
      */
     public function create($id){
         $book = $id;
-        return view('book/evaluate', compact('book'));
+        return view('book/Evaluate', compact('book'));
     }
 
     /**
