@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -41,6 +42,7 @@ import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 
 /**
@@ -61,18 +63,17 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
     private static final int RC_SIGN_IN = 0;
     private ConnectionResult connResult;
     private boolean intentEnCours;
+    private TextView mdpOublie;
 
     private int requestCode;
-
-
 
     private boolean btSignInCliqueGoogle;
 
 
-    Button bt_deco_google;
-    SignInButton bt_login_google;
-    GoogleApiClient mGoogleApiClient;
-    ProgressDialog pg;
+    private Button bt_deco_google;
+    private SignInButton bt_login_google;
+    private GoogleApiClient mGoogleApiClient;
+    private ProgressDialog pg;
 
 
     /*
@@ -94,6 +95,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
         logIn = (Button) view.findViewById(R.id.action_sign_in); // bouton de connexion
         email = (AutoCompleteTextView) view.findViewById(R.id.email); // on recupere le champ email
         password = (EditText) view.findViewById(R.id.password); // on recupere le champ password
+        mdpOublie = (TextView) view.findViewById(R.id.mdpOub); // txtview mdpoub
 
 
         /**                       *********************GOOGLE+*******************                 */
@@ -174,6 +176,14 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
             }
         });
 
+        mdpOublie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setMdpOublie();
+
+            }
+        });
+
 
         return view;
     }
@@ -237,6 +247,18 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
     {
         AccueilFragment fragment = new AccueilFragment();
         getActivity().setTitle("Accueil");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
+    }
+
+    public void setMdpOublie()
+    {
+        MdpOublieFragment fragment = new MdpOublieFragment();
+        getActivity().setTitle("Mdp oublié");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

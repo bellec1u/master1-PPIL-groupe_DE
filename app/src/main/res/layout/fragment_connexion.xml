@@ -46,6 +46,16 @@
 
         </android.support.design.widget.TextInputLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Mot de passe oublié ?"
+            android:id="@+id/mdpOub"
+            android:layout_gravity="center_horizontal"
+            android:linksClickable="false"
+            android:onClick="setContentView" />
+
         <Button
             android:id="@+id/action_sign_in"
             android:layout_width="wrap_content"
@@ -86,7 +96,8 @@
             android:width="200dp"
             android:visibility="gone"
             android:background="@drawable/button_style"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="30dp"   />
 
     </LinearLayout>
 
