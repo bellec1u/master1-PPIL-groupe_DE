@@ -43,17 +43,25 @@ public class CommentaireFragment extends Fragment {
     private Button suivre; // bouton pour suivre l'auteur du commentaire
     private Button supprimer ; // bouton pour supprimer un commentaire
 
-    private String auteurCommentaire;
-    private float noteCommentaire;
-    private String resumeCommentaire;
-
+    /*
+        Champ propre au commentaire
+     */
+    private String auteurCommentaire; // auteur du commentaore
+    private float noteCommentaire; // note du commentaire
+    private String resumeCommentaire; // commentaire
+    private boolean suiviCommentaire; // indique si l'utilisateur veut etre suivi ou non
+    private boolean monCommentaire; // indique si ce commentaire est celui de l'utilisateur connecté
+    private int idCommentaire; // id du commentaire dans la base de donnée
 
     @SuppressLint("ValidFragment")
-    public CommentaireFragment(String auteur, float note, String resume) {
+    public CommentaireFragment(String auteur, float note, String resume, int follow, boolean mine, int id) {
         // Required empty public constructor
         auteurCommentaire = auteur;
         noteCommentaire = note;
         resumeCommentaire = resume;
+        suiviCommentaire = (follow == 1) ; // indique si l'utilisateur veut etre suivi = à 1 donc...
+        monCommentaire = mine;
+        idCommentaire = id;
     }
 
 
@@ -72,8 +80,11 @@ public class CommentaireFragment extends Fragment {
         resume = (TextView) view.findViewById(R.id.commentaire_resume);
 
         modifier = (Button) view.findViewById(R.id.commentaire_modifier);
+        modifier.setEnabled(monCommentaire);
         supprimer = (Button) view.findViewById(R.id.commentaire_supprimer);
+        supprimer.setEnabled(monCommentaire);
         suivre = (Button) view.findViewById(R.id.commentaire_suivre);
+        suivre.setEnabled(suiviCommentaire);
 
         /*
             On affecte aux bons éléments les bonnes valeurs

@@ -60,9 +60,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="commentaire"
             android:id="@+id/commentaire_ecrire_commentaire"
-            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?;.!-^'^= "
+            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789?;.!-'^= "
             />
 
         <Button

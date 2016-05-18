@@ -21,6 +21,7 @@ import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,6 +54,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     private TextView langue; // objet contenant la langue de l'ouvrage
 
     private Button commenter; // bouton pour demander à effectuer un commentaire
+    private Boolean dejaCommenter; // indique si l'utilisateur a déjà commenter ou non
     private LinearLayout layoutCommentaire; // layout contenant les commentaires
 
     /*
@@ -63,6 +65,11 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     private ImageView star3;
     private ImageView star4;
     private ImageView star5;
+
+    /*
+        Pour gérer les fragments commentaires
+     */
+    private android.support.v4.app.FragmentTransaction ft;
 
     /*
         Constructeur de DetailsLivreFragment,
@@ -104,13 +111,8 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         star5 = (ImageView)view.findViewById(R.id.star5);
         commenter = (Button) view.findViewById(R.id.commenter);
         layoutCommentaire = (LinearLayout) view.findViewById(R.id.layout_commentaires);
-        android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-        for(int i = 0 ; i < (3) ; i++)
-        {
-            ft.add(R.id.layout_commentaires, new CommentaireFragment("test"+i,i,"super livre"+i), "test" + i);
-            //System.out.println(new CommentaireFragment());
-        }
-        ft.commit();
+        dejaCommenter = false;
+        ft = getFragmentManager().beginTransaction();
 
         //On affecte à l'imageView notre image Bitmap
         imageLivre.setImageBitmap(image);
@@ -147,7 +149,13 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                     /*
                         L'utilisateur est connecté, on peut donc le rediriger vers la page de redaction d'un commentaire
                      */
-                    setCommenter();
+                    if(dejaCommenter)
+                    {
+                        Toast.makeText(getContext(),"Vous avez déjà commenter!\nVeuillez modifier votre précédent commentaire.",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        setCommenter();
+                    }
                 }
             }
         });
@@ -165,31 +173,55 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             les informations plus facilement.
          */
         try {
-            JSONObject o = new JSONObject(resultat); // instanciation ici...
+            JSONObject object = new JSONObject(resultat); // instanciation ici...
             /*
-                On remplie les champs ci-dessous
+                On remplie les champs ci-dessous en recuperant la premiere partie du tableau
+                info
              */
+            JSONObject o = new JSONObject(object.getString("info"));
             dateParution.setText("Date de parution : "+o.getString("publication_date"));
             resume.setText(o.getString("resume"));
             note.setText(o.getString("stars_average") + " / 5");
             genre.setText("Genre : "+ o.getString("genre"));
             auteur.setText(" Auteur : "+o.getString("author"));
             titre.setText(o.getString("title"));
-            langue.setText("Langue : "+o.getString("language"));
-            getActivity().setTitle(o.getString("title"));
-
-           /* android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-            for(int i = 0 ; i < (o.getInt("nbCommentaire")) ; i++)
-            {
-                ft.add(R.id.layout_commentaires, new CommentaireFragment(), "test" + i);
-                //System.out.println(new CommentaireFragment());
-            }
-            ft.commit();
-            */
+            langue.setText("Langue : " + o.getString("language"));
             /*
                 On affiche les étoiles selon la note trouvée
              */
             fillStars(o.getString("stars_average"));
+            getActivity().setTitle(o.getString("title"));
+
+            /*
+                On charge maintenant les commentaires du livre
+             */
+            int indice = object.getInt("counter");
+            System.out.println(indice);
+            for(int i = 0 ; i < indice ; i++)
+            {
+                ft = getFragmentManager().beginTransaction();
+                o = new JSONObject(object.getString("com"+i));
+                String auteur = o.getString("first_name") + " " +  o.getString("last_name");
+                float note = o.getInt("stars");
+                String resume = o.getString("comment");
+                int follow = o.getInt("following_allowed");
+                String email = o.getString("email");
+                int idCom = o.getInt("id");
+                /*
+                    On verifie si cet utilisateur est celui actuellement connecté
+                    On utilise sessionManager pour cela
+                 */
+                SessionManager sessionManager = new SessionManager(getContext());
+                boolean mine = (email.equals(sessionManager.getSessionEmail()));
+                if(mine)
+                {
+                    dejaCommenter = true; // l'utilisateur ne pourra donc plus refaire de NOUVEAU commentaire
+                }
+
+                CommentaireFragment com = new CommentaireFragment(auteur,note,resume,follow,mine, idCom);
+                ft.add(R.id.layout_commentaires, com, "");
+                ft.commit();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
