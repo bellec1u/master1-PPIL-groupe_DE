@@ -105,6 +105,14 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         commenter = (Button) view.findViewById(R.id.commenter);
         layoutCommentaire = (LinearLayout) view.findViewById(R.id.layout_commentaires);
 
+        android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+        for(int i = 0 ; i < (3) ; i++)
+        {
+            ft.add(R.id.layout_commentaires, new CommentaireFragment(), "test" + i);
+            //System.out.println(new CommentaireFragment());
+        }
+        ft.commit();
+
         //On affecte à l'imageView notre image Bitmap
         imageLivre.setImageBitmap(image);
 
