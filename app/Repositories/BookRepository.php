@@ -11,6 +11,7 @@ class BookRepository extends ResourceRepository
 	{
 		$this->model = $book;
 	}
+	
 
 	
 

@@ -16,6 +16,8 @@
 				<p><a href="4/open" class="btn bg-primary">Ouvrir</a></p>
 				@if(Auth::check())
 					{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}
+
+				{!! link_to('book/addBibliotheque/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
 				@endif
 				@foreach($data as $rating)
 					@if(Auth::user()->id == $rating->user_id)

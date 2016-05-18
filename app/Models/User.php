@@ -43,4 +43,5 @@ class User extends Authenticatable
     public function reading(){
         return $this->hasMany('App\Models\Reading');
     }
+
 }

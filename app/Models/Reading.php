@@ -13,8 +13,9 @@ class Reading extends Model
     ];
 
     public function user(){
-        return $this->belongsTo('App\Models\User');
+        return $this->HasMany('App\Models\User');
     }
     public function book(){
-        return $this->belongsTo('App\Models\book');
-    }}
+        return $this->Many('App\Models\book');
+    }
+}

@@ -48,7 +48,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('email_contact', function () {
         return view('user/email_contact');
     });
-    
+    //Juste un teste pour la consultation de la bibliotheque perso
     Route::get('consulter_biblio', function () {
         return view('consulter');
     });
@@ -61,6 +61,7 @@ Route::group(['middleware' => 'web'], function () {
         ['except' => ['index', 'edit', 'destroy']]);
 //    Route::get('user', 'UserController@create');
 //    Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
+    
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
     Route::get('/callback/{provider}', 'SocialAuthController@callback');
@@ -77,6 +78,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('destroyRating/{id}/{idbook}', 'book\RatingController@destroy')->where('id', '[0-9]+')->where('idbook', '[0-9]+');
     Route::get('editRating/{id}', 'book\RatingController@edit')->where('id', '[0-9]+');
     Route::post('updateRating', ['uses' => 'book\RatingController@update', 'as' => 'updateRating']);
+
+
+    Route::get('book/addBibliotheque/{id}', 'book\ReadingController@add')->where('id', '[0-9]+');
+    Route::get('book/consultBibliotheque', 'book\ReadingController@show');
+    Route::get('book/destroyBibliotheque/{id}', 'book\ReadingController@destroy')->where('id', '[0-9]+');;
+
    
 });
 

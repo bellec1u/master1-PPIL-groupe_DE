@@ -1,9 +1,5 @@
 @extends('user.template')
 
-
-
-
-
 @section('contenu')
     <SCRIPT language="Javascript">
         function supprimer() {
@@ -43,5 +39,4 @@
             <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
         </a>
     </div>
-
-
+@stop
