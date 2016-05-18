@@ -104,7 +104,6 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         star5 = (ImageView)view.findViewById(R.id.star5);
         commenter = (Button) view.findViewById(R.id.commenter);
         layoutCommentaire = (LinearLayout) view.findViewById(R.id.layout_commentaires);
-
         android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
         for(int i = 0 ; i < (3) ; i++)
         {
@@ -139,7 +138,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                     On demande à sessionManager si un utilisateur est log ou non
                  */
                 SessionManager sessionManager = new SessionManager(getContext());
-                if(sessionManager.getSessionEmail().equals("email"))
+                if(sessionManager.isConnected())
                 {
                     Toast.makeText(getContext(),"Vous devez être connecté pour commenter un livre",Toast.LENGTH_SHORT).show();
                 }
@@ -177,6 +176,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             auteur.setText(" Auteur : "+o.getString("author"));
             titre.setText(o.getString("title"));
             langue.setText("Langue : "+o.getString("language"));
+            getActivity().setTitle(o.getString("title"));
 
            /* android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
             for(int i = 0 ; i < (o.getInt("nbCommentaire")) ; i++)
@@ -293,7 +293,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     public void setCommenter()
     {
         //// TODO: 17/05/16
-        EcrireCommentaireFragment fragment = new EcrireCommentaireFragment();
+        EcrireCommentaireFragment fragment = new EcrireCommentaireFragment(id,image); // id du livre
         getActivity().setTitle("Ecrire un commentaire");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

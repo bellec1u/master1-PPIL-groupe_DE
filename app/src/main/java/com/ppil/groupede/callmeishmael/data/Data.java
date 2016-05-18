@@ -19,7 +19,7 @@ public class Data {
 
     private Data()
     {
-        ipMachine = "http://172.20.10.2" ;
+        ipMachine = "http://192.168.1.10" ;
         port = "8888" ;
         adresse = ipMachine + ":" + port;
     }
@@ -96,6 +96,17 @@ public class Data {
      */
     public String getDeleteUser(String email){
         return (adresse + "/requetes/delete.php?email=" + email);
+    }
+
+    /*
+        Retourne l'URL nécessaire pour demander à la base d'insérer un commentaire
+     */
+    public String getURLCommentaire(String idLivre, String emailUtilisateur, String commentaire, int note)
+    {
+        return (adresse + "/requetes/commenter.php?id="+ idLivre +
+        "&email=" + emailUtilisateur +
+        "&com=" + commentaire +
+        "&note=" + note);
     }
 
     /*

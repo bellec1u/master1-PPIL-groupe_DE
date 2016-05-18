@@ -1,10 +1,11 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,15 @@ import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.R;
 import com.google.android.gms.plus.PlusOneButton;
+import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.DataManager;
+import com.ppil.groupede.callmeishmael.data.DataReceiver;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 /**
  * A fragment with a Google +1 button.
  */
-public class EcrireCommentaireFragment extends Fragment {
+public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
 
     /*
         Classe permettant à l'utilisateur  de faire son commentaire,
@@ -34,10 +39,14 @@ public class EcrireCommentaireFragment extends Fragment {
     private ImageButton star4;
     private ImageButton star5;
     private int note ; // note du commentaire
+    private String idLivre ; // id du livre
+    private Bitmap imageLivre; // garde en mémoire
 
 
-    public EcrireCommentaireFragment() {
+    public EcrireCommentaireFragment(String id, Bitmap img) {
         // Required empty public constructor
+        idLivre = id;
+        imageLivre = img;
     }
 
 
@@ -79,8 +88,20 @@ public class EcrireCommentaireFragment extends Fragment {
                 }
                 else
                 {
-                    System.out.println(note);
-                    System.out.println(tmp);
+                    /*
+                        J'instancie Data pour recuperer l'URL de creation d'un commentaire
+                        J'instancie SessinManager pour recuperer egalement l'email de l'utilisateur
+                     */
+                    SessionManager sessionManager = new SessionManager(getContext());
+                    String email = sessionManager.getSessionEmail();
+                    String adresse = Data.getData().getURLCommentaire(idLivre,email, tmp, note);
+
+                    /*
+                        On demande a DataManager de faire la requete au serveur
+                     */
+                    DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
+                    dataManager.execute(adresse);
+
                 }
             }
         });
@@ -90,6 +111,28 @@ public class EcrireCommentaireFragment extends Fragment {
         return view;
     }
 
+    /*
+        Fonction appelée lorsque le processus en arrière plan aura terminé de dialoguer avec le serveur,
+        ici on retournera l'utilisateur vers la vue de détails d'un livre.
+     */
+    @Override
+    public void receiveData(String resultat) {
+            Toast.makeText(getContext()," Votre commentaire a bien été enregistré ", Toast.LENGTH_SHORT).show();
+            setVueDetail(idLivre);
+    }
+
+    /*
+        Renvoie l'utilisateur vers la vue de détails d'un livre
+     */
+    public void setVueDetail(String id)
+    {
+        DetailsLivreFragment fragment = new DetailsLivreFragment(id, imageLivre); // id du livre
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
     /*
         Listener pour étoile, utilisé afin de traduire un clic d'une imageButton en une note
      */
