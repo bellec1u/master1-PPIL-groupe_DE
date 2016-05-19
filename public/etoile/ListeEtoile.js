@@ -1,7 +1,7 @@
 
 // Tableau de memorisation des notes pour chaque liste
 var ArrListeEtoile = new Object();
-
+var indiceFinal =0;
 //-------------------------------------------------------
 // Gestion de la visibilite des etoiles au survol
 //-------------------------------------------------------
@@ -44,7 +44,8 @@ function GestionHover(idListe, indice, nbEtoile){
 function ChoixSelection(idListe, indice, nbEtoile){
 	ArrListeEtoile[idListe] = indice;
 	var score = "score-" + idListe;
-	document.getElementById(score).innerHTML = " " +2 + "/" + nbEtoile;
+	var indiceFinal = indice;
+	document.getElementById("etoile").value= indice;
 }
 
 //-------------------------------------------------------
@@ -54,14 +55,15 @@ function CreateListeEtoile(idListe, nbEtoile){
 	ArrListeEtoile[idListe] = 0;
 
 	var renduListe = "";
-	renduListe += "<div class=\"listeEtoile\" onmouseout=\"GestionHover('" + idListe + "', -1, '" + 2 + "')\">";
+	renduListe += "<div class=\"listeEtoile\" onmouseout=\"GestionHover('" + idListe + "', -1, '" + nbEtoile + "')\">";
 	renduListe += "<ul>";
-	
+	var star = "{{ HTML::image('img/picture.jpg') }}";
+
 	for(i=1; i<=nbEtoile; i++){
 		renduListe += "<li>";
-		renduListe += "<a href=\"javascript:ChoixSelection('" + idListe + "', '" + i + "', '" + 2 + "')\" onmouseover=\"GestionHover('" + idListe + "', '" + i + "', '" + nbEtoile + "')\">";
-		renduListe += "<img id=\"staroff-" + idListe + "-" + i + "\" src='staroff.gif' border=\"0\" title=\"" + i + "\" style=\"border-width: 0px; display: block;\">";
-		renduListe += "<img id=\"staron-" + idListe + "-" + i + "\" src='staron.gif' border=\"0\" title=\"" + i + "\" style=\"border-width: 0px; display: none;\">";
+		renduListe += "<a href=\"javascript:ChoixSelection('" + idListe + "', '" + i + "', '" + nbEtoile + "')\" onmouseover=\"GestionHover('" + idListe + "', '" + i + "', '" + nbEtoile + "')\">";
+		renduListe += "<img id=\"staroff-" + idListe + "-" + i + "\" src=\"../etoile/staroff.gif \"           border=\"0\" title=\"" + i + "\" style=\"border-width: 0px; display: block;\">";
+		renduListe += "<img id=\"staron-" + idListe + "-" + i + "\" src='../etoile/staron.gif' border=\"0\" title=\"" + i + "\" style=\"border-width: 0px; display: none;\">";
 		renduListe += "</a>";
 		renduListe += "</li>";
 	}

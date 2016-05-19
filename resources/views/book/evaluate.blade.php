@@ -33,11 +33,10 @@
                 {!! csrf_field() !!}
                 <div class="form-group {!! $errors->has('titre') ? 'has-error' : '' !!}">
 
-                    <div id='A1'><script type='text/javascript'>CreateListeEtoile('A1',5);</script>
+                    <div id='A1'><script type='text/javascript'>CreateListeEtoile('A1',5);</script></div>
 
+                    {!! Form::hidden('stars', null,['id'=>'etoile'] ) !!}
 
-                    {!! Form::number('stars', null,['class' => 'form-control', 'placeholder' => '0', 'max'=>'5', 'min'=>'0'] ) !!}
-                    {!! $errors->first('stars', '<small class="help-block">:message</small>') !!}
                 </div>
             </div>
         </div>
