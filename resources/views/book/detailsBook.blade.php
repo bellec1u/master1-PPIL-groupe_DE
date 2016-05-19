@@ -1,25 +1,23 @@
 @extends('template')
 
 @section('contenu')
-    <div class="col-sm-offset-3 col-sm-5">
+    <div class="col-sm-offset-4 col-sm-4">
     	<br>
 		<div class="panel panel-primary">	
 			<div class="panel-heading">Details livre </div>
 			<div class="panel-body">
-				<center><img src="{{ $book->cover_url  }}" alt="" /></center>
-					</br>
+				<img src="{{ $book->cover_url  }}" alt="" />
 				<p>Titre : {{ $book->title  }}</p>
 				<p>Auteur : {{ $book->author  }}</p>
 				<p>Genre : {{ $book->genre  }}</p>
 				<p>Langue : {{ $book->language  }}</p>
 				<p>Date de Parution : {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
 				<p>Note moyenne : {{ $book->stars_average  }}</p>
-				<hr />
-				<p><a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a></p>
+				<p><a href="{{URL::route('bookOpen', array('id'=>'4', 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a></p>
 				@if(Auth::check())
 				<p>{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}</p>
 
-				{!! link_to('bookshelf/add/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
+				{!! link_to('book/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
 				@endif
 				@foreach($data as $rating)
 					@if(Auth::Check())
