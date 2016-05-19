@@ -47,7 +47,7 @@ class FichierController extends Controller
                 // store session id on disk
                 Storage::put('session_id', $session_id);
             }
-            print_r($session_id.'<br>');
+           // print_r($session_id.'<br>');
 
             curl_close($ch);
             return $session_id;
@@ -90,7 +90,7 @@ class FichierController extends Controller
             print(curl_error($ch));
         }
 
-        print($info.'<br>');
+        //print($info.'<br>');
 
         curl_close($ch);
         fclose($fp);
