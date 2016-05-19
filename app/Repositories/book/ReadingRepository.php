@@ -20,12 +20,12 @@ class ReadingRepository extends ResourceRepository
     }
 
     public function getReadingId($id_user){
-        
+
         return Reading::where('user_id', '=' , $id_user)->get();
     }
 
     public function getReadingIdAndUser($id_book, $id_user){
-    
+
         return Reading::where('book_id', '=' , $id_book)->where('user_id', '=' , $id_user)->get();
     }
     public function delete($id_book, $id_user){
