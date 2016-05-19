@@ -64,7 +64,7 @@ class BookController extends Controller
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
       
-        return view('Book/detailsBook', compact('book'))->with('data', $ratings);
+        return view('book/detailsBook', compact('book'))->with('data', $ratings);
     }
 
     /**
