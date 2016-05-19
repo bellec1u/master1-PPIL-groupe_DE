@@ -449,7 +449,7 @@ public class AccueilFragment extends Fragment implements DataReceiver {
                 /*
                     On l'affecte à notre objet de classe
                  */
-                    top[i].setImageBitmap(bitmap);
+                    boutonListe[i].setImageBitmap(bitmap);
                 }
                  /*
                     On créer maintenant un onClickListener pour ouvrir le fragment DetailsLivreFragment
