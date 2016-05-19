@@ -6,5 +6,6 @@
 .DS_Store
 /build
 /captures
-.gradle/*
-app/src/main/java/com/ppil/groupede/callmeishmael/data/Data.java
+.gradle/
+.idea/
+local.properties
