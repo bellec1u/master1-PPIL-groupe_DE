@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use Auth;
 
+use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserUpdateRequest;
+use Auth;
 use App\Repositories\UserRepository;
 use App\Services\EmailConfirmationService;
 use Illuminate\Support\Facades\Input;

@@ -12,7 +12,7 @@
                 @if(count($data) > 1 )
                 @foreach($data as $book)
                     @if($book != '')
-                    {{$book->title }} 		{!! link_to('book/destroyBibliotheque/'.$book->id, 'supprimer de la bibliothèque', $attribute = array(), $secrure = null ) !!}
+                    {{$book->title }} 		  <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}" class="btn bg-primary">supprimer</a>
                 @endif
 
                     @endforeach

@@ -17,7 +17,7 @@
 				@if(Auth::check())
 				<p>{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}</p>
 
-				{!! link_to('book/addBibliotheque/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
+				{!! link_to('book/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
 				@endif
 				@foreach($data as $rating)
 					@if(Auth::Check())

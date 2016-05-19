@@ -23,8 +23,8 @@ EPUBJS.reader.ControlsController = function(book) {
 
 	var fullscreen = false;
 
-	book.on("book:online", goOnline);
-	book.on("book:offline", goOffline);
+	book.on("Book:online", goOnline);
+	book.on("Book:offline", goOffline);
 
 	$slider.on("click", function () {
 		if(reader.sidebarOpen) {
@@ -104,7 +104,7 @@ EPUBJS.reader.ControlsController = function(book) {
 		}
 	});
 
-	book.on('book:pageChanged', function(location){
+	book.on('Book:pageChanged', function(location){
 		// console.log("page", location.page, location.percentage)
 	});
 

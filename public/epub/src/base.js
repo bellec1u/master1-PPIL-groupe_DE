@@ -16,7 +16,7 @@ EPUBJS.Render = {};
 	var ePub = root.ePub = function() {
 		var bookPath, options;
 
-		//-- var book = ePub("path/to/book.epub", { restore: true })
+		//-- var Book = ePub("path/to/Book.epub", { restore: true })
 		if(typeof(arguments[0]) != 'undefined' &&
 			(typeof arguments[0] === 'string' || arguments[0] instanceof ArrayBuffer)) {
 
@@ -32,12 +32,12 @@ EPUBJS.Render = {};
 		}
 
 		/*
-		*   var book = ePub({ bookPath: "path/to/book.epub", restore: true });
+		*   var Book = ePub({ bookPath: "path/to/Book.epub", restore: true });
 		*
 		*   - OR -
 		*
-		*   var book = ePub({ restore: true });
-		*   book.open("path/to/book.epub");
+		*   var Book = ePub({ restore: true });
+		*   Book.open("path/to/Book.epub");
 		*/
 
 		if( arguments[0] && typeof arguments[0] === 'object' && !(arguments[0] instanceof ArrayBuffer)) {

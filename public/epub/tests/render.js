@@ -166,7 +166,7 @@ asyncTest("Display end of chapter 20 and go to prev page", 3, function() {
 	
 });
 
-asyncTest("Add styles to book", 4, function() {
+asyncTest("Add styles to Book", 4, function() {
 	
 	var Book = ePub('../reader/moby-dick/', { width: 400, height: 600 });
 	
