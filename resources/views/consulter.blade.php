@@ -10,15 +10,13 @@
             <div class="panel-heading">La liste de ma lecture en cours </div>
             <div class="panel-body">
                 @if(count($data) > 1 )
-                @foreach($data as $book)
-                    @if($book != '')
-                    {{$book->title }} 		  <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}" class="btn bg-primary">supprimer</a>
-                @endif
-
+                    @foreach($data as $book)
+                        @if($book != '')
+                            {{$book->title }} <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}" class="btn bg-primary">supprimer</a>
+                        @endif <br />
                     @endforeach
                 @endif
                 <br /><br /><br /><br /><br /><br /><br /><br />
-
             </div>
         </div>
     </div>
