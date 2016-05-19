@@ -71,6 +71,8 @@ Route::group(['middleware' => 'web'], function () {
     // details
     Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');
     Route::get('book/{id}/open/', ['as' => 'bookOpen', 'uses' => 'Book\BookController@open'])->where('id', '[0-9]+');
+    Route::get('book/search', ['as' => 'bookSearch', 'uses' => 'Book\BookController@search']);
+
 
     // Book modif
     Route::get('createRating/{id}', 'Book\RatingController@create')->where('id', '[0-9]+');

@@ -43,9 +43,9 @@
             <a class="navbar-brand" href="{{ url('/') }}">Call Me Ishmael</a>
         </div>
         <div class="navbar-collapse collapse">
-            <form class="nav navbar-nav navbar-form" role="search">
+            <form class="nav navbar-nav navbar-form" role="search" method="GET" action="{{ route('bookSearch') }}">
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Rechercher un Ebook..." >
+                    <input type="text" name="query" class="form-control" placeholder="Rechercher un Ebook..." >
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </div>
