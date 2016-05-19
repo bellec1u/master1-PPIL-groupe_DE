@@ -87,7 +87,11 @@ public class EPubDownloader extends AsyncTask<String,Integer,String> implements 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        Toast.makeText(context," Le livre a été ajouté avec succès !",Toast.LENGTH_SHORT).show();
+        if(s.equals("false")){
+            Toast.makeText(context," Ce livre est déjà present dans votre liste de lecture !",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, " Le livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /*
@@ -102,7 +106,6 @@ public class EPubDownloader extends AsyncTask<String,Integer,String> implements 
          */
         SessionManager sessionManager = new SessionManager(context);
         String adresse = Data.getData().getURLAJouterLivre(sessionManager.getSessionEmail(),page.getIdLivre());
-        System.out.println(adresse);
         execute(adresse); // on demande à acceder à cette requete
     }
 }
