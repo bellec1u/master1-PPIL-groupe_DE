@@ -38,8 +38,8 @@ EPUBJS.reader.ReaderController = function(book) {
 	var hideLoader = function() {
 		$loader.hide();
 		
-		//-- If the book is using spreads, show the divider
-		// if(book.settings.spreads) {
+		//-- If the Book is using spreads, show the divider
+		// if(Book.settings.spreads) {
 		// 	showDivider();
 		// }
 	};
@@ -125,11 +125,11 @@ EPUBJS.reader.ReaderController = function(book) {
 		}
 	});
 
-	// book.on("book:atStart", function(){
+	// Book.on("Book:atStart", function(){
 	// 	$prev.addClass("disabled");
 	// });
 	// 
-	// book.on("book:atEnd", function(){
+	// Book.on("Book:atEnd", function(){
 	// 	$next.addClass("disabled");	
 	// });
 

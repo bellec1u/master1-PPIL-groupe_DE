@@ -37,7 +37,7 @@ var bookapi = {
         bookapi.$out = $('#bookapi-out');
 
         $('#bookpanel').append('<a href="#" id="bookapi-s">Lookup Book Data</a>');
-        $('#bookapi-s').attr('title','Search this book at Google Books');
+        $('#bookapi-s').attr('title','Search this Book at Google Books');
         $('#bookapi-s').click(bookapi.open);
 
         $('#bookapi-q').keypress(
@@ -173,7 +173,7 @@ $(function(){
     bookapi.init();
     author.init();
 
-    // scroll to currently selected book
+    // scroll to currently selected Book
     $current = $('#booklist li.active');
     if($current.length){
          $current[0].scrollIntoView();

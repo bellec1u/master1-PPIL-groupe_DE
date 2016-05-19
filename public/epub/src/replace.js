@@ -1,7 +1,7 @@
 var EPUBJS = EPUBJS || {};
 EPUBJS.replace = {};
 
-//-- Replaces the relative links within the book to use our internal page changer
+//-- Replaces the relative links within the Book to use our internal page changer
 EPUBJS.replace.hrefs = function(callback, renderer){
 	var book = this;
 	var replacments = function(link, done){

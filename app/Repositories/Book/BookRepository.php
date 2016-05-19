@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Book;
 
 use App\Models\Book;
+use App\Repositories\ResourceRepository;
 
 class BookRepository extends ResourceRepository
 {
@@ -11,6 +12,7 @@ class BookRepository extends ResourceRepository
 	{
 		$this->model = $book;
 	}
+	
 
 	
 

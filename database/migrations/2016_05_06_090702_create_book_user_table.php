@@ -13,7 +13,7 @@ class CreateBookUserTable extends Migration
     public function up()
     {
         /**
-         * Pivot table for book suggestions
+         * Pivot table for Book suggestions
          */
         Schema::create('book_user', function (Blueprint $table) {
 

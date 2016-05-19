@@ -1,4 +1,4 @@
-@extends('user.template')
+@extends('template')
 
 @section('titre')
     Inscription | Call Me Ishmael
@@ -45,15 +45,14 @@
                             {!! Form::radio('sex', 'M', true) !!} Homme
                             {!! $errors->first('sex', '<small class="help-block">:message</small>') !!}
                         </div>
-                        <div class="form-group">
-                            <div class="date">
-                                <label>
+                        <div class="form-group{!! $errors->has('name') ? 'has-error' : '' !!}">
+
                                     Date de naissance : {!! Form::date('birth_date', \Carbon\Carbon::now()) !!}
                                     {!! $errors->first('birth_date', '<small class="help-block">:message</small>') !!}
-                                </label>
+
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group{!! $errors->has('name') ? 'has-error' : '' !!}">
                             <div class="file">
                                 <label>
                                     Image de Profil : {!! Form::file('profile_image') !!}

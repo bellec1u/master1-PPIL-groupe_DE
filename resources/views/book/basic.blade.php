@@ -10,12 +10,12 @@
 
 
         <!-- EPUBJS Renderer -->
-       
-          {!! Html::script('epub/build/epub.js'); !!} 
-           {!! Html::script('epub/build/libs/zip.min.js'); !!} 
-          
-          
-         
+
+          {!! Html::script('epub/build/epub.js') !!}
+           {!! Html::script('epub/build/libs/zip.min.js') !!}
+
+
+
         <style type="text/css">
 
           body {
@@ -73,11 +73,14 @@
          <script>
             "use strict";
 
-            var Book = ePub("{!! URL::asset('epub/reader/moby-dick.epub'); !!}");
+            var Book = ePub("{!! URL::asset('Books/book'.$idBook.'.epub') !!}");
 
         </script>
     </head>
     <body>
+    <a href="{{ $_GET['path'] }}" class="btn btn-primary"> Quitter </a>
+        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+    </a>
         <div id="main">
           <div id="prev" onclick="Book.prevPage();" class="arrow">‹</div>
           <div id="area"></div>

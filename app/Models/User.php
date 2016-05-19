@@ -18,7 +18,8 @@ class User extends Authenticatable
         'password',
         'sex',
         'birth_date',
-        'profile_image'
+        'profile_image',
+        'validation_code'
     ];
 
     /**
@@ -36,11 +37,14 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-    public function ratings(){
+    public function ratings()
+    {
         return $this->hasMany('App\Models\Rating');
     }
 
-    public function reading(){
+    public function readings()
+    {
         return $this->hasMany('App\Models\Reading');
     }
+
 }

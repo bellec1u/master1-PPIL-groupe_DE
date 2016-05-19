@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Repositories\BookRepository;
+use App\Repositories\Book\BookRepository;
 
 
 class HomeController extends Controller
@@ -28,8 +28,12 @@ class HomeController extends Controller
     public function index()
     {
        
-        $id = 4;
-        $book = $this->bookRepository->getById($id);
-        return view('index', compact('book'));
+
+        for($i =0; $i<= 10 ; $i++){
+            $id = rand(1,1000);
+            $book1 = $this->bookRepository->getById($id);
+            $liste[] = $book1;
+        }
+        return view('index')->with('liste', $liste);
     }
 }

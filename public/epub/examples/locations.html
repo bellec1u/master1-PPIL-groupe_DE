@@ -141,7 +141,7 @@
                 slider.setAttribute("type", "range");
                 slider.setAttribute("min", 0);
                 slider.setAttribute("max", 100);
-                // slider.setAttribute("max", book.locations.total+1);
+                // slider.setAttribute("max", Book.locations.total+1);
                 slider.setAttribute("step", 1);
                 slider.setAttribute("value", 0);
 
@@ -153,7 +153,7 @@
                     mouseDown = false;
                 }, false);
 
-                // Wait for book to be rendered to get current page
+                // Wait for Book to be rendered to get current page
                 rendered.then(function(){
                     // Get the current CFI
                     var currentLocation = book.getCurrentLocationCfi();

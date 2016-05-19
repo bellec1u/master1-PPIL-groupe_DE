@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Managers\ImageManager;
 
+use App\Http\Requests\User\UserCreateRequest;
+use App\Http\Requests\User\UserUpdateRequest;
+use Auth;
 use App\Repositories\UserRepository;
+use App\Services\EmailConfirmationService;
 use Illuminate\Support\Facades\Input;
 //use Illuminate\Http\Request;
 
@@ -15,21 +16,11 @@ class UserController extends Controller
 
     protected $userRepository;
 
-    protected $nbrPerPage = 4;
-
     public function __construct(UserRepository $userRepository)
 	{
 		$this->userRepository = $userRepository;
 	}
 
-
-	public function index()
-	{
-		$users = $this->userRepository->getPaginate($this->nbrPerPage);
-		$links = $users->render();
-
-		return view('index', compact('users', 'links'));
-	}
 
 
 	public function create()
@@ -71,6 +62,16 @@ class UserController extends Controller
     }
 
 
+    public function confirmEmail(EmailConfirmationService $emailConfService, $token)
+    {
+        $user = $emailConfService->confirmEmail($token);
+        if ($user) {
+            Auth::login($user);
+            return redirect('/')->with('status', 'Votre email a été validé');
+        } else {
+            return redirect('/');
+        }
+    }
      
     
    
