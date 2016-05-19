@@ -59,8 +59,8 @@ Route::group(['middleware' => 'web'], function () {
     // standard
     Route::resource('user', 'UserController',
         ['except' => ['index', 'edit', 'destroy']]);
-//    Route::get('user', 'UserController@create');
-//    Route::post('user', ['uses' => 'UserController@store', 'as' => 'storeUser']);
+    Route::get('user/verify/{token}', 'UserController@confirmEmail')
+        ->where('token', '[a-zA-Z0-9]+');
     
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
@@ -70,7 +70,7 @@ Route::group(['middleware' => 'web'], function () {
     // book access
     // details
     Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'BookController@show'])->where('id', '[0-9]+');
-    Route::get('book/{id}/open', 'BookController@open')->where('id', '[0-9]+');
+    Route::get('book/{id}/open/', ['as' => 'bookOpen', 'uses' => 'BookController@open'])->where('id', '[0-9]+');
 
     // book modif
     Route::get('createRating/{id}', 'book\RatingController@create')->where('id', '[0-9]+');
@@ -80,8 +80,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('updateRating', ['uses' => 'book\RatingController@update', 'as' => 'updateRating']);
 
 
+    // liste de lecture.
     Route::get('book/addBibliotheque/{id}', 'book\ReadingController@add')->where('id', '[0-9]+');
-    Route::get('book/consultBibliotheque', 'book\ReadingController@show');
+    Route::get('book/consultBibliotheque', ['uses' => 'book\ReadingController@show', 'as' => 'showReading']);
     Route::get('book/destroyBibliotheque/{id}', 'book\ReadingController@destroy')->where('id', '[0-9]+');;
 
    

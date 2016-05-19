@@ -15,9 +15,9 @@ class UserCreateRequest extends Request
     public function rules()
     {
         return [
-            'last_name'     => 'required|max:255',
-            'first_name'    => 'required|max:255',
-            'email'         => 'required|email|max:255|unique:users',
+            'last_name'     => 'required|max:255|alpha',
+            'first_name'    => 'required|max:255|alpha',
+            'email'         => 'required|email|confirmed|max:255|unique:users',
             'password'      => 'required|confirmed|min:8',
             'birth_date'    => 'required|date',
             'profile_image' => 'image',

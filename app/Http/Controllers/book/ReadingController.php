@@ -122,7 +122,7 @@ class ReadingController extends Controller
     public function destroy($id)
     {
          $this->readingRepository->delete($id, Auth::user()->id);
-        return redirect()->route('/');
+        return redirect()->route('showReading');
 
     }
 }
