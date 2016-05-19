@@ -115,7 +115,11 @@ public class MainActivity extends AppCompatActivity
         // Lock the screen's orientation
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        this.setConnection(false);
+        /*
+            On récupère la session pour voir si un utilisateur etait toujours connecté ou non
+         */
+        SessionManager sessionManager = new SessionManager(getBaseContext());
+        this.setConnection(sessionManager.isConnected()); // et on affecte la connection a vrai ou faux
     }
 
     @Override
