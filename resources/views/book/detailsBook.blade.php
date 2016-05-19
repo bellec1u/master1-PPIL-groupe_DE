@@ -91,12 +91,10 @@ function makeRating($rate, $bestvalue = 5) {
 				<p>Langue : {{ $book->language  }}</p>
 				<p>Date de Parution : {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
 				<p>Note moyenne : {{ $book->stars_average  }}</p>
-				<a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a>
+				<a href="{{URL::route('bookOpen', array('id'=>'4', 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a>
 				@if(Auth::check())
 					<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Evaluer</a>
 					<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ajouter a sa bibliothèque</a>
-
-
 				@endif
 				@foreach($data as $rating)
 					<p>
@@ -105,9 +103,12 @@ function makeRating($rate, $bestvalue = 5) {
 						{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 					@endif
 					@endif
+
 					 Commentaire {{ $rating->comment }}
 					  <td></td><?php   echo 'note'.makeRating($rating->stars)  ?></td>
+
 					</p>
+
 				@endforeach
 			</div>
 		</div>				
