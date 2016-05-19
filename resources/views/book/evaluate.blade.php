@@ -8,11 +8,13 @@
     <br>
     <div class="col-sm-offset-3 col-sm-6">
         <div class="panel panel-info">
-            <div class="panel-heading">Ajout d'un article</div>
+            <div class="panel-heading">Ajout d'un commentaire </div>
             <div class="panel-body">
                 {!! Form::open(array('route'=>'storeRating','method'=>'POST', 'files'=>'true')) !!}
                 {!! csrf_field() !!}
                 <div class="form-group {!! $errors->has('titre') ? 'has-error' : '' !!}">
+
+
                     {!! Form::number('stars', null,['class' => 'form-control', 'placeholder' => '0', 'max'=>'5', 'min'=>'0'] ) !!}
                     {!! $errors->first('stars', '<small class="help-block">:message</small>') !!}
                 </div>

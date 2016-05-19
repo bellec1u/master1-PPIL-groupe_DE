@@ -39,7 +39,7 @@ class ReadingController extends Controller
      */
     public function add($id_book)
     {   $book = $this->readingRepository->getReadingIdAndUser($id_book, Auth::user()->id);
-        if($book->count() ==0 ){
+        if($book->count() == 0 ){
             $request['user_id'] = Auth::user()->id;
             $request['book_id'] = $id_book;
             $request['current_page'] = '0';

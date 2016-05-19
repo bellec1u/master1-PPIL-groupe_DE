@@ -61,8 +61,11 @@ header.page-header {
     #login-dp{
         background-color: inherit;
     }
-    #login-dp .bottom{
+    #login-dp .bottom {
         background-color: inherit;
-        border-top:0 none;
+        border-top: 0 none;
     }
+
 }
+body {
+    background: url("https://1.bp.blogspot.com/-4t3x5s87Emg/Utvh5ctPPNI/AAAAAAAAF38/B7d1FRSg99I/s1600/lorem-ipsum-background-tile.jpg");}
