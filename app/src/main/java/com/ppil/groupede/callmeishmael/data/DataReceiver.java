@@ -10,6 +10,6 @@ public interface DataReceiver {
 
         Elle permet de traiter les résultats d'une facon différentes selon les fonctionnalités de chaque
         activités.
-        Certaines classe vont recevoir des booleens, d'autres des JSONArray etc...
+        Certaines classes vont recevoir des booleens, d'autres des JSONArray etc...
      */
 }

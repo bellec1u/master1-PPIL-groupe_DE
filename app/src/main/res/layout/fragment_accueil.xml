@@ -115,14 +115,15 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            android:id="@+id/barre2"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Suggestions"
-            android:id="@+id/textView3"
+            android:id="@+id/textSuggestion"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp" />
 
@@ -167,14 +168,15 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/colorPrimary"
+            android:id="@+id/barre3"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Liste de lecture"
-            android:id="@+id/textView4"
+            android:id="@+id/textListeLecture"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp" />
 

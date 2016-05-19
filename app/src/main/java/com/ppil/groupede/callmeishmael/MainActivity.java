@@ -44,6 +44,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.concurrent.ExecutionException;
 
 /*
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity
             On récupère la session pour voir si un utilisateur etait toujours connecté ou non
          */
         SessionManager sessionManager = new SessionManager(getBaseContext());
-        this.setConnection(sessionManager.isConnected()); // et on affecte la connection a vrai ou faux
+        this.setConnection(!sessionManager.isConnected()); // et on affecte la connection a vrai ou faux
     }
 
     @Override
@@ -292,7 +293,7 @@ public class MainActivity extends AppCompatActivity
                 On charge l'image à partir de l'URL si l'URL n'est pas vide,
                 donc on va utiliser BitmapManager
              */
-            if(url.equals("")) {
+            if(!url.equals("")) {
                 try {
                     BitmapManager bitmapManager = new BitmapManager(img);
                     img = bitmapManager.execute(url).get();

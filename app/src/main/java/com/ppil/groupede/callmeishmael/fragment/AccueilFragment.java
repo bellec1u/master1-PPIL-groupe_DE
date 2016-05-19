@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
@@ -26,6 +29,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 
@@ -60,6 +74,13 @@ public class AccueilFragment extends Fragment implements DataReceiver {
     private int hauteur; // hauteur de chaque image (cover d'un livre)
     private int largeur; // largeur de chaque image (cover d'un livre)
 
+    private GridLayout leTop; // gridLayout contenant les livres du top 10.
+    private GridLayout suggestion; // gridLayout contenant les livres suggérer pour l'utilisateur
+    private GridLayout listeLecture; // liste de lecture de l'utilisateur
+
+    // ImageButton de la liste de lecture
+    private ImageButton[] boutonListe;
+
     /*
         Constructeur d'AccueilFragment, initialement vide...
      */
@@ -84,6 +105,13 @@ public class AccueilFragment extends Fragment implements DataReceiver {
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
 
         /*
+            On affecte aux 3 GridLayouts le bon élément du layout
+         */
+        leTop = (GridLayout) view.findViewById(R.id.top_dix);
+        suggestion = (GridLayout) view.findViewById(R.id.liste_des_suggestions);
+        listeLecture = (GridLayout) view.findViewById(R.id.liste_de_lecture);
+
+        /*
             On donne le nom au fragment : Accueil
          */
         this.getActivity().setTitle("Accueil");
@@ -102,12 +130,11 @@ public class AccueilFragment extends Fragment implements DataReceiver {
         int nbLignes = ((int)(nbLivre/3)) + 1;
 
         /*
-            Mise en place du GridLayout
+            Mise en place du GridLayout TOP 10
         */
-        GridLayout gl = (GridLayout) view.findViewById(R.id.top_dix);
-        gl.removeAllViews();
-        gl.setColumnCount( nbColonnes );
-        gl.setRowCount( nbLignes );
+        leTop.removeAllViews();
+        leTop.setColumnCount( nbColonnes );
+        leTop.setRowCount( nbLignes );
 
 
         /*
@@ -145,7 +172,7 @@ public class AccueilFragment extends Fragment implements DataReceiver {
             top[i].setMinimumHeight(hauteur);
 
             GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-            gl.addView(top[i], gridParam);
+            leTop.addView(top[i], gridParam);
         }
 
 
@@ -153,19 +180,41 @@ public class AccueilFragment extends Fragment implements DataReceiver {
             SI l'utilisateur n'est pas connecté, il n'y a pas de liste de suggestion ni de liste de lecture
             On verifie ca grace à SessionManager
          */
-        SessionManager sessionManager = new SessionManager(getContext());
-        if(false) {
+        listeLecture = (GridLayout) view.findViewById(R.id.liste_de_lecture);
 
+        SessionManager sessionManager = new SessionManager(getContext());
+        if(!sessionManager.isConnected())
+        {
+            //setSuggestion();
+            suggestion.setVisibility(View.GONE);
+            TextView sug = (TextView) view.findViewById(R.id.textSuggestion);
+            sug.setVisibility(View.GONE);
+            View barre = (View) view.findViewById(R.id.barre2);
+            barre.setVisibility(View.GONE);
+            setListeDeLecture();
+        }
+        else
+        {
+            listeLecture.setVisibility(View.GONE);
+            suggestion.setVisibility(View.GONE);
+            TextView sug = (TextView) view.findViewById(R.id.textSuggestion);
+            sug.setVisibility(View.GONE);
+            TextView lecture = (TextView) view.findViewById(R.id.textListeLecture);
+            lecture.setVisibility(View.GONE);
+            View barre = (View) view.findViewById(R.id.barre3);
+            barre.setVisibility(View.GONE);
+        }
             // ---------- ---------- ---------- ---------- ---------- Liste de suggestion
 
-            nbLivre = 8;
+         /*   nbLivre = 8;
             nbColonnes = 3;
             nbLignes = ((int) (nbLivre / 3)) + 1;
 
-            gl = (GridLayout) view.findViewById(R.id.liste_des_suggestions);
-            gl.removeAllViews();
-            gl.setColumnCount(nbColonnes);
-            gl.setRowCount(nbLignes);
+            suggestion = (GridLayout) view.findViewById(R.id.liste_des_suggestions);
+            suggestion.removeAllViews();
+            suggestion.setVisibility(View.GONE);
+            suggestion.setColumnCount(nbColonnes);
+            suggestion.setRowCount(nbLignes);
 
             for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
                 if (c == nbColonnes) {
@@ -175,8 +224,8 @@ public class AccueilFragment extends Fragment implements DataReceiver {
 
                 ImageButton ib = new ImageButton(view.getContext());
 
-                int largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
-                int hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
+                largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
+                hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
 
                 ib.setMinimumWidth(largeur);
                 ib.setMinimumHeight(hauteur);
@@ -192,17 +241,17 @@ public class AccueilFragment extends Fragment implements DataReceiver {
                 });
 
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-                gl.addView(ib, gridParam);
+                suggestion.addView(ib, gridParam);
             }
 
             // ---------- ---------- ---------- ---------- ---------- Liste de lecture
             nbLivre = 4;
             nbLignes = ((int) (nbLivre / 3)) + 1;
 
-            gl = (GridLayout) view.findViewById(R.id.liste_de_lecture);
-            gl.removeAllViews();
-            gl.setColumnCount(nbColonnes);
-            gl.setRowCount(nbLignes);
+            listeLecture = (GridLayout) view.findViewById(R.id.liste_de_lecture);
+            listeLecture.removeAllViews();
+            listeLecture.setColumnCount(nbColonnes);
+            listeLecture.setRowCount(nbLignes);
 
             for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
                 if (c == nbColonnes) {
@@ -212,8 +261,8 @@ public class AccueilFragment extends Fragment implements DataReceiver {
 
                 ImageButton ib = new ImageButton(view.getContext());
 
-                int largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
-                int hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
+                largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
+                hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
 
                 ib.setMinimumWidth(largeur);
                 ib.setMinimumHeight(hauteur);
@@ -267,10 +316,10 @@ public class AccueilFragment extends Fragment implements DataReceiver {
                 });
 
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-                gl.addView(ib, gridParam);
+                listeLecture.addView(ib, gridParam);
 
-            }
-        }
+
+        }*/
         firstLoad = false; // la fonction aura donc été appelée au moins 1 fois
         return view;
     }
@@ -328,6 +377,220 @@ public class AccueilFragment extends Fragment implements DataReceiver {
             e.printStackTrace();
         }
     }
+
+    /*
+        Effectue un chargement de la liste de lecture de l'utilisateur
+     */
+    public void setListeDeLecture()
+    {
+        ListeDeLecture listeDeLecture = new ListeDeLecture();
+        /*
+            On recupere les informations de l'utilisateur via SessionManager
+         */
+        SessionManager sessionManager = new SessionManager(getContext());
+        String email = sessionManager.getSessionEmail();
+
+        listeDeLecture.execute(email); // on demande la requete ici
+    }
+
+    /*
+        Permet de charger la liste de lecture
+     */
+    public void chargerListe(String resultat)
+    {
+        try {
+            JSONArray array = new JSONArray(resultat) ; // convertie le résultat en JSONArray
+            /*
+                On parcourt ensuite le JSONArray et on instancie les images correspondantes
+             */
+            boutonListe = new ImageButton[array.length()]; // on instancie la liste
+            System.out.println("res : "+ resultat);
+            System.out.println("taille : " + array.length());
+            int nbColonnes,nbLignes;
+            nbColonnes = 3;
+            nbLignes = ((int) (array.length() / 3)) + 1;
+            listeLecture.removeAllViews();
+            listeLecture.setColumnCount(nbColonnes);
+            listeLecture.setRowCount(nbLignes);
+
+            for (int i = 0, c = 0, r = 0; i < array.length(); i++, c++) {
+                if (c == nbColonnes) {
+                    c = 0;
+                    r++;
+                }
+
+                boutonListe[i] = new ImageButton(getContext());
+                largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
+                hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
+
+                boutonListe[i].setMinimumWidth(largeur);
+                boutonListe[i].setMinimumHeight(hauteur);
+                // On recupere le premier élement dans un Object, puis en JSONObject
+                Object object = array.get(i);
+                JSONObject jsonObject = new JSONObject(object.toString()); // instanciation du JSONObject
+
+                /*
+                    Utilisation de la classe BitmapManager pour charger dans un Bitmap
+                    une image venant d'un URL
+                */
+                Bitmap bitmap = null ; // parametre d'ImageManager
+                BitmapManager bitmapManager = new BitmapManager(bitmap); // instanciation ici...
+                /*
+                    On execute bitmapManager, donc requete,
+                    le get() fait en sorte que l'UIThread attend le resultat.
+                 */
+                bitmap = bitmapManager.execute(jsonObject.getString("cover_url")).get();
+
+                if(bitmap != null) {
+                /*
+                    On redimensionne l'image (si besoin est)
+                 */
+                    bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
+                /*
+                    On l'affecte à notre objet de classe
+                 */
+                    top[i].setImageBitmap(bitmap);
+                }
+                 /*
+                    On créer maintenant un onClickListener pour ouvrir le fragment DetailsLivreFragment
+                    associé à l'ImageButton.
+                    On récupère avant les attributs title et id présent dans le JSONObject
+                 */
+                String titre = jsonObject.getString("title");
+                String id = jsonObject.getString("id");
+                Activity activity = getActivity(); // activity courante
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager(); // objet permettant la gestion des Fragments
+                boutonListe[i].setOnClickListener(new ImageCliquable(bitmap, titre, id, activity, fragmentManager));
+                ; // affectation du Listener ici...
+
+                //fonction permettant de supprimer un livre de la liste de lecture
+                boutonListe[i].setOnLongClickListener(new View.OnLongClickListener() {
+
+                    @Override
+                    public boolean onLongClick(View arg0) {
+
+                        //Toast.makeText(getActivity(), "long click : delete book", Toast.LENGTH_SHORT).show();
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                        // set title
+                        alertDialogBuilder.setTitle("Suppression");
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
+                                .setCancelable(false)
+                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //fonction de suppression du livre dans la BDD
+
+                                    }
+                                })
+                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show it
+                        alertDialog.show();
+
+                        return false;
+
+                    }
+                });
+
+                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
+                listeLecture.addView(boutonListe[i], gridParam);
+            }
+        } catch (ExecutionException | InterruptedException | JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+        Permet d'interroger la base avec un processus, en arriere plan
+     */
+    class ListeDeLecture extends AsyncTask<String,String,String>{
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            chargerListe(s);
+        }
+
+        @Override
+        protected String doInBackground(String... param) {
+            String response = ""; // attribut contenant notre futur résultat
+            try {
+            /*
+                On parcourt tous les paramètres
+             */
+                for(String url : param) {
+
+                    Map<String,Object> params = new LinkedHashMap<>();
+                    params.put("email", url); // on associe au champs email = emailUser
+
+                    /*
+                        Charge les parametres
+                     */
+                    StringBuilder postData = new StringBuilder();
+                    for (Map.Entry<String,Object> para : params.entrySet()) {
+                        if (postData.length() != 0) postData.append('&');
+                        postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                        postData.append('=');
+                        postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+                    }
+
+                    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+                    /*
+                        Recupere adresse via Data
+                     */
+                    String adresse = Data.getData().getURLecture();
+                    URL serv = new URL(adresse); // on instancie l'URL à atteindre
+                /*
+                    On établit la connexion avec le serveur
+                 */
+                    HttpURLConnection urlConnection = (HttpURLConnection) serv.openConnection();
+                /*
+                    On utilise la méthode POST pour le transfert de données
+                 */
+                    urlConnection.setRequestMethod("POST");
+
+                    urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    urlConnection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+                    urlConnection.setDoOutput(true);
+                    urlConnection.getOutputStream().write(postDataBytes);
+
+                /*
+                    On récupère le résultat dans in
+                 */
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in)); // on le lit ici...
+                /*
+                    Maintenant on le parcourt, puis on affectera à res le resultat.
+                 */
+                    String line;
+                    StringBuilder sb = new StringBuilder("");
+                    line = reader.readLine();
+                    sb.append(line);
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    response = sb.toString(); // résultat affecté ici !
+                    urlConnection.disconnect(); // on ferme la connexion
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace(); // pas atteignable logiquement !
+            } catch (IOException e) {
+                e.printStackTrace(); // pas atteignable logiquement !
+            }
+            return response; // résultat contenant la réponse du serveur retourné...
+        }
+    }
+
 }
 
 /*
@@ -373,4 +636,5 @@ class ImageCliquable implements View.OnClickListener
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit(); // on confirme le changement
     }
+
 }

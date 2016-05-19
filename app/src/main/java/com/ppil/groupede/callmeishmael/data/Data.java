@@ -130,6 +130,14 @@ public class Data {
     }
 
     /*
+        Retourne l'URL pour demander la liste de lecture d'un utilisateur
+     */
+    public String getURLecture()
+    {
+        return ( adresse + "/requetes/lecture.php");
+    }
+
+    /*
         Retourne l'instance de Data, car singleton
      */
     public static Data getData()
