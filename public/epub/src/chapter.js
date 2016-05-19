@@ -27,7 +27,7 @@ EPUBJS.Chapter.prototype.load = function(_store, _credentials){
 	var store = _store || this.store;
 	var credentials = _credentials || this.credentials;
 	var promise;
-	// if(this.store && (!this.book.online || this.book.contained))
+	// if(this.store && (!this.Book.online || this.Book.contained))
 	if(store){
 		promise = store.getXml(this.absolute);
 	}else{

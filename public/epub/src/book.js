@@ -34,13 +34,13 @@ EPUBJS.Book = function(options){
 
 	//-- All Book events for listening
 	/*
-		book:ready
-		book:stored
-		book:online
-		book:offline
-		book:pageChanged
-		book:loadFailed
-		book:loadChapterFailed
+		Book:ready
+		Book:stored
+		Book:online
+		Book:offline
+		Book:pageChanged
+		Book:loadFailed
+		Book:loadChapterFailed
 	*/
 
 	//-- Adds Hook methods to the Book prototype
@@ -118,11 +118,11 @@ EPUBJS.Book = function(options){
 	window.addEventListener("beforeunload", this.unload.bind(this), false);
 
 	//-- Listen for these promises:
-	//-- book.opened.then()
-	//-- book.rendered.then()
+	//-- Book.opened.then()
+	//-- Book.rendered.then()
 };
 
-//-- Check bookUrl and start parsing book Assets or load them from storage
+//-- Check bookUrl and start parsing Book Assets or load them from storage
 EPUBJS.Book.prototype.open = function(bookPath, forceReload){
 	var book = this,
 			epubpackage,
@@ -142,7 +142,7 @@ EPUBJS.Book.prototype.open = function(bookPath, forceReload){
 			});
 
 	}	else {
-		//-- Get a absolute URL from the book path
+		//-- Get a absolute URL from the Book path
 		this.bookUrl = this.urlFrom(bookPath);
 
 		epubpackage = this.loadPackage();
@@ -201,8 +201,8 @@ EPUBJS.Book.prototype.loadPackage = function(_containerPath){
 
 	packageXml.catch(function(error) {
 		// handle errors in either of the two requests
-		console.error("Could not load book at: "+ containerPath);
-		book.trigger("book:loadFailed", containerPath);
+		console.error("Could not load Book at: "+ containerPath);
+		book.trigger("Book:loadFailed", containerPath);
 	});
 	return packageXml;
 };
@@ -417,7 +417,7 @@ EPUBJS.Book.prototype.generatePageList = function(width, height, flag){
 	return deferred.promise;
 };
 
-// Render out entire book and generate the pagination
+// Render out entire Book and generate the pagination
 // Width and Height are optional and will default to the current dimensions
 EPUBJS.Book.prototype.generatePagination = function(width, height, flag) {
 	var book = this;
@@ -471,7 +471,7 @@ EPUBJS.Book.prototype.networkListeners = function(){
 		if (book.settings.storage) {
 			book.fromStorage(true);
 		}
-		book.trigger("book:offline");
+		book.trigger("Book:offline");
 	}, false);
 
 	window.addEventListener("online", function(e) {
@@ -479,12 +479,12 @@ EPUBJS.Book.prototype.networkListeners = function(){
 		if (book.settings.storage) {
 			book.fromStorage(false);
 		}
-		book.trigger("book:online");
+		book.trigger("Book:online");
 	}, false);
 
 };
 
-// Listen to all events the renderer triggers and pass them as book events
+// Listen to all events the renderer triggers and pass them as Book events
 EPUBJS.Book.prototype.listenToRenderer = function(renderer){
 	var book = this;
 	renderer.Events.forEach(function(eventName){
@@ -508,7 +508,7 @@ EPUBJS.Book.prototype.listenToRenderer = function(renderer){
 					pageRange.push(endPage);
 				//}
 			}
-			this.trigger("book:pageChanged", {
+			this.trigger("Book:pageChanged", {
 				"anchorPage": startPage,
 				"percentage": percent,
 				"pageRange" : pageRange
@@ -652,7 +652,7 @@ EPUBJS.Book.prototype.isContained = function(bookUrl){
 	return false;
 };
 
-//-- Checks if the book can be retrieved from localStorage
+//-- Checks if the Book can be retrieved from localStorage
 EPUBJS.Book.prototype.isSaved = function(bookKey) {
 	var storedSettings;
 
@@ -707,7 +707,7 @@ EPUBJS.Book.prototype.renderTo = function(elem){
 
 	rendered = this.opened.
 				then(function(){
-					// book.render = new EPUBJS.Renderer[this.settings.renderer](book);
+					// Book.render = new EPUBJS.Renderer[this.settings.renderer](Book);
 					book.renderer.initialize(book.element, book.settings.width, book.settings.height);
 
 					if(book.metadata.direction) {
@@ -844,7 +844,7 @@ EPUBJS.Book.prototype.displayChapter = function(chap, end, deferred){
 	//-- Success, Clear render queue
 	render.then(function(rendered){
 		// var inwait;
-		//-- Set the book's spine position
+		//-- Set the Book's spine position
 		book.spinePos = pos;
 
 		defer.resolve(book.renderer);
@@ -863,7 +863,7 @@ EPUBJS.Book.prototype.displayChapter = function(chap, end, deferred){
 	}, function(error) {
 		// handle errors in either of the two requests
 		console.error("Could not load Chapter: "+ chapter.absolute, error);
-		book.trigger("book:chapterLoadFailed", chapter.absolute);
+		book.trigger("Book:chapterLoadFailed", chapter.absolute);
 		book._rendering = false;
 		defer.reject(error);
 	});
@@ -919,7 +919,7 @@ EPUBJS.Book.prototype.nextChapter = function(defer) {
 		}
 	}
     
-    this.trigger("book:atEnd");
+    this.trigger("Book:atEnd");
     defer.resolve(true);
     return defer.promise;
 };
@@ -937,7 +937,7 @@ EPUBJS.Book.prototype.prevChapter = function(defer) {
 		}
     }
 
-    this.trigger("book:atStart");
+    this.trigger("Book:atStart");
     defer.resolve(true);
     return defer.promise;
 };
@@ -1114,7 +1114,7 @@ EPUBJS.Book.prototype.storeOffline = function() {
 	return this.store.put(assets).
 			then(function(){
 				book.settings.stored = true;
-				book.trigger("book:stored");
+				book.trigger("Book:stored");
 			});
 };
 
@@ -1167,13 +1167,13 @@ EPUBJS.Book.prototype.fromStorage = function(stored) {
 				this.offline = false;
 				this.settings.fromStorage = false;
 				// this.renderer.removeHook("beforeChapterRender", hooks, true);
-				this.trigger("book:online");
+				this.trigger("Book:online");
 			} else {
 				// Offline
 				this.offline = true;
 				this.settings.fromStorage = true;
 				// this.renderer.registerHook("beforeChapterRender", hooks, true);
-				this.trigger("book:offline");
+				this.trigger("Book:offline");
 			}
 		}.bind(this));
 
@@ -1266,7 +1266,7 @@ EPUBJS.Book.prototype.unload = function(){
 
 	this.unlistenToRenderer(this.renderer);
 
-	this.trigger("book:unload");
+	this.trigger("Book:unload");
 };
 
 EPUBJS.Book.prototype.destroy = function() {
@@ -1283,7 +1283,7 @@ EPUBJS.Book.prototype.destroy = function() {
 
 EPUBJS.Book.prototype._ready = function() {
 
-	this.trigger("book:ready");
+	this.trigger("Book:ready");
 
 };
 
@@ -1291,7 +1291,7 @@ EPUBJS.Book.prototype._rendered = function(err) {
 	var book = this;
 
 	this.isRendered = true;
-	this.trigger("book:rendered");
+	this.trigger("Book:rendered");
 
 	this._q.flush();
 };
@@ -1349,7 +1349,7 @@ EPUBJS.Book.prototype.parseLayoutProperties = function(metadata){
 	};
 };
 
-//-- Enable binding events to book
+//-- Enable binding events to Book
 RSVP.EventTarget.mixin(EPUBJS.Book.prototype);
 
 //-- Handle RSVP Errors

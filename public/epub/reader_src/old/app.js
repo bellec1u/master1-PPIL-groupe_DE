@@ -24,23 +24,23 @@ EPUBJSR.app.init = (function($){
 		$("#main").width(windowWidth);
 	}
 	
-	//-- Create a new book object, 
+	//-- Create a new Book object, 
 	//	 this will create an iframe in the el with the ID provided
 	Book = new EPUBJS.Book({ bookPath: bookURL, restore : true });
 	
 	
 	//Book.single = true;
 	
-	//-- Add listeners to handle book events
-	//-- Full list of event are at start of book.js
+	//-- Add listeners to handle Book events
+	//-- Full list of event are at start of Book.js
 	
 	
-	// Book.listen("book:metadataReady", meta);
-	// Book.listen("book:tocReady", toc);
-	// Book.listen("book:bookReady", bookReady);
-	// Book.listen("book:chapterReady", chapterChange);
-	Book.on("book:online", goOnline);
-	Book.on("book:offline", goOffline);
+	// Book.listen("Book:metadataReady", meta);
+	// Book.listen("Book:tocReady", toc);
+	// Book.listen("Book:bookReady", bookReady);
+	// Book.listen("Book:chapterReady", chapterChange);
+	Book.on("Book:online", goOnline);
+	Book.on("Book:offline", goOffline);
 	
 	Book.getMetadata().then(meta);
 	Book.getToc().then(toc);
@@ -53,7 +53,7 @@ EPUBJSR.app.init = (function($){
 	
 	//Book.registerHook("beforeChapterDisplay", EPUBJS.Hooks.transculsions.insert);
 	
-	//-- Start loading / parsing of the book.
+	//-- Start loading / parsing of the Book.
 	//	 This must be done AFTER adding listeners or hooks
 	//Book.renderTo("area");
 	
@@ -69,7 +69,7 @@ EPUBJSR.app.init = (function($){
   function meta(meta){
 	  var title = meta.bookTitle,//Book.getTitle(),
 		  author = meta.creator, //Book.getCreator(),
-		  $title = $("#book-title"),
+		  $title = $("#Book-title"),
 		  $author = $("#chapter-title"),
 		  $dash = $("#title-seperator");
 
@@ -336,7 +336,7 @@ EPUBJSR.app.init = (function($){
 	   	});
 		
 		function showSidebar(){
-			//$book.css("pointer-events", "none"); //-- Avoid capture by ifrmae
+			//$Book.css("pointer-events", "none"); //-- Avoid capture by ifrmae
 			$sidebar.addClass("open");
 			$main.addClass("closed");
 			$icon.attr("src", $icon.data("close"));

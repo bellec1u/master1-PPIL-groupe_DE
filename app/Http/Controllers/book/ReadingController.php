@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\book;
+namespace App\Http\Controllers\Book;
 
 
 use App\Http\Requests\book\ReadingCreateRequest;
-use App\Repositories\book\ReadingRepository;
+use App\Repositories\Book\ReadingRepository;
 use App\Http\Requests;
-use App\Repositories\BookRepository;
+use App\Repositories\Book\BookRepository;
 use App\Http\Controllers\Controller;
 use Auth;
 use App\Models\User;
@@ -87,7 +87,7 @@ class ReadingController extends Controller
      */
     public function open($id)
     {
-        //return view('book/basic');
+        //return view('Book/basic');
     }
 
     /**

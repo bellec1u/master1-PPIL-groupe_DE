@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Book;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Repositories\BookRepository;
-use App\Repositories\book\RatingRepository;
+use App\Repositories\Book\BookRepository;
+use App\Repositories\Book\RatingRepository;
+use App\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
@@ -63,7 +64,7 @@ class BookController extends Controller
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
       
-        return view('book/detailsBook', compact('book'))->with('data', $ratings);
+        return view('Book/detailsBook', compact('book'))->with('data', $ratings);
     }
 
     /**
@@ -72,8 +73,8 @@ class BookController extends Controller
      */
     public function open($id)
     {
-
-        return view('book/basic');
+        
+        return view('Book/basic');
     }
 
     /**

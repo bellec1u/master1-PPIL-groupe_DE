@@ -48,9 +48,9 @@ EPUBJS.Hooks.register("beforeChapterDisplay").music = function(callback, chapter
 			//-- resize event
 
 
-			chapter.book.listenUntil("book:resized", "book:chapterDestroy", getPage);
+			chapter.book.listenUntil("Book:resized", "Book:chapterDestroy", getPage);
 			
-			chapter.book.listenUntil("book:pageChanged", "book:chapterDestroy", shouldPlay);
+			chapter.book.listenUntil("Book:pageChanged", "Book:chapterDestroy", shouldPlay);
 
 			item.removeAttribute("controls");			
 	

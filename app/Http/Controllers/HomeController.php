@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use App\Repositories\BookRepository;
+use App\Repositories\Book\BookRepository;
 
 
 class HomeController extends Controller

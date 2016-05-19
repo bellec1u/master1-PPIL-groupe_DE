@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\book;
+namespace App\Repositories\Book;
 
 use App\Models\Rating;
 use App\Repositories\ResourceRepository;
@@ -11,7 +11,7 @@ class RatingRepository extends ResourceRepository
     public function __construct(Rating $rating){
 
         $this->model = $rating;
-        $this->rating = $rating;
+
     }
 
     public function getArraycom($id_book){
@@ -21,12 +21,12 @@ class RatingRepository extends ResourceRepository
 
     public function getRatingId($id_book){
     
-        return Rating::where('book_id', '=' , $id_book)->get();
+        return $this->model->where('book_id', '=' , $id_book)->get();
     }
     
     public function getRatingIdEtUser($id_book, $id_user){
     
-        return Rating::where('book_id', '=' , $id_book)->where('user_id', '=' , $id_user)->get();
+        return $this->model->where('book_id', '=' , $id_book)->where('user_id', '=' , $id_user)->get();
     }
 
 }

@@ -225,7 +225,7 @@ EPUBJS.Reader.prototype.setBookKey = function(identifier){
 	return this.settings.bookKey;
 };
 
-//-- Checks if the book setting can be retrieved from localStorage
+//-- Checks if the Book setting can be retrieved from localStorage
 EPUBJS.Reader.prototype.isSaved = function(bookPath) {
 	var storedSettings;
 
@@ -408,8 +408,8 @@ EPUBJS.reader.ControlsController = function(book) {
 
 	var fullscreen = false;
 
-	book.on("book:online", goOnline);
-	book.on("book:offline", goOffline);
+	book.on("Book:online", goOnline);
+	book.on("Book:offline", goOffline);
 
 	$slider.on("click", function () {
 		if(reader.sidebarOpen) {
@@ -489,7 +489,7 @@ EPUBJS.reader.ControlsController = function(book) {
 		}
 	});
 
-	book.on('book:pageChanged', function(location){
+	book.on('Book:pageChanged', function(location){
 		// console.log("page", location.page, location.percentage)
 	});
 
@@ -502,7 +502,7 @@ EPUBJS.reader.MetaController = function(meta) {
 	var title = meta.bookTitle,
 			author = meta.creator;
 
-	var $title = $("#book-title"),
+	var $title = $("#Book-title"),
 			$author = $("#chapter-title"),
 			$dash = $("#title-seperator");
 
@@ -674,7 +674,7 @@ EPUBJS.reader.NotesController = function() {
 				//-- Add hide on page change
 				renderer.on("renderer:locationChanged", hidePop, this);
 				renderer.on("renderer:locationChanged", offPop, this);
-				// chapter.book.on("renderer:chapterDestroy", hidePop, this);
+				// chapter.Book.on("renderer:chapterDestroy", hidePop, this);
 			}
 			
 			pop = popups[id];
@@ -839,8 +839,8 @@ EPUBJS.reader.ReaderController = function(book) {
 	var hideLoader = function() {
 		$loader.hide();
 		
-		//-- If the book is using spreads, show the divider
-		// if(book.settings.spreads) {
+		//-- If the Book is using spreads, show the divider
+		// if(Book.settings.spreads) {
 		// 	showDivider();
 		// }
 	};
@@ -926,11 +926,11 @@ EPUBJS.reader.ReaderController = function(book) {
 		}
 	});
 
-	// book.on("book:atStart", function(){
+	// Book.on("Book:atStart", function(){
 	// 	$prev.addClass("disabled");
 	// });
 	// 
-	// book.on("book:atEnd", function(){
+	// Book.on("Book:atEnd", function(){
 	// 	$next.addClass("disabled");	
 	// });
 
