@@ -15,7 +15,10 @@
                 <hr />
 
                 <span style="text-decoration: underline;font-weight: bold;">Top 10</span> :<br />
-                <p><a href="{{ URL::route('bookReturn', array('id'=>'4'))}}"><img src="{{ $book->cover_url  }}" alt="" /></a></p>
+                @foreach($liste as $book)
+                <p><a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"><img src="{{ $book->cover_url  }}" alt="" /></a></p>
+
+                @endforeach
                 <br /><br /><br /><br /><br /><br /><br /><br />
                 <hr />
                 <span style="text-decoration: underline;font-weight: bold;">&Agrave; Découvrir</span> :<br />

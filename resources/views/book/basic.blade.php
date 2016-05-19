@@ -73,7 +73,7 @@
          <script>
             "use strict";
 
-            var Book = ePub("{!! URL::asset('epub/reader/moby-dick.epub'); !!}");
+            var Book = ePub("{!! URL::asset('Books/book'.$idBook.'.epub') !!}");
 
         </script>
     </head>
