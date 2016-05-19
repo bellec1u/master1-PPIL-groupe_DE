@@ -4,16 +4,22 @@ namespace App\Repositories;
 
 use App\Managers\ImageManager;
 use App\Models\User;
+use App\Services\EmailConfirmationService;
 
 class UserRepository extends ResourceRepository
 {
 
-    private $imageManager;
+    protected $imageManager;
+    protected $emailConfService;
 
-    public function __construct(User $user, ImageManager $imgManager)
-    {
+    public function __construct(
+        User $user,
+        ImageManager $imgManager,
+        EmailConfirmationService $emailConfServ
+    ) {
         $this->model = $user;
         $this->imageManager = $imgManager;
+        $this->emailConfService = $emailConfServ;
     }
 
     public function storeWithImage(Array $inputs, $image)
@@ -34,6 +40,12 @@ class UserRepository extends ResourceRepository
         }
 
         return false;
+    }
+
+    public function store(Array $inputs)
+    {
+        $inputs = $this->emailConfService->sendConfirmationMail($inputs);
+        return $this->model->create($inputs);
     }
 
 }

@@ -23,6 +23,7 @@ class ReadingRepository extends ResourceRepository
         return $this->reading->where('book_id', '=', $id_book);
     }
 
+
     public function getReadingId($id_user)
     {
 
@@ -33,6 +34,7 @@ class ReadingRepository extends ResourceRepository
     {
 
         return Reading::where('book_id', '=', $id_book)->where('user_id', '=', $id_user)->get();
+
     }
 
     public function delete($id_book, $id_user)
