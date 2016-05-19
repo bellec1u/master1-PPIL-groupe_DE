@@ -96,25 +96,28 @@ function makeRating($rate, $bestvalue = 5) {
 					<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Evaluer</a>
 					<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ajouter a sa bibliothèque</a>
 				@endif
+
 				@foreach($data as $rating)
 					<p>
 					@if(Auth::Check())
 					@if(Auth::user()->id == $rating->user_id)
-						{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
-					@endif
-					@endif
 
-					 Commentaire {{ $rating->comment }}
-					  <td></td><?php   echo 'note'.makeRating($rating->stars)  ?></td>
+					@endif
+					@endif
+				<?php   echo makeRating($rating->stars)  ?>{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+					 Commentaire :  {{ $rating->comment }}
+
 
 					</p>
 
 				@endforeach
+				<p></p><a href="javascript:history.back()" class="btn btn-primary">
+					<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
+				</a></p>
 			</div>
+
 		</div>				
-		<a href="javascript:history.back()" class="btn btn-primary">
-			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
-		</a>
+
 
 
 	</div>
