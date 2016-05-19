@@ -66,7 +66,8 @@ class BookController extends Controller
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
 
-        return view('Book/detailsBook', compact('book'))->with('data', $ratings);
+        return view('book/detailsBook', compact('book'))->with('data', $ratings);
+
     }
 
     /**
@@ -75,6 +76,7 @@ class BookController extends Controller
      */
     public function open($id)
     {
+
         $book = $this->bookRepository->getById($id);
         $path = $book->url;
         $id_book = basename($path);
@@ -85,7 +87,8 @@ class BookController extends Controller
 
 
         
-        return view('Book/basic')->with('idBook', $id_book);
+        return view('book/basic')->with('idBook', $id_book);
+
     }
 
     /**

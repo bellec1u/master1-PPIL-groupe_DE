@@ -32,7 +32,7 @@ class RatingController extends Controller
     public function create($id)
     {
         $book = $id;
-        return view('Book/evaluate', compact('book'));
+        return view('book/evaluate', compact('book'));
     }
 
     /**
@@ -80,7 +80,7 @@ class RatingController extends Controller
         $ratings = $this->ratingRepository->getById($id);
         if (Auth::user()->id == $ratings->user_id) {
 
-            return view('Book/EditRating', compact('ratings'));
+            return view('book/editRating', compact('ratings'));
         } else {
             return redirect()->route('bookReturn', ['id' => $ratings->book_id]);
         }
