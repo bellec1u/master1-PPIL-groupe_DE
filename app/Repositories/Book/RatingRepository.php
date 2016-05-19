@@ -7,7 +7,7 @@ use App\Repositories\ResourceRepository;
 use App\Models\Book;
 class RatingRepository extends ResourceRepository
 {
-    protected $rating;
+    
     public function __construct(Rating $rating){
 
         $this->model = $rating;
@@ -16,7 +16,7 @@ class RatingRepository extends ResourceRepository
 
     public function getArraycom($id_book){
     
-        return $this->rating->where('book_id', '=' , $id_book)->where('stars', '>' , '0');
+        return $this->model->where('book_id', '=' , $id_book)->where('stars', '>' , '0');
     }
 
     public function getRatingId($id_book){

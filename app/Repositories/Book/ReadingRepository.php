@@ -19,7 +19,7 @@ class ReadingRepository extends ResourceRepository
     }
 
     public function getReadingId($id_user)
-    {                                   
+    {
         return $this->model->where('user_id', '=', $id_user)->get();
     }
 
