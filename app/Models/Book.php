@@ -22,11 +22,13 @@ class Book extends Model
 
     public $timestamps = false;
 
-    public function ratings(){
+    public function ratings()
+    {
         return $this->hasMany('App\Models\Rating');
     }
 
-    public function reading(){
+    public function readings()
+    {
         return $this->hasMany('App\Models\Reading');
     }
 }
