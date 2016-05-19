@@ -5,4 +5,11 @@
 /.idea/libraries
 .DS_Store
 /build
+<<<<<<< HEAD
 /captures
+=======
+/captures
+.gradle/
+.idea/
+local.properties
+>>>>>>> 16d5be53309e6486a5a3eb76ecc86cf83cfc45c0
