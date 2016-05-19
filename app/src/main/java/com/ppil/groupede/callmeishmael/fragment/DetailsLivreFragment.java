@@ -19,6 +19,7 @@ import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
+import com.ppil.groupede.callmeishmael.data.EPubDownloader;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 import org.json.JSONArray;
@@ -176,6 +177,8 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 }
             }
         });
+
+        ajouter.setOnClickListener(new EPubDownloader(this, getContext()));
         return view; // et on retourne la vue complétée de nos informations
     }
 

@@ -134,7 +134,7 @@ public class Data {
      */
     public String getURLecture()
     {
-        return ( adresse + "/requetes/lecture.php");
+        return ( adresse + "/requetes/lecture.php" );
     }
 
     /*
@@ -144,9 +144,18 @@ public class Data {
     public String getURLSupprimerLivre(String id, String email)
     {
         return ( adresse + "/requetes/supprimerLivre.php?id=" + id +
-        "&email=" + email);
+        "&email=" + email );
     }
 
+    /*
+        Retourne l'URL pour demander l'ajout dans la liste de lecture de l'utilisateur ayant comme email 'email'
+        le livre d'identifiant idLivre
+     */
+    public String getURLAJouterLivre(String email, String idLivre)
+    {
+        return ( adresse + "/requetes/ajouterLivre.php?id=" + idLivre +
+                "&email=" + email );
+    }
     /*
         Retourne l'instance de Data, car singleton
      */
