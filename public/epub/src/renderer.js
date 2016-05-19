@@ -248,7 +248,7 @@ EPUBJS.Renderer.prototype.afterDisplay = function(contents) {
 EPUBJS.Renderer.prototype.loaded = function(url){
 	this.trigger("render:loaded", url);
 	// var uri = EPUBJS.core.uri(url);
-	// var relative = uri.path.replace(book.bookUrl, '');
+	// var relative = uri.path.replace(Book.bookUrl, '');
 	// console.log(url, uri, relative);
 };
 

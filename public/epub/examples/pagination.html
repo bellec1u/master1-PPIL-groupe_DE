@@ -131,12 +131,12 @@
             // EPUBJS.core.request("page_list.json").then(function(storedPageList){
             //     pageList = storedPageList;
             //     console.log(storedPageList)
-            //     book.loadPagination(pageList);
+            //     Book.loadPagination(pageList);
             // });
 
             // Or generate the pageList on the fly
-            // book.ready.all.then(function(){
-            //     book.generatePagination();
+            // Book.ready.all.then(function(){
+            //     Book.generatePagination();
             // });
 
             // Wait for the pageList to be ready and then show slider
@@ -157,7 +157,7 @@
                     mouseDown = false;
                 }, false);
 
-                // Wait for book to be rendered to get current page
+                // Wait for Book to be rendered to get current page
                 rendered.then(function(){
                     var currentLocation = book.getCurrentLocationCfi();
                     var currentPage = book.pagination.pageFromCfi(currentLocation);

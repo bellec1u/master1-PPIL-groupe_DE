@@ -18,7 +18,7 @@ test("Using EPUBJS.Book({ bookPath: '/path/to/epub/' })", 1, function() {
 module('Open');
 
 // Test fails when Check for Globals is run???
-asyncTest("Get book URL from bookPath", 1, function() {
+asyncTest("Get Book URL from bookPath", 1, function() {
 
 	var Book = ePub();
 	var opended = Book.open('/reader/moby-dick/');
@@ -31,7 +31,7 @@ asyncTest("Get book URL from bookPath", 1, function() {
 
 });
 
-asyncTest("Get book URL from ../bookPath", 1, function() {
+asyncTest("Get Book URL from ../bookPath", 1, function() {
 
 	var Book = ePub();
 	var opended = Book.open('../reader/moby-dick/');
@@ -42,7 +42,7 @@ asyncTest("Get book URL from ../bookPath", 1, function() {
 
 });
 
-// asyncTest("Get book URL from same folder", 1, function() {
+// asyncTest("Get Book URL from same folder", 1, function() {
 // 
 // 	var Book = ePub();
 // 	var opended = Book.open('/');
@@ -53,7 +53,7 @@ asyncTest("Get book URL from ../bookPath", 1, function() {
 // 
 // });
 
-asyncTest("Get book URL from Compressed Epub", 2, function() {
+asyncTest("Get Book URL from Compressed Epub", 2, function() {
 
 	var Book = ePub();
 	var opended = Book.open('/reader/moby-dick.epub');

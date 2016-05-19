@@ -160,7 +160,7 @@ EPUBJS.reader.NotesController = function() {
 				//-- Add hide on page change
 				renderer.on("renderer:locationChanged", hidePop, this);
 				renderer.on("renderer:locationChanged", offPop, this);
-				// chapter.book.on("renderer:chapterDestroy", hidePop, this);
+				// chapter.Book.on("renderer:chapterDestroy", hidePop, this);
 			}
 			
 			pop = popups[id];

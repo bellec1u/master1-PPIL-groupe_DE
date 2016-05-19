@@ -225,7 +225,7 @@ EPUBJS.Reader.prototype.setBookKey = function(identifier){
 	return this.settings.bookKey;
 };
 
-//-- Checks if the book setting can be retrieved from localStorage
+//-- Checks if the Book setting can be retrieved from localStorage
 EPUBJS.Reader.prototype.isSaved = function(bookPath) {
 	var storedSettings;
 
