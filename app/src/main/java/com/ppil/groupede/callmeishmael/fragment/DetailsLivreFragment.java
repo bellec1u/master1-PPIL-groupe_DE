@@ -54,6 +54,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     private TextView langue; // objet contenant la langue de l'ouvrage
 
     private Button commenter; // bouton pour demander à effectuer un commentaire
+    private Button ajouter; // permet à un utilisateur d'ajouter ce livre à sa liste de lecture
     private Boolean dejaCommenter; // indique si l'utilisateur a déjà commenter ou non
     private LinearLayout layoutCommentaire; // layout contenant les commentaires
 
@@ -125,6 +126,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         star4 = (ImageView)view.findViewById(R.id.star4);
         star5 = (ImageView)view.findViewById(R.id.star5);
         commenter = (Button) view.findViewById(R.id.commenter);
+        ajouter = (Button) view.findViewById(R.id.ajouterListe);
         layoutCommentaire = (LinearLayout) view.findViewById(R.id.layout_commentaires);
         dejaCommenter = false;
         ft = getFragmentManager().beginTransaction();

@@ -132,30 +132,61 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@color/colorPrimary" />
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="  Noter  "
-            android:id="@+id/commenter"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:textSize="10dp"
-            android:width="100dp"
-            android:height="10dp"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_style"/>
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  Noter  "
+                android:id="@+id/commenter"
+                android:layout_marginTop="10dp"
+                android:textSize="10dp"
+                android:width="100dp"
+                android:height="10dp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_style"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Ajouter à ma liste"
+                android:id="@+id/ajouterListe"
+                android:layout_marginTop="10dp"
+                android:textSize="10dp"
+                android:width="125dp"
+                android:height="10dp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_style"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lire"
+                android:id="@+id/lire"
+                android:layout_marginTop="10dp"
+                android:textSize="10dp"
+                android:width="100dp"
+                android:height="10dp"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_style"/>
+        </LinearLayout>
 
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@color/colorPrimary" />
