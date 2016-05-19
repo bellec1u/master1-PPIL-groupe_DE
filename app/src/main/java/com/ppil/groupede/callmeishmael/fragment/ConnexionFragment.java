@@ -63,7 +63,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
     private static final int RC_SIGN_IN = 0;
     private ConnectionResult connResult;
     private boolean intentEnCours;
-    private TextView mdpOublie;
+    private TextView mdpOublie, renvoiValidation;
 
     private int requestCode;
 
@@ -96,6 +96,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
         email = (AutoCompleteTextView) view.findViewById(R.id.email); // on recupere le champ email
         password = (EditText) view.findViewById(R.id.password); // on recupere le champ password
         mdpOublie = (TextView) view.findViewById(R.id.mdpOub); // txtview mdpoub
+        renvoiValidation = (TextView) view.findViewById(R.id.textView_validation); // txtview validation
 
 
         /**                       *********************GOOGLE+*******************                 */
@@ -183,7 +184,13 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
 
             }
         });
+        renvoiValidation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setRenvoiValid();
 
+            }
+        });
 
         return view;
     }
@@ -259,6 +266,16 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
     {
         MdpOublieFragment fragment = new MdpOublieFragment();
         getActivity().setTitle("Mdp oublié");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    private void setRenvoiValid() {
+        RenvoieValidationFragment fragment = new RenvoieValidationFragment();
+        getActivity().setTitle("Mail de validation");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);

@@ -11,7 +11,7 @@ import android.widget.EditText;
 import com.ppil.groupede.callmeishmael.R;
 
 /**
- * Created by catherine on 18/05/2016.
+ * Created by paul on 18/05/2016.
  */
 public class MdpOublieFragment extends Fragment {
 

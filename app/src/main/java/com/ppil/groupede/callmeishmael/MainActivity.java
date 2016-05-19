@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity
             On récupère la session pour voir si un utilisateur etait toujours connecté ou non
          */
         SessionManager sessionManager = new SessionManager(getBaseContext());
-        this.setConnection(sessionManager.isConnected()); // et on affecte la connection a vrai ou faux
+        this.setConnection(!sessionManager.isConnected()); // et on affecte la connection a vrai ou faux
     }
 
     @Override

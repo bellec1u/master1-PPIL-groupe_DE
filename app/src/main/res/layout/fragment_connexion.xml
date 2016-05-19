@@ -56,6 +56,17 @@
             android:linksClickable="false"
             android:onClick="setContentView" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Renvoi du mail de validation"
+            android:id="@+id/textView_validation"
+            android:layout_gravity="center_horizontal"
+            android:linksClickable="false"
+            android:onClick="setContentView"
+            android:layout_marginTop="10dp"/>
+
         <Button
             android:id="@+id/action_sign_in"
             android:layout_width="wrap_content"
