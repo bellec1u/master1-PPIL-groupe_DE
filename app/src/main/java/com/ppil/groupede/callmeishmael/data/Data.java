@@ -138,6 +138,16 @@ public class Data {
     }
 
     /*
+        Retourne l'URL pour demander la suppression d'un livre 'id' dans la liste de lecture de l'utilisateur
+        ayant comme email 'email'
+     */
+    public String getURLSupprimerLivre(String id, String email)
+    {
+        return ( adresse + "/requetes/supprimerLivre.php?id=" + id +
+        "&email=" + email);
+    }
+
+    /*
         Retourne l'instance de Data, car singleton
      */
     public static Data getData()
