@@ -6,7 +6,7 @@
 
 @section('contenu')
     <div class="container">
-        <div class="panel panel-info">
+        <article class="panel panel-info">
             <div class="panel-heading">Bienvenue sur Call Me Ishmael !</div>
             <div class="panel-body">
                 <strong>Call Me Ishmael</strong> est un site de référencement d'ebooks (format .epub) disponibles librement sur internet et blablabla etc...
@@ -20,6 +20,6 @@
                 Là les derniers ebooks.
                 <br /><br /><br /><br /><br /><br /><br /><br />
             </div>
-        </div>
+        </article>
     </div>
 @stop
