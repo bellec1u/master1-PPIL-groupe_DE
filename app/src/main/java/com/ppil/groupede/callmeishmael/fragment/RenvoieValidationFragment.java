@@ -13,12 +13,12 @@ import com.ppil.groupede.callmeishmael.R;
 /**
  * Created by paul on 18/05/2016.
  */
-public class MdpOublieFragment extends Fragment {
+public class RenvoieValidationFragment extends Fragment {
 
     private Button ok;
     private EditText email;
 
-    public MdpOublieFragment(){
+    public RenvoieValidationFragment(){
         // required empty constructor
 
     }
@@ -31,7 +31,7 @@ public class MdpOublieFragment extends Fragment {
             et on les affecte à l'attribut de classe correspondant.
          */
 
-        View view = inflater.inflate(R.layout.fragment_mdp_oublie, container, false);
+        View view = inflater.inflate(R.layout.fragment_renvoi_mail_valditation, container, false);
 
         ok = (Button) view.findViewById(R.id.button_ok);
         email = (EditText) view.findViewById(R.id.editText_mail);
@@ -39,8 +39,8 @@ public class MdpOublieFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //REQUETE EMAIL MDP OUBLIE
-                }});
+                //REQUETE EMAIL ENVOI VALIDATION
+            }});
 
         return view;
     }
