@@ -74,3 +74,27 @@ function CreateListeEtoile(idListe, nbEtoile){
 	
 	document.getElementById(idListe).outerHTML = renduListe;
 }
+function ShowListeEtoile(idListe, nbEtoile){
+	ArrListeEtoile[idListe] = 0;
+
+	var renduListe = "";
+	renduListe += "<div class=\"listeEtoile\" onmouseout=\"GestionHover('" + idListe + "', -1, '" + nbEtoile + "')\">";
+	renduListe += "<ul>";
+	var star = "{{ HTML::image('img/picture.jpg') }}";
+
+	for(i=1; i<=nbEtoile; i++){
+		renduListe += "<li>";
+		renduListe += "<a href=\"javascript:ChoixSelection('" + idListe + "', '" + i + "', '" + nbEtoile + "')\" onmouseover=\"GestionHover('" + idListe + "', '" + i + "', '" + nbEtoile + "')\">";
+		renduListe += "<img id=\"staroff-" + idListe + "-" + i + "\" src=\"../etoile/staroff.gif \"           border=\"0\" title=\"" + i + "\" style=\"border-width: 0px; display: block;\">";
+		renduListe += "<img id=\"staron-" + idListe + "-" + i + "\" src='../etoile/staron.gif' border=\"0\" title=\"" + i + "\" style=\"border-width: 0px; display: none;\">";
+		renduListe += "</a>";
+		renduListe += "</li>";
+	}
+
+	renduListe += "	</ul>";
+	renduListe += "</div>";
+	renduListe += "<label id=\"score-" + idListe + "\"></label>";
+
+	document.getElementById(idListe).outerHTML = renduListe;
+}
+
