@@ -73,9 +73,11 @@ Route::group(['middleware' => 'web'], function () {
     // details
     Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');
     Route::get('book/{id}/open/', ['as' => 'bookOpen', 'uses' => 'Book\BookController@open'])->where('id', '[0-9]+');
+    Route::get('book/search', ['as' => 'bookSearch', 'uses' => 'Book\BookController@search']);
+
 
     // Book modif
-    Route::get('createRating/{id}', 'Book\RatingController@create')->where('id', '[0-9]+');
+    Route::get('createRating/{id}',['uses' => 'Book\RatingController@create', 'as' => 'createRating'])->where('id', '[0-9]+');
     Route::post('storeRating', ['uses' => 'Book\RatingController@store', 'as' => 'storeRating']);
     Route::get('destroyRating/{id}/{idbook}', 'Book\RatingController@destroy')->where('id', '[0-9]+')->where('idbook', '[0-9]+');
     Route::get('editRating/{id}', 'Book\RatingController@edit')->where('id', '[0-9]+');
@@ -83,7 +85,7 @@ Route::group(['middleware' => 'web'], function () {
 
 
     // liste de lecture.
-    Route::get('bookshelf/add/{id}', 'Book\ReadingController@add')->where('id', '[0-9]+');
+    Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');
     Route::get('bookshelf', ['uses' => 'Book\ReadingController@show', 'as' => 'showReading']);
     Route::get('bookshelf/delete/{id}', ['uses' => 'Book\ReadingController@destroy', 'as' => 'deleteReading'])->where('id', '[0-9]+');;
 

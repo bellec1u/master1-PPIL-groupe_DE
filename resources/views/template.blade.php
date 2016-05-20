@@ -50,7 +50,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <b>Utilisateur</b> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><span class="glyphicon glyphicon-book"></span> Liste de Lectures</a></li>
+                            <li><a href="{{URL::route('showReading', array())}}"><span class="glyphicon glyphicon-book"></span> Liste de Lectures</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Paramètres</a></li>
                             <li role="separator" class="divider"></li>
@@ -116,10 +116,10 @@
                     </li>
                 @endif
             </ul>
-            <form class="navbar-form">
+            <form class="navbar-form" role="search" method="GET" action="{{ route('bookSearch') }}">
                 <div class="form-group" style="display: inline;">
                     <div class="input-group" style="display: table;">
-                        <input type="text" class="form-control" name="search" placeholder="Rechercher un Ebook..." />
+                        <input type="text" class="form-control" name="query" placeholder="Rechercher un Ebook..." />
                         <div class="input-group-btn" style="width:1%;">
                             <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                         </div>

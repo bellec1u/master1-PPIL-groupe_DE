@@ -10,4 +10,5 @@ Homestead.json
 *.DS_Store
 /public/imageUser/
 /public/image_uploads/
+/public/Books/
 *~

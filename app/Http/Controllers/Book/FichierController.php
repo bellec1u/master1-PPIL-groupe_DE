@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Storage;
 
 class FichierController extends Controller
 {
@@ -43,6 +44,8 @@ class FichierController extends Controller
             $session_id = '';
             if ($res) {
                 $session_id = $cookie[1];
+                // store session id on disk
+                Storage::put('session_id', $session_id);
             }
            // print_r($session_id.'<br>');
 
@@ -55,11 +58,19 @@ class FichierController extends Controller
 
     function download_book($book_id) {
         //This is the file where we save the    information
-        $file_path = $_SERVER['DOCUMENT_ROOT'].'/PPILresetA/public/Books/Book'.$book_id.'.epub';
+        $file_path = public_path().'/Books/Book'.$book_id.'.epub';
         $fp = fopen($file_path, 'w+');
 
-        $session_id = $this->get_session_id($book_id);
+        if (!Storage::exists('session_id')) {
+            $session_id = $this->get_session_id($book_id);
+        } else {
+            $session_id = Storage::get('session_id');
+        }
+
         $ch = curl_init();
+        if (!$ch) {
+            die("Couldn't initialize a cURL handle");
+        }
 
         $base_url = 'http://www.gutenberg.org/cache/epub/'.$book_id.'/';
         $url = $base_url.'pg'.$book_id.'-images.epub?session_id='.$session_id;

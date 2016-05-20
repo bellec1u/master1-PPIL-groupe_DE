@@ -1,5 +1,90 @@
 <!DOCTYPE html>
 <html class="no-js">
+<<<<<<< HEAD
+<<<<<<< HEAD
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="{{ URL::asset('epub/reader/css/normalize.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('epub/reader/css/main.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('epub/reader/css/popup.css')}}">
+
+
+
+    {!! Html::script('epub/reader/js/libs/jquery.min.js') !!}
+    {!! Html::script('epub/reader/js/libs/zip.min.js') !!}
+
+
+    <script>
+        "use strict";
+        document.onreadystatechange = function () {
+            if (document.readyState == "complete") {
+                EPUBJS.filePath = "js/libs/";
+                EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
+                // fileStorage.filePath = EPUBJS.filePath;
+                window.reader = ePubReader("{!! URL::asset('Books/book'.$id_book.'.epub') !!}");
+            }
+        };
+    </script>
+
+    <!-- File Storage -->
+    <!-- <script src="js/libs/localforage.min.js"></script> -->
+
+    <!-- Full Screen -->
+
+    {!! Html::script('epub/reader/js/libs/screenfull.min.js') !!}
+    <!-- Render -->
+
+    {!! Html::script('epub/reader/js/epub.min.js') !!}
+    <!-- Hooks -->
+
+    {!! Html::script('epub/reader/js/hooks.min.js') !!}
+    <!-- Reader -->
+
+    {!! Html::script('epub/reader/js/reader.min.js') !!}
+    <!-- Plugins -->
+    <!-- <script src="js/plugins/search.js"></script> -->
+
+    <!-- Highlights -->
+    <!-- <script src="js/libs/jquery.highlight.js"></script> -->
+    <!-- <script src="js/hooks/extensions/highlight.js"></script> -->
+
+</head>
+<body>
+
+<div id="sidebar">
+    <div id="panels">
+        <input id="searchBox" placeholder="search" type="search">
+
+        <a id="show-Search" class="show_view icon-search" data-view="Search">Search</a>
+        <a id="show-Toc" class="show_view icon-list-1 active" data-view="Toc">TOC</a>
+        <a id="show-Bookmarks" class="show_view icon-bookmark" data-view="Bookmarks">Bookmarks</a>
+        <a id="show-Notes" class="show_view icon-edit" data-view="Notes">Notes</a>
+
+
+    </div>
+
+    <div id="tocView" class="view">
+    </div>
+    <div id="searchView" class="view">
+        <ul id="searchResults"></ul>
+    </div>
+    <div id="bookmarksView" class="view">
+        <ul id="bookmarks"></ul>
+
+    </div>
+    <div id="notesView" class="view">
+        <div id="new-note">
+            <textarea id="note-text"></textarea>
+            <button id="note-anchor">Anchor</button>
+=======
+=======
+>>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -73,7 +158,7 @@
          <script>
             "use strict";
 
-            var Book = ePub("{!! URL::asset('Books/book'.$idBook.'.epub') !!}");
+            var Book = ePub("{!! URL::asset('Books/book'.$id_book.'.epub') !!}",  { width : 400, heigth:600 });
 
         </script>
     </head>
@@ -83,8 +168,14 @@
     </a>
         <div id="main">
           <div id="prev" onclick="Book.prevPage();" class="arrow">‹</div>
+            <div id="wrapper">
           <div id="area"></div>
+            </div>
           <div id="next" onclick="Book.nextPage();" class="arrow">›</div>
+<<<<<<< HEAD
+>>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
+=======
+>>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
         </div>
 
         <script>

@@ -9,6 +9,8 @@ use App\Repositories\Book\BookRepository;
 use App\Repositories\Book\RatingRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Book\FichierController;
+use Storage;
+
 class BookController extends Controller
 {
     protected $bookRepository;
@@ -22,6 +24,12 @@ class BookController extends Controller
         $this->fichier = $fichierController;
     }
 
+
+    public function search(Request $request)
+    {
+        $books = $this->bookRepository->search($request->input('query'));
+        return $books;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -76,19 +84,15 @@ class BookController extends Controller
      */
     public function open($id)
     {
-
         $book = $this->bookRepository->getById($id);
-        $path = $book->url;
-        $id_book = basename($path);
-        $file_exist =  $_SERVER['DOCUMENT_ROOT'].'/PPILresetA/public/Books/Book'.$id_book.'.epub';
-        if(!file_exists($file_exist)){
-            $this->fichier->download_Book($id_book);
+        $id_book = basename($book->url);
+
+        $file_exists = Storage::disk('public')->exists('Books/Book'.$id_book.'.epub');
+        if (!$file_exists) {
+            $this->fichier->download_book($id_book);
         }
 
-
-        
-        return view('book/basic')->with('idBook', $id_book);
-
+        return view('book/basic', compact('id_book'));
     }
 
     /**
