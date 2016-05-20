@@ -336,7 +336,7 @@ EPUBJSR.app.init = (function($){
 	   	});
 		
 		function showSidebar(){
-			//$Book.css("pointer-events", "none"); //-- Avoid capture by ifrmae
+			//$Book.reader("pointer-events", "none"); //-- Avoid capture by ifrmae
 			$sidebar.addClass("open");
 			$main.addClass("closed");
 			$icon.attr("src", $icon.data("close"));

@@ -40,8 +40,8 @@ return array(
      |--------------------------------------------------------------------------
      |
      | Vendor files are included by default, but can be set to false.
-     | This can also be set to 'js' or 'css', to only include javascript or css vendor files.
-     | Vendor files are for css: font-awesome (including fonts) and highlight.js (css files)
+     | This can also be set to 'js' or 'reader', to only include javascript or reader vendor files.
+     | Vendor files are for reader: font-awesome (including fonts) and highlight.js (reader files)
      | and for js: jquery and and highlight.js
      | So if you want syntax highlighting, set it to true.
      | jQuery is set to not conflict with existing jQuery scripts.

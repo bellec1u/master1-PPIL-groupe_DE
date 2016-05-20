@@ -54,12 +54,12 @@ EPUBJS.Hooks.register("beforeChapterDisplay").annotate = function(callback, chap
   //           console.log(tok);
   //         })
 
-		EPUBJS.core.addCss("../libs/annotator/css/annotator.css", false, chapter.doc.head);
+		EPUBJS.core.addCss("../libs/annotator/reader/annotator.css", false, chapter.doc.head);
 
 		if(callback) callback();
 		
 		function annotate(){
-			EPUBJS.core.addCss("css/annotator.css", false, chapter.doc.head);
+			EPUBJS.core.addCss("reader/annotator.css", false, chapter.doc.head);
 			
 			var s = document.createElement("script");
 			s.type = 'text/javascript';

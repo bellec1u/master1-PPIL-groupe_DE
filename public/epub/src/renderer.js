@@ -361,7 +361,7 @@ EPUBJS.Renderer.prototype.reformat = function(){
 	this.chapterPos = 1;
 
 	this.render.page(this.chapterPos);
-	// Give the css styles time to update
+	// Give the reader styles time to update
 	// clearTimeout(this.timeoutTillCfi);
 	// this.timeoutTillCfi = setTimeout(function(){
 	renderer.formated = renderer.layout.format(renderer.render.docEl, renderer.render.width, renderer.render.height, renderer.gap);

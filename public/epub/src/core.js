@@ -289,7 +289,7 @@ EPUBJS.core.addCss = function(src, callback, target) {
 	var s, r;
 	r = false;
 	s = document.createElement('link');
-	s.type = 'text/css';
+	s.type = 'text/reader';
 	s.rel = "stylesheet";
 	s.href = src;
 	s.onload = s.onreadystatechange = function() {

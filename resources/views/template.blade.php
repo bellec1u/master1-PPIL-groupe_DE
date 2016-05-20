@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css">
 
     <!-- Custom styles -->
-    {!! Html::style('style.css') !!}
+    {!! Html::style('reader') !!}
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>

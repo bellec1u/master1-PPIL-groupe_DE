@@ -88,8 +88,8 @@ EPUBJS.Hooks.register("beforeChapterDisplay").hypothesis = function(callback, re
 			renderer.render.window.hypothesisInstall();
 		}
 
-		// Must add after base css
-		EPUBJS.core.addCss("../../css/annotations.css", function() {
+		// Must add after base reader
+		EPUBJS.core.addCss("../../reader/annotations.css", function() {
 			callback();
 		}, renderer.doc.head);
 	}, renderer.doc.head);
