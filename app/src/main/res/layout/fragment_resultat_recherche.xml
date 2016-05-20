@@ -1,0 +1,85 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.Resultat_RechercheFragment">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            android:id="@+id/image"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:src="@android:drawable/ic_input_get" />
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="Titre"
+            android:id="@+id/titre"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:maxLines="1"
+            android:maxLength="10"
+            android:clickable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genre"
+            android:id="@+id/genre"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:maxLines="1"
+            android:maxLength="10" />
+
+        <TextView
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Pas de note"
+            android:id="@+id/note"
+            android:layout_row="0"
+            android:layout_column="13"
+            android:paddingTop="10dp"
+            android:layout_marginRight="5dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ d&apos;info"
+            android:id="@+id/info"
+            android:layout_row="0"
+            android:layout_column="14"
+            android:layout_marginRight="5dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lire"
+            android:id="@+id/lecture"
+            android:layout_row="1"
+            android:layout_column="14"
+            android:layout_marginRight="5dp" />
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_marginTop="110dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimary" />
+
+    </GridLayout>
+
+</FrameLayout>

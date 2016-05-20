@@ -1,8 +1,13 @@
 <component name="libraryTable">
   <library name="play-services-safetynet-8.3.0">
     <CLASSES>
+<<<<<<< HEAD:.idea/libraries/play_services_safetynet_8_3_0.xml
       <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.3.0/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.3.0/res" />
+=======
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/res" />
+>>>>>>> e478062a48bed865406fec04301083a866bfcadb:.idea/libraries/play_services_analytics_8_4_0.xml
     </CLASSES>
     <JAVADOC />
     <SOURCES />

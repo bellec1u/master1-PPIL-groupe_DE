@@ -11,4 +11,39 @@
     <string name="facebook_app_id">1068801693155664</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="langue">
+        <item>Tous</item>
+        <item>en</item>
+        <item>fr</item>
+        <item>pt</item>
+        <item>de</item>
+        <item>tl</item>
+        <item>fi</item>
+        <item>la</item>
+        <item>nl</item>
+        <item>es</item>
+        <item>el</item>
+        <item>hu</item>
+        <item>sv</item>
+        <item>zh</item>
+        <item>it</item>
+        <item>ga</item>
+        <item>pl</item>
+        <item>cs</item>
+        <item>da</item>
+        <item>eo</item>
+    </string-array>
+
+    <string-array name="genre">
+        <item>Tous</item>
+    </string-array>
+
+    <string-array name="tri">
+        <item>Titre</item>
+        <item>Auteur</item>
+        <item>Langue</item>
+        <item>Genre</item>
+        <item>Date</item>
+        <item>Note</item>
+    </string-array>
 </resources>
