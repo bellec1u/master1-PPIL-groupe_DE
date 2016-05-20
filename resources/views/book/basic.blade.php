@@ -46,6 +46,7 @@
 
     {!! Html::script('epub/reader/js/reader.min.js') !!}
     <!-- Plugins -->
+
     <!-- <script src="js/plugins/search.js"></script> -->
 
     <!-- Highlights -->
