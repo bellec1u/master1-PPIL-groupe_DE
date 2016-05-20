@@ -14,7 +14,11 @@
 
     <!-- Custom styles -->
 <<<<<<< HEAD
+<<<<<<< HEAD
     {!! Html::asset('style.css') !!}
+=======
+    {!! Html::style('style.css') !!}
+>>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
 =======
     {!! Html::style('style.css') !!}
 >>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
