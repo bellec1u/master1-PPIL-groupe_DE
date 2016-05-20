@@ -76,7 +76,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
 
 
     //<<<<<<< HEAD
-            //Récupération données utilisateur G+
+    //Récupération données utilisateur G+
 
     String pNom;
     String pUrlPhoto;
@@ -135,7 +135,6 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
 
             @Override
             public void onClick(View v) {
-                System.out.println("***************touch**************");
                 btSignInCliqueGoogle=true;
                 connexionGoogle();
             }
@@ -184,7 +183,6 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
             }
         });
 
-//<<<<<<< HEAD=======
         mdpOublie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,7 +198,6 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
             }
         });
 
-//>>>>>>> b557534b2d4b5e4d599255e29f92c51e4131192e
         return view;
     }
 
@@ -301,10 +298,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
         btSignInCliqueGoogle=false;
         getProfileInfo();
         affichageBoutonGoogle(true);
-//        Plus.PeopleApi.loadVisible(mGoogleApiClient, null).setResultCallback(this);
-        System.out.println("*on connected*");
         System.out.println("Connexion : "+mGoogleApiClient.isConnected());
-        Toast.makeText(getContext(), "Connexion Réussie ! Veuillez appuyer sur l'écran.", Toast.LENGTH_LONG).show();
         ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
         this.setAccueil();
     }
@@ -367,9 +361,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
             }
             resolveSignInError();
 
-            //System.out.println("*********statut : "+mGoogleApiClient.isConnecting()+"***********");
         }
-        //System.out.println("********Connexion : "+mGoogleApiClient.isConnected()+"************");
     }
 
     /*
@@ -377,12 +369,9 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
            et la déconnexion via Google+
         */
     public void deconnexionGoogle() {
-        System.out.println("Connexion2 : "+mGoogleApiClient.isConnected());
         if (mGoogleApiClient.isConnected()) {
-            System.out.println("*******signout*********");
             Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
             mGoogleApiClient.disconnect();
-            //mGoogleApiClient.connect();
             affichageBoutonGoogle(false);
         }
     }
@@ -426,15 +415,15 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
 
     //Méthode de résolution d'erreur de connexion G+
     public void resolveSignInError() {
-        System.out.println("********connResult2********* --D "+connResult);
-        System.out.println("********hasResolution ?********* --D "+connResult.hasResolution());
+        //System.out.println("********connResult2********* --D "+connResult);
+        //System.out.println("********hasResolution ?********* --D "+connResult.hasResolution());
 
         if (connResult.hasResolution()) {
             try {
                 intentEnCours = true;
                 connResult.startResolutionForResult(this.getActivity(), RC_SIGN_IN);
                 Log.d("Erreur résolue","Erreur de connexion résolue");
-                System.out.println("********Connexion after resolve: "+mGoogleApiClient.isConnected()+"************");
+                //System.out.println("********Connexion after resolve: "+mGoogleApiClient.isConnected()+"************");
                 this.connexionGoogle();
             } catch (IntentSender.SendIntentException e) {
                 intentEnCours = false;
@@ -455,7 +444,6 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
                     setInformationsPersonnelles(currentPerson);
                 } else {
                     Toast.makeText(getContext(), "Aucune information personnelle", Toast.LENGTH_LONG).show();
-                    System.out.println("****null***");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -482,8 +470,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
         }
 
         pg.dismiss();
-        System.out.println("Infos \n " + pSexe);
-        Toast.makeText(this.getContext(), "Voici vos informations personnelles : \n"+pSexe, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), "Sincères salutations  \n"+pNom + " " + pPrenom, Toast.LENGTH_LONG).show();
     }
 
 }

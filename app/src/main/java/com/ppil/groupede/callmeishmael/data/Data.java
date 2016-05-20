@@ -17,16 +17,10 @@ public class Data {
 
     public static Data data = new Data(); // instance de Data
 
-<<<<<<< HEAD
     private Data()
     {
         ipMachine = "http://192.168.43.136" ;
         port = "" ;
-=======
-    private Data() {
-        ipMachine = "http://192.168.43.7";
-        port = "";
->>>>>>> e478062a48bed865406fec04301083a866bfcadb
         adresse = ipMachine + ":" + port;
     }
 
