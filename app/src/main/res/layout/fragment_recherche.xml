@@ -1,13 +1,149 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.RechercheFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp">
+
+            <EditText
+                android:layout_width="253dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_rechercher"
+                android:text="Rechercher"
+                android:maxLines="1" />
+
+            <ToggleButton
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:id="@+id/recherche_detailler"
+                android:checked="false"
+                android:textOn="-"
+                android:textOff="+"
+                android:layout_gravity="right" />
+
+            <ImageButton
+                android:layout_width="55dp"
+                android:layout_height="52dp"
+                android:id="@+id/rechercher"
+                android:src="@android:drawable/ic_search_category_default" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Auteur :"
+                android:id="@+id/auteur_txt"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+            <EditText
+                android:layout_width="167dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/auteur"
+                android:layout_row="0"
+                android:layout_column="1" />
+
+            <TextView
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:text="Langue :"
+                android:id="@+id/langue_txt"
+                android:layout_row="0"
+                android:layout_column="3" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/langue"
+                android:spinnerMode="dialog"
+                android:entries="@array/langue"
+                android:layout_row="0"
+                android:layout_column="4" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Genre :"
+                android:id="@+id/genre_txt" />
+
+            <Spinner
+                android:layout_width="93dp"
+                android:layout_height="35dp"
+                android:id="@+id/genre"
+                android:entries="@array/genre"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:spinnerMode="dialog" />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trier par :"
+                android:id="@+id/tri_txt"
+                android:layout_row="0"
+                android:layout_column="0" />
+
+            <Spinner
+                android:layout_width="72dp"
+                android:layout_height="32dp"
+                android:id="@+id/tri"
+                android:entries="@array/tri"
+                android:spinnerMode="dialog"
+                android:layout_row="0"
+                android:layout_column="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ordre :"
+                android:id="@+id/ordre_txt"
+                android:layout_row="0"
+                android:layout_column="3" />
+
+            <ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Croissant"
+                android:id="@+id/ordre"
+                android:checked="false"
+                android:textOn="Croissant"
+                android:textOff="Décroissant" />
+
+        </GridLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/layout_recherche"></LinearLayout>
+    </LinearLayout>
 </ScrollView>
