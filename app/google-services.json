@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "94352911846",
+    "project_id": "callmeishmael-1317"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94352911846:android:980e27f358a9005f",
+        "android_client_info": {
+          "package_name": "com.ppil.groupede.callmeishmael"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94352911846-e1i7o54v6b7i8j5obdgn6l3hqndspb9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ppil.groupede.callmeishmael",
+            "certificate_hash": "F7D20CE6849DD4FBC0D39C588EAED3F21A6446E3"
+          }
+        },
+        {
+          "client_id": "94352911846-lbrqa5hnd7qrcqfvogboruvqeh4nim4u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXo6VAIKJGwzFvryQ4ejVbfl9Kuyh8Eno"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

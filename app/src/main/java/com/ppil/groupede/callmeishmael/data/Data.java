@@ -19,13 +19,8 @@ public class Data {
 
     private Data()
     {
-<<<<<<< HEAD
         ipMachine = "http://192.168.43.136" ;
         port = "" ;
-=======
-        ipMachine = "http://192.168.1.10" ;
-        port = "8888" ;
->>>>>>> a0eeb1684865f5c53ae399887f0230dc0ac1de8d
         adresse = ipMachine + ":" + port;
     }
 

@@ -352,14 +352,13 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
     /*
                Gere l'API Google+
                et la connexion via le bouton Google+
-            */
+     */
     public void connexionGoogle()
     {
         mGoogleApiClient.connect();
         if (mGoogleApiClient.isConnecting()) {
             Log.d("Utilisateur connecté(e)", "connected");
             Toast.makeText(this.getContext(), "Connexion en cours", Toast.LENGTH_SHORT).show();
-
             pg.show();
             //verification de connResult (resultat de la tentative de connexion
             //si null, connResult aura les caracteritique d'une connexion

@@ -490,6 +490,6 @@ public class MainActivity extends AppCompatActivity
      */
     public void connexionGoogle()
     {
-        //// TODO: 17/05/16  
+        //// TODO: 17/05/16
     }
 }
