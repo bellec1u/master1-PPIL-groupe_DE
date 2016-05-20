@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js">
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -82,9 +81,7 @@
         <div id="new-note">
             <textarea id="note-text"></textarea>
             <button id="note-anchor">Anchor</button>
-=======
-=======
->>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -172,10 +169,7 @@
           <div id="area"></div>
             </div>
           <div id="next" onclick="Book.nextPage();" class="arrow">›</div>
-<<<<<<< HEAD
->>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
-=======
->>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
+
         </div>
 
         <script>
