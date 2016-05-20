@@ -74,7 +74,7 @@
     </div>
     <div id="bookmarksView" class="view">
         <ul id="bookmarks"></ul>
-        <ul id="bookmarks"></ul>
+
     </div>
     <div id="notesView" class="view">
         <div id="new-note">
