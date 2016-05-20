@@ -13,7 +13,11 @@
     <link rel="stylesheet" type="text/css" href="https://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css">
 
     <!-- Custom styles -->
+<<<<<<< HEAD
     {!! Html::asset('style.css') !!}
+=======
+    {!! Html::style('style.css') !!}
+>>>>>>> parent of 9aaebbc... changement de reader plus complet et avec book mark
     <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>

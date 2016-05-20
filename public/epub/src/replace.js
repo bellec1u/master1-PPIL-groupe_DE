@@ -111,7 +111,7 @@ EPUBJS.replace.stylesheets = function(_store, full) {
 		EPUBJS.replace.cssUrls(_store, full, text).then(function(newText){
 			var _URL = window.URL || window.webkitURL || window.mozURL;
 
-			var blob = new Blob([newText], { "type" : "text\/reader" }),
+			var blob = new Blob([newText], { "type" : "text\/css" }),
 					url = _URL.createObjectURL(blob);
 
 			deferred.resolve(url);

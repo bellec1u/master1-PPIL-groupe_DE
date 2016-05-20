@@ -3715,7 +3715,7 @@ EPUBJS.core.addCss = function(src, callback, target) {
 	var s, r;
 	r = false;
 	s = document.createElement('link');
-	s.type = 'text/reader';
+	s.type = 'text/css';
 	s.rel = "stylesheet";
 	s.href = src;
 	s.onload = s.onreadystatechange = function() {
@@ -6387,7 +6387,7 @@ EPUBJS.Renderer.prototype.reformat = function(){
 	this.chapterPos = 1;
 
 	this.render.page(this.chapterPos);
-	// Give the reader styles time to update
+	// Give the css styles time to update
 	// clearTimeout(this.timeoutTillCfi);
 	// this.timeoutTillCfi = setTimeout(function(){
 	renderer.formated = renderer.layout.format(renderer.render.docEl, renderer.render.width, renderer.render.height, renderer.gap);
@@ -7422,7 +7422,7 @@ EPUBJS.replace.stylesheets = function(_store, full) {
 		EPUBJS.replace.cssUrls(_store, full, text).then(function(newText){
 			var _URL = window.URL || window.webkitURL || window.mozURL;
 
-			var blob = new Blob([newText], { "type" : "text\/reader" }),
+			var blob = new Blob([newText], { "type" : "text\/css" }),
 					url = _URL.createObjectURL(blob);
 
 			deferred.resolve(url);
