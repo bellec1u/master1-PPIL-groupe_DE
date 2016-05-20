@@ -73,7 +73,7 @@
          <script>
             "use strict";
 
-            var Book = ePub("{!! URL::asset('Books/book'.$id_book.'.epub') !!}");
+            var Book = ePub("{!! URL::asset('Books/book'.$id_book.'.epub') !!}",  { width : 400, heigth:600 });
 
         </script>
     </head>
@@ -83,7 +83,9 @@
     </a>
         <div id="main">
           <div id="prev" onclick="Book.prevPage();" class="arrow">‹</div>
+            <div id="wrapper">
           <div id="area"></div>
+            </div>
           <div id="next" onclick="Book.nextPage();" class="arrow">›</div>
         </div>
 
