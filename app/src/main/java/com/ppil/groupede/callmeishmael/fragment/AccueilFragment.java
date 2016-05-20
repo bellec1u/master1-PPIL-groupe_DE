@@ -3,6 +3,7 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -81,6 +82,9 @@ public class AccueilFragment extends Fragment implements DataReceiver {
     // ImageButton de la liste de lecture
     private ImageButton[] boutonListe;
 
+    //info Liste, textView present seulement si la liste de lecture est vide
+    private TextView infoLivre;
+
     /*
         Constructeur d'AccueilFragment, initialement vide...
      */
@@ -103,6 +107,8 @@ public class AccueilFragment extends Fragment implements DataReceiver {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_accueil, container, false);
+        infoLivre = (TextView) view.findViewById(R.id.infoListe);
+        infoLivre.setVisibility(View.GONE);
 
         /*
             On affecte aux 3 GridLayouts le bon élément du layout
@@ -243,82 +249,6 @@ public class AccueilFragment extends Fragment implements DataReceiver {
                 GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
                 suggestion.addView(ib, gridParam);
             }
-
-            // ---------- ---------- ---------- ---------- ---------- Liste de lecture
-            nbLivre = 4;
-            nbLignes = ((int) (nbLivre / 3)) + 1;
-
-            listeLecture = (GridLayout) view.findViewById(R.id.liste_de_lecture);
-            listeLecture.removeAllViews();
-            listeLecture.setColumnCount(nbColonnes);
-            listeLecture.setRowCount(nbLignes);
-
-            for (int i = 0, c = 0, r = 0; i < nbLivre; i++, c++) {
-                if (c == nbColonnes) {
-                    c = 0;
-                    r++;
-                }
-
-                ImageButton ib = new ImageButton(view.getContext());
-
-                largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
-                hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
-
-                ib.setMinimumWidth(largeur);
-                ib.setMinimumHeight(hauteur);
-                ib.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View arg0) {
-
-                        Toast.makeText(getActivity(), "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                });
-
-                //fonction permettant de supprimer un livre de la liste de lecture
-                ib.setOnLongClickListener(new View.OnLongClickListener() {
-
-                    @Override
-                    public boolean onLongClick(View arg0) {
-
-                        //Toast.makeText(getActivity(), "long click : delete book", Toast.LENGTH_SHORT).show();
-
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-
-                        // set title
-                        alertDialogBuilder.setTitle("Suppression");
-                        // set dialog message
-                        alertDialogBuilder
-                                .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
-                                .setCancelable(false)
-                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //fonction de suppression du livre dans la BDD
-
-                                    }
-                                })
-                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        // show it
-                        alertDialog.show();
-
-                        return false;
-
-                    }
-                });
-
-                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-                listeLecture.addView(ib, gridParam);
-
-
         }*/
         firstLoad = false; // la fonction aura donc été appelée au moins 1 fois
         return view;
@@ -400,109 +330,86 @@ public class AccueilFragment extends Fragment implements DataReceiver {
     {
         try {
             JSONArray array = new JSONArray(resultat) ; // convertie le résultat en JSONArray
+            if(array.length() == 0){
+                 /*
+                    On ajoute un text dans ce layout
+                 */
+                infoLivre.setVisibility(View.VISIBLE);
+                listeLecture.setVisibility(View.GONE);
+                infoLivre.setText("Votre liste de lecture est vide...");
+
+            }else {
             /*
                 On parcourt ensuite le JSONArray et on instancie les images correspondantes
              */
-            boutonListe = new ImageButton[array.length()]; // on instancie la liste
-            System.out.println("res : "+ resultat);
-            System.out.println("taille : " + array.length());
-            int nbColonnes,nbLignes;
-            nbColonnes = 3;
-            nbLignes = ((int) (array.length() / 3)) + 1;
-            listeLecture.removeAllViews();
-            listeLecture.setColumnCount(nbColonnes);
-            listeLecture.setRowCount(nbLignes);
+                boutonListe = new ImageButton[array.length()]; // on instancie la liste
+                int nbColonnes, nbLignes;
+                nbColonnes = 3;
+                nbLignes = ((int) (array.length() / 3)) + 1;
+                listeLecture.removeAllViews();
+                listeLecture.setColumnCount(nbColonnes);
+                listeLecture.setRowCount(nbLignes);
 
-            for (int i = 0, c = 0, r = 0; i < array.length(); i++, c++) {
-                if (c == nbColonnes) {
-                    c = 0;
-                    r++;
-                }
+                for (int i = 0, c = 0, r = 0; i < array.length(); i++, c++) {
+                    if (c == nbColonnes) {
+                        c = 0;
+                        r++;
+                    }
 
-                boutonListe[i] = new ImageButton(getContext());
-                largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
-                hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
+                    boutonListe[i] = new ImageButton(getContext());
+                    largeur = (int) (100 * getResources().getDisplayMetrics().density + 0.5f);
+                    hauteur = (int) (150 * getResources().getDisplayMetrics().density + 0.5f);
 
-                boutonListe[i].setMinimumWidth(largeur);
-                boutonListe[i].setMinimumHeight(hauteur);
-                // On recupere le premier élement dans un Object, puis en JSONObject
-                Object object = array.get(i);
-                JSONObject jsonObject = new JSONObject(object.toString()); // instanciation du JSONObject
+                    boutonListe[i].setMinimumWidth(largeur);
+                    boutonListe[i].setMinimumHeight(hauteur);
+                    // On recupere le premier élement dans un Object, puis en JSONObject
+                    Object object = array.get(i);
+                    JSONObject jsonObject = new JSONObject(object.toString()); // instanciation du JSONObject
 
                 /*
                     Utilisation de la classe BitmapManager pour charger dans un Bitmap
                     une image venant d'un URL
                 */
-                Bitmap bitmap = null ; // parametre d'ImageManager
-                BitmapManager bitmapManager = new BitmapManager(bitmap); // instanciation ici...
+                    Bitmap bitmap = null; // parametre d'ImageManager
+                    BitmapManager bitmapManager = new BitmapManager(bitmap); // instanciation ici...
                 /*
                     On execute bitmapManager, donc requete,
                     le get() fait en sorte que l'UIThread attend le resultat.
                  */
-                bitmap = bitmapManager.execute(jsonObject.getString("cover_url")).get();
+                    bitmap = bitmapManager.execute(jsonObject.getString("cover_url")).get();
 
-                if(bitmap != null) {
+                    if (bitmap != null) {
                 /*
                     On redimensionne l'image (si besoin est)
                  */
-                    bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
+                        bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
                 /*
                     On l'affecte à notre objet de classe
                  */
-                    top[i].setImageBitmap(bitmap);
-                }
+                        boutonListe[i].setImageBitmap(bitmap);
+                    }
                  /*
                     On créer maintenant un onClickListener pour ouvrir le fragment DetailsLivreFragment
                     associé à l'ImageButton.
                     On récupère avant les attributs title et id présent dans le JSONObject
                  */
-                String titre = jsonObject.getString("title");
-                String id = jsonObject.getString("id");
-                Activity activity = getActivity(); // activity courante
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager(); // objet permettant la gestion des Fragments
-                boutonListe[i].setOnClickListener(new ImageCliquable(bitmap, titre, id, activity, fragmentManager));
-                ; // affectation du Listener ici...
+                    String titre = jsonObject.getString("title");
+                    String id = jsonObject.getString("id");
+                    Activity activity = getActivity(); // activity courante
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager(); // objet permettant la gestion des Fragments
+                    boutonListe[i].setOnClickListener(new ImageCliquable(bitmap, titre, id, activity, fragmentManager));
+                /*
+                    Je recupere l'adresse email de l'utilisateur
+                 */
+                    SessionManager sessionManager = new SessionManager(getContext());
+                    boutonListe[i].setOnLongClickListener(new ImageSupprimable(id, sessionManager.getSessionEmail(), this));
 
-                //fonction permettant de supprimer un livre de la liste de lecture
-                boutonListe[i].setOnLongClickListener(new View.OnLongClickListener() {
-
-                    @Override
-                    public boolean onLongClick(View arg0) {
-
-                        //Toast.makeText(getActivity(), "long click : delete book", Toast.LENGTH_SHORT).show();
-
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-
-                        // set title
-                        alertDialogBuilder.setTitle("Suppression");
-                        // set dialog message
-                        alertDialogBuilder
-                                .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
-                                .setCancelable(false)
-                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //fonction de suppression du livre dans la BDD
-
-                                    }
-                                })
-                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        // show it
-                        alertDialog.show();
-
-                        return false;
-
-                    }
-                });
-
-                GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
-                listeLecture.addView(boutonListe[i], gridParam);
+                /*
+                    On ajoute l'imageButton dans le layout
+                 */
+                    GridLayout.LayoutParams gridParam = new GridLayout.LayoutParams(GridLayout.spec(r), GridLayout.spec(c));
+                    listeLecture.addView(boutonListe[i], gridParam);
+                }
             }
         } catch (ExecutionException | InterruptedException | JSONException e) {
             e.printStackTrace();
@@ -637,4 +544,70 @@ class ImageCliquable implements View.OnClickListener
         fragmentTransaction.commit(); // on confirme le changement
     }
 
+}
+
+/*
+    Listener permettant lors d'un long clique sur l'image de la supprimer de notre liste de lecture
+ */
+class ImageSupprimable implements View.OnLongClickListener{
+
+    private String idLivre; // id du livre a supprimer
+    private String emailUtilisateur; // email de l'utilisateur possedant ce livre
+    private AccueilFragment accueil; // accueil Fragment
+    /*
+        On supprime donc lors d'un longClick le livre d'identifiant id, de la liste de lecture
+        de l'utilisateur ayant comme email emailUtilisateur
+     */
+    public ImageSupprimable(String id, String email, AccueilFragment accueil){
+        idLivre = id;
+        emailUtilisateur = email;
+        this.accueil = accueil;
+    }
+    @Override
+    public boolean onLongClick(View v) {
+        //Toast.makeText(getActivity(), "long click : delete book", Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(accueil.getContext());
+
+        // set title
+        alertDialogBuilder.setTitle("Suppression");
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
+                .setCancelable(false)
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        /*
+                            On appel DataManager,
+                         */
+                        String adresse = Data.getData().getURLSupprimerLivre(idLivre, emailUtilisateur);
+                        DataManager dataManager = new DataManager(null);
+                        System.out.println(adresse);
+                        dataManager.execute(adresse);
+                        /*
+                            On demande a la page accueil de se recharger
+                         */
+                        accueil.setListeDeLecture();
+                        accueil.getActivity().setTitle("Accueil");
+                        FragmentManager fragmentManager = accueil.getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, accueil);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+
+                    }
+                })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+
+        return false;
+    }
 }

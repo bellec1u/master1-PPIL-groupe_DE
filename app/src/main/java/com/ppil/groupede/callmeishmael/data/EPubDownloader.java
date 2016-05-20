@@ -1,6 +1,11 @@
 package com.ppil.groupede.callmeishmael.data;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.Toast;
+
+import com.ppil.groupede.callmeishmael.fragment.DetailsLivreFragment;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -12,58 +17,29 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by Pima on 16/05/16.
+ * Created by Pima on 19/05/16.
  */
-public class DataManager extends AsyncTask<String, String, String> {
+public class EPubDownloader extends AsyncTask<String,Integer,String> implements View.OnClickListener{
 
     /*
-        Classe appelée lorsque l'on a besoin de recevoir/envoyé des requetes à la base de donnée
-        cette derniere prend en paramètre la future classe receveuse.
-        Par exemple si la classe ConnexionFragment souhaite vérifier la connexion d'un utilisateur
-        Il faudra faire dans la classe ConnexionFragment:
-         DataManager dm = new DataManager(this);
-
-         dm lorsqu'il aura terminé ses requetes executera la méthode receiveData de ConnexionFragment
+        Classe appelée lorsque l'utilisateur clique sur le bouton 'Ajouter à ma liste de lecture'
+        de ce fait lorsque le onClick est déclenché alors le téléchargement de l'EPUB du livre
+        représenté par la classe DetailsLivreFragment est lancé. //todo
+        Lorsque ce téléchargement est terminé, le livre est alors ajouté à la liste de lecture
      */
-    private DataReceiver receiver; // classe appelée lorsque asyntask a finis ses calculs...
+    private DetailsLivreFragment page;
 
-    /*
-        Constructeur de DataManager,
-        le receveur dataReceiver est le seul parametre
-     */
-    public DataManager(DataReceiver dataReceiver)
+    private Context context;
+
+    public EPubDownloader(DetailsLivreFragment pageCourante, Context leContext)
     {
-        super();
-        receiver = dataReceiver; // on y affecte le receveur
+        page = pageCourante;
+        context = leContext;
     }
 
     /*
-        Fonction appelée avant le doInBackground,
-        nous n'utilisons pas cette fonctionnalité dans notre application
-     */
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-    }
-
-    /*
-        Fonction appelée lorsque DataManager a terminé sa fonction doInBackground
-        res contient le resultat des requetes faites dans la fonction précèdente.
-     */
-    @Override
-    protected void onPostExecute(String res) {
-        super.onPostExecute(res);
-        if(receiver != null){
-        receiver.receiveData(res);}
-    }
-
-    /*
-        Fonction chargée de faire en 'arriere plan' des requetes entre notre client et le serveur mysql
-        elle retourne le resultat sous forme de String, ce resultat sera ensuite traité par la fonction
-        onPostExecute.
-        Les parametres de doInBackground, sont les urls à atteindre, dans notre cas, seul 1 URL sera
-        en parametre à chaque fois.
-        String... params aura été remplis préalablement grace à la classe Data
+        Effectue une requete http afin d'ajouter un livre dans la liste de lecture d'un utilisateur,
+        et (à faire) d'y télécharger le ePub correspondant.
      */
     @Override
     protected String doInBackground(String... params) {
@@ -106,5 +82,30 @@ public class DataManager extends AsyncTask<String, String, String> {
             e.printStackTrace(); // pas atteignable logiquement !
         }
         return response; // résultat contenant la réponse du serveur retourné...
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        if(s.equals("false")){
+            Toast.makeText(context," Ce livre est déjà present dans votre liste de lecture !",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, " Le livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /*
+        Fonction déclenchée lorsque l'utilisateur clique sur le bouton
+    */
+    @Override
+    public void onClick(View v) {
+        /*
+            Je recupere l'URL nécessaire pour ajouter un livre à ma page de donnée
+            (non local)
+            On recupere l'email de l'utilisateur connecté
+         */
+        SessionManager sessionManager = new SessionManager(context);
+        String adresse = Data.getData().getURLAJouterLivre(sessionManager.getSessionEmail(),page.getIdLivre());
+        execute(adresse); // on demande à acceder à cette requete
     }
 }

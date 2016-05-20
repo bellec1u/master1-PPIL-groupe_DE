@@ -180,6 +180,13 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/infoListe"
+            android:layout_gravity="center_horizontal" />
+
         <GridLayout
             android:id="@+id/liste_de_lecture"
             android:layout_width="wrap_content"
