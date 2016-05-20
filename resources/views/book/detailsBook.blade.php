@@ -1,10 +1,8 @@
 @extends('template')
 
 @section('contenu')
-    <div class="col-sm-offset-4 col-sm-4">
-    	<br>
-		<div class="panel panel-primary">	
-			<div class="panel-heading">Details livre </div>
+		<article class="panel panel-info">
+			<h1 class="panel-heading">Détails du Livre</h1>
 			<div class="panel-body">
 				<img src="{{ $book->cover_url  }}" alt="" />
 				<p>Titre : {{ $book->title  }}</p>
@@ -16,7 +14,6 @@
 				<p><a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a></p>
 				@if(Auth::check())
 				<p>{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}</p>
-
 				{!! link_to('book/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
 				@endif
 				@foreach($data as $rating)
@@ -29,11 +26,8 @@
 					<p> Note {{ $rating->stars }} </p>
 				@endforeach
 			</div>
-		</div>				
-		<a href="javascript:history.back()" class="btn btn-primary">
+		</article>
+		<!--<a href="javascript:history.back()" class="btn btn-primary">
 			<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
-		</a>
-
-
-	</div>
+		</a>-->
 @stop

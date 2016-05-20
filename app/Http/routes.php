@@ -15,15 +15,20 @@
 Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
+
+    Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
+
     Route::get('faq', function () {
         return view('faq');
     });
 
-    /*Route::get('/', function () {
-        return view('index');
-    });*/
+    Route::get('contact', function () {
+        return view('user/contact');
+    });
 
-    Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
+    Route::get('cgu', function () {
+        return view('cgu');
+    });
 
     Route::get('inscription', function () {
         return view('user/inscription');
@@ -31,10 +36,6 @@ Route::group(['middleware' => 'web'], function () {
     
     Route::get('connexion', function () {
         return view('user/connexion');
-    });
-    
-    Route::get('contact', function () {
-        return view('user/contact');
     });
     
     Route::get('create', function () {
@@ -48,6 +49,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('email_contact', function () {
         return view('user/email_contact');
     });
+
     //Juste un teste pour la consultation de la bibliotheque perso
     Route::get('consulter_biblio', function () {
         return view('consulter');
