@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html class="no-js">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -36,17 +35,17 @@
 
     <!-- Full Screen -->
 
-    {!! Html::script('epub/reader/js/libs/screenfull.min.js') !!}
-    <!-- Render -->
+{!! Html::script('epub/reader/js/libs/screenfull.min.js') !!}
+<!-- Render -->
 
-    {!! Html::script('epub/reader/js/epub.min.js') !!}
-    <!-- Hooks -->
+{!! Html::script('epub/reader/js/epub.min.js') !!}
+<!-- Hooks -->
 
-    {!! Html::script('epub/reader/js/hooks.min.js') !!}
-    <!-- Reader -->
+{!! Html::script('epub/reader/js/hooks.min.js') !!}
+<!-- Reader -->
 
-    {!! Html::script('epub/reader/js/reader.min.js') !!}
-    <!-- Plugins -->
+{!! Html::script('epub/reader/js/reader.min.js') !!}
+<!-- Plugins -->
     <!-- <script src="js/plugins/search.js"></script> -->
 
     <!-- Highlights -->
@@ -75,107 +74,57 @@
     </div>
     <div id="bookmarksView" class="view">
         <ul id="bookmarks"></ul>
-
+        <ul id="bookmarks"></ul>
     </div>
     <div id="notesView" class="view">
         <div id="new-note">
             <textarea id="note-text"></textarea>
             <button id="note-anchor">Anchor</button>
+        </div>
+        <ol id="notes"></ol>
+    </div>
+</div>
+<div id="main">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Basic ePubJS Example</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <meta name="apple-mobile-web-app-capable" content="yes">
+    <div id="titlebar">
 
+        <div id="opener">
 
-        <!-- EPUBJS Renderer -->
-
-          {!! Html::script('epub/build/epub.js') !!}
-           {!! Html::script('epub/build/libs/zip.min.js') !!}
-
-
-
-        <style type="text/css">
-
-          body {
-            overflow: hidden;
-          }
-
-          #main {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-          }
-
-          #area {
-            width: 80%;
-            height: 80%;
-            margin: 5% auto;
-            max-width: 1250px;
-          }
-
-          #area iframe {
-            border: none;
-          }
-
-          #prev {
-            left: 40px;
-          }
-
-          #next {
-            right: 40px;
-          }
-
-          .arrow {
-            position: absolute;
-            top: 50%;
-            margin-top: -32px;
-            font-size: 64px;
-            color: #E2E2E2;
-            font-family: arial, sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-          }
-
-          .arrow:hover {
-            color: #777;
-          }
-
-          .arrow:active {
-            color: #000;
-          }
-        </style>
-
-         <script>
-            "use strict";
-
-            var Book = ePub("{!! URL::asset('Books/book'.$id_book.'.epub') !!}",  { width : 400, heigth:600 });
-
-        </script>
-    </head>
-    <body>
-    <a href="{{ $_GET['path'] }}" class="btn btn-primary"> Quitter </a>
-        <span class="glyphicon glyphicon-circle-arrow-left"></span>
-    </a>
-        <div id="main">
-          <div id="prev" onclick="Book.prevPage();" class="arrow">‹</div>
-            <div id="wrapper">
-          <div id="area"></div>
-            </div>
-          <div id="next" onclick="Book.nextPage();" class="arrow">›</div>
+            <a id="slider" class="icon-menu">Menu</a>
+        </div>
+        <div id="metainfo">
+            <span id="book-title"></span>
+            <span id="title-seperator">&nbsp;&nbsp;–&nbsp;&nbsp;</span>
+            <span id="chapter-title"></span>
 
         </div>
+        <div id="title-controls">
+            <a id="bookmark" class="icon-bookmark-empty">Bookmark</a>
+            <a id="setting" class="icon-cog">Settings</a>
 
-        <script>
+            <a id="fullscreen" class="icon-resize-full">Fullscreen</a>
+            <a href="{{ $_GET['path'] }}" class="btn btn-primary"> Quitter </a>
+        </div>
+    </div>
 
-            Book.renderTo("area");
+    <div id="divider"> </div>
+    <div id="prev" class="arrow">‹</div>
+    <div id="viewer"></div>
+    <div id="next" class="arrow">›</div>
 
-        </script>
-    </body>
+    <div id="loader"><img src="{{ URL::asset('epub/reader/img/loader.gif')}}"></div>
+</div>
+<div class="modal md-effect-1" id="settings-modal">
+    <div class="md-content">
+        <h3>Settings</h3>
+        <div>
+            <p>
+                <input type="checkbox" id="sidebarReflow" name="sidebarReflow">Reflow text when sidebars are open.
+            </p>
+        </div>
+        <div class="closer icon-cancel-circled"></div>
+    </div>
+</div>
+<div class="overlay"></div>
+</body>
 </html>
