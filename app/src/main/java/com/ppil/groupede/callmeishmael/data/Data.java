@@ -175,4 +175,15 @@ public class Data {
                             "&date=" + date);
     }
 
+    /*
+        Retourne l'URL permettant de faire une recherche dans la base de donnée
+     */
+    public String getURLRecherche(String auteur, String ordre, String langue, String genre, String triPar, String recherche) {
+        return (adresse + "/requetes/recherche.php?auteur=" + auteur +
+                "&ordre=" + ordre +
+                "&langue=" + langue +
+                "&genre=" + genre +
+                "&tri=" + triPar +
+                "&recherche=" + recherche);
+    }
 }

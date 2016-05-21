@@ -135,7 +135,7 @@
                 android:id="@+id/ordre"
                 android:checked="false"
                 android:textOn="Croissant"
-                android:textOff="Décroissant" />
+                android:textOff="Decroissant" />
 
         </GridLayout>
 

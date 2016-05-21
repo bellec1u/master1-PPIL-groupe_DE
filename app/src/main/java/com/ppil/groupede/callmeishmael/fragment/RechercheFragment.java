@@ -46,7 +46,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
     private Spinner genre; //liste permettant de choisir le genre du livre
     private Spinner tri; //liste permettant de choisir la caractéristique que l'on va utiliser pour faire le tri
     // txt afficher devant les listes et les editext
-    private TextView auteur_txt,genre_txt,langue_txt,ordre_txt,tri_txt;
+    private TextView auteur_txt,genre_txt,langue_txt,ordre_txt,tri_txt; // techniquement on s'en fou
     private android.support.v4.app.FragmentTransaction ft;
 
 
@@ -90,37 +90,15 @@ public class RechercheFragment extends Fragment implements DataReceiver {
         recherche_detailler.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                     cacher(false);
-                  } else {
+                    cacher(false);
+                } else {
                     cacher(true);
                 }
             }
         });
 
         //lance la recherche
-        recherche.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //test si on a écrit qqchose dans la barre de recherche
-                if(barre_de_recherche.getText().toString().trim().length() != 0) {
-                    /*
-                        On instancie Data, pour récupérer le bon URL
-                        puis on instanciera DataManager et on lancera la procedure de recherche
-                     */
-
-                    //permet de supprimer les résultats précédants
-                    LinearLayout ll = (LinearLayout) view.findViewById(R.id.layout_recherche);
-                    ll.removeAllViews();
-
-                    String adresse = Data.getData().getRecherche(barre_de_recherche.getText().toString());
-                    DataManager dataManager = new DataManager(RechercheFragment.this);
-                    dataManager.execute(adresse);
-                  //  sinon on affiche un message
-                }else{
-                    Toast.makeText(getContext(), "Erreur : écrire votre mots clés dans la barre de recherche", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        recherche.setOnClickListener(new RechercheListener());
         return view;
     }
 
@@ -132,6 +110,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
             Si la recherche s'est bien passé alors on convertie le String en JSONObject et on le traite
          */
         try {
+            System.out.println(resultat);
             JSONArray array = new JSONArray(resultat) ; // convertie le résultat en JSONArray
             /*
                 On parcourt ensuite le JSONArray et on instancie les images correspondantes
@@ -222,4 +201,35 @@ public class RechercheFragment extends Fragment implements DataReceiver {
         }
 
     }
+
+    /*
+        Listener servant à gérer une recherche demandé par l"utilisateur,
+        de ce faite, ce listener va charger tous les champs possibles,
+        les verifier, et ensuite demander les résultats de cette derniere.
+     */
+    private class RechercheListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            String aut = auteur.getText().toString();
+            String ord = ordre.getText().toString();
+            String lan = langue.getSelectedItem().toString();
+            String gen = genre.getSelectedItem().toString();
+            String triPar = tri.getSelectedItem().toString();
+            String recherche = barre_de_recherche.getText().toString().trim();
+            /*
+                On demande a Data l'URL pour cette recherche
+             */
+            if(recherche.length() != 0) {
+                String adresse = Data.getData().getURLRecherche(aut, ord, lan, gen, triPar, recherche);
+                System.out.println(adresse);
+                DataManager dataManager = new DataManager(RechercheFragment.this);
+                dataManager.execute(adresse);
+            }else{
+                Toast.makeText(getContext()," Veuillez remplir le champ : 'Rechercher'",Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
 }
+
