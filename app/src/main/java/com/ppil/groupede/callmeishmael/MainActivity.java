@@ -1,9 +1,11 @@
 package com.ppil.groupede.callmeishmael;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
@@ -18,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -25,16 +28,18 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
+import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
 import com.ppil.groupede.callmeishmael.fragment.FAQFragment;
 import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
-import com.ppil.groupede.callmeishmael.fragment.LectureLivreFragment;
 import com.ppil.groupede.callmeishmael.fragment.MonCompteFragment;
 import com.ppil.groupede.callmeishmael.fragment.RechercheFragment;
 import com.ppil.groupede.callmeishmael.fragment.ReglagesFragment;
@@ -42,11 +47,18 @@ import com.ppil.groupede.callmeishmael.fragment.ReglagesFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
+
+import nl.siegmann.epublib.epub.Main;
 
 /*
     Activity principale, permet de switcher d'un fragment à l'autre,
@@ -206,6 +218,7 @@ public class MainActivity extends AppCompatActivity
             // Deconnect the user
             SessionManager sessionManager = new SessionManager(this);
             sessionManager.logOut();
+            LoginManager.getInstance().logOut();
             this.setConnection(false);
             this.setTitle("Accueil");
             // Set the fragment of view
@@ -407,7 +420,7 @@ public class MainActivity extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
-        sign_in.setReadPermissions(Arrays.asList("email"));
+        sign_in.setReadPermissions(Arrays.asList("public_profile", "email"));
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             //connexion avec succès
             @Override
@@ -437,6 +450,55 @@ public class MainActivity extends AppCompatActivity
                 // Get facebook data from login
                 try {
                     Bundle bFacebookData = getFacebookData(object);
+                    /*
+                        On inscrit l'utilisateur dans la base,
+                        on recupere l'url avec data avant
+                     */
+                    String genre = bFacebookData.getString("gender").charAt(0) + "";
+                    String adresse = Data.getData().getFacebook(
+                            bFacebookData.getString("idFacebook"),
+                                    bFacebookData.getString("email"),
+                                    bFacebookData.getString("first_name"),
+                                    bFacebookData.getString("last_name"),
+                                    genre,
+                                    bFacebookData.getString("profile_pic"),
+                                    bFacebookData.getString("birthday"));
+                    /*
+                        On appelle data Manager
+                     */
+                    System.out.println(adresse);
+                    SocialFacebook facebook = new SocialFacebook();
+                    String res = null; // on lance la requete ici
+                    try {
+                        res = facebook.execute(adresse).get();
+                        JSONObject json = new JSONObject(res);
+                         /*
+                Si on ne rentre pas dans l'exception alors on a un résultat,
+                on va parcourir ce dernier et créé un sessionManager
+             */
+                        SessionManager sessionManager = new SessionManager(MainActivity.this);
+
+                        // On commence le parcour du jsonObject
+                        sessionManager.createSession(json.getString("nom"),
+                                json.getString("prenom"),
+                                json.getString("email"),
+                                json.getString("password"),
+                                json.getString("ddn"),
+                                json.getString("image"),
+                                json.getString("follow"),
+                                json.getString("sexe"));
+                        Toast.makeText(MainActivity.this.getBaseContext(), "Bonjour " + json.getString("prenom") + " !", Toast.LENGTH_SHORT).show();
+                        MainActivity.this.setTitle("Accueil");
+                        // Set the fragment of view
+                        AccueilFragment fragment = new AccueilFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                                getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, fragment);
+                        fragmentTransaction.commit();
+                        setConnection(true);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -446,6 +508,7 @@ public class MainActivity extends AppCompatActivity
         parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
         request.setParameters(parameters);
         request.executeAsync();
+          System.out.println(parameters);
     }
 
     //recupération des infos de l'utilisateur à partir de facebook
@@ -469,10 +532,14 @@ public class MainActivity extends AppCompatActivity
             bundle.putString("last_name", object.getString("last_name"));
         if (object.has("email"))
             bundle.putString("email", object.getString("email"));
+        else
+            bundle.putString("email", "");
         if (object.has("gender"))
             bundle.putString("gender", object.getString("gender"));
         if (object.has("birthday"))
             bundle.putString("birthday", object.getString("birthday"));
+        else
+            bundle.putString("birthday", "");
         if (object.has("location"))
             bundle.putString("location", object.getJSONObject("location").getString("name"));
         return bundle;
@@ -492,5 +559,51 @@ public class MainActivity extends AppCompatActivity
     public void connexionGoogle()
     {
         //// TODO: 17/05/16
+    }
+}
+
+class SocialFacebook extends AsyncTask<String,String,String>
+{
+    @Override
+    protected String doInBackground(String... params) {
+        String response = ""; // attribut contenant notre futur résultat
+        try {
+            /*
+                On parcourt tous les paramètres
+             */
+            for(String url : params) {
+                URL serv = new URL(url); // on instancie l'URL à atteindre
+                /*
+                    On établit la connexion avec le serveur
+                 */
+                HttpURLConnection urlConnection = (HttpURLConnection) serv.openConnection();
+                /*
+                    On utilise la méthode GET pour le transfert de données
+                 */
+                urlConnection.setRequestMethod("GET");
+                /*
+                    On récupère le résultat dans in
+                 */
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in)); // on le lit ici...
+                /*
+                    Maintenant on le parcourt, puis on affectera à res le resultat.
+                 */
+                String line;
+                StringBuilder sb = new StringBuilder("");
+                line = reader.readLine();
+                sb.append(line);
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                response = sb.toString(); // résultat affecté ici !
+                urlConnection.disconnect(); // on ferme la connexion
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace(); // pas atteignable logiquement !
+        } catch (IOException e) {
+            e.printStackTrace(); // pas atteignable logiquement !
+        }
+        return response; // résultat contenant la réponse du serveur retourné...
     }
 }

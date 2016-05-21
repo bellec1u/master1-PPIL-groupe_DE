@@ -84,12 +84,10 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
     String pPrenom;
     String pSexe;
     String pDateNaissance;
-    //=======
     private Button bt_deco_google;
     private SignInButton bt_login_google;
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog pg;
-    //>>>>>>> b557534b2d4b5e4d599255e29f92c51e4131192e
 
 
     /*
@@ -229,6 +227,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
             si ce dernier est vide alors s'est que le compte n'existe pas
          */
         try {
+            System.out.println("--->"+resultat);
             JSONObject json = new JSONObject(resultat);
             /*
                 Si on ne rentre pas dans l'exception alors on a un résultat,
@@ -244,7 +243,7 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
                     json.getString("ddn"),
                     json.getString("image"),
                     json.getString("follow"),
-                    json.getString("sex"));
+                    json.getString("sexe"));
             Toast.makeText(getContext(), "Bonjour " + json.getString("prenom") + " !", Toast.LENGTH_SHORT).show();
             setAccueil();
 

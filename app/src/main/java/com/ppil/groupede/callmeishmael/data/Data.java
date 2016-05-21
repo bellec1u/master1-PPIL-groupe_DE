@@ -162,4 +162,17 @@ public class Data {
                 "mot=" + s);
     }
 
+    /*
+        Retourne l'URL permettant d'inscrire ou de connecter un utilisateur via facebook
+     */
+    public String getFacebook(String idProvided, String email, String prenom, String nom, String genre, String cover, String date){
+        return (adresse + "/requetes/facebook.php?id=" + idProvided +
+                            "&nom=" + nom +
+                            "&prenom=" + prenom +
+                            "&genre=" + genre +
+                            "&cover=" + cover +
+                            "&email=" + email +
+                            "&date=" + date);
+    }
+
 }
