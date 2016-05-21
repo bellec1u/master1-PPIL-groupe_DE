@@ -178,7 +178,21 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             }
         });
 
-        ajouter.setOnClickListener(new EPubDownloader(this, getContext()));
+                        /*
+                    On demande à sessionManager si un utilisateur est log ou non
+                 */
+        SessionManager sessionManager = new SessionManager(getContext());
+        if(!sessionManager.isConnected()) {
+            ajouter.setOnClickListener(new EPubDownloader(this, getContext()));
+        }
+        else{
+            ajouter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),"Vous devez être connecté pour ajouter un livre",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         return view; // et on retourne la vue complétée de nos informations
     }
 

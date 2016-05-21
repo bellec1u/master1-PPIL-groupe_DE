@@ -45,6 +45,7 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLOutput;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 /*
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.commit();
 
         } else if (id == R.id.nav_contact) {
-            /*
+
             // Set the page's title
             this.setTitle("Contact");
             // Set the fragment of view
@@ -254,16 +255,7 @@ public class MainActivity extends AppCompatActivity
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
-            */
 
-            // Set the page's title
-            this.setTitle("Lecture Livre");
-            // Set the fragment of view
-            LectureLivreFragment fragment = new LectureLivreFragment();
-            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                    getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
-            fragmentTransaction.commit();
 
         }
 
@@ -294,11 +286,20 @@ public class MainActivity extends AppCompatActivity
                 donc on va utiliser BitmapManager
              */
             if(!url.equals("")) {
-                try {
-                    BitmapManager bitmapManager = new BitmapManager(img);
-                    img = bitmapManager.execute(url).get();
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
+                if(url.startsWith("http")) {
+                    try {
+                        BitmapManager bitmapManager = new BitmapManager(img);
+                        img = bitmapManager.execute(url).get();
+                        imagePerso.setImageBitmap(img);
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                    Bitmap bitmap = BitmapFactory.decodeFile(url,bmOptions);
+                    bitmap = Bitmap.createScaledBitmap(bitmap,48,48,true);
+                    imagePerso.setImageBitmap(bitmap);
+
                 }
             }else{
                         /*
@@ -406,6 +407,7 @@ public class MainActivity extends AppCompatActivity
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
+        sign_in.setReadPermissions(Arrays.asList("email"));
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             //connexion avec succès
             @Override
@@ -450,7 +452,6 @@ public class MainActivity extends AppCompatActivity
     private Bundle getFacebookData(JSONObject object) throws JSONException {
         Bundle bundle = new Bundle();
         String id = object.getString("id");
-
         try {
             URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
             Log.i("profile_pic", profile_pic + "");

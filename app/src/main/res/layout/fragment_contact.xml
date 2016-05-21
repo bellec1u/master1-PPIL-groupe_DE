@@ -5,9 +5,10 @@
     tools:context=".fragment.ContactFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="@string/hello_blank_fragment"
+        android:id="@+id/idLire"/>
 
 </ScrollView>

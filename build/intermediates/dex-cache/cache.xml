@@ -1,2 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/Pima/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_307cad4ab791b4f8d1ccd1bebb5e6d2f79c96dc5.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.4.0_eefc3efd3c47f5ae1ddfbedbdfd9dffa936a3da1.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-measurement-8.4.0_44e4cdcd94dc6581106aecd59ceeaece6566730f.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-8.4.0_dc55667a1c6f19cd4cacbf94f945312d0016abb1.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-drive-8.4.0_7fe2411cf301b653b7994a418cbd03237d2c91b8.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wearable-8.4.0_344e85cad6b7161f9825805338ad47b7683b23c0.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/design/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.3.0_39a6a829ab76e71b8bd0d60363cdf2a77b34df78.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0_4927e5176747a7618c31e49d7ac81be27d4c6d01.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wallet-8.4.0_5bc035e58bfa41bf3ea9a082e3edd2769dce55f7.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-analytics-8.4.0_f2a07a8e353d962455cc3e804c0b9813369293f5.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-23.3.0_db9d25f31619d4ebc641d4fd0122ba1f2f79669c.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-games-8.4.0_e61c732d5b8b5db22830b498894a98abcc6cf1ba.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="2d1eaa9e0b98f8fc4c2b989d9b30d4f1480648ac">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-customtabs-23.4.0_f75828934e6e0358dbd0539d148e91cad025fcb6.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="debf30ce0a7560396b6235edef77e447006454c2">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.3.0_fe1df2a9efc7a5cda801abf1dd05d52a180d2beb.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.4.0_1deea2933c8d2dc5c0b1251c5012170069ad77dc.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_aa3d2e639ff56f6fdab30fdcd62308f319fa781e.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-ads-8.4.0_071e5ac84042b2ed73efff693214784a448cb183.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_cfba686b828ec8b26d2fe0893d5d0ef1c69b4108.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.4.0_ce952ed196dc1033605d7ad50ea6965c3a54cf1c.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_d9fb26cc0d5d0a00ba15e5d62b58a4f8181c65cc.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-gcm-8.4.0_83d927692f8edddf1ebf78c679b7022f0dfb08af.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.3.0_bee9728fdef9f82ca61791ff200e6a2e8d4852bd.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-plus-8.4.0_609d7ecc9e41370ba71a03032f8a59a169d9a5e1.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/libs/epublib-core-latest.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="ca916295c8af907b0c2d877b5f3a392e5ceb80ea">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/epublib-core-latest_410b887cec3c8e62af8ed27c2f404f146d530d91.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-auth-8.4.0_433a37fa81ea8af92a109b34ddb7470d49a491ae.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-safetynet-8.4.0_b5b0f73a56cf0f6b0d3839aa9426406054f4e51e.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-vision-8.4.0_31b2b2a3a9077e58883cb3510282f8c710e425c1.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/libs/slf4j-android-1.6.1-RC1.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="a0b527e8aabcc1f1e97d1674dc3f4f0794ec5df1">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/slf4j-android-1.6.1-RC1_b60b3fef0702197500d385b2c6d5d6ba526e7ba9.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.12.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="384a601bf7671716768cc8586f39816a08ce74c3">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.12.0_7efb352e564c553f3aa4549cd7e6b4c336518506.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-identity-8.4.0_f76d2c1266995b31a4dd0eca3a246d331903270f.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-mediarouter-v7-23.0.0_8aef13b3285d44538d08d8e47d5f31d9c6f0d42d.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-panorama-8.4.0_c4083fcbc0af92bcfd7e9f5b08d3fbc6ebed796d.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-8.4.0_eb78f477cc92b481ee9318176c0397ed2516df3e.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-nearby-8.4.0_5f786abd4e15f9c257769782c33d6fe977bef67d.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appinvite-8.4.0_c2895836e7b30321ec67cad912cc680ca86f5dbb.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.4.0_2921dfe7d59f7e6724b267e36b4af310327f7470.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-23.3.0_4bef84adc3cd8065276dc9204e2def013d8a9ee4.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-cast-8.4.0_379303e773288b58362dba88c643575475aa5ae0.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-fitness-8.4.0_ce5b9572385720f1f9f4c9a417f7cfc52e0ff372.jar" />
+    </item>
+    <item
+        jar="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.3"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/Pima/Desktop/ppil_mobile/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_f344a50132d6c6a7074c1b9c97294352bc2fd28a.jar" />
+    </item>
+
+</items>

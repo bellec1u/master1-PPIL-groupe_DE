@@ -162,7 +162,6 @@ public class SessionManager {
      */
     public boolean isConnected()
     {
-        System.out.println(preferences.getString(KEY_EMAIL,"email"));
         return (preferences.getString(KEY_EMAIL,"email").equals("email"));
     }
 

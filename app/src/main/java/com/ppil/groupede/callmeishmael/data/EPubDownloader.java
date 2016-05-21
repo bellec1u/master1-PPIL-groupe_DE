@@ -104,8 +104,11 @@ public class EPubDownloader extends AsyncTask<String,Integer,String> implements 
             (non local)
             On recupere l'email de l'utilisateur connecté
          */
+        /*
+                    On demande à sessionManager si un utilisateur est log ou non
+        */
         SessionManager sessionManager = new SessionManager(context);
-        String adresse = Data.getData().getURLAJouterLivre(sessionManager.getSessionEmail(),page.getIdLivre());
+        String adresse = Data.getData().getURLAJouterLivre(sessionManager.getSessionEmail(), page.getIdLivre());
         execute(adresse); // on demande à acceder à cette requete
     }
 }
