@@ -136,10 +136,10 @@
         <div class="container">
             <div class="row">
                 @if ($errors->has('email'))
-                    <div class="alert alert-danger text-center" style="margin-bottom: 0px;">
+                    <!--<div class="alert alert-danger text-center" style="margin-bottom: 0px;">
                         <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <b>Une erreur est survenue !</b> Cliquez sur l'onglet "Connexion" du menu pour plus de détails...
-                    </div>
+                    </div>-->
                 @endif
 
                 @yield('contenu')
