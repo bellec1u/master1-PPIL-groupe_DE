@@ -34,19 +34,18 @@
     <!-- <script src="js/libs/localforage.min.js"></script> -->
 
     <!-- Full Screen -->
-
     {!! Html::script('epub/reader/js/libs/screenfull.min.js') !!}
+
     <!-- Render -->
-
     {!! Html::script('epub/reader/js/epub.min.js') !!}
+
     <!-- Hooks -->
-
     {!! Html::script('epub/reader/js/hooks.min.js') !!}
+
     <!-- Reader -->
-
     {!! Html::script('epub/reader/js/reader.min.js') !!}
-    <!-- Plugins -->
 
+    <!-- Plugins -->
     <!-- <script src="js/plugins/search.js"></script> -->
 
     <!-- Highlights -->
