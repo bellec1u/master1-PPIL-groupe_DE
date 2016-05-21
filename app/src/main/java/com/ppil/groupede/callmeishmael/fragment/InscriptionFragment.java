@@ -351,6 +351,7 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
         /*
             Si l'inscription s'est bien passé alors on convertie le String en JSONObject et on le traite
          */
+        System.out.println(resultat);
         try {
             JSONObject json = new JSONObject(resultat);
             /*
@@ -373,7 +374,7 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                         json.getString("ddn"),
                         json.getString("image"),
                         json.getString("follow"),
-                        json.getString("sex"));
+                        json.getString("sexe"));
 
                 Toast.makeText(getContext(),"Un mail vous à été envoyé !",Toast.LENGTH_SHORT).show();
                 setAccueil(); // envoie vers l'accueil
@@ -397,7 +398,7 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack("Accueil");
         fragmentTransaction.commit();
         ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
     }

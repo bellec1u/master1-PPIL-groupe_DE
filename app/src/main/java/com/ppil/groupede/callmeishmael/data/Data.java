@@ -19,13 +19,8 @@ public class Data {
 
     private Data()
     {
-<<<<<<< HEAD
-        ipMachine = "http://192.168.212.157" ;
+        ipMachine = "http://192.168.1.10" ;
         port = "8888" ;
-=======
-        ipMachine = "http://192.168.43.136" ;
-        port = "" ;
->>>>>>> 317f040290081247dd3590d4c1419396255bb6b7
         adresse = ipMachine + ":" + port;
     }
 
@@ -162,7 +157,7 @@ public class Data {
     /*
            Retourne l'URL nécessaire pour la recherche
         */
-    public String getRecherhce(String s) {
+    public String getRecherche(String s) {
         return (adresse + "/requetes/recherche.php?" +
                 "mot=" + s);
     }

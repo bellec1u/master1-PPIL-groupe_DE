@@ -159,12 +159,19 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         Bitmap img = null;
         if(!url.equals(""))
         {
-            BitmapManager bitmapManager = new BitmapManager(img);
-            try {
-                img = bitmapManager.execute(url).get();
-                imageButton.setImageBitmap(img); // on affecte l'image ici..
-            } catch (ExecutionException | InterruptedException e) {
-                //nothing
+            if(url.startsWith("http")) {
+                BitmapManager bitmapManager = new BitmapManager(img);
+                try {
+                    img = bitmapManager.execute(url).get();
+                    imageButton.setImageBitmap(img); // on affecte l'image ici..
+                } catch (ExecutionException | InterruptedException e) {
+                    //nothing
+                }
+            }else{
+                BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                Bitmap bitmap = BitmapFactory.decodeFile(url,bmOptions);
+                bitmap = Bitmap.createScaledBitmap(bitmap,48,48,true);
+                imageButton.setImageBitmap(bitmap);
             }
         }
 

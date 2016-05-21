@@ -112,7 +112,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
                     LinearLayout ll = (LinearLayout) view.findViewById(R.id.layout_recherche);
                     ll.removeAllViews();
 
-                    String adresse = Data.getData().getRecherhce(barre_de_recherche.getText().toString());
+                    String adresse = Data.getData().getRecherche(barre_de_recherche.getText().toString());
                     DataManager dataManager = new DataManager(RechercheFragment.this);
                     dataManager.execute(adresse);
                   //  sinon on affiche un message
