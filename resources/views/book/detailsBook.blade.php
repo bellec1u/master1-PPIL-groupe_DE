@@ -79,10 +79,8 @@ function makeRating($rate, $bestvalue = 5) {
 //  echo(makeRating(3.42));		// code de test
 ?>
 @section('contenu')
-    <div class="col-sm-offset-4 col-sm-4">
-    	<br>
-		<div class="panel panel-primary">	
-			<div class="panel-heading">Details livre </div>
+		<article class="panel panel-info">
+			<h1 class="panel-heading">Détails du Livre</h1>
 			<div class="panel-body">
 				<img src="{{ $book->cover_url  }}" alt="" />
 				<p>Titre : {{ $book->title  }}</p>
@@ -93,10 +91,11 @@ function makeRating($rate, $bestvalue = 5) {
 				<p>Note moyenne : {{ $book->stars_average  }}</p>
 				<a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a>
 				@if(Auth::check())
+				<p>{!! link_to('createRating/'.$book->id, 'Evaluer', $attribute = array(), $secrure = null ) !!}</p>
+				{!! link_to('book/'.$book->id, 'ajouter a sa bibliothèque', $attribute = array(), $secrure = null ) !!}
 					<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Evaluer</a>
 					<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ajouter a sa bibliothèque</a>
 				@endif
-
 				@foreach($data as $rating)
 					<p>
 					@if(Auth::Check())
@@ -104,21 +103,13 @@ function makeRating($rate, $bestvalue = 5) {
 
 					@endif
 					@endif
-				<?php   echo makeRating($rating->stars)  ?>{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+					<?php   echo makeRating($rating->stars)  ?>{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 					 Commentaire :  {{ $rating->comment }}
-
-
 					</p>
-
 				@endforeach
 				<p></p><a href="javascript:history.back()" class="btn btn-primary">
 					<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
 				</a></p>
 			</div>
-
-		</div>				
-
-
-
-	</div>
+		</article>
 @stop

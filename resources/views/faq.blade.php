@@ -9,12 +9,10 @@
 @stop
 
 @section('contenu')
-    <div class="container">
-        <div class="panel panel-info">
-            <div class="panel-heading">Foire aux Questions</div>
-            <div class="panel-body">
-                Là y aura la FAQ.
-            </div>
+    <article class="panel panel-info">
+        <h1 class="panel-heading">Foire aux Questions</h1>
+        <div class="panel-body">
+            <p>Là y aura la FAQ.</p>
         </div>
-    </div>
+    </article>
 @stop
