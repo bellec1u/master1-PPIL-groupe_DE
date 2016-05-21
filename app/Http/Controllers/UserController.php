@@ -38,7 +38,7 @@ class UserController extends Controller
             $this->userRepository->store($request->all());
         }
 
-        return redirect('/')->with('status', 'Vous avez bien été enregistré');
+        return redirect('/')->flash('status', 'Vous avez bien été enregistré');
     }
 
 
@@ -51,7 +51,7 @@ class UserController extends Controller
             $this->userRepository->update($id, $request->all());
         }
 
-        return redirect('user/'.$id)->with('status', 'Profil mis à jour');
+        return redirect('user/'.$id)->flash('status', 'Profil mis à jour');
     }
 
 
@@ -67,7 +67,7 @@ class UserController extends Controller
         $user = $emailConfService->confirmEmail($token);
         if ($user) {
             Auth::login($user);
-            return redirect('/')->with('status', 'Votre email a été validé');
+            return redirect('/')->flash('status', 'Votre email a été validé');
         } else {
             return redirect('/');
         }

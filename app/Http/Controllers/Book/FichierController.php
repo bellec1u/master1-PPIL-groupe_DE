@@ -37,6 +37,7 @@ class FichierController extends Controller
             // retrieve header
             $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
             $header = substr($ret, 0, $header_size);
+            $info = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 
             // extract cookie
             $res = preg_match('/Set-Cookie: session_id=([a-z0-9]+);/', $header, $cookie);
@@ -47,7 +48,8 @@ class FichierController extends Controller
                 // store session id on disk
                 Storage::put('session_id', $session_id);
             }
-           // print_r($session_id.'<br>');
+
+            Storage::append('download.log', 'session_id get : '.$info);
 
             curl_close($ch);
             return $session_id;
@@ -61,11 +63,12 @@ class FichierController extends Controller
         $file_path = public_path().'/Books/Book'.$book_id.'.epub';
         $fp = fopen($file_path, 'w+');
 
-        if (!Storage::exists('session_id')) {
-            $session_id = $this->get_session_id($book_id);
-        } else {
-            $session_id = Storage::get('session_id');
-        }
+        $session_id = $this->get_session_id($book_id);
+//        if (!Storage::exists('session_id')) {
+//            $session_id = $this->get_session_id($book_id);
+//        } else {
+//            $session_id = Storage::get('session_id');
+//        }
 
         $ch = curl_init();
         if (!$ch) {
@@ -90,7 +93,7 @@ class FichierController extends Controller
             print(curl_error($ch));
         }
 
-        //print($info.'<br>');
+        Storage::append('download.log', 'book download : '.$info);
 
         curl_close($ch);
         fclose($fp);
