@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
        
 
-        for($i =0; $i<= 10 ; $i++){
+        for($i =0; $i < 10 ; $i++){
             $id = rand(1,1000);
             $book1 = $this->bookRepository->getById($id);
             $liste[] = $book1;

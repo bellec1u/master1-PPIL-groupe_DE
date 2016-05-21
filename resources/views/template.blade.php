@@ -149,7 +149,7 @@
     </article>
 </section>
 
-<footer class="navbar navbar-inverse navbar-static-top" role="contentinfo">
+<footer class="navbar navbar-sticky-top" role="contentinfo">
     <div class="container">
         <p class="navbar-text">
             &copy; Projet PPIL Université de Lorraine | <a href="{{ url('cgu') }}">Conditions Générales d'Utilisation</a>

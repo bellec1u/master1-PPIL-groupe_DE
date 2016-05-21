@@ -1,5 +1,13 @@
+html {
+    min-height: 100%;
+}
 body {
-    background: url("lorem-ipsum-background-tile.jpg");
+    background: linear-gradient(
+            to bottom,
+            rgb(48, 158, 185),
+            rgb(234, 236, 198));
+    padding-bottom: 40px;
+    min-height: 100%;
 }
 
 /* ---------- Header ---------- */
