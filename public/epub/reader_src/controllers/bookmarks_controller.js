@@ -1,3 +1,4 @@
+
 EPUBJS.reader.BookmarksController = function() {
 	var reader = this;
 	var book = this.book;
@@ -10,7 +11,7 @@ EPUBJS.reader.BookmarksController = function() {
 	var show = function() {
 		$bookmarks.show();
 	};
-
+	alert('test book mark');
 	var hide = function() {
 		$bookmarks.hide();
 	};

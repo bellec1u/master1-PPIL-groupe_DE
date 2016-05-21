@@ -18,16 +18,24 @@
     {!! Html::script('epub/reader/js/libs/zip.min.js') !!}
 
 
+
     <script>
         "use strict";
+        var book;
         document.onreadystatechange = function () {
             if (document.readyState == "complete") {
                 EPUBJS.filePath = "js/libs/";
                 EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
                 // fileStorage.filePath = EPUBJS.filePath;
-                window.reader = ePubReader("{!! URL::asset('Books/book'.$id_book.'.epub') !!}");
+                  book =  ePubReader("{!! URL::asset('Books/book'.$id_book.'.epub') !!}");
+
+              window.reader= book;
             }
         };
+        book.on('book:pageChanged', function(location){
+            //console.log(location.anchorPage, location.pageRange)
+            alert('changement de page avec '+location.anchorPage );
+        });
     </script>
 
     <!-- File Storage -->
@@ -99,11 +107,11 @@
 
         </div>
         <div id="title-controls">
-            <a id="bookmark" class="icon-bookmark-empty">Bookmark</a>
+            <a id="bookmark" class="icon-bookmark-empty" onclick="alert('test recup') ">Bookmark</a>
             <a id="setting" class="icon-cog">Settings</a>
 
             <a id="fullscreen" class="icon-resize-full">Fullscreen</a>
-            <a href="{{ $_GET['path'] }}" class="btn btn-primary"> Quitter </a>
+           <a href="{{ $_GET['path'] }}"> <img src="{{ URL::asset('fermer.png')}}"></a>
         </div>
     </div>
 
