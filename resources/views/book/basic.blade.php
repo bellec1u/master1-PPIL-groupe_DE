@@ -107,7 +107,7 @@
 
         </div>
         <div id="title-controls">
-            <a id="bookmark" class="icon-bookmark-empty" onclick="alert('test recup') ">Bookmark</a>
+            <a id="bookmark" class="icon-bookmark-empty" >Bookmark</a>
             <a id="setting" class="icon-cog">Settings</a>
 
             <a id="fullscreen" class="icon-resize-full">Fullscreen</a>
