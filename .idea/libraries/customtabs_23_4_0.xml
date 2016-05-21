@@ -1,8 +1,13 @@
 <component name="libraryTable">
   <library name="customtabs-23.4.0">
     <CLASSES>
+<<<<<<< HEAD:.idea/libraries/customtabs_23_4_0.xml
       <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.4.0/res" />
       <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.4.0/jars/classes.jar!/" />
+=======
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.2.1/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/customtabs/23.2.1/jars/classes.jar!/" />
+>>>>>>> 317f040290081247dd3590d4c1419396255bb6b7:.idea/libraries/customtabs_23_2_1.xml
     </CLASSES>
     <JAVADOC />
     <SOURCES />
