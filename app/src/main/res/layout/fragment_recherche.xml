@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/txt_rechercher"
                 android:text="Rechercher"
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-?! "
                 android:maxLines="1" />
 
             <ToggleButton

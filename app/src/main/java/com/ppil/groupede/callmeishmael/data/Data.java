@@ -1,5 +1,10 @@
 package com.ppil.groupede.callmeishmael.data;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * Created by Pima on 16/05/16.
  */
@@ -47,8 +52,73 @@ public class Data {
     }
 
     /*
-    Retourne l'URL nécessaire pour effectuer une modification des informations personnelles de l'utilisateur
+        Prepare les arguments nécessaires pour une requete POST, pour inscription
+     */
+    public byte[] getPostInscription(String nom, String prenom, String email, String password, String profile_image, String genre, String date)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email); // on associe au champs email = emailUser
+        params.put("password", password); // password
+        params.put("prenom", prenom);
+        params.put("nom", nom);
+        params.put("sexe", genre);
+        params.put("date", date);
+        params.put("cover_url",profile_image);
+
+        /*
+            Charge les parametres
+        */
+        try {
+        StringBuilder postData = new StringBuilder();
+        for (Map.Entry<String,Object> para : params.entrySet()) {
+            if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+            postData.append('=');
+            postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+        }
+
+        return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
+    Prepare les arguments nécessaires pour une requete POST, pour modifier le profil
  */
+    public byte[] getPostProfile(String nom, String prenom, String email, String password, String profile_image, String genre, String date, String oldMail, String oldPwd)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email); // on associe au champs email = emailUser
+        params.put("password", password); // password
+        params.put("prenom", prenom);
+        params.put("nom", nom);
+        params.put("sexe", genre);
+        params.put("date", date);
+        params.put("cover_url",profile_image);
+        params.put("oldemail", oldMail);
+        params.put("oldpwd", oldPwd);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+    /*
+    Retourne l'URL nécessaire pour effectuer une modification des informations personnelles de l'utilisateur
+    */
     public String getModification(String nom, String prenom, String email, String password, String profile_image, String genre, String date, String oldMail, String oldPwd) {
         return (adresse + "/requetes/modification.php?" +
                 "email=" + email +
@@ -73,6 +143,31 @@ public class Data {
     }
 
     /*
+Prepare les arguments nécessaires pour une requete POST, pour modifier la connexion
+*/
+    public byte[] getPostConnexion(String email, String password) {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email); // on associe au champs email = emailUser
+        params.put("password", password); // password
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+    /*
         Retourne l'URL nécessaire pour obtenir le top 10 des meilleurs livres
      */
     public String getTop10() {
@@ -87,10 +182,62 @@ public class Data {
     }
 
     /*
+Prepare les arguments nécessaires pour une requete POST, pour avoir les details d'un livre
+*/
+    public byte[] getPostDetails(String id)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("id", id); // on associe au champs id = id
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
         Retourne l'URL nécessaire pour supprimer un utilisateur avec un email comme parametre
      */
     public String getDeleteUser(String email) {
         return (adresse + "/requetes/delete.php?email=" + email);
+    }
+
+    /*
+        Prepare les arguments nécessaires pour une requete POST, pour avoir supprimer un utilisateur
+     */
+    public byte[] getPostDelete(String email)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email); // on associe au champs id = id
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
     }
 
     /*
@@ -104,6 +251,35 @@ public class Data {
     }
 
     /*
+    Prepare les arguments nécessaires pour une requete POST, pour avoir commenter un livre
+    */
+    public byte[] getPostCommenter(String idLivre, String emailUtilisateur, String commentaire, int note)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("id", idLivre); // on associe au champs id = idLivre
+        params.put("email", emailUtilisateur);
+        params.put("com", commentaire);
+        params.put("note", note);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
         Retourne l'URL nécessaire pour modifier un commentaire dans la base
      */
     public String getURLModifierCommentaire(String idLivre, String emailUtilisateur, String commentaire, int note) {
@@ -114,11 +290,67 @@ public class Data {
     }
 
     /*
+        Identique a getPostCommenter ...
+     */
+    public byte[] getPostModifierCommentaire(String idLivre, String emailUtilisateur, String commentaire, int note)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("id", idLivre); // on associe au champs id = idLivre
+        params.put("email", emailUtilisateur);
+        params.put("com", commentaire);
+        params.put("note", note);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
         Retourne l'URL nécessaire pour demander la suppression d'un commentaire
      */
     public String getURLSupprimerCommentaire(String emailUtilisateur, int idCommentaire) {
         return (adresse + "/requetes/decommenter.php?email=" + emailUtilisateur +
                 "&id=" + idCommentaire);
+    }
+
+    /*
+        Requete POST, pour supprimer un commentaire
+     */
+    public byte[] getPostSupprimerCommentaire(String emailUtilisateur, int idCommentaire)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("id", idCommentaire); // on associe au champs id = idLivre
+        params.put("email", emailUtilisateur);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
     }
 
     /*
@@ -138,6 +370,32 @@ public class Data {
     }
 
     /*
+        Requete POST pour supprimer un livre de la base
+     */
+    public byte[] getPostSupprimerLivre(String id, String email)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("id", id); // on associe au champs id = idLivre
+        params.put("email", email);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+    /*
         Retourne l'URL pour demander l'ajout dans la liste de lecture de l'utilisateur ayant comme email 'email'
         le livre d'identifiant idLivre
      */
@@ -146,6 +404,31 @@ public class Data {
                 "&email=" + email);
     }
 
+    /*
+        Requete POST pour ajouter un livre dans la liste de lecture
+     */
+    public byte[] getPostAjouterLivre(String email, String idLivre) {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("id", idLivre); // on associe au champs id = idLivre
+        params.put("email", email);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
     /*
         Retourne l'instance de Data, car singleton
      */
@@ -176,6 +459,38 @@ public class Data {
     }
 
     /*
+        Requete POST, pour demander l'ajout d'un compte facebook
+     */
+    public byte[] getPostFacebook(String idProvided, String email, String prenom, String nom, String genre, String cover, String date)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("id", idProvided); // on associe au champs id = idProvided
+        params.put("email", email);
+        params.put("prenom", prenom);
+        params.put("nom", nom);
+        params.put("genre", genre);
+        params.put("cover", cover);
+        params.put("date", date);
+
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+    /*
         Retourne l'URL permettant de faire une recherche dans la base de donnée
      */
     public String getURLRecherche(String auteur, String ordre, String langue, String genre, String triPar, String recherche) {
@@ -185,5 +500,37 @@ public class Data {
                 "&genre=" + genre +
                 "&tri=" + triPar +
                 "&recherche=" + recherche);
+    }
+
+    /*
+        Permet de faire une requete POST, pour rechercher un livre, auteur etc...
+     */
+    public byte[] getPostRechercher(String auteur, String ordre, String langue, String genre, String triPar, String recherche)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("auteur", auteur);
+        params.put("ordre", ordre);
+        params.put("langue", langue);
+        params.put("genre", genre);
+        params.put("tri", triPar);
+        params.put("recherche", recherche);
+
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
     }
 }
