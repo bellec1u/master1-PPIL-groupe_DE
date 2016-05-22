@@ -60,7 +60,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
     // standard
     Route::resource('user', 'UserController',
-        ['except' => ['index', 'edit', 'destroy']]);
+        ['except' => ['index', 'edit', 'update', 'show', 'destroy']]);
+    Route::get('user/profile', 'UserController@profile');
+    Route::put('user', 'UserController@update');
+    Route::delete('user', 'UserController@delete');
+
     Route::get('user/verify/{token}', 'UserController@confirmEmail')
         ->where('token', '[a-zA-Z0-9]+');
     
@@ -88,7 +92,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');
     Route::get('bookshelf', ['uses' => 'Book\ReadingController@show', 'as' => 'showReading']);
     Route::get('bookshelf/delete/{id}', ['uses' => 'Book\ReadingController@destroy', 'as' => 'deleteReading'])->where('id', '[0-9]+');;
-    
+
    
 });
 

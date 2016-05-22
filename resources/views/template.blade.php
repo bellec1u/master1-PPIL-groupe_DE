@@ -60,8 +60,8 @@
                     </li>
                     <li><a href="{{ url('logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                 @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <b>Connexion</b> <span class="caret"></span></a>
+                    <li class="dropdown @if($errors->any()) open @endif">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" @if($errors->any()) aria-expanded="true" @endif><span class="glyphicon glyphicon-user"></span> <b>Connexion</b> <span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
                                 <div class="row">
@@ -157,7 +157,7 @@
 <footer class="navbar navbar-sticky-top" role="contentinfo">
     <div class="container">
         <p class="navbar-text">
-            &copy; Projet PPIL Université de Lorraine | <a href="{{ url('cgu') }}">Conditions Générales d'Utilisation</a>
+            &copy; Projet PPIL 2016 - Université de Lorraine | <a href="{{ url('cgu') }}">Conditions Générales d'Utilisation</a>
         </p>
     </div>
 </footer>

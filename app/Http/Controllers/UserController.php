@@ -19,6 +19,12 @@ class UserController extends Controller
     public function __construct(UserRepository $userRepository)
 	{
 		$this->userRepository = $userRepository;
+
+        $this->middleware('auth', ['only' => [
+            'update',
+            'profile',
+            'delete',
+        ]]);
 	}
 
 
@@ -44,8 +50,9 @@ class UserController extends Controller
     }
 
 
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UserUpdateRequest $request)
     {
+        $id = Auth::user()->id;
         if ($request->hasFile('profile_image')) {
             $image = $request->file('profile_image');
             $this->userRepository->updateWithImage($id, $request->all(), $image);
@@ -53,13 +60,13 @@ class UserController extends Controller
             $this->userRepository->update($id, $request->all());
         }
 
-        return redirect('user/'.$id)->with('status', 'Profil mis à jour');
+        return redirect('user/profile')->with('status', 'Profil mis à jour');
     }
 
 
-    public function show($id)
+    public function profile()
     {
-        $user = $this->userRepository->getById($id);
+        $user = Auth::user();
         return view('user.profile', compact('user'));
     }
 
@@ -72,6 +79,17 @@ class UserController extends Controller
             return redirect('/')->with('status', 'Votre email a été validé. Bienvenue !');
         } else {
             return redirect('/');
+        }
+    }
+
+
+    public function delete()
+    {
+        $user = $this->userRepository->getById(Auth::user()->id);
+        Auth::logout();
+
+        if ($user->delete()) {
+            return redirect('/')->with('status', 'Votre compte a été supprimé');
         }
     }
      
