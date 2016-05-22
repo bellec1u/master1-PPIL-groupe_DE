@@ -138,13 +138,14 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         /*
             On demande au serveur les informations du livre d'id 'id'
          */
-        String adresse = Data.getData().getDetails(id); // adresse du serveur
+        String adresse = Data.getData().getURLDetails(); // adresse du serveur
+        byte[] infos = Data.getData().getPostDetails(id);
 
         /*
             On instancie et execute DataManager avec adresse comme destination
          */
         DataManager dataManager = new DataManager(this);
-        dataManager.execute(adresse);
+        dataManager.execute(adresse, infos);
 
 
         /*

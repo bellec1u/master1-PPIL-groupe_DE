@@ -102,13 +102,13 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
                      */
                         SessionManager sessionManager = new SessionManager(getContext());
                         String email = sessionManager.getSessionEmail();
-                        String adresse = Data.getData().getURLCommentaire(idLivre, email, com, note);
-                    System.out.println(adresse);
+                        String adresse = Data.getData().getURLCommentaire();
+                        byte[] infos = Data.getData().getPostCommenter(idLivre, email, com, note);
                     /*
                         On demande a DataManager de faire la requete au serveur
                      */
                         DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
-                        dataManager.execute(adresse);
+                        dataManager.execute(adresse,infos);
                 }
             }
         });

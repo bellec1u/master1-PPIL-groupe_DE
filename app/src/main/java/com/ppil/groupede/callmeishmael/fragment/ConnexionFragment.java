@@ -169,14 +169,15 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
                     /*
                         On demande l'adresse à Data pour effectuer une connexion
                      */
-                    String adresse = Data.getData().getConnexion(email.getText().toString(),password.getText().toString());
+                    String adresse = Data.getData().getURLConnexion();
                     System.out.println(adresse);
+                    byte[] infos = Data.getData().getPostConnexion(email.getText().toString(),password.getText().toString());
 
                     /*
                         On instancie DataManager pour effectuer une requete à la base
                      */
                     DataManager dataManager = new DataManager(ConnexionFragment.this);
-                    dataManager.execute(adresse); // execution ici...
+                    dataManager.execute(adresse, infos); // execution ici...
                 }
             }
         });

@@ -271,13 +271,14 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
                                  */
                             SessionManager sessionManager = new SessionManager(getContext());
                             String emailSession = sessionManager.getSessionEmail();
-                            String adresse = Data.getData().getURLSupprimerCommentaire(emailSession, idCommentaire);
+                            String adresse = Data.getData().getURLSupprimerCommentaire();
+                            byte[] delete = Data.getData().getPostSupprimerCommentaire(emailSession, idCommentaire);
                             System.out.println(adresse);
                                 /*
                                     On instancie et execute DataManager
                                  */
                             DataManager dataManager = new DataManager(CommentaireFragment.this);
-                            dataManager.execute(adresse);
+                            dataManager.execute(adresse, delete);
                         }
 
                     })

@@ -14,7 +14,7 @@ import java.net.URL;
 /**
  * Created by Pima on 16/05/16.
  */
-public class DataManager extends AsyncTask<String, String, String> {
+public class DataManager extends AsyncTask<Object, String, String> {
 
     /*
         Classe appelée lorsque l'on a besoin de recevoir/envoyé des requetes à la base de donnée
@@ -66,13 +66,13 @@ public class DataManager extends AsyncTask<String, String, String> {
         String... params aura été remplis préalablement grace à la classe Data
      */
     @Override
-    protected String doInBackground(String... params) {
+    protected String doInBackground(Object... params) {
         String response = ""; // attribut contenant notre futur résultat
         try {
             /*
                 On parcourt tous les paramètres
              */
-            for(String url : params) {
+            String url = (String) params[0];
                 URL serv = new URL(url); // on instancie l'URL à atteindre
                 /*
                     On établit la connexion avec le serveur
@@ -81,7 +81,15 @@ public class DataManager extends AsyncTask<String, String, String> {
                 /*
                     On utilise la méthode GET pour le transfert de données
                  */
-                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestMethod("POST");
+
+            if(params.length > 1) {
+                byte[] infos = (byte[]) params[1];
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                urlConnection.setRequestProperty("Content-Length", String.valueOf(infos.length));
+                urlConnection.setDoOutput(true);
+                urlConnection.getOutputStream().write(infos);
+            }
                 /*
                     On récupère le résultat dans in
                  */
@@ -99,7 +107,6 @@ public class DataManager extends AsyncTask<String, String, String> {
                 }
                 response = sb.toString(); // résultat affecté ici !
                 urlConnection.disconnect(); // on ferme la connexion
-            }
         } catch (MalformedURLException e) {
             e.printStackTrace(); // pas atteignable logiquement !
         } catch (IOException e) {

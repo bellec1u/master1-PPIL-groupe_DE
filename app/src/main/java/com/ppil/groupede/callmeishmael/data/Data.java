@@ -52,6 +52,14 @@ public class Data {
     }
 
     /*
+        Retourne l'URL pour s'inscrire
+     */
+    public String getURLInscription()
+    {
+        return ( adresse + "/requetes/register.php" );
+    }
+
+    /*
         Prepare les arguments nécessaires pour une requete POST, pour inscription
      */
     public byte[] getPostInscription(String nom, String prenom, String email, String password, String profile_image, String genre, String date)
@@ -119,17 +127,8 @@ public class Data {
     /*
     Retourne l'URL nécessaire pour effectuer une modification des informations personnelles de l'utilisateur
     */
-    public String getModification(String nom, String prenom, String email, String password, String profile_image, String genre, String date, String oldMail, String oldPwd) {
-        return (adresse + "/requetes/modification.php?" +
-                "email=" + email +
-                "&password=" + password +
-                "&prenom=" + prenom +
-                "&nom=" + nom +
-                "&sexe=" + genre +
-                "&date=" + date +
-                "&cover_url=" + profile_image +
-                "&oldemail=" + oldMail +
-                "&oldpwd=" + oldPwd);
+    public String getURLModification() {
+        return (adresse + "/requetes/modification.php");
 
     }
 
@@ -140,6 +139,14 @@ public class Data {
         return (adresse + "/requetes/login.php?" +
                 "email=" + email +
                 "&password=" + password);
+    }
+
+    /*
+        URL pour la connexion
+     */
+    public String getURLConnexion()
+    {
+        return (adresse + "/requetes/login.php");
     }
 
     /*
@@ -182,6 +189,13 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
     }
 
     /*
+        URL pour demander les details d'un livre
+     */
+    public String getURLDetails()
+    {
+        return (adresse + "/requetes/bookDetails.php");
+    }
+    /*
 Prepare les arguments nécessaires pour une requete POST, pour avoir les details d'un livre
 */
     public byte[] getPostDetails(String id)
@@ -210,14 +224,14 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Retourne l'URL nécessaire pour supprimer un utilisateur avec un email comme parametre
      */
-    public String getDeleteUser(String email) {
-        return (adresse + "/requetes/delete.php?email=" + email);
+    public String getURLDeleteUser() {
+        return (adresse + "/requetes/delete.php");
     }
 
     /*
         Prepare les arguments nécessaires pour une requete POST, pour avoir supprimer un utilisateur
      */
-    public byte[] getPostDelete(String email)
+    public byte[] getPostDeleteUser(String email)
     {
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("email", email); // on associe au champs id = id
@@ -243,11 +257,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Retourne l'URL nécessaire pour demander à la base d'insérer un commentaire
      */
-    public String getURLCommentaire(String idLivre, String emailUtilisateur, String commentaire, int note) {
-        return (adresse + "/requetes/commenter.php?id=" + idLivre +
-                "&email=" + emailUtilisateur +
-                "&com=" + commentaire +
-                "&note=" + note);
+    public String getURLCommentaire() {
+        return (adresse + "/requetes/commenter.php") ;
     }
 
     /*
@@ -321,9 +332,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Retourne l'URL nécessaire pour demander la suppression d'un commentaire
      */
-    public String getURLSupprimerCommentaire(String emailUtilisateur, int idCommentaire) {
-        return (adresse + "/requetes/decommenter.php?email=" + emailUtilisateur +
-                "&id=" + idCommentaire);
+    public String getURLSupprimerCommentaire() {
+        return (adresse + "/requetes/decommenter.php");
     }
 
     /*
@@ -493,13 +503,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Retourne l'URL permettant de faire une recherche dans la base de donnée
      */
-    public String getURLRecherche(String auteur, String ordre, String langue, String genre, String triPar, String recherche) {
-        return (adresse + "/requetes/recherche.php?auteur=" + auteur +
-                "&ordre=" + ordre +
-                "&langue=" + langue +
-                "&genre=" + genre +
-                "&tri=" + triPar +
-                "&recherche=" + recherche);
+    public String getURLRecherche() {
+        return (adresse + "/requetes/recherche.php");
     }
 
     /*

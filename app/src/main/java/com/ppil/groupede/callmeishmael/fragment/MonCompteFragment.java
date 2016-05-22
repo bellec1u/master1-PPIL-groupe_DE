@@ -171,12 +171,13 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
                                  */
                                 SessionManager sessionManager = new SessionManager(getContext());
                                 String emailSession = sessionManager.getSessionEmail();
-                                String adresse = Data.getData().getDeleteUser(emailSession);
+                                String adresse = Data.getData().getURLDeleteUser();
+                                byte[] infos = Data.getData().getPostDeleteUser(emailSession);
                                 /*
                                     On instancie et execute DataManager
                                  */
                                 DataManager dataManager = new DataManager(MonCompteFragment.this);
-                                dataManager.execute(adresse);
+                                dataManager.execute(adresse, infos);
                             }
 
                         })

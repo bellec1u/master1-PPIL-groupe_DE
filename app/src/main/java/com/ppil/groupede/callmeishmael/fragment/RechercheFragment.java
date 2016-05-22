@@ -221,10 +221,11 @@ public class RechercheFragment extends Fragment implements DataReceiver {
                 On demande a Data l'URL pour cette recherche
              */
             if(recherche.length() != 0) {
-                String adresse = Data.getData().getURLRecherche(aut, ord, lan, gen, triPar, recherche);
+                String adresse = Data.getData().getURLRecherche();
+                byte[] infos = Data.getData().getPostRechercher(aut, ord, lan, gen, triPar, recherche);
                 System.out.println(adresse);
                 DataManager dataManager = new DataManager(RechercheFragment.this);
-                dataManager.execute(adresse);
+                dataManager.execute(adresse, infos);
             }else{
                 Toast.makeText(getContext()," Veuillez remplir le champ : 'Rechercher'",Toast.LENGTH_SHORT).show();
             }

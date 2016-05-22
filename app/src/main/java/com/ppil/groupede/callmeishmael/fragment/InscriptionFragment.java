@@ -174,7 +174,7 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                         On instancie Data, pour récupérer le bon URL
                         puis on instanciera DataManager et on lancera la procedure d'inscription
                      */
-                    String adresse = Data.getData().getInscription(nom.getText().toString(),
+                    byte[] data = Data.getData().getPostInscription(nom.getText().toString(),
                             prenom.getText().toString(),
                             email.getText().toString(),
                             mdp.getText().toString(),
@@ -182,11 +182,10 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                             sexe,
                             (annee + "-" + mois + "-" + jour));
 
-                    System.out.println("-> "+adresse);
-
+                    String adresse = Data.getData().getURLInscription();
                     // Procedure d'inscription
                     DataManager dataManager = new DataManager(InscriptionFragment.this);
-                    dataManager.execute(adresse);
+                    dataManager.execute(adresse,data);
                 }
 
             }

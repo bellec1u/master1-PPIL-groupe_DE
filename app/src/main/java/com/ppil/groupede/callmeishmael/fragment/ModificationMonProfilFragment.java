@@ -217,18 +217,19 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                         On instancie DataManager, pour effectuer les changements.
                         Mais tout d'abord nous devons charger l'adresse via la classe Data
                      */
-                    String adresse = Data.getData().getModification(nom.getText().toString(),
+                    String adresse = Data.getData().getURLModification();
+                    //Acces a la base de donnée ici...
+                    byte[] infos = Data.getData().getPostProfile(nom.getText().toString(),
                             prenom.getText().toString(),
                             email.getText().toString(),
                             mdp.getText().toString(),
                             cover_url,
                             genre,
-                            (annee + "-" + mois + "-" + jour) ,
+                            (annee + "-" + mois + "-" + jour),
                             sessionManager.getSessionEmail(),
                             sessionManager.getSessionPassword());
-                    //Acces a la base de donnée ici...
                     DataManager dataManager = new DataManager(ModificationMonProfilFragment.this);
-                    dataManager.execute(adresse); // execution en arriere plan
+                    dataManager.execute(adresse, infos); // execution en arriere plan
                 }else{
                     Toast.makeText(getContext(),"Modification(s) impossible !",Toast.LENGTH_SHORT).show();
                 }
@@ -417,7 +418,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                         json.getString("ddn"),
                         json.getString("image"),
                         json.getString("follow"),
-                        json.getString("sex"));
+                        json.getString("sexe"));
                 setProfile();
             }
             else
