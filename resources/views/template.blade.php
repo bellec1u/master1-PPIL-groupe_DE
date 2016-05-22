@@ -60,8 +60,8 @@
                     </li>
                     <li><a href="{{ url('logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                 @else
-                    <li class="dropdown @if($errors->any()) open @endif">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" @if($errors->any()) aria-expanded="true" @endif><span class="glyphicon glyphicon-user"></span> <b>Connexion</b> <span class="caret"></span></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <b>Connexion</b> <span class="caret"></span></a>
                         <ul id="login-dp" class="dropdown-menu">
                             <li>
                                 <div class="row">
