@@ -65,8 +65,8 @@ Route::group(['middleware' => 'web'], function () {
         ->where('token', '[a-zA-Z0-9]+');
     
     // facebook and google+ users connection
-    Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
-    Route::get('/callback/{provider}', 'SocialAuthController@callback');
+    Route::get('/redirect/{provider}', 'Auth\SocialAuthController@redirect');
+    Route::get('/callback/{provider}', 'Auth\SocialAuthController@callback');
     
     
     // Book access
@@ -88,7 +88,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');
     Route::get('bookshelf', ['uses' => 'Book\ReadingController@show', 'as' => 'showReading']);
     Route::get('bookshelf/delete/{id}', ['uses' => 'Book\ReadingController@destroy', 'as' => 'deleteReading'])->where('id', '[0-9]+');;
-
+    
    
 });
 

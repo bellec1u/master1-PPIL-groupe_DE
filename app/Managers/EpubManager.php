@@ -1,19 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Book;
-
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+namespace App\Managers;
 use Storage;
 
-class FichierController extends Controller
+class EpubManager
 {
     public function __construct()
     {
 
     }
+
     function get_session_id($book_id) {
         $ch = curl_init(); // create cURL handle (ch)
         if (!$ch) {
@@ -98,5 +94,4 @@ class FichierController extends Controller
         curl_close($ch);
         fclose($fp);
     }
-
 }

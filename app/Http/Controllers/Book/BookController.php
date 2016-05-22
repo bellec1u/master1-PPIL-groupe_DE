@@ -8,20 +8,23 @@ use App\Http\Requests;
 use App\Repositories\Book\BookRepository;
 use App\Repositories\Book\RatingRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Book\FichierController;
+use App\Managers\EpubManager;
 use Storage;
 
 class BookController extends Controller
 {
     protected $bookRepository;
     protected $ratingRapository;
-    protected $fichier;
+    protected $epubManager;
 
-    public function __construct(BookRepository $bookRepository, RatingRepository $ratingRepository, FichierController $fichierController)
-    {
+    public function __construct(
+        BookRepository $bookRepository,
+        RatingRepository $ratingRepository,
+        EpubManager $epubMan
+    ) {
         $this->bookRepository = $bookRepository;
         $this->ratingRapository = $ratingRepository;
-        $this->fichier = $fichierController;
+        $this->epubManager = $epubMan;
     }
 
 
@@ -30,6 +33,7 @@ class BookController extends Controller
         $books = $this->bookRepository->search($request->input('query'));
         return $books;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -67,14 +71,15 @@ class BookController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    
+
     public function show($id)
     {
 
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
 
-        return view('book/detailsBook', compact('book'))->with('data', $ratings);
+        return view('book/detailsBook', compact('book'))->with('data',
+            $ratings);
 
     }
 
@@ -87,9 +92,9 @@ class BookController extends Controller
         $book = $this->bookRepository->getById($id);
         $id_book = basename($book->url);
 
-        $file_exists = Storage::disk('public')->exists('Books/Book'.$id_book.'.epub');
+        $file_exists = Storage::disk('public')->exists('Books/Book' . $id_book . '.epub');
         if (!$file_exists) {
-            $this->fichier->download_book($id_book);
+            $this->epubManager->download_book($id_book);
         }
 
         return view('book/basic', compact('id_book'));

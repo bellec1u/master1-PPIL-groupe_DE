@@ -13,12 +13,14 @@ class Rating extends Model
         'stars'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function book(){
-        return $this->belongsTo('App\Models\book');
+    public function book()
+    {
+        return $this->belongsTo('App\Models\Book');
     }
 
 }

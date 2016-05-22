@@ -39,6 +39,11 @@ header.page-header {
     background-color: #080808;
 }
 
+/* ---------- Main Container ---------- */
+#main_container {
+    margin-top: 20px;
+}
+
 /* ---------- Article ---------- */
 
 .panel {

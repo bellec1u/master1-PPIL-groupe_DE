@@ -132,22 +132,27 @@
 </nav>
 
 
-<section>
-    <article>
-        <div class="container">
-            <div class="row">
-                @if ($errors->has('email'))
-                    <!--<div class="alert alert-danger text-center" style="margin-bottom: 0px;">
-                        <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <b>Une erreur est survenue !</b> Cliquez sur l'onglet "Connexion" du menu pour plus de détails...
-                    </div>-->
-                @endif
 
-                @yield('contenu')
+<section id="main_container">
+    <div class="container">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
             </div>
+        @endif
+        <div class="row">
+            @if ($errors->has('email'))
+                <!--<div class="alert alert-danger text-center" style="margin-bottom: 0px;">
+                    <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <b>Une erreur est survenue !</b> Cliquez sur l'onglet "Connexion" du menu pour plus de détails...
+                </div>-->
+            @endif
+
+            @yield('contenu')
         </div>
-    </article>
+    </div>
 </section>
+
 
 <footer class="navbar navbar-sticky-top" role="contentinfo">
     <div class="container">
