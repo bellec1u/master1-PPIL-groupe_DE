@@ -48,6 +48,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
     // txt afficher devant les listes et les editext
     private TextView auteur_txt,genre_txt,langue_txt,ordre_txt,tri_txt; // techniquement on s'en fou
     private android.support.v4.app.FragmentTransaction ft;
+    private LinearLayout lesResultats;
 
 
 
@@ -76,6 +77,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
         langue_txt = (TextView) view.findViewById(R.id.langue_txt);
         genre_txt = (TextView) view.findViewById(R.id.genre_txt);
         tri_txt = (TextView) view.findViewById(R.id.tri_txt);
+        lesResultats = (LinearLayout) view.findViewById(R.id.layout_recherche);
         cacher(true);
 
         //supprimer le texte rechercher une fois qu on clique sur la barre de recherche
@@ -211,6 +213,10 @@ public class RechercheFragment extends Fragment implements DataReceiver {
 
         @Override
         public void onClick(View v) {
+
+            //ON efface les resultats precedents du layout
+            lesResultats.removeAllViews(); // on efface ici...
+
             String aut = auteur.getText().toString();
             String ord = ordre.getText().toString();
             String lan = langue.getSelectedItem().toString();

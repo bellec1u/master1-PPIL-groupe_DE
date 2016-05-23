@@ -52,20 +52,17 @@ import nl.siegmann.epublib.service.MediatypeService;
  */
 public class LectureLivreFragment extends Fragment {
 
-    public LectureLivreFragment() {
-        // Required empty public constructor
-    }
 
     private static final String TAG = "EpubBookContentActivity";
-    WebView webView;
+    private WebView webView;
+    private Book book;
 
-    Book book;
+    private String idLivre ; // id du livre à lire, epub : 'idLivre.epub'
 
-    int position = 0;
-
-    String line;
-    int i = 0;
-
+    public LectureLivreFragment(String id) {
+        // Required empty public constructor
+        idLivre = id;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,38 +72,38 @@ public class LectureLivreFragment extends Fragment {
 
         webView = (WebView) view.findViewById(R.id.webViewLectureLivre);
         webView.getSettings().setDefaultTextEncodingName("utf-8");
-        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setJavaScriptEnabled(true); // on rend actif le javaScript
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+
+        int position = 0;
+        String line;
+        int i = 0;
 
         AssetManager assetManager = getActivity().getAssets();
         String[] files;
+            // On remplacera ici list.get(position) par idLivre.epub
+//            copyBookToDevice(idLivre);
 
-        try {
-
-            files = assetManager.list("book");
-            List<String> list = Arrays.asList(files);
-
-            if (!this.makeDirectory("book")) {
-                debug("faild to make books directory");
-            }
-
-            copyBookToDevice(list.get(position));
-
+        copyBookToDevice(idLivre);
             String basePath = Environment.getExternalStorageDirectory() + "/book/";
 
-            InputStream epubInputStream = assetManager.open("book/"+list.get(position));
-
+        InputStream epubInputStream = null;
+        try {
+            epubInputStream = assetManager.open("book/"+idLivre);
             book = (new EpubReader()).readEpub(epubInputStream);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
 
             DownloadResource(basePath);
 
             String linez = "";
-            Spine spine = book.getSpine();
+            Spine spine = book.getSpine(); // spine = chapitre
             List<SpineReference> spineList = spine.getSpineReferences() ;
-            int count = spineList.size();
+            int count = spineList.size(); // compte le nombre de chapitre
 
             StringBuilder string = new StringBuilder();
-            for (int i = 0; count > i; i++) {
+            for (i = 0; count > i; i++) {
 
                 Resource res = spine.getResource(i);
 
@@ -129,10 +126,6 @@ public class LectureLivreFragment extends Fragment {
 
             linez = linez.replace("../", "");
             webView.loadDataWithBaseURL("file://"+Environment.getExternalStorageDirectory()+"/book/", linez, "text/html", "utf-8", null);
-
-        } catch (IOException e) {
-            Log.e("epublib exception", e.getMessage());
-        }
         return view;
     }
 
@@ -177,6 +170,10 @@ public class LectureLivreFragment extends Fragment {
         //      }
     }
 
+    /*
+        Recopie les donnée du dossier asset au systeme de stockage du device concerné
+        fileName est le nom du livre
+     */
     public void copyBookToDevice(String fileName) {
         System.out.println("Copy Book to donwload folder in phone");
         try
@@ -205,7 +202,11 @@ public class LectureLivreFragment extends Fragment {
     }
 
 
-
+/*
+    Telecharge un livre ainsi que ses medias à partir du dossier asset,
+    permet en autre d'afficher le style (css) et les images (cover, etc...)
+    de facon à rendre la lecture de la manière la plus fidèle possible.
+ */
     private void DownloadResource(String directory) {
         try {
 

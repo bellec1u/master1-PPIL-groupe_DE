@@ -1,5 +1,7 @@
 package com.ppil.groupede.callmeishmael.data;
 
+import android.os.Environment;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
@@ -24,7 +26,7 @@ public class Data {
 
     private Data()
     {
-        ipMachine = "http://192.168.1.10" ;
+        ipMachine = "http://192.168.212.157" ;
         port = "8888" ;
         adresse = ipMachine + ":" + port;
     }
@@ -409,9 +411,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         Retourne l'URL pour demander l'ajout dans la liste de lecture de l'utilisateur ayant comme email 'email'
         le livre d'identifiant idLivre
      */
-    public String getURLAJouterLivre(String email, String idLivre) {
-        return (adresse + "/requetes/ajouterLivre.php?id=" + idLivre +
-                "&email=" + email);
+    public String getURLAJouterLivre() {
+        return (adresse + "/requetes/ajouterLivre.php");
     }
 
     /*
@@ -421,6 +422,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("id", idLivre); // on associe au champs id = idLivre
         params.put("email", email);
+        params.put("directory", Environment.getExternalStorageDirectory()+"/epub");
 
         /*
             Charge les parametres
@@ -466,6 +468,14 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
                             "&cover=" + cover +
                             "&email=" + email +
                             "&date=" + date);
+    }
+
+    /*
+        URL de connexion facebook
+     */
+    public String getURLFacebook()
+    {
+        return (adresse + "/requetes/facebook.php");
     }
 
     /*

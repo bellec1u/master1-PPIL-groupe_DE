@@ -1,11 +1,14 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,12 @@ import com.ppil.groupede.callmeishmael.data.SessionManager;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Pima on 16/05/16.
@@ -56,6 +65,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
 
     private Button commenter; // bouton pour demander à effectuer un commentaire
     private Button ajouter; // permet à un utilisateur d'ajouter ce livre à sa liste de lecture
+    private Button lire; // permet de lire un livre
     private Boolean dejaCommenter; // indique si l'utilisateur a déjà commenter ou non
     private LinearLayout layoutCommentaire; // layout contenant les commentaires
 
@@ -130,6 +140,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         ajouter = (Button) view.findViewById(R.id.ajouterListe);
         layoutCommentaire = (LinearLayout) view.findViewById(R.id.layout_commentaires);
         dejaCommenter = false;
+        lire = (Button) view.findViewById(R.id.lire);
         ft = getFragmentManager().beginTransaction();
 
         //On affecte à l'imageView notre image Bitmap
@@ -184,13 +195,85 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                  */
         SessionManager sessionManager = new SessionManager(getContext());
         if(!sessionManager.isConnected()) {
-            ajouter.setOnClickListener(new EPubDownloader(this, getContext()));
-        }
-        else{
+            ajouter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        File direct = new File(Environment.getExternalStorageDirectory()+"/epub");
+                        if(!direct.exists()) {
+                            direct.mkdir(); // repertoire créé
+                        }
+                        SessionManager sessionManager = new SessionManager(getContext());
+                        String adresse = Data.getData().getURLAJouterLivre();
+                        byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id);
+                        EPubDownloader epub = new EPubDownloader();
+                        String res = epub.execute(adresse, infos).get();
+                        if (res.equals("false")) {
+                            Toast.makeText(getContext(), " Ce livre est déjà dans votre liste !", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getContext(), " Ce livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (ExecutionException | InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            lire.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AssetManager assetManager = getActivity().getAssets();
+                    String[] files;
+                    /*
+                        On va verifier que le livre est present ou non dans assets
+                     */
+                    try {
+                        files = assetManager.list("book");
+                        List<String> list = Arrays.asList(files);
+                        /*
+                            On parcourt la liste des livres,
+                            et on regarde si un livre a l'id qui correspond sinon on print une erreur
+                         */
+                        boolean exist = false;
+                        /*
+                            On parcourt la liste et on regarde si le livre est present
+                         */
+                        for(String s : list){
+                            if(s.equals(id + ".epub")){
+                                exist = true;
+                                break;
+                            }
+                        }
+                        if(exist)
+                        {
+                            LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub");
+                            getActivity().setTitle("Lecture");
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container, lecture);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(),"Vous n'avez pas téléchargé ce livre",Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } else{
             ajouter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(getContext(),"Vous devez être connecté pour ajouter un livre",Toast.LENGTH_SHORT).show();
+                }
+            });
+            lire.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),"Vous devez être connecté pour lire un livre",Toast.LENGTH_SHORT).show();
                 }
             });
         }
