@@ -10,10 +10,6 @@
         <div class="panel-body">
             <div class="form-horizontal">
                 {!! Form::open(array('route'=>'user.store', 'method'=>'POST', 'files'=>'true')) !!}
-                <div>
-                    <?php print_r($errors->all()) ; ?>
-
-                </div>
                 <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
                     <label class="col-lg-3 control-label">Adresse mail :</label>
                     <div class="col-lg-7">
