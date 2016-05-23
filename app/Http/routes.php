@@ -62,8 +62,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('user', 'UserController',
         ['except' => ['index', 'edit', 'update', 'show', 'destroy']]);
     Route::get('user/profile', 'UserController@profile');
-    Route::put('user', 'UserController@update');
+    Route::put('user/update', ['uses'=> 'UserController@update', 'as'=>'userUpdate']);
     Route::delete('user', 'UserController@delete');
+    Route::get('user/edit', ['uses'=> 'UserController@edit', 'as'=>'userEdit']);
 
     Route::get('user/verify/{token}', 'UserController@confirmEmail')
         ->where('token', '[a-zA-Z0-9]+');

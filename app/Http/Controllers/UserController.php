@@ -9,6 +9,7 @@ use Auth;
 use App\Repositories\UserRepository;
 use App\Services\EmailConfirmationService;
 use Illuminate\Support\Facades\Input;
+use Mail;
 //use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -44,6 +45,8 @@ class UserController extends Controller
             $this->userRepository->store($request->all());
         }
 
+
+
         return redirect('/')
             ->with('status', 'Vous avez bien été enregistré.
                               Un mail de confirmation vous a été envoyé.');
@@ -52,6 +55,7 @@ class UserController extends Controller
 
     public function update(UserUpdateRequest $request)
     {
+
         $id = Auth::user()->id;
         if ($request->hasFile('profile_image')) {
             $image = $request->file('profile_image');
@@ -70,6 +74,10 @@ class UserController extends Controller
         return view('user.profile', compact('user'));
     }
 
+    public function edit(){
+        $user = Auth::user();
+        return view('user.edit', compact('user'));
+    }
 
     public function confirmEmail(EmailConfirmationService $emailConfService, $token)
     {

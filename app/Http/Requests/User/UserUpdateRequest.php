@@ -26,7 +26,7 @@ class UserUpdateRequest extends Request
         return [
             'last_name'     => 'max:255|alpha',
             'first_name'    => 'max:255|alpha',
-            'email'         => 'confirmed|email|max:255|unique:users',
+            'email'         => 'confirmed|email|max:255',
             'password'      => 'confirmed|min:8',
             'birth_date'    => 'date',
             'profile_image' => 'image',

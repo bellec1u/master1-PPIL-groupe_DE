@@ -53,7 +53,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{URL::route('showReading', array())}}"><span class="glyphicon glyphicon-book"></span> Liste de Lectures</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Paramètres</a></li>
+                            <li><a href="{{url('user/profile')}}"><span class="glyphicon glyphicon-cog"></span> Paramètres</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ url('logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                         </ul>
