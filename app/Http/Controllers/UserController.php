@@ -9,7 +9,7 @@ use Auth;
 use App\Repositories\UserRepository;
 use App\Services\EmailConfirmationService;
 use Illuminate\Support\Facades\Input;
-use Mail;
+
 //use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -44,7 +44,7 @@ class UserController extends Controller
         } else {
             $this->userRepository->store($request->all());
         }
-
+      
 
 
         return redirect('/')
@@ -94,7 +94,6 @@ class UserController extends Controller
     public function delete()
     {
         $user = $this->userRepository->getById(Auth::user()->id);
-        
         Auth::logout();
 
         if ($user->delete()) {
