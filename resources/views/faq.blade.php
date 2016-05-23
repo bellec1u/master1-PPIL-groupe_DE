@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    FAQ | Call Me Ishmael
+    FAQ
 @stop
 
 @section('active1')

@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    Inscription | Call Me Ishmael
+    Inscription
 @stop
 
 @section('contenu')

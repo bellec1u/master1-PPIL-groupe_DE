@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    Connexion | Call Me Ishmael
+    Connexion
 @stop
 
 @section('active3')

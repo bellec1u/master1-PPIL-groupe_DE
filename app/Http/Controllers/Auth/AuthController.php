@@ -67,7 +67,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return user::create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -129,16 +129,13 @@ class AuthController extends Controller
             return $authUser;
         }
  
-        return user::create([
+        return User::create([
             'email' => $facebookUser->email,
             'first_name' => $facebookUser->name,
             'profile_image' => $facebookUser->avatar
         ]);
     }
 
-    
-    
-    
-    
-    
+
+
 }

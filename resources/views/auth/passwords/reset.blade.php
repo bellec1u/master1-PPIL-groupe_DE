@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('titre')
+    Réinitialisation
+@stop
+
 @section('contenu')
 <div class="container">
     <div class="row">

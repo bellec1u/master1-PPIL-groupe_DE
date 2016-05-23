@@ -93,7 +93,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('bookshelf', ['uses' => 'Book\ReadingController@show', 'as' => 'showReading']);
     Route::get('bookshelf/delete/{id}', ['uses' => 'Book\ReadingController@destroy', 'as' => 'deleteReading'])->where('id', '[0-9]+');;
 
-   
 });
 
 

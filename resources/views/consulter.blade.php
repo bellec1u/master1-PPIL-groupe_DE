@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
+    Liste de lecture
 @stop
 
 @section('contenu')

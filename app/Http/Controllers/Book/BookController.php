@@ -31,7 +31,7 @@ class BookController extends Controller
     public function search(Request $request)
     {
         $books = $this->bookRepository->search($request->input('query'));
-        return $books;
+        return view('book.search', compact('books'));
     }
 
     /**

@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('titre')
+    Oubli mot de passe
+@stop
+
 <!-- Main Content -->
 @section('contenu')
     <div class="container">

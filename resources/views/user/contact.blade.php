@@ -5,7 +5,7 @@
 @stop
 
 @section('titre')
-    Contact | Call Me Ishmael
+    Contact
 @stop
 
 @section('contenu')

@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    Conditions Générales d'Utilisation | Call Me Ishmael
+    Conditions Générales d'Utilisation
 @stop
 
 @section('contenu')

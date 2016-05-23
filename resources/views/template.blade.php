@@ -20,7 +20,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <title>@yield('titre')</title>
+    <title>@yield('titre') | Call Me Ishmael</title>
+
+    @yield('head')
 </head>
 
 <body>
