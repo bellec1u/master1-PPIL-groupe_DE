@@ -490,12 +490,12 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(MainActivity.this.getBaseContext(), "Bonjour " + json.getString("prenom") + " !", Toast.LENGTH_SHORT).show();
                         MainActivity.this.setTitle("Accueil");
                         // Set the fragment of view
+                        setConnection(true);
                         AccueilFragment fragment = new AccueilFragment();
                         android.support.v4.app.FragmentTransaction fragmentTransaction =
                                 getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.fragment_container, fragment);
                         fragmentTransaction.commit();
-                        setConnection(true);
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }

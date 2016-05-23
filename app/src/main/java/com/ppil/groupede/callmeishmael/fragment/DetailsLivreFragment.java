@@ -206,7 +206,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                         SessionManager sessionManager = new SessionManager(getContext());
                         String adresse = Data.getData().getURLAJouterLivre();
                         byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id);
-                        EPubDownloader epub = new EPubDownloader();
+                        EPubDownloader epub = new EPubDownloader(getContext());
                         String res = epub.execute(adresse, infos).get();
                         if (res.equals("false")) {
                             Toast.makeText(getContext(), " Ce livre est déjà dans votre liste !", Toast.LENGTH_SHORT).show();

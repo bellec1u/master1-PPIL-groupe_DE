@@ -548,4 +548,39 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
             return new byte[1]; // unreachable
         }
     }
+
+    /*
+        Retourne l'URL nécessaire pour modifier la portée follow de l'utilisateur
+     */
+    public String getURLFollow()
+    {
+        return (adresse + "/requetes/follow.php");
+    }
+
+    /*
+        On remplie les champs POST pour modifier le follow d'un utilisateur
+     */
+    public byte[] getPostFollow(String email)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email);
+
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
 }

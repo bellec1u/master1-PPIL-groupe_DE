@@ -33,6 +33,13 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
         représenté par la classe DetailsLivreFragment est lancé. //todo
         Lorsque ce téléchargement est terminé, le livre est alors ajouté à la liste de lecture
      */
+
+    private Context contexte;
+
+    public EPubDownloader(Context c)
+    {
+        contexte = c;
+    }
     /*
         Effectue une requete http afin d'ajouter un livre dans la liste de lecture d'un utilisateur,
         et (à faire) d'y télécharger le ePub correspondant.
@@ -93,4 +100,12 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
         super.onPostExecute(s);
     }
 
+    /*
+        Appel cette fonction lorsque le téléchargement est en cours.
+     */
+    @Override
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+        Toast.makeText(contexte," Téléchargement en cours...", Toast.LENGTH_SHORT).show();
+    }
 }
