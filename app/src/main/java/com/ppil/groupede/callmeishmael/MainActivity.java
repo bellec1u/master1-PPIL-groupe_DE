@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_contact) {
 
             // Set the page's title
-            this.setTitle("Contact");
+            this.setTitle("CGU");
             // Set the fragment of view
             ContactFragment fragment = new ContactFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =

@@ -131,11 +131,13 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
             /*
                 Télécharge une image à partir de la cover_url de l'utilisateur.
              */
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeFile(urlImage, options);
-            image.setImageBitmap(bitmap);
-           /*
+            if(!urlImage.startsWith("http")) {
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                Bitmap bitmap = BitmapFactory.decodeFile(urlImage, options);
+                image.setImageBitmap(bitmap);
+            }else {
+
             BitmapManager bitmapManager = new BitmapManager(img);
             try {
                 img = bitmapManager.execute(urlImage).get();
@@ -144,7 +146,8 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
                 Toast.makeText(getContext()," Une erreur s'est passé dans le chargement de l'image", Toast.LENGTH_SHORT).show();
                 image.setImageBitmap(BitmapFactory.decodeResource(getResources(),
                         R.drawable.whale)); // on affecte l'image ici..
-            }*/
+            }
+            }
         }
 
         /*
