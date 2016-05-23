@@ -63,7 +63,7 @@ Route::group(['middleware' => 'web'], function () {
         ['except' => ['index', 'edit', 'update', 'show', 'destroy']]);
     Route::get('user/profile', 'UserController@profile');
     Route::put('user/update', ['uses'=> 'UserController@update', 'as'=>'userUpdate']);
-    Route::delete('user', 'UserController@delete');
+    Route::delete('user/desinscription',  ['uses'=> 'UserController@delete', 'as'=>'userDelete']);
     Route::get('user/edit', ['uses'=> 'UserController@edit', 'as'=>'userEdit']);
 
     Route::get('user/verify/{token}', 'UserController@confirmEmail')

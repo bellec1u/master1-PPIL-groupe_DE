@@ -12,14 +12,19 @@ Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
         <div class="row">
             <section class="col-sm-3">
                 <table>
-                <tr> <img src="{{ URL($user->profile_image) }}" alt="" /></tr>
+                <tr> <img src="{{ URL($user->profile_image) }}" alt="" width="75%" height="50%" /></tr>
             </section>
             <section class="col-sm-9"><br>
                 <p><b>Nom :</b>  {{ $user->first_name }}</p>
                 <p><b>Email :</b>  {{ $user->email}}</p>
                 <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
                 </table>
+
+
+                {{ Form::open(array('route' => 'userDelete', 'method' => 'delete')) }}
                 <a href="{{URL::route('userEdit')}}" class="btn bg-primary">modifier</a>
+                {!! Form::submit('Desisncription', ['class' => 'btn btn-primary pull-right']) !!}
+                {{ Form::close() }}
 
             </section>
 

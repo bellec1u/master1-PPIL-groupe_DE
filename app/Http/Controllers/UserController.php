@@ -94,6 +94,7 @@ class UserController extends Controller
     public function delete()
     {
         $user = $this->userRepository->getById(Auth::user()->id);
+        
         Auth::logout();
 
         if ($user->delete()) {
