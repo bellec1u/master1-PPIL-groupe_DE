@@ -117,7 +117,7 @@
         jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="0b4453aa56d66721090204c6cfd8010ffdc87531">
+        sha1="55fd578486979e729ff5d08feeff92a87a955154">
         <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1aa1b927108ad653dff5b29148423766d83c3e03\classes.dex" />
     </item>
     <item
@@ -217,13 +217,6 @@
         revision="23.0.3"
         sha1="4b8df1b1e51fe14b0e89b3845dc2e215a024a09f">
         <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-identity-8.3.0_c46cf50ee25d48143845b8bed2b021f709d2bf87\classes.dex" />
-    </item>
-    <item
-        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.facebook.android\account-kit-sdk\4.12.0\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="843d02be6674be1851a7ffb48e2b0884c6c8fb3e">
-        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-account-kit-sdk-4.12.0_2182105d23037519c1612395d893350fdf2f571c\classes.dex" />
     </item>
     <item
         jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +29,14 @@ import com.ppil.groupede.callmeishmael.data.SessionManager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 
@@ -83,7 +92,7 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
         /*
             On récupère les informations via SessionManager
          */
-        SessionManager sessionManager = new SessionManager(getContext());
+        final SessionManager sessionManager = new SessionManager(getContext());
 
         /*
             On les place dans les bons éléments du Fragment
@@ -186,6 +195,26 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
 
             }
         });
+        String portee = sessionManager.getSessionFollow();
+        System.out.println("portee : " + portee);
+        if(portee.equals("1")){
+            prive.setText("PROFIL PUBLIC");
+        }else{
+            prive.setText("PROFIL PRIVE");
+        }
+        prive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*
+                    On demande a la base de modifier le 'follow' de l'utilisateur
+                 */
+                String adresse = Data.getData().getURLFollow();
+                System.out.println(adresse);
+                byte[] infos = Data.getData().getPostFollow(sessionManager.getSessionEmail());
+                AccountAsync account = new AccountAsync();
+                account.execute(adresse,infos);
+            }
+        });
         return view;
     }
 
@@ -239,5 +268,113 @@ Renvoie l'utilisateur vers le fragment Accueil, en vue cette fois ci connecté
             Toast.makeText(getContext(), " Oups ! Une erreur s'est produite...", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    /*
+    Renvoie l'utilisateur vers son profil
+ */
+    public void setProfile()
+    {
+        Fragment frg = this;
+        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.detach(frg);
+        ft.attach(frg);
+        ft.commit();
+    }
+
+    class AccountAsync extends AsyncTask<Object, String, String>
+    {
+        @Override
+        protected void onPostExecute(String resultat) {
+            super.onPostExecute(resultat);
+            /*
+            Si la modification s'est bien passé alors on convertie le String en JSONObject et on le traite
+         */
+            System.out.println(resultat);
+            try {
+                JSONObject json = new JSONObject(resultat);
+            /*
+                S'il a le champ nom alors c'est que l'inscription s'est bien déroulé, sinon
+                j'informe l'utilisateur qu'une erreur s'est produite lors de l'inscription.
+             */
+                if(json.getString("email") != null)
+                {
+                /*
+                    On charge SessionManager de facon à mieux gérer l'utilisateur
+                 */
+                    SessionManager sessionManager = new SessionManager(getContext());
+                    sessionManager.logOut();
+                /*
+                    On créé la session
+                 */
+                    sessionManager.createSession(json.getString("nom"),
+                            json.getString("prenom"),
+                            json.getString("email"),
+                            json.getString("password"),
+                            json.getString("ddn"),
+                            json.getString("image"),
+                            json.getString("follow"),
+                            json.getString("sexe"));
+                    setProfile();
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Une erreur s'est produite\n" +
+                            " Veuillez réessayer",Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                Toast.makeText(getContext(),"Une erreur s'est produite\n Veuillez réessayer", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected String doInBackground(Object... params) {
+            String response = ""; // attribut contenant notre futur résultat
+            try {
+            /*
+                On parcourt tous les paramètres
+             */
+                String url = (String) params[0];
+                URL serv = new URL(url); // on instancie l'URL à atteindre
+                /*
+                    On établit la connexion avec le serveur
+                 */
+                HttpURLConnection urlConnection = (HttpURLConnection) serv.openConnection();
+                /*
+                    On utilise la méthode GET pour le transfert de données
+                 */
+                urlConnection.setRequestMethod("POST");
+
+                if(params.length > 1) {
+                    byte[] infos = (byte[]) params[1];
+                    urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    urlConnection.setRequestProperty("Content-Length", String.valueOf(infos.length));
+                    urlConnection.setDoOutput(true);
+                    urlConnection.getOutputStream().write(infos);
+                }
+                /*
+                    On récupère le résultat dans in
+                 */
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in)); // on le lit ici...
+                /*
+                    Maintenant on le parcourt, puis on affectera à res le resultat.
+                 */
+                String line;
+                StringBuilder sb = new StringBuilder("");
+                line = reader.readLine();
+                sb.append(line);
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                response = sb.toString(); // résultat affecté ici !
+                urlConnection.disconnect(); // on ferme la connexion
+            } catch (MalformedURLException e) {
+                e.printStackTrace(); // pas atteignable logiquement !
+            } catch (IOException e) {
+                e.printStackTrace(); // pas atteignable logiquement !
+            }
+            return response; // résultat contenant la réponse du serveur retourné...
+        }
     }
 }

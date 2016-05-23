@@ -59,6 +59,10 @@ public class LectureLivreFragment extends Fragment {
 
     private String idLivre ; // id du livre à lire, epub : 'idLivre.epub'
 
+    int position = 0;
+    String line;
+    int i = 0;
+
     public LectureLivreFragment(String id) {
         // Required empty public constructor
         idLivre = id;
@@ -75,35 +79,37 @@ public class LectureLivreFragment extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true); // on rend actif le javaScript
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
-        int position = 0;
-        String line;
-        int i = 0;
-
         AssetManager assetManager = getActivity().getAssets();
         String[] files;
-            // On remplacera ici list.get(position) par idLivre.epub
-//            copyBookToDevice(idLivre);
 
-        copyBookToDevice(idLivre);
+        try {
+
+            files = assetManager.list("book");
+            List<String> list = Arrays.asList(files);
+
+            if (!this.makeDirectory("book")) {
+                debug("faild to make books directory");
+            }
+
+            System.out.println("----------------------------------- " + list.get(position));
+
+            copyBookToDevice(list.get(position));
+
             String basePath = Environment.getExternalStorageDirectory() + "/book/";
 
-        InputStream epubInputStream = null;
-        try {
-            epubInputStream = assetManager.open("book/"+idLivre);
+            InputStream epubInputStream = assetManager.open("book/" + list.get(position));
+
             book = (new EpubReader()).readEpub(epubInputStream);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
 
             DownloadResource(basePath);
 
             String linez = "";
-            Spine spine = book.getSpine(); // spine = chapitre
-            List<SpineReference> spineList = spine.getSpineReferences() ;
-            int count = spineList.size(); // compte le nombre de chapitre
+            Spine spine = book.getSpine();
+            List<SpineReference> spineList = spine.getSpineReferences();
+            int count = spineList.size();
 
             StringBuilder string = new StringBuilder();
-            for (i = 0; count > i; i++) {
+            for (int i = 0; count > i; i++) {
 
                 Resource res = spine.getResource(i);
 
@@ -112,10 +118,12 @@ public class LectureLivreFragment extends Fragment {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                     try {
                         while ((line = reader.readLine()) != null) {
-                            linez =   string.append(line + "\n").toString();
+                            linez = string.append(line + "\n").toString();
                         }
 
-                    } catch (IOException e) {e.printStackTrace();}
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
 
                 } catch (IOException e) {
@@ -125,7 +133,20 @@ public class LectureLivreFragment extends Fragment {
             }
 
             linez = linez.replace("../", "");
-            webView.loadDataWithBaseURL("file://"+Environment.getExternalStorageDirectory()+"/book/", linez, "text/html", "utf-8", null);
+
+//            File file = new File(Environment.getExternalStorageDirectory(),"test.html");
+//            file.createNewFile();
+//            FileOutputStream fileOutputStream = new FileOutputStream(file);
+//            fileOutputStream.write(linez.getBytes());
+//            fileOutputStream.close();
+
+
+            webView.loadDataWithBaseURL("file://" + Environment.getExternalStorageDirectory() + "/book/", linez, "text/html", "utf-8", null);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return view;
     }
 
@@ -202,11 +223,11 @@ public class LectureLivreFragment extends Fragment {
     }
 
 
-/*
-    Telecharge un livre ainsi que ses medias à partir du dossier asset,
-    permet en autre d'afficher le style (css) et les images (cover, etc...)
-    de facon à rendre la lecture de la manière la plus fidèle possible.
- */
+    /*
+        Telecharge un livre ainsi que ses medias à partir du dossier asset,
+        permet en autre d'afficher le style (css) et les images (cover, etc...)
+        de facon à rendre la lecture de la manière la plus fidèle possible.
+     */
     private void DownloadResource(String directory) {
         try {
 
