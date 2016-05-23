@@ -455,6 +455,7 @@ public class MainActivity extends AppCompatActivity
                         on recupere l'url avec data avant
                      */
                     String genre = bFacebookData.getString("gender").charAt(0) + "";
+                    System.out.println(genre);
                     String adresse = Data.getData().getFacebook(
                             bFacebookData.getString("idFacebook"),
                                     bFacebookData.getString("email"),

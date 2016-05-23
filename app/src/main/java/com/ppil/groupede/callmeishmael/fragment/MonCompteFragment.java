@@ -101,7 +101,7 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
         mail.setText(sessionManager.getSessionEmail());
         ddn.setText(sessionManager.getSessionDate());
         String genre = sessionManager.getSessionGenre();
-        if(genre.equals("M"))
+        if(genre.equals("m") || genre.equals("M"))
         {
             genre = " Homme ";
         }
@@ -209,7 +209,6 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
                     On demande a la base de modifier le 'follow' de l'utilisateur
                  */
                 String adresse = Data.getData().getURLFollow();
-                System.out.println(adresse);
                 byte[] infos = Data.getData().getPostFollow(sessionManager.getSessionEmail());
                 AccountAsync account = new AccountAsync();
                 account.execute(adresse,infos);
@@ -290,7 +289,6 @@ Renvoie l'utilisateur vers le fragment Accueil, en vue cette fois ci connecté
             /*
             Si la modification s'est bien passé alors on convertie le String en JSONObject et on le traite
          */
-            System.out.println(resultat);
             try {
                 JSONObject json = new JSONObject(resultat);
             /*
