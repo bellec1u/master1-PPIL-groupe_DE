@@ -1,5 +1,9 @@
 @extends('template')
 
+@section('titre')
+	 {{$book->title}}Call Me Ishmael
+@stop
+
 {!! Html::script('etoile/ListeEtoile.js') !!}
 <style type="text/css">
 	.listeEtoile ul {

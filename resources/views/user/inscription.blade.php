@@ -4,6 +4,32 @@
     Inscription
 @stop
 
+
+<script>
+
+
+
+    function surligne(champ, erreur)//change de couleur selon la conformité de ce qui est rentré
+    {
+        if(erreur)    champ.style.borderColor = "#D10C13";
+         else    champ.style.borderColor = "#04DC13";
+    }
+
+    function verifPrenom(champ)//va verifier le champs
+    {
+        var regex = /^[a-zA-Z]+/@+[a-zA-Z];
+        if(!regex.test(champ.value))
+        {
+            surligne(champ, true);
+            return false;
+        }
+        else
+        {
+            surligne(champ, false);
+            return true;
+        }
+    }
+</script>
 @section('contenu')
     <article class="panel panel-info">
         <h1 class="panel-heading">Formulaire d'Inscription</h1>
@@ -13,14 +39,14 @@
                 <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
                     <label class="col-lg-3 control-label">Adresse mail :</label>
                     <div class="col-lg-7">
-                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Votre email...']) !!}
+                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Votre email...', 'onkeypress'=>'verifPrenom(this)']) !!}
                         {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
                     </div>
                 </div>
                 <div class="form-group {!! $errors->has('email') ? 'has-error' : '' !!}">
                     <label class="col-lg-3 control-label">Confirmation de l'Adresse mail :</label>
                     <div class="col-lg-7">
-                        {!! Form::email('email_confirmation', null, ['class' => 'form-control', 'placeholder' => 'Confirmation de votre email...']) !!}
+                        {!! Form::email('email_confirmation', null, ['class' => 'form-control', 'placeholder' => 'Confirmation de votre email...', 'onblur'=>'verifPrenom(this)']) !!}
                         {!! $errors->first('email', '<small class="help-block">:message</small>') !!}
                     </div>
                 </div>

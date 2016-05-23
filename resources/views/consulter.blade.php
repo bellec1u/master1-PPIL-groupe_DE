@@ -8,7 +8,7 @@
         <article class="panel panel-info">
             <h1 class="panel-heading">Liste de Lectures</h1>
             <div class="panel-body">
-                @if(count($data) > 1 )
+                @if(count($data) > 0 )
                     @foreach($data as $book)
                         @if($book != '')
                             <div class="row">
@@ -27,6 +27,8 @@
                                 </section>
 
                             </div><hr>
+                        @else
+                            Aucun livre actuellement.
                         @endif
                     @endforeach
                 @endif
