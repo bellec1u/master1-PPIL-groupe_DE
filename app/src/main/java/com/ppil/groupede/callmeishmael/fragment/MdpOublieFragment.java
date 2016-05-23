@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.R;
 
@@ -39,9 +40,37 @@ public class MdpOublieFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //REQUETE EMAIL MDP OUBLIE
+                emailChecker(email.getText().toString());
+                        //REQUETE EMAIL MDP OUBLIE
                 }});
 
         return view;
+    }
+
+    /*
+     Vérifie l'intégrité des emails, s'ils sont vides, ou différents ou si les adresses ne sont pas correctes
+  */
+    public boolean emailChecker(String email)
+    {
+        String emailtmp; // pour stocker les strings sans les espaces
+        /*
+            On supprime les espaces
+         */
+        emailtmp = email.replaceAll("\\s","");
+
+        if(emailtmp.length() == 0)
+        {
+            Toast.makeText(getContext()," L'email est vide !", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
+        if(!(android.util.Patterns.EMAIL_ADDRESS.matcher(emailtmp).matches()))
+        {
+            Toast.makeText(getContext()," L'adresse mail n'est pas correcte !", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 }

@@ -261,7 +261,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_contact) {
 
             // Set the page's title
-            this.setTitle("Contact");
+            this.setTitle("CGU");
             // Set the fragment of view
             ContactFragment fragment = new ContactFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -455,6 +455,7 @@ public class MainActivity extends AppCompatActivity
                         on recupere l'url avec data avant
                      */
                     String genre = bFacebookData.getString("gender").charAt(0) + "";
+                    System.out.println(genre);
                     String adresse = Data.getData().getFacebook(
                             bFacebookData.getString("idFacebook"),
                                     bFacebookData.getString("email"),
