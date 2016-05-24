@@ -219,12 +219,17 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                             }
                             SessionManager sessionManager = new SessionManager(getContext());
                             String adresse = Data.getData().getURLAJouterLivre();
-                            byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id);
+                            // email utilisateur et id du Livre, ainsi que chemin vers mem mobile
+                            byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id, Environment.getDataDirectory().getAbsolutePath());
                             EPubDownloader epub = new EPubDownloader(getContext());
                             String res = epub.execute(adresse, infos).get();
+                            System.out.println("RES "+res);
                             if (res.equals("false")) {
                                 Toast.makeText(getContext(), " Ce livre est déjà dans votre liste !", Toast.LENGTH_SHORT).show();
                             } else {
+                                //refresh
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(DetailsLivreFragment.this).attach(DetailsLivreFragment.this).commit();
                                 Toast.makeText(getContext(), " Ce livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
                             }
 

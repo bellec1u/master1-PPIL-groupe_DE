@@ -47,7 +47,6 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
     private EditText dateMois; // date du mois
     private EditText dateAnnee; // date de l'année
     private EditText mdp; // mot de passe
-    private EditText mdpConfirmer; // confimation de mot de passe
     private EditText email; // email
     private EditText emailConfirmer; // confirmation de mail
     private EditText nom; // nom de l'utilisateur
@@ -76,7 +75,6 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         email = (EditText) view.findViewById(R.id.editText9);
         emailConfirmer = (EditText) view.findViewById(R.id.editText10);
         mdp = (EditText) view.findViewById(R.id.editText11);
-        mdpConfirmer = (EditText) view.findViewById(R.id.editText12);
         dateJour = (EditText) view.findViewById(R.id.editText13);
         dateMois = (EditText) view.findViewById(R.id.editText14);
         dateAnnee = (EditText) view.findViewById(R.id.editText15);
@@ -185,7 +183,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
 
                 ok1 = isValid(prenom.getText().toString(), "Prenom"); // verification du champs prenom
                 ok2 = isValid(nom.getText().toString(), "Nom"); // verification du champs nom
-                ok3 = passwordChecker(mdp.getText().toString(), mdpConfirmer.getText().toString()); // verification des mots de passe
+                ok3 = passwordChecker(mdp.getText().toString()); // verification du mots de passe
                 ok4 = emailChecker(email.getText().toString(), emailConfirmer.getText().toString()); // verification des emails
                 /*
                     Verification de la date
@@ -300,14 +298,13 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         Vérifie l'intégrité des champs password et passwordConfirmer
         si les champs sont vides, ou différents
      */
-    public boolean passwordChecker(String password, String passwordConfirmer)
+    public boolean passwordChecker(String password)
     {
         String mdpTmp, mdpConfirmerTmp; // pour stocker les strings sans espace
         /*
             On supprime les espaces
          */
         mdpTmp = password.replaceAll("\\s","");
-        mdpConfirmerTmp = passwordConfirmer.replaceAll("\\s","");
 
         if(mdpTmp.length() == 0)
         {
@@ -315,27 +312,9 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
             return false;
         }
 
-        if(mdpConfirmerTmp.length() == 0)
-        {
-            Toast.makeText(getContext()," La confirmation du mot de passe est vide !", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
         if(mdpTmp.length() < 7)
         {
             Toast.makeText(getContext()," Le mot de passe ne fait pas au minimum 8 caractères !", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if(mdpConfirmerTmp.length() < 7)
-        {
-            Toast.makeText(getContext()," La confirmation du mot de passe ne fait pas au minimum 8 caractères !", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if(!mdpTmp.equals(mdpConfirmerTmp))
-        {
-            Toast.makeText(getContext()," Les mots de passes ne sont pas identiques !", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

@@ -26,7 +26,7 @@ public class Data {
 
     private Data()
     {
-        ipMachine = "http://192.168.212.157" ;
+        ipMachine = "http://192.168.1.10" ;
         port = "8888" ;
         adresse = ipMachine + ":" + port;
     }
@@ -419,11 +419,11 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Requete POST pour ajouter un livre dans la liste de lecture
      */
-    public byte[] getPostAjouterLivre(String email, String idLivre) {
+    public byte[] getPostAjouterLivre(String email, String idLivre, String directory) {
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("id", idLivre); // on associe au champs id = idLivre
         params.put("email", email);
-        params.put("directory", Environment.getExternalStorageDirectory()+"/epub");
+        params.put("directory", directory);
 
         /*
             Charge les parametres
