@@ -4,33 +4,29 @@
     Inscription
 @stop
 
-
-<script>
-
-
-
-    function surligne(champ, erreur)//change de couleur selon la conformité de ce qui est rentré
-    {
-        if(erreur)    champ.style.borderColor = "#D10C13";
-         else    champ.style.borderColor = "#04DC13";
-    }
-
-    function verifPrenom(champ)//va verifier le champs
-    {
-        var regex = /^[a-zA-Z]+/@+[a-zA-Z];
-        if(!regex.test(champ.value))
-        {
-            surligne(champ, true);
-            return false;
-        }
-        else
-        {
-            surligne(champ, false);
-            return true;
-        }
-    }
-</script>
 @section('contenu')
+    <script>
+        function surligne(champ, erreur)//change de couleur selon la conformité de ce qui est rentré
+        {
+            if(erreur)    champ.style.borderColor = "#D10C13";
+            else    champ.style.borderColor = "#04DC13";
+        }
+
+        function verifPrenom(champ)//va verifier le champs
+        {
+            var regex = /^[a-zA-Z]+/@+[a-zA-Z];
+            if(!regex.test(champ.value))
+            {
+                surligne(champ, true);
+                return false;
+            }
+            else
+            {
+                surligne(champ, false);
+                return true;
+            }
+        }
+    </script>
     <article class="panel panel-info">
         <h1 class="panel-heading">Formulaire d'Inscription</h1>
         <div class="panel-body">
@@ -101,9 +97,6 @@
                 </div>
                 <div class="col-lg-7 col-lg-offset-3">
                         {!! Form::submit('Inscription', ['class' => 'btn btn-primary pull-right']) !!}
-                        <!--<a href="javascript:history.back()" class="btn btn-primary pull-left">
-                            <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
-                        </a>-->
                 </div>
                 {!! Form::close() !!}
             </div>

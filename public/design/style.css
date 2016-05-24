@@ -1,13 +1,10 @@
-html {
-    min-height: 100%;
-}
 body {
+    min-height: 100vh;
     background: linear-gradient(
             to bottom,
             rgb(48, 158, 185),
             rgb(234, 236, 198));
-    padding-bottom: 40px;
-    min-height: 100%;
+    padding-bottom: 0px;
 }
 
 /* ---------- Header ---------- */
@@ -39,15 +36,10 @@ header.page-header {
     background-color: #080808;
 }
 
-/* ---------- Main Container ---------- */
-#main_container {
-    margin-top: 20px;
-}
-
 /* ---------- Article ---------- */
 
-article {
-    min-height: calc(100vh - 120px)
+section.container article {
+    min-height: calc(100vh - 100px);
 }
 
 .panel {
