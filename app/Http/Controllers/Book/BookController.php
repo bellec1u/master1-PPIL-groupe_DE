@@ -10,6 +10,7 @@ use App\Repositories\Book\RatingRepository;
 use App\Http\Controllers\Controller;
 use App\Managers\EpubManager;
 use Storage;
+use Auth;
 
 class BookController extends Controller
 {
@@ -77,8 +78,9 @@ class BookController extends Controller
 
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
+        $estEvalue = $this->ratingRapository->getRatingIdEtUser($id,Auth::user()->id );
 
-        return view('book/detailsBook', compact('book'))->with('data',
+        return view('book/detailsBook', compact('book'), compact('estEvalue'))->with('data',
             $ratings);
 
     }

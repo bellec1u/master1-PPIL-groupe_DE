@@ -100,7 +100,9 @@ function makeRating($rate, $bestvalue = 5) {
                         <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
                 		
                 		@if(Auth::check())
+							@if(count($estEvalue) == 0)
 							<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
+							@endif
 							<?php
 								$count = Auth::user()->readings()->where('book_id', '=', $book->id)->count();
 							?>
