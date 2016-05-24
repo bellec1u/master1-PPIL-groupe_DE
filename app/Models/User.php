@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -34,7 +35,11 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = bcrypt($password);
+        if (Hash::needsRehash($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        } else {
+            $this->attributes['password'] = $password;
+        }
     }
 
     public function ratings()
@@ -45,6 +50,11 @@ class User extends Authenticatable
     public function readings()
     {
         return $this->hasMany('App\Models\Reading');
+    }
+
+    public function socialAccount()
+    {
+        return $this->hasOne('App\Models\SocialAccount');
     }
 
 }

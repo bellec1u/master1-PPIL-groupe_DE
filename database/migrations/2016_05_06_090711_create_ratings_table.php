@@ -16,7 +16,7 @@ class CreateRatingsTable extends Migration
 
             $table->increments('id');
             $table->integer('book_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->longText('comment');
             $table->integer('stars');
             $table->timestamps();
@@ -28,7 +28,7 @@ class CreateRatingsTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
+                ->onDelete('set null');
         });
     }
 
