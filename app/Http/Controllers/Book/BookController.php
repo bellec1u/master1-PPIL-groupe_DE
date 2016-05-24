@@ -79,8 +79,8 @@ class BookController extends Controller
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
         $estEvalue = $this->ratingRapository->getRatingIdEtUser($id,Auth::user()->id );
-
-        return view('book/detailsBook', compact('book'), compact('estEvalue'))->with('data',
+        $user = Auth::user();
+        return view('book/detailsBook', compact('book'), compact('estEvalue'), compact('user'))->with('data',
             $ratings);
 
     }

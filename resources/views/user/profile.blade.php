@@ -5,6 +5,14 @@ Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
 @stop
 
 @section('contenu')
+    <SCRIPT language="Javascript">
+        function Desinscription() {
+            if (confirm ('Etes vous sûr de vous désinscrire ')){
+                document.forms["desinscrire"].submit();
+            }
+        }
+
+    </script>
 <article class="panel panel-info">
     <h1 class="panel-heading">Profil</h1>
     <div class="panel-body">
@@ -27,9 +35,9 @@ Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
                 </table>
 
 
-                {{ Form::open(array('route' => 'userDelete', 'method' => 'delete')) }}
+                {{ Form::open(array('route' => 'userDelete', 'method' => 'delete', 'name'=>'desinscrire')) }}
                 <a href="{{URL::route('userEdit')}}" class="btn bg-primary">modifier</a>
-                {!! Form::submit('Desisncription', ['class' => 'btn btn-primary pull-right']) !!}
+                {!! Form::button('Desisncription', ['class' => 'btn btn-primary pull-right', 'onclick'=>"Desinscription()"]) !!}
                 {{ Form::close() }}
 
             </section>

@@ -108,7 +108,9 @@ function makeRating($rate, $bestvalue = 5) {
 							?>
 							@if($count == 0)
 								<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ajouter à la liste de lecture</a>
-							@endif
+							@else
+									<a href="{{URL::route('deleteReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Supprimer de la liste de lecture</a>
+								@endif
 						@endif
                     </section>
 				</div>
