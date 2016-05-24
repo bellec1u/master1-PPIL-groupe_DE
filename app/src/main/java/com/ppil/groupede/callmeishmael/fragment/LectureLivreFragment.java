@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -62,6 +63,7 @@ public class LectureLivreFragment extends Fragment {
     int position = 0;
     String line;
     int i = 0;
+    float xChangePage = 0;
 
     public LectureLivreFragment(String id) {
         // Required empty public constructor
@@ -78,6 +80,39 @@ public class LectureLivreFragment extends Fragment {
         webView.getSettings().setDefaultTextEncodingName("utf-8");
         webView.getSettings().setJavaScriptEnabled(true); // on rend actif le javaScript
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        // empeche l'utilisateur de scroll vers le abs
+        webView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN :
+                        xChangePage = event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP :
+                        System.out.println("- - - - - - ici    x : " + xChangePage + "    -    newX : " + event.getX());
+                        //retourne la hauteur de la webView - 5% -> pour ne pas perdre de texte
+                        int height = (int)(webView.getMeasuredHeight() * 0.95);
+                        if (xChangePage > event.getX() && xChangePage - event.getX() > 25) {
+                            //passer une page -> x > newX
+                            //page suivante
+                            webView.scrollBy(0, height);
+                            System.out.println("- - - - - - - - - - 1");
+                        } else if (xChangePage < event.getX() && event.getX() - xChangePage > 25) {
+                            //retour d'une page -> x < newX
+                            //page suivante
+                            webView.scrollBy(0, -height);
+                            System.out.println("- - - - - - - - - - 2");
+                        }
+                        break;
+                }
+
+                return true;
+            }
+        });
+
+
+
+
 
         AssetManager assetManager = getActivity().getAssets();
         String[] files;
@@ -90,8 +125,6 @@ public class LectureLivreFragment extends Fragment {
             if (!this.makeDirectory("book")) {
                 debug("faild to make books directory");
             }
-
-            System.out.println("----------------------------------- " + list.get(position));
 
             copyBookToDevice(list.get(position));
 
@@ -276,4 +309,5 @@ public class LectureLivreFragment extends Fragment {
 
         }
     }
+
 }
