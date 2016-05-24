@@ -24,9 +24,11 @@ class SubscriptionController extends Controller
     {
         $inputs = array_merge($request->all(),
             ['user_id' => $request->user()->id]);
-        $this->subsRepository->store($inputs);
-        
-        return redirect()->back()->with('status',
-            'Utilisateur ajouté à la liste de suivi');
+        if ($this->subsRepository->addFollower($inputs)) {
+            $status = 'Utilisateur ajouté à la liste de suivi';
+        } else {
+            $status = 'Utilisateur est déjà dans votre liste de suivi';
+        }
+        return redirect()->back()->with('status', $status);
     }
 }
