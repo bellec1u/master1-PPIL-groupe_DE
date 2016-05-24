@@ -100,6 +100,11 @@ class UserController extends Controller
             return redirect('/')->with('status', 'Votre compte a été supprimé');
         }
     }
+
+    public function showOther($id){
+        $user = $this->userRepository->getById($id);
+        return view('user\consultOther', compact('user'));
+    }
      
     
    

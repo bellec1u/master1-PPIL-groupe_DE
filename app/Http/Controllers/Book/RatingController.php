@@ -182,18 +182,5 @@ class RatingController extends Controller
     }
 
 
-    public function getNameUser(){
-        $retour = $this->userRepository->getById('1');
-
-
-        return Response::json(array(
-
-            'erreur' => ((count($retour)>0) ? count($retour) : -1),
-
-            'datas' => $retour->last_name,
-
-            'message' => 'retour ajax de la methode getItems',
-
-        ));
-    }
+   
 }

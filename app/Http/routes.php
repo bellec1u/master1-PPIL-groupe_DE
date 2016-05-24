@@ -65,7 +65,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::put('user/update', ['uses'=> 'UserController@update', 'as'=>'userUpdate']);
     Route::delete('user/desinscription',  ['uses'=> 'UserController@delete', 'as'=>'userDelete']);
     Route::get('user/edit', ['uses'=> 'UserController@edit', 'as'=>'userEdit']);
-
+    Route::get('User/consult/{id}', ['uses'=> 'UserController@showOther', 'as'=>'showOtherUser'])->where('id', '[0-9]+');
     Route::get('user/verify/{token}', 'UserController@confirmEmail')
         ->where('token', '[a-zA-Z0-9]+');
     
@@ -87,7 +87,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('destroyRating/{id}/{idbook}', 'Book\RatingController@destroy')->where('id', '[0-9]+')->where('idbook', '[0-9]+');
     Route::get('editRating/{id}', 'Book\RatingController@edit')->where('id', '[0-9]+');
     Route::post('updateRating', ['uses' => 'Book\RatingController@update', 'as' => 'updateRating']);
-    Route::get('getNameUser', ['uses'=>'Book\RatingController@getNameUser', 'as'=>'getNameUser']);
+
 
     // liste de lecture.
     Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');
