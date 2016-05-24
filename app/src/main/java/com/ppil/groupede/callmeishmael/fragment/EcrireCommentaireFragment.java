@@ -50,6 +50,7 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
         idLivre = id;
         imageLivre = img;
         modification = false;
+        note = 0;
     }
 
     /*
@@ -75,11 +76,11 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
         star4 = (ImageButton) view.findViewById(R.id.commentaire_ecrire_star4);
         star5 = (ImageButton) view.findViewById(R.id.commentaire_ecrire_star5);
 
-        star1.setOnClickListener(new StarListener(star1));
-        star2.setOnClickListener(new StarListener(star2));
-        star3.setOnClickListener(new StarListener(star3));
-        star4.setOnClickListener(new StarListener(star4));
-        star5.setOnClickListener(new StarListener(star5));
+        star1.setOnClickListener(new StarListener(star1,1));
+        star2.setOnClickListener(new StarListener(star2,2));
+        star3.setOnClickListener(new StarListener(star3,3));
+        star4.setOnClickListener(new StarListener(star4,4));
+        star5.setOnClickListener(new StarListener(star5,5));
 
         /*
             Listener anonyme pour le bouton valider,
@@ -140,27 +141,91 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
     {
         private boolean clicked = false;
         private ImageButton img = null;
+        private int pos;
 
-        public StarListener(ImageButton image)
+        public StarListener(ImageButton image, int position)
         {
             img = image;
+            pos = position;
         }
         @Override
         public void onClick(View v) {
-            if(!clicked)
+            for(int i = 0 ; i < pos ; i++)
             {
-                note++;
-                img.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-                        R.drawable.fullstar));
-                clicked = true;
+                setStar(i);
             }
-            else
+            for(int i = pos ; i < 5 ; i++)
             {
-                note--;
-                img.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-                        R.drawable.empty_star));
-                clicked = false;
+                unSetStar(i);
             }
+            note = pos ;
+            System.out.println(note);
+        }
+    }
+
+    public void setStar(int i)
+    {
+        Bitmap img = null;
+        switch(i)
+        {
+            case 0 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.fullstar);
+                star1.setImageBitmap(img);
+                break;
+            case 1 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.fullstar);
+                star2.setImageBitmap(img);
+                break;
+            case 2 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.fullstar);
+                star3.setImageBitmap(img);
+                break;
+            case 3 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.fullstar);
+                star4.setImageBitmap(img);
+                break;
+            case 4 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.fullstar);
+                star5.setImageBitmap(img);
+                break;
+        }
+    }
+
+    public void unSetStar(int i)
+    {
+        Bitmap img = null;
+        switch(i)
+        {
+            case 0 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.empty_star);
+                star1.setImageBitmap(img);
+                break;
+            case 1 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.empty_star);
+                star2.setImageBitmap(img);
+                break;
+            case 2 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.empty_star);
+                star3.setImageBitmap(img);
+                break;
+            case 3 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.empty_star);
+                star4.setImageBitmap(img);
+                break;
+            case 4 :
+                img = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.empty_star);
+                star5.setImageBitmap(img);
+                break;
         }
     }
 }

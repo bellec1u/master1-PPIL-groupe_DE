@@ -69,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:text="Valider"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/commentaire_ecrire_valider"
             android:textColor="#FFFFFF"
             android:textSize="20dp"
