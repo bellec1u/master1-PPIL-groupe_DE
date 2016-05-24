@@ -383,7 +383,7 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                 Toast.makeText(getContext(),"L'adresse email indiquée est déjà présente !",Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
-            Toast.makeText(getContext(),"Une erreur s'est produite\n Veuillez réessayer", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"L'adresse email indiquée est déjà présente !", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -26,8 +26,8 @@ public class Data {
 
     private Data()
     {
-        ipMachine = "http://192.168.43.7" ;
-        port = "" ;
+        ipMachine = "http://192.168.212.157" ;
+        port = "8888" ;
 
         adresse = ipMachine + ":" + port;
     }
@@ -567,6 +567,81 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         params.put("email", email);
 
 
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
+        Retourne l'URL nécessaire pour demander l'URL
+     */
+    public String getURLFAQ() {
+        return (adresse + "/requetes/faq.php");
+    }
+
+    /*
+        Retourne l'url nécessaire pour suivre un utilisateur
+     */
+    public String getURLFollowUser() {
+        return (adresse + "/requetes/suivre.php");
+    }
+
+    /*
+        Remplit le tableau de byte[] pour effectuer une requete POST pour suivre un utilisateur
+     */
+    public byte[] getPostFollowUser(String emailSuivi, String emailSuiveur)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("emailSuivi", emailSuivi);
+        params.put("emailSuiveur", emailSuiveur);
+
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
+        Retourne l'URL nécessaire pour trouver les informations personnelles d'un utilisateur
+     */
+    public String getURLDetailsUser() {
+        return (adresse + "/requetes/infosUtilisateur.php");
+    }
+
+    /*
+        Retourne le tableau de byte[] nécessaire pour effectuer une requete POST
+        pour obtenir les informations de l'utilisateur ayat comme email 'email'
+     */
+    public byte[] getPostDetailsUser(String email)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email);
         /*
             Charge les parametres
         */
