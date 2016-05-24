@@ -24,7 +24,9 @@ class BookRepository extends ResourceRepository
 
 		return $books;
 	}
-	
+	public function getBestBook(){
+		return $this->model->orderBy('stars_average', 'DESC')->get();
+	}
 	
 
 }

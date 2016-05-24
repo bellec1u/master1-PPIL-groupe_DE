@@ -38,7 +38,7 @@ Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
                 {{ Form::open(array('route' => 'userDelete', 'method' => 'delete', 'name'=>'desinscrire')) }}
                 <a href="{{URL::route('userEdit')}}" class="btn bg-primary">modifier</a>
                 {!! Form::button('Desisncription', ['class' => 'btn btn-primary pull-right', 'onclick'=>"Desinscription()"]) !!}
-                {{ Form::close() }}
+                {{ Form::close()}}
 
             </section>
 

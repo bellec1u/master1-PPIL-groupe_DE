@@ -27,12 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-       
+       $books = $this->bookRepository->getBestBook();
+
 
         for($i =0; $i < 10 ; $i++){
-            $id = rand(1,1000);
-            $book1 = $this->bookRepository->getById($id);
-            $liste[] = $book1;
+            $liste[] = $books[$i];
         }
         return view('index')->with('liste', $liste);
     }

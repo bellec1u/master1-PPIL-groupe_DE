@@ -102,6 +102,7 @@ function makeRating($rate, $bestvalue = 5) {
                 		@if(Auth::check())
 							@if(count($estEvalue) == 0)
 							<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
+
 							@endif
 							<?php
 								$count = Auth::user()->readings()->where('book_id', '=', $book->id)->count();
@@ -124,7 +125,10 @@ function makeRating($rate, $bestvalue = 5) {
 								@if(Auth::user()->id == $rating->user_id)
 								@endif
 							@endif
-								<?php   echo makeRating($rating->stars)  ?>{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+								<?php   echo makeRating($rating->stars)  ?>
+								@if(Auth::user()->id == $rating->user_id)
+								{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+								@endif
 					 				Commentaire :  {{ $rating->comment }}
 						</p><hr>																																															
 					@endforeach
