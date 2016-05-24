@@ -6,7 +6,7 @@ Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
 
 @section('contenu')
 <article class="panel panel-info">
-    <h1 class="panel-heading">Liste de Lectures</h1>
+    <h1 class="panel-heading">Profil</h1>
     <div class="panel-body">
 
         <div class="row">
