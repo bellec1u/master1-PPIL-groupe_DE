@@ -48,7 +48,6 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
     private EditText dateAnnee; // date de l'année
     private EditText mdp; // mot de passe
     private EditText email; // email
-    private EditText emailConfirmer; // confirmation de mail
     private EditText nom; // nom de l'utilisateur
     private EditText prenom; // prenom de l'utilisateur
     private String cover_url; // url de l'image choisi par l'utilisateur.
@@ -73,7 +72,6 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         prenom = (EditText) view.findViewById(R.id.editText8);
         nom = (EditText) view.findViewById(R.id.editText);
         email = (EditText) view.findViewById(R.id.editText9);
-        emailConfirmer = (EditText) view.findViewById(R.id.editText10);
         mdp = (EditText) view.findViewById(R.id.editText11);
         dateJour = (EditText) view.findViewById(R.id.editText13);
         dateMois = (EditText) view.findViewById(R.id.editText14);
@@ -128,7 +126,6 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         prenom.setText(sessionManager.getSessionFirstName());
         nom.setText(sessionManager.getSessionName());
         email.setText(sessionManager.getSessionEmail());
-        emailConfirmer.setText(sessionManager.getSessionEmail());
         String date = sessionManager.getSessionDate();
         String[] dateSpliter = date.split("-");
 
@@ -184,7 +181,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                 ok1 = isValid(prenom.getText().toString(), "Prenom"); // verification du champs prenom
                 ok2 = isValid(nom.getText().toString(), "Nom"); // verification du champs nom
                 ok3 = passwordChecker(mdp.getText().toString()); // verification du mots de passe
-                ok4 = emailChecker(email.getText().toString(), emailConfirmer.getText().toString()); // verification des emails
+                ok4 = emailChecker(email.getText().toString()); // verification des emails
                 /*
                     Verification de la date
                  */
@@ -323,14 +320,13 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
     /*
         Vérifie l'intégrité des emails, s'ils sont vides, ou différents ou si les adresses ne sont pas correctes
      */
-    public boolean emailChecker(String email, String emailConfirmer)
+    public boolean emailChecker(String email)
     {
         String emailTmp, emailConfirmerTmp; // pour stocker les strings sans les espaces
         /*
             On supprime les espaces
          */
         emailTmp = email.replaceAll("\\s","");
-        emailConfirmerTmp = emailConfirmer.replaceAll("\\s","");
 
         if(emailTmp.length() == 0)
         {
@@ -338,25 +334,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
             return false;
         }
 
-        if(emailConfirmerTmp.length() == 0)
-        {
-            Toast.makeText(getContext()," L'email de confirmation est vide !", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if(!emailTmp.equals(emailConfirmerTmp))
-        {
-            Toast.makeText(getContext()," Les emails ne sont pas identiques !", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
         if(!(android.util.Patterns.EMAIL_ADDRESS.matcher(emailTmp).matches()))
-        {
-            Toast.makeText(getContext()," L'adresse mail n'est pas correcte !", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if(!(android.util.Patterns.EMAIL_ADDRESS.matcher(emailConfirmerTmp).matches()))
         {
             Toast.makeText(getContext()," L'adresse mail n'est pas correcte !", Toast.LENGTH_SHORT).show();
             return false;

@@ -213,7 +213,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 public void onClick(View v) {
                     if(!dansMaListe) {
                         try {
-                            File direct = new File(Environment.getExternalStorageDirectory() + "/epub");
+                            File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
                             if (!direct.exists()) {
                                 direct.mkdir(); // repertoire créé
                             }

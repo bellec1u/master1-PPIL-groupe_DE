@@ -108,7 +108,8 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
         {
             modifier.setVisibility(View.GONE);
             supprimer.setVisibility(View.GONE);
-            auteur.setOnClickListener(new DetailsUtilisateur());
+            if(!auteurCommentaire.equals("Anonyme")){
+            auteur.setOnClickListener(new DetailsUtilisateur());}
         }
         /*
             On affecte aux bons éléments les bonnes valeurs
