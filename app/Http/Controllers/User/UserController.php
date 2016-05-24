@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 
 use App\Http\Requests\User\UserCreateRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use Auth;
-use App\Repositories\UserRepository;
+use App\Repositories\User\UserRepository;
 use App\Services\EmailConfirmationService;
-use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Controller;
 
 //use Illuminate\Http\Request;
 
@@ -107,10 +107,5 @@ class UserController extends Controller
     }
      
     
-   
-		
-	
-
-
 
 }

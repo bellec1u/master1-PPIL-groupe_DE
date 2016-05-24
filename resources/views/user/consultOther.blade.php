@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    {{ $user->last_name }} {{ $user->first_name }} | Référencement et Lecture d&#039;Ebooks
+    {{ $user->last_name }} {{ $user->first_name }}
 @stop
 
 {!! Html::script('etoile/ListeEtoile.js') !!}
@@ -112,7 +112,10 @@ function makeRating($rate, $bestvalue = 5) {
                     <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
                     </table>
 
-
+                    {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
+                        <input type="hidden" name="followed_user_id" value="{{ $user->id }}">
+                        <input type="submit" value="Follow">
+                    {!! Form::close() !!}
 
                 </section>
 

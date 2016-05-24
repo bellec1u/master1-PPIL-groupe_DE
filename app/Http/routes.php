@@ -33,19 +33,19 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('inscription', function () {
         return view('user/inscription');
     });
-    
+
     Route::get('connexion', function () {
         return view('user/connexion');
     });
-    
+
     Route::get('create', function () {
         return view('user/create');
     });
-    
+
     Route::get('home', function () {
         return view('home');
     });
-    
+
     Route::get('email_contact', function () {
         return view('user/email_contact');
     });
@@ -59,21 +59,30 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::auth();
     // standard
-    Route::resource('user', 'UserController',
+    Route::resource('user', 'User\UserController',
         ['except' => ['index', 'edit', 'update', 'show', 'destroy']]);
-    Route::get('user/profile', 'UserController@profile');
-    Route::put('user/update', ['uses'=> 'UserController@update', 'as'=>'userUpdate']);
-    Route::delete('user/desinscription',  ['uses'=> 'UserController@delete', 'as'=>'userDelete']);
-    Route::get('user/edit', ['uses'=> 'UserController@edit', 'as'=>'userEdit']);
-    Route::get('User/consult/{id}', ['uses'=> 'UserController@showOther', 'as'=>'showOtherUser'])->where('id', '[0-9]+');
-    Route::get('user/verify/{token}', 'UserController@confirmEmail')
+    Route::get('user/profile', 'User\UserController@profile');
+    Route::put('user/update',
+        ['uses' => 'User\UserController@update', 'as' => 'userUpdate']);
+    Route::delete('user/desinscription',
+        ['uses' => 'User\UserController@delete', 'as' => 'userDelete']);
+    Route::get('user/edit',
+        ['uses' => 'User\UserController@edit', 'as' => 'userEdit']);
+    Route::get('user/consult/{id}', [
+        'uses' => 'User\UserController@showOther',
+        'as'   => 'showOtherUser'
+    ])->where('id', '[0-9]+');
+    Route::get('user/verify/{token}', 'User\UserController@confirmEmail')
         ->where('token', '[a-zA-Z0-9]+');
-    
+    //subscriptions
+    Route::post('follow',
+        ['uses' => 'User\SubscriptionController@store', 'as' => 'addFollower']);
+
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'Auth\SocialAuthController@redirect');
     Route::get('/callback/{provider}', 'Auth\SocialAuthController@callback');
-    
-    
+
+
     // Book access
     // details
     Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');

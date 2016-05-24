@@ -57,4 +57,13 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\SocialAccount');
     }
 
+    public function subscriptionsTo()
+    {
+        return $this->hasMany('App\Models\Subscription', 'user_id');
+    }
+
+    public function subscriptionsFrom()
+    {
+        return $this->hasMany('App\Models\Subscription', 'followed_user_id');
+    }
 }
