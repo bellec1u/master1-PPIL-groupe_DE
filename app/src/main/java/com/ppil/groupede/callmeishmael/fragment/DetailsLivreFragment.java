@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -366,10 +367,24 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             getActivity().setTitle(o.getString("title"));
 
             /*
+                Je recupere la liste des utilisateurs que l'utilisateur connecté suit,
+                sous reserve qu'un utilisateur est connecté
+             */
+            ArrayList<String> emailSuivi = new ArrayList<String>();
+            if(object.has("suivre0")){
+                int j = 0;
+                while(object.has("suivre" + j))
+                {
+                    o = new JSONObject(object.getString("suivre" + j));
+                    emailSuivi.add(o.getString("email"));
+                    j++;
+                }
+            }
+
+            /*
                 On charge maintenant les commentaires du livre
              */
             int indice = object.getInt("counter");
-            System.out.println(indice);
             for(int i = 0 ; i < indice ; i++)
             {
                 ft = getFragmentManager().beginTransaction();
@@ -393,7 +408,20 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 /*
                     On instancie le nouveau Commentaire et on l'ajoute au layout
                  */
-                CommentaireFragment com = new CommentaireFragment(email,auteur,note,resume,follow,mine, idCom, this);
+                /*
+                    On regarde si le mail de cet utilisateur est present dans la liste
+                    des utilisateurs que follow actuellement l'utilisateur connecté
+                    si oui alors le boolean suivre sera a vrai, faux sinon
+                 */
+                boolean suivre = false;
+                if(!emailSuivi.isEmpty())
+                {
+                    if(emailSuivi.contains(email))
+                    {
+                        suivre = true;
+                    }
+                }
+                CommentaireFragment com = new CommentaireFragment(email,auteur,note,resume,follow,mine, idCom, this, suivre);
                 ft.add(R.id.layout_commentaires, com, "");
                 ft.commit();
             }

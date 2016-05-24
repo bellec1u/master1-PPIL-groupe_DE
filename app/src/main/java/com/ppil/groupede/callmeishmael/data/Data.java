@@ -659,4 +659,11 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
             return new byte[1]; // unreachable
         }
     }
+
+    /*
+        Retourne l'URL nécessaire pour unfollow un utilisateur
+     */
+    public String getURLUnFollowUser() {
+        return (adresse + "/requetes/Plussuivre.php");
+    }
 }

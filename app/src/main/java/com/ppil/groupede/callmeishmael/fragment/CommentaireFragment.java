@@ -65,9 +65,10 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
     private String emailCommentaire;
     private int idCommentaire; // id du commentaire dans la base de donnée
     private DetailsLivreFragment fragmentHome;
+    private boolean follow; // indique si l'auteur de ce commentaire est un utilisateur que l'on follow
 
     @SuppressLint("ValidFragment")
-    public CommentaireFragment(String email, String auteur, float note, String resume, int follow, boolean mine, int id, DetailsLivreFragment frag) {
+    public CommentaireFragment(String email, String auteur, float note, String resume, int follow, boolean mine, int id, DetailsLivreFragment frag, boolean suivre) {
         // Required empty public constructor
         auteurCommentaire = auteur;
         noteCommentaire = note;
@@ -77,6 +78,7 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
         monCommentaire = mine;
         idCommentaire = id;
         fragmentHome = frag;
+        this.follow = suivre;
     }
 
 
@@ -123,7 +125,16 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
          */
         modifier.setOnClickListener(new ModifierCommentaire());
         supprimer.setOnClickListener(new SupprimerCommentaire());
-        suivre.setOnClickListener(new SuivreCommentaire());
+        if(follow)
+        {
+            suivre.setText("Ne plus suivre");
+            suivre.setOnClickListener(new SuivreCommentaire(follow));
+        }
+        else
+        {
+            suivre.setText("Suivre");
+            suivre.setOnClickListener(new SuivreCommentaire(follow));
+        }
 
         return view;
     }
@@ -295,13 +306,26 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
      */
     class SuivreCommentaire implements View.OnClickListener{
 
+        private boolean suivre;
+
+        public SuivreCommentaire(boolean b)
+        {
+            suivre = b;
+        }
+
         @Override
         public void onClick(View v) {
             //// TODO: 18/05/16
             SessionManager sessionManager = new SessionManager(getContext()); // pour verifier si un user est connecté
 
             if(!sessionManager.isConnected()) {
-                String adresse = Data.getData().getURLFollowUser();
+                String adresse;
+                if(follow){
+                    adresse = Data.getData().getURLUnFollowUser();
+                }
+                else{
+                    adresse = Data.getData().getURLFollowUser();
+                }
                 byte[] infos = Data.getData().getPostFollowUser(emailCommentaire, sessionManager.getSessionEmail());
 
                 /*
@@ -309,7 +333,13 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
                     et ensuite la fonction ReceiveData
                  */
                 DataManager dataManager = new DataManager(CommentaireFragment.this);
-                Toast.makeText(getContext()," Vous suivez maintenant "+ auteurCommentaire + ".",Toast.LENGTH_SHORT).show();
+                if(follow)
+                {
+                    Toast.makeText(getContext()," Vous ne suivez plus maintenant "+ auteurCommentaire + ".",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getContext(), " Vous suivez maintenant " + auteurCommentaire + ".", Toast.LENGTH_SHORT).show();
+                }
+                follow = !follow;
                 dataManager.execute(adresse,infos);
 
             }else{
@@ -329,7 +359,7 @@ public class CommentaireFragment extends Fragment implements DataReceiver{
         @Override
         public void onClick(View v) {
             //renvoie vers le profil de l'utilisateur
-            DetailsUtilisateurFragment ecrire = new DetailsUtilisateurFragment(emailCommentaire); // email de l'auteur du commentaire
+            DetailsUtilisateurFragment ecrire = new DetailsUtilisateurFragment(emailCommentaire, follow); // email de l'auteur du commentaire
             getActivity().setTitle("Profil de " + auteurCommentaire);
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
