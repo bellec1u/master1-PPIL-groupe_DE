@@ -8,7 +8,7 @@
         <article class="panel panel-info">
             <h1 class="panel-heading">Liste de Lectures</h1>
             <div class="panel-body">
-                @if(count($data) > 0 )
+                @if(count($data) > 1 )
                     @foreach($data as $book)
                         @if($book != '')
                             <div class="row">
@@ -22,16 +22,15 @@
                                     <p><b>Langue :</b> {{ $book->language }}</p>
                                     <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
                                     <p><b>Note moyenne : </b> {{ $book->stars_average  }}</p>
-                                    <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}" class="btn bg-primary">supprimer</a>
-                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a>
+                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
+                                    <a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
+                                    <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}" class="btn btn-primary">Supprimer</a>
                                 </section>
-
                             </div><hr>
                         @endif
                     @endforeach
-                    @else
-                        Aucun livre actuellement.
-
+                @else
+                    Aucun livre actuellement.
                 @endif
             </div>
         </article>
