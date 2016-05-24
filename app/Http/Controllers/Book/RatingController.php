@@ -8,21 +8,26 @@ use App\Repositories\Book\RatingRepository;
 use App\Http\Requests;
 use App\Repositories\Book\BookRepository;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 use Auth;
 use Redirect;
+use Illuminate\Support\Facades\Response;
 
 class RatingController extends Controller
 {
 
     protected $ratingRepository;
     protected $bookRepository;
+    protected $userRepository;
     protected $noteMoyenne = 0;
 
-    public function __construct(RatingRepository $ratingRepository, BookRepository $bookRepository)
+    public function __construct(RatingRepository $ratingRepository, BookRepository $bookRepository, UserRepository $userRepository)
     {
 
         $this->bookRepository = $bookRepository;
         $this->ratingRepository = $ratingRepository;
+        $this->userRepository = $userRepository;
+
     }
 
     /**
@@ -41,6 +46,8 @@ class RatingController extends Controller
         }
 
     }
+
+
 
     /**
      * @param RatingCreateRequest $request
@@ -172,5 +179,21 @@ class RatingController extends Controller
         } else {
             return redirect()->route('/');
         }
+    }
+
+
+    public function getNameUser(){
+        $retour = $this->userRepository->getById('1');
+
+
+        return Response::json(array(
+
+            'erreur' => ((count($retour)>0) ? count($retour) : -1),
+
+            'datas' => $retour->last_name,
+
+            'message' => 'retour ajax de la methode getItems',
+
+        ));
     }
 }

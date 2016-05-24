@@ -125,7 +125,32 @@ function makeRating($rate, $bestvalue = 5) {
 								@if(Auth::user()->id == $rating->user_id)
 								@endif
 							@endif
-								<?php   echo makeRating($rating->stars)  ?>
+							<div id="name"></div>
+								<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+						<script>
+
+								$.ajax({
+								type: 'GET',
+								url: '{{ URL::route('getNameUser', array ('id'=>$rating->user_id)) }}',
+								data : '{{ $rating->user_id }}',
+								success: function(data){
+									for (var d in data.datas){
+
+										$('#name').append(data.datas[d]);
+
+									}
+								},
+								error: function(){
+								alert('La requête n\'a pas abouti'); }
+								});
+
+								</script>
+
+								<?php
+
+
+								echo makeRating($rating->stars)  ?>
 								@if(Auth::user()->id == $rating->user_id)
 								{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 								@endif
