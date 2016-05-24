@@ -56,7 +56,7 @@ class EpubManager
 
     function download_book($book_id) {
         //This is the file where we save the    information
-        $file_path = public_path().'\Books\Book'.$book_id.'.epub';
+        $file_path = public_path().'/Books/Book'.$book_id.'.epub';
         $fp = fopen($file_path, 'w+');
 
         $session_id = $this->get_session_id($book_id);

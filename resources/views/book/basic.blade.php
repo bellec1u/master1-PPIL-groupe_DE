@@ -27,7 +27,7 @@
                 EPUBJS.filePath = "js/libs/";
                 EPUBJS.cssPath = window.location.href.replace(window.location.hash, '').replace('index.html', '') + "css/";
                 // fileStorage.filePath = EPUBJS.filePath;
-                  book =  ePubReader("{!! URL::asset('Books/book'.$id_book.'.epub') !!}");
+                  book =  ePubReader("{!! URL::asset('Books/Book'.$id_book.'.epub') !!}");
 
               window.reader= book;
             }
