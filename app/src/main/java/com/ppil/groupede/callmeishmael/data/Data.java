@@ -26,8 +26,8 @@ public class Data {
 
     private Data()
     {
-        ipMachine = "http://10.10.177.42" ;
-        port = "" ;
+        ipMachine = "http://192.168.212.157" ;
+        port = "8888" ;
         adresse = ipMachine + ":" + port;
     }
 
@@ -200,10 +200,11 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
     /*
 Prepare les arguments nécessaires pour une requete POST, pour avoir les details d'un livre
 */
-    public byte[] getPostDetails(String id)
+    public byte[] getPostDetails(String id, String email)
     {
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("id", id); // on associe au champs id = id
+        params.put("email", email);
 
         /*
             Charge les parametres
