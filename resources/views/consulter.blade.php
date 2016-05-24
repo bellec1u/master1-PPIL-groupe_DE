@@ -22,10 +22,10 @@
                                     <p><b>Langue :</b> {{ $book->language }}</p>
                                     <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
                                     <p><b>Note moyenne : </b> {{ $book->stars_average  }}</p>
-                                    <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}" class="btn bg-primary">Supprimer</a>
-                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a>
+                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
+                                    <a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
+                                    <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}" class="btn btn-primary">Supprimer</a>
                                 </section>
-
                             </div><hr>
                         @endif
                     @endforeach

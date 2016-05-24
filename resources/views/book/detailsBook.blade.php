@@ -83,41 +83,49 @@ function makeRating($rate, $bestvalue = 5) {
 //  echo(makeRating(3.42));		// code de test
 ?>
 @section('contenu')
-		<article class="panel panel-info">
-			<h1 class="panel-heading">Détails du Livre</h1>
+	<article class="panel panel-info">
+		<h1 class="panel-heading">Détails du Livre</h1>
 			<div class="panel-body">
-				<img src="{{ $book->cover_url  }}" alt="" />
-				<p>Titre : {{ $book->title  }}</p>
-				<p>Auteur : {{ $book->author  }}</p>
-				<p>Genre : {{ $book->genre  }}</p>
-				<p>Langue : {{ $book->language  }}</p>
-				<p>Date de Parution : {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
-				<p>Note moyenne : {{ $book->stars_average  }}/5</p>
-				<a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
-				@if(Auth::check())
+				<div class="row">
+                    <section class="col-sm-3">
+                        <p><img src="{{ $book->cover_url  }}" alt="" /></p>
+                    </section>
+                    <section class="col-sm-9"><br>
+                        <p><b>Titre :</b>  {{ $book->title }}</p>
+                        <p><b>Genre :</b>  {{ $book->genre }}</p>
+                        <p><b>Auteur :</b> {{ $book->author }}</p>
+                        <p><b>Langue :</b> {{ $book->language }}</p>
+                        <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
+                        <p><b>Note moyenne : </b> {{ $book->stars_average  }}</p>
+                        <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
+                		
+                		@if(Auth::check())
+							<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
+							<?php
+								$count = Auth::user()->readings()->where('book_id', '=', $book->id)->count();
+							?>
+							@if($count == 0)
+								<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ajouter à la liste de lecture</a>
+							@endif
+						@endif
+                    </section>
+				</div>
+				<section class="col-sm-3">
 
-					<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
-					<?php
-						$count = Auth::user()->readings()->where('book_id', '=', $book->id)->count();
-					?>
-					@if($count == 0)
-					<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ajouter à la liste de lecture</a>
-					@endif
-				@endif
-				@foreach($data as $rating)
-					<p>
-					@if(Auth::Check())
-					@if(Auth::user()->id == $rating->user_id)
-
-					@endif
-					@endif
-					<?php   echo makeRating($rating->stars)  ?>{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
-					 Commentaire :  {{ $rating->comment }}
+				</section>
+				<section class="col-sm-6">
+                    <p>@foreach($data as $rating)
+						<p>
+							@if(Auth::Check())
+								@if(Auth::user()->id == $rating->user_id)
+								@endif
+							@endif
+								<?php   echo makeRating($rating->stars)  ?>{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+					 				Commentaire :  {{ $rating->comment }}
+						</p><hr>																																															
+					@endforeach
 					</p>
-				@endforeach
-				<p></p><a href="javascript:history.back()" class="btn btn-primary">
-					<span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
-				</a></p>
+                </section>
 			</div>
-		</article>
+	</article>
 @stop
