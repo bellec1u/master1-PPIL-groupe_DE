@@ -142,7 +142,7 @@ function makeRating($rate, $bestvalue = 5) {
             <h2 align="center">Dernières Evaluations : </h2>
 
             @foreach($user->ratings as $rating)
-                <a href="{{ URL::route('bookReturn', array('id'=>$rating->book_id))}}"> Livre : {{$rating->book->title  }}</a>
+                <p><a href="{{ URL::route('bookReturn', array('id'=>$rating->book_id))}}"> Livre : {{$rating->book->title  }}</a></p>
            <p></p>
             <?php echo makeRating($rating->stars)  ?>
             Commentaire :  {{ $rating->comment }}
