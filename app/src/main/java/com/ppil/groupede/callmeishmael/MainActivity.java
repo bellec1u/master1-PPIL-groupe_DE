@@ -1,6 +1,5 @@
 package com.ppil.groupede.callmeishmael;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -33,11 +32,10 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
-import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
-import com.ppil.groupede.callmeishmael.fragment.ContactFragment;
+import com.ppil.groupede.callmeishmael.fragment.ConditionsFragment;
 import com.ppil.groupede.callmeishmael.fragment.FAQFragment;
 import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
 import com.ppil.groupede.callmeishmael.fragment.MonCompteFragment;
@@ -57,8 +55,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
-
-import nl.siegmann.epublib.epub.Main;
 
 /*
     Activity principale, permet de switcher d'un fragment à l'autre,
@@ -263,7 +259,7 @@ public class MainActivity extends AppCompatActivity
             // Set the page's title
             this.setTitle("CGU");
             // Set the fragment of view
-            ContactFragment fragment = new ContactFragment();
+            ConditionsFragment fragment = new ConditionsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);

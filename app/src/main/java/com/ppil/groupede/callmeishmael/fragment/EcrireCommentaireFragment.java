@@ -90,12 +90,6 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
             public void onClick(View v) {
                 String com = commentaire.getText().toString();
                 String tmp = com.replaceAll("\\s","");
-                if(tmp.length() == 0)
-                {
-                    Toast.makeText(getContext()," Votre commentaire est vide !", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
                     /*
                         J'instancie Data pour recuperer l'URL de creation d'un commentaire
                         J'instancie SessinManager pour recuperer egalement l'email de l'utilisateur
@@ -109,7 +103,6 @@ public class EcrireCommentaireFragment extends Fragment implements DataReceiver{
                      */
                         DataManager dataManager = new DataManager(EcrireCommentaireFragment.this);
                         dataManager.execute(adresse,infos);
-                }
             }
         });
 
