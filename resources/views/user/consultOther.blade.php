@@ -83,14 +83,9 @@ function makeRating($rate, $bestvalue = 5) {
 //  echo(makeRating(3.42));		// code de test
 ?>
 @section('contenu')
-    <SCRIPT language="Javascript">
-        function Desinscription() {
-            if (confirm ('Etes vous sûr de vous désinscrire ')){
-                document.forms["desinscrire"].submit();
-            }
-        }
 
-    </script>
+
+
     <article class="panel panel-info">
         <h1 class="panel-heading">Profil de {{ $user->last_name }}{{ $user->first_name }}</h1>
         <div class="panel-body">
@@ -108,6 +103,7 @@ function makeRating($rate, $bestvalue = 5) {
 
                                 <tr> <img src="{{ $user->profile_image }}" alt="" width="75%" height="50%" /></tr>
                             @endif
+
                     @endif
                 </section>
                 <section class="col-sm-9"><br>
