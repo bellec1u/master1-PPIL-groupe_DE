@@ -27,10 +27,11 @@
                                 </section>
 
                             </div><hr>
-                        @else
-                            Aucun livre actuellement.
                         @endif
                     @endforeach
+                    @else
+                        Aucun livre actuellement.
+
                 @endif
             </div>
         </article>
