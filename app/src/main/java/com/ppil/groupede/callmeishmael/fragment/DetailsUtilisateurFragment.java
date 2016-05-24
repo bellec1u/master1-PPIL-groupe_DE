@@ -103,7 +103,7 @@ public class DetailsUtilisateurFragment extends Fragment implements DataReceiver
             /*
                 On remplie les champs relatifs à l'utilisateur grace au JSONObject utilisateur
              */
-            identite.setText(utilisateur.getString("prenom") + utilisateur.getString("nom"));
+            identite.setText(utilisateur.getString("prenom") + " " + utilisateur.getString("nom"));
             date.setText(utilisateur.getString("ddn"));
             String sex = utilisateur.getString("sexe");
             if(sex.equals("m") || sex.equals("M")){
@@ -153,10 +153,55 @@ public class DetailsUtilisateurFragment extends Fragment implements DataReceiver
             JSONObject lectures = new JSONObject(listeLecture.toString());
             /*
                 Besoin d'instancier les bons éléments
+                String id, Bitmap img,boolean image,String titre, String genre,String note
              */
             for(int i = 0 ; i < lectures.length() ; i++)
             {
-                System.out.println(lectures.getString("livre"+i));
+                JSONObject livre = new JSONObject(lectures.getString("livre" + i));
+                img = null;
+                urlImage = livre.getString("cover_url");
+                boolean image = false;
+                if(urlImage.equals(""))
+                {
+                        /*
+                            On convertie le drawable en Bitmap (image par défault)
+                        */
+                    img = BitmapFactory.decodeResource(getResources(),
+                            R.drawable.whale);
+                    image = false;
+                }
+                else
+                {
+            /*
+                Télécharge une image à partir de la cover_url de l'utilisateur.
+             */
+                    if(!urlImage.startsWith("http")) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                        img = BitmapFactory.decodeFile(urlImage, options);
+                    }else {
+
+                        BitmapManager bitmapManager = new BitmapManager(img);
+                        try {
+                            img = bitmapManager.execute(urlImage).get();
+                        } catch (ExecutionException | InterruptedException e) {
+                            Toast.makeText(getContext()," Une erreur s'est passé dans le chargement de l'image", Toast.LENGTH_SHORT).show();
+                            img = BitmapFactory.decodeResource(getResources(),
+                                    R.drawable.whale);
+                        }
+                    }
+                    image = true;
+                }
+                Resultat_RechercheFragment response = new Resultat_RechercheFragment(
+                        livre.getString("id"),
+                        img,
+                        image,
+                        livre.getString("title"),
+                        livre.getString("genre"),
+                        livre.getString("stars_average"));
+                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.layout_liste_lecture, response, "");
+                ft.commit();
             }
 
             /*
@@ -169,7 +214,25 @@ public class DetailsUtilisateurFragment extends Fragment implements DataReceiver
              */
             for(int i = 0 ; i < comments.length() ; i++)
             {
-                System.out.println(comments.getString("comment"+i));
+                JSONObject comment = new JSONObject(comments.getString("comment" + i));
+
+                /*
+                    Structure de CommentaireFragment :
+                    String title, String id, Bitmap image, String comment, int evaluation
+                 */
+                urlImage = comment.getString("cover_url");
+                BitmapManager bitmapManager = new BitmapManager(img);
+                try {
+                    img = bitmapManager.execute(urlImage).get();
+                }catch(ExecutionException | InterruptedException e){}
+                EvaluationFragment response = new EvaluationFragment(comment.getString("title"),
+                        comment.getString("id"),
+                        img,
+                        comment.getString("comment"),
+                        comment.getInt("stars"));
+                android.support.v4.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.layout_liste_evaluation, response, "");
+                ft.commit();
             }
 
         } catch (JSONException e) {
