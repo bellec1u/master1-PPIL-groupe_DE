@@ -32,7 +32,7 @@
     </div>
 </header>-->
 
-<nav class="navbar navbar-inverse navbar-static-top">
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -82,7 +82,7 @@
                                                 @if ($errors->has('email'))
                                                     <span class="help-block">
                                                             <strong>{{ $errors->first('email') }}</strong>
-                                                        </span>
+                                                    </span>
                                                 @endif
                                             </div>
                                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -91,7 +91,7 @@
                                                 @if ($errors->has('password'))
                                                     <span class="help-block">
                                                             <strong>{{ $errors->first('password') }}</strong>
-                                                        </span>
+                                                    </span>
                                                 @endif
                                             </div>
                                             <div class="help-block text-right"><a href="{{ url('/password/reset') }}">Mot de passe oublié ?</a></div>
@@ -133,28 +133,24 @@
     </div>
 </nav>
 
-
-
-<section id="main_container">
-    <div class="container">
+<section class="container" role="main">
+    <div class="row">
         @if (session('status'))
-            <div class="alert alert-success">
+            <div class="alert alert-success text-center" style="margin-bottom: 0px;">
+                <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 {{ session('status') }}
             </div>
         @endif
-        <div class="row">
-            @if ($errors->has('email'))
-                <!--<div class="alert alert-danger text-center" style="margin-bottom: 0px;">
-                    <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <b>Une erreur est survenue !</b> Cliquez sur l'onglet "Connexion" du menu pour plus de détails...
-                </div>-->
-            @endif
+        @if (!$errors->isEmpty())
+            <div class="alert alert-danger text-center" style="margin-bottom: 0px;">
+                <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <b>Une erreur est survenue !</b> Cliquez sur l'onglet "Connexion" du menu pour plus de détails...
+            </div>
+        @endif
 
-            @yield('contenu')
-        </div>
+        @yield('contenu')
     </div>
 </section>
-
 
 <footer class="navbar navbar-sticky-top" role="contentinfo">
     <div class="container">
