@@ -21,7 +21,7 @@
             <div class="row">
                 {!! Form::open(array('route'=>'bookSearch', 'method'=>'GET')) !!}
                     <div class="form-group">
-                        <div class="input-group col-lg-7">
+                        <div class="input-group">
                             <input type="text" class="form-control" name="query" placeholder="Rechercher un Ebook..." />
                             <div class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
