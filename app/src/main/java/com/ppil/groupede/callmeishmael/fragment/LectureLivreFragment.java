@@ -1,11 +1,17 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +22,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.DataManager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -95,12 +103,10 @@ public class LectureLivreFragment extends Fragment {
                             //passer une page -> x > newX
                             //page suivante
                             webView.scrollBy(0, height);
-                            System.out.println("- - - - - - - coucou1");
                         } else if (xChangePage < event.getX() && event.getX() - xChangePage > 50 && havePageBefore(height)) {
                             //retour d'une page -> x < newX
                             //page suivante
                             webView.scrollBy(0, -height);
-                            System.out.println("- - - - - - - coucou2");
                         }
                         break;
                 }
@@ -177,6 +183,35 @@ public class LectureLivreFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // ---------- ---------- ---------- ---------- demande de reprise de lecture
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        // set title
+        alertDialogBuilder.setTitle("Reprise de lecture");
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Voulez-vous reprendre la lecture au dernier point de sauvegarde ?")
+                .setCancelable(false)
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        System.out.println("- - - - -coucou");
+                        goToPart(14.561438f);
+                        System.out.println("- - - - -fin");
+                    }
+                })
+                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+
+        // ---------- ---------- ---------- ---------- 
 
         return view;
     }
@@ -309,10 +344,10 @@ public class LectureLivreFragment extends Fragment {
     }
 
     // Calculate the % of scroll progress in the actual web page content
-    private float calculateProgression(WebView content) {
+    private float calculateProgression() {
         float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
         float cursor = webView.getScrollY();
-        return ((cursor*100)/totalHeightWebView);
+        return (((float)(cursor*100))/((float)(totalHeightWebView)));
     }
 
     //test si l'utilisateur n'est pas en fin de webview
@@ -321,7 +356,7 @@ public class LectureLivreFragment extends Fragment {
 
         float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
         float cursor = webView.getScrollY();
-        System.out.println("- - - - - - -- - - - -- - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView);
+//        System.out.println("- - - - - - -- - - - -- - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView+" // "+calculateProgression());
         if (cursor + heightScrollBar < totalHeightWebView) {
             res = true;
         }
@@ -339,6 +374,18 @@ public class LectureLivreFragment extends Fragment {
         }
 
         return res;
+    }
+
+    //vas a un certain pourcentage du livre
+    private void goToPart(float percent) {
+
+        //retourne la hauteur de la webView - 5% -> pour ne pas perdre de texte
+        int height = (int)(webView.getMeasuredHeight() * 0.95);
+
+        //si c'est pas le bas du livre et on a tjrs pas atteint le bon % on continu de décendre
+        while (havePageAfter(height) && calculateProgression() <= percent) {
+            webView.scrollBy(0, height);
+        }
     }
 
 }
