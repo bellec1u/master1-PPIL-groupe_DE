@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -213,18 +214,23 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 public void onClick(View v) {
                     if(!dansMaListe) {
                         try {
-                            File direct = new File(Environment.getExternalStorageDirectory() + "/epub");
+                            File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
                             if (!direct.exists()) {
                                 direct.mkdir(); // repertoire créé
                             }
                             SessionManager sessionManager = new SessionManager(getContext());
                             String adresse = Data.getData().getURLAJouterLivre();
-                            byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id);
+                            // email utilisateur et id du Livre, ainsi que chemin vers mem mobile
+                            byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id, Environment.getDataDirectory().getAbsolutePath());
                             EPubDownloader epub = new EPubDownloader(getContext());
                             String res = epub.execute(adresse, infos).get();
+                            System.out.println("RES "+res);
                             if (res.equals("false")) {
                                 Toast.makeText(getContext(), " Ce livre est déjà dans votre liste !", Toast.LENGTH_SHORT).show();
                             } else {
+                                //refresh
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(DetailsLivreFragment.this).attach(DetailsLivreFragment.this).commit();
                                 Toast.makeText(getContext(), " Ce livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
                             }
 
@@ -361,10 +367,24 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             getActivity().setTitle(o.getString("title"));
 
             /*
+                Je recupere la liste des utilisateurs que l'utilisateur connecté suit,
+                sous reserve qu'un utilisateur est connecté
+             */
+            ArrayList<String> emailSuivi = new ArrayList<String>();
+            if(object.has("suivre0")){
+                int j = 0;
+                while(object.has("suivre" + j))
+                {
+                    o = new JSONObject(object.getString("suivre" + j));
+                    emailSuivi.add(o.getString("email"));
+                    j++;
+                }
+            }
+
+            /*
                 On charge maintenant les commentaires du livre
              */
             int indice = object.getInt("counter");
-            System.out.println(indice);
             for(int i = 0 ; i < indice ; i++)
             {
                 ft = getFragmentManager().beginTransaction();
@@ -388,7 +408,20 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 /*
                     On instancie le nouveau Commentaire et on l'ajoute au layout
                  */
-                CommentaireFragment com = new CommentaireFragment(email,auteur,note,resume,follow,mine, idCom, this);
+                /*
+                    On regarde si le mail de cet utilisateur est present dans la liste
+                    des utilisateurs que follow actuellement l'utilisateur connecté
+                    si oui alors le boolean suivre sera a vrai, faux sinon
+                 */
+                boolean suivre = false;
+                if(!emailSuivi.isEmpty())
+                {
+                    if(emailSuivi.contains(email))
+                    {
+                        suivre = true;
+                    }
+                }
+                CommentaireFragment com = new CommentaireFragment(email,auteur,note,resume,follow,mine, idCom, this, suivre);
                 ft.add(R.id.layout_commentaires, com, "");
                 ft.commit();
             }

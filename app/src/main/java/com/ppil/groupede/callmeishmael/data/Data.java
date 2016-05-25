@@ -419,11 +419,11 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Requete POST pour ajouter un livre dans la liste de lecture
      */
-    public byte[] getPostAjouterLivre(String email, String idLivre) {
+    public byte[] getPostAjouterLivre(String email, String idLivre, String directory) {
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("id", idLivre); // on associe au champs id = idLivre
         params.put("email", email);
-        params.put("directory", Environment.getExternalStorageDirectory()+"/epub");
+        params.put("directory", directory);
 
         /*
             Charge les parametres
@@ -658,5 +658,12 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         } catch (UnsupportedEncodingException e) {
             return new byte[1]; // unreachable
         }
+    }
+
+    /*
+        Retourne l'URL nécessaire pour unfollow un utilisateur
+     */
+    public String getURLUnFollowUser() {
+        return (adresse + "/requetes/Plussuivre.php");
     }
 }
