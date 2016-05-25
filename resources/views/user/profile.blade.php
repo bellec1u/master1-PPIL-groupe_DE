@@ -19,13 +19,13 @@ Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
 
         <div class="row">
             <section class="col-sm-3">
-                <table>
+
                     @if($user->profile_image == '')
-                        <tr> <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="75%" height="50%" /></tr>
+                        <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="50%" height="50%" />
 
                     @else
 
-                              <tr> <img src="{{ URL($user->profile_image) }}" alt="" width="75%" height="50%" /></tr>
+                               <img src="{{ URL($user->profile_image) }}" alt="" width="50%" height="50%" />
                     @endif
             </section>
             <section class="col-sm-9"><br>

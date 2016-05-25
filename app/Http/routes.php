@@ -77,6 +77,11 @@ Route::group(['middleware' => 'web'], function () {
     //subscriptions
     Route::post('follow',
         ['uses' => 'User\SubscriptionController@store', 'as' => 'addFollower']);
+    Route::get('follow',
+        ['uses' => 'User\SubscriptionController@show', 'as' => 'ConsultFollower']);
+    Route::delete('follow/delete/{id}',
+        ['uses' => 'User\SubscriptionController@delete', 'as' => 'deleteFollower']);
+
 
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'Auth\SocialAuthController@redirect');

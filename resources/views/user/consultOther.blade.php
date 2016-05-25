@@ -87,30 +87,26 @@ function makeRating($rate, $bestvalue = 5) {
 
 
     <article class="panel panel-info">
-        <h1 class="panel-heading">Profil de {{ $user->last_name }}{{ $user->first_name }}</h1>
+        <h1 class="panel-heading">Profil de {{ $user->last_name }} {{ $user->first_name }}</h1>
         <div class="panel-body">
 
             <div class="row">
                 <section class="col-sm-3">
-                    <table>
-                        @if($user->profile_image == '')
-                            <tr> <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="75%" height="50%" /></tr>
 
-                        @else
-                            @if( strstr($user->profil_image, 'image_uploads' ))
-                            <tr> <img src="{{ URL($user->profile_image) }}" alt="" width="75%" height="50%" /></tr>
-                            @else
+                    @if($user->profile_image == '')
+                        <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="50%" height="50%" />
 
-                                <tr> <img src="{{ $user->profile_image }}" alt="" width="75%" height="50%" /></tr>
-                            @endif
+                    @else
 
+                        <img src="{{ URL($user->profile_image) }}" alt="" width="50%" height="50%" />
                     @endif
                 </section>
+
                 <section class="col-sm-9"><br>
                     <p><b>Nom :</b>  {{ $user->first_name }}</p>
                     <p><b>Email :</b>  {{ $user->email}}</p>
                     <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
-                    </table>
+
 
                     {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
                         <input type="hidden" name="followed_user_id" value="{{ $user->id }}">

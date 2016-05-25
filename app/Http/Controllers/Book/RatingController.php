@@ -8,7 +8,7 @@ use App\Repositories\Book\RatingRepository;
 use App\Http\Requests;
 use App\Repositories\Book\BookRepository;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\User\UserRepository;
 use Auth;
 use Redirect;
 use Illuminate\Support\Facades\Response;
