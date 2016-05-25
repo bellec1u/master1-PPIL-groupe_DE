@@ -29,9 +29,15 @@ class BookController extends Controller
     }
 
 
+    /**
+     * Accepted parameters ['query', 'author', 'genre', 'lang']
+     *
+     * @param Request $request
+     * @return 
+     */
     public function search(Request $request)
     {
-        $books = $this->bookRepository->search($request->input('query'));
+        $books = $this->bookRepository->search($request->all());
         return view('book.search', compact('books'));
     }
 
