@@ -10,6 +10,7 @@
   </component>
   <component name="ChangeListManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="7e07d16d-e96b-4d88-b86e-66dab9655e30" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_panorama_8_3_0.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_plus_8_3_0.xml" />
@@ -40,6 +41,9 @@
       <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_safetynet_8_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_safetynet_8_3_0.xml" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_vision_8_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_vision_8_3_0.xml" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_wallet_8_4_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_wallet_8_3_0.xml" />
+=======
+    <list default="true" id="5f0f1e1b-6d0a-4bbe-9008-d0d5a47eaf42" name="Default" comment="" />
+>>>>>>> a510afbdf38beddca80968430f6355d73be52d57
 =======
 <<<<<<< HEAD
     <list default="true" id="5a26f657-1a95-4d3b-b7a3-7f42bf05d7c2" name="Default" comment="">
@@ -101,6 +105,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/ppil/groupede/callmeishmael/fragment/LectureLivreFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/ppil/groupede/callmeishmael/fragment/LectureLivreFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
+>>>>>>> 7e48b90c8a19ffc54a397c7c87fc7c36807c4603
     <ignored path="ppil_mobile.iws" />
     <ignored path=".idea/workspace.xml" />
 >>>>>>> d0f5b1e0672e462bb73a7ec1bab0d4747ef49bf6

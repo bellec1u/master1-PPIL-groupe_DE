@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.ppil.groupede.callmeishmael.R;
 
@@ -62,7 +63,6 @@ public class LectureLivreFragment extends Fragment {
 
     int position = 0;
     String line;
-    int i = 0;
     float xChangePage = 0;
 
     public LectureLivreFragment(String id) {
@@ -89,19 +89,18 @@ public class LectureLivreFragment extends Fragment {
                         xChangePage = event.getX();
                         break;
                     case MotionEvent.ACTION_UP :
-                        System.out.println("- - - - - - ici    x : " + xChangePage + "    -    newX : " + event.getX());
                         //retourne la hauteur de la webView - 5% -> pour ne pas perdre de texte
                         int height = (int)(webView.getMeasuredHeight() * 0.95);
-                        if (xChangePage > event.getX() && xChangePage - event.getX() > 25) {
+                        if (xChangePage > event.getX() && xChangePage - event.getX() > 50 && havePageAfter(height)) {
                             //passer une page -> x > newX
                             //page suivante
                             webView.scrollBy(0, height);
-                            System.out.println("- - - - - - - - - - 1");
-                        } else if (xChangePage < event.getX() && event.getX() - xChangePage > 25) {
+                            System.out.println("- - - - - - - coucou1");
+                        } else if (xChangePage < event.getX() && event.getX() - xChangePage > 50 && havePageBefore(height)) {
                             //retour d'une page -> x < newX
                             //page suivante
                             webView.scrollBy(0, -height);
-                            System.out.println("- - - - - - - - - - 2");
+                            System.out.println("- - - - - - - coucou2");
                         }
                         break;
                 }
@@ -109,7 +108,6 @@ public class LectureLivreFragment extends Fragment {
                 return true;
             }
         });
-
 
 
 
@@ -308,6 +306,39 @@ public class LectureLivreFragment extends Fragment {
         } catch (Exception e) {
 
         }
+    }
+
+    // Calculate the % of scroll progress in the actual web page content
+    private float calculateProgression(WebView content) {
+        float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
+        float cursor = webView.getScrollY();
+        return ((cursor*100)/totalHeightWebView);
+    }
+
+    //test si l'utilisateur n'est pas en fin de webview
+    private boolean havePageAfter(int heightScrollBar) {
+        boolean res = false;
+
+        float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
+        float cursor = webView.getScrollY();
+        System.out.println("- - - - - - -- - - - -- - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView);
+        if (cursor + heightScrollBar < totalHeightWebView) {
+            res = true;
+        }
+
+        return res;
+    }
+
+    //test si l'utilisateur n'est pas en debut de webview
+    private boolean havePageBefore(int heightScrollBar) {
+        boolean res = false;
+
+        float cursor = webView.getScrollY();
+        if (cursor - heightScrollBar >= 0) {
+            res = true;
+        }
+
+        return res;
     }
 
 }

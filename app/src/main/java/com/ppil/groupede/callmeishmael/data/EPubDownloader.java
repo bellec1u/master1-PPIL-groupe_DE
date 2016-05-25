@@ -1,5 +1,6 @@
 package com.ppil.groupede.callmeishmael.data;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -15,6 +16,7 @@ import com.ppil.groupede.callmeishmael.fragment.DetailsLivreFragment;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,6 +37,8 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
      */
 
     private Context contexte;
+
+    private ProgressDialog pDialog;
 
     public EPubDownloader(Context c)
     {
@@ -85,8 +89,38 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-            response = sb.toString(); // résultat affecté ici !
+            String adresse = "";
+            adresse = sb.toString(); // résultat affecté ici !
             urlConnection.disconnect(); // on ferme la connexion
+            System.out.println("ADRESSE " + adresse);
+            /*
+                On refait la meme requete et on utilise l'url trouvé précèdemment
+             */
+            String root = Environment.getExternalStorageDirectory().toString(); // où on stockera l'epub
+            serv = new URL(adresse); // on instancie l'url correspondant
+            urlConnection = (HttpURLConnection) serv.openConnection(); // on re ouvre la connexion
+            urlConnection.connect();
+            int lenght = urlConnection.getContentLength();
+
+            in = new BufferedInputStream(serv.openStream(), 8192); // buffer de 8k
+            FileOutputStream output = new FileOutputStream(root + "/" + params[2] + ".epub");
+
+            byte data[] = new byte[1024];
+
+            long total = 0;
+            int count = 0;
+            while ((count = in.read(data)) != -1) {
+                total += count;
+                // on ecrit dans le fichier
+                output.write(data, 0, count);
+            }
+
+            // flushing output
+            output.flush();
+
+            // closing streams
+            output.close();
+            in.close();
         } catch (MalformedURLException e) {
             e.printStackTrace(); // pas atteignable logiquement !
         } catch (IOException e) {
@@ -98,6 +132,8 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
+        pDialog.dismiss();
+
     }
 
     /*
@@ -107,5 +143,18 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
     protected void onProgressUpdate(String... values) {
         super.onProgressUpdate(values);
         Toast.makeText(contexte," Téléchargement en cours...", Toast.LENGTH_SHORT).show();
+    }
+
+    /*
+        Avant de commencer le download
+     */
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pDialog = new ProgressDialog(contexte);
+        pDialog.setMessage("Téléchargement en cours...");
+        pDialog.setIndeterminate(false);
+        pDialog.setCancelable(false);
+        pDialog.show();
     }
 }
