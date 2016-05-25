@@ -666,4 +666,41 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     public String getURLUnFollowUser() {
         return (adresse + "/requetes/Plussuivre.php");
     }
+
+    /*
+        Retourne l'URL nécessaire pour marquer la page d'un livre 'id'
+        lu par l'utilisateur ayant l'email 'mail'
+     */
+    public String getURLMarquePage() {
+        return  (adresse + "/requetes/marquePage.php");
+    }
+
+    /*
+        Remplie le formulaire POST nécessaire pour permettre à un
+        utilisateur d'indiquer sa progression en % d'un livre
+     */
+    public byte[] getPostMarquePage(String email, float pourcent, String idLivre)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email);
+        params.put("pourcent", pourcent);
+        params.put("idLivre", idLivre);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
 }

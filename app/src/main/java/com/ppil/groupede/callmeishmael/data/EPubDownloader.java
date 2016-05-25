@@ -129,6 +129,9 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
         return response; // résultat contenant la réponse du serveur retourné...
     }
 
+    /*
+        Appelée lorsque le téléchargement est fini
+     */
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);

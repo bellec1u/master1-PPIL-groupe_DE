@@ -16,6 +16,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -94,11 +96,15 @@ public class LectureLivreFragment extends Fragment {
                         if (xChangePage > event.getX() && xChangePage - event.getX() > 50 && havePageAfter(height)) {
                             //passer une page -> x > newX
                             //page suivante
+                            float pourcent = calculateProgression(); // je recup position
+                            sauvegarder(pourcent); // on sauvegarde
                             webView.scrollBy(0, height);
                             System.out.println("- - - - - - - coucou1");
                         } else if (xChangePage < event.getX() && event.getX() - xChangePage > 50 && havePageBefore(height)) {
                             //retour d'une page -> x < newX
                             //page suivante
+                            float pourcent = calculateProgression(); // je recup position
+                            sauvegarder(pourcent); // on sauvegarde
                             webView.scrollBy(0, -height);
                             System.out.println("- - - - - - - coucou2");
                         }
@@ -309,7 +315,7 @@ public class LectureLivreFragment extends Fragment {
     }
 
     // Calculate the % of scroll progress in the actual web page content
-    private float calculateProgression(WebView content) {
+    private float calculateProgression() {
         float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
         float cursor = webView.getScrollY();
         return ((cursor*100)/totalHeightWebView);
@@ -321,7 +327,7 @@ public class LectureLivreFragment extends Fragment {
 
         float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
         float cursor = webView.getScrollY();
-        System.out.println("- - - - - - -- - - - -- - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView);
+        System.out.println("- - - - - - - - - - - - - - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView);
         if (cursor + heightScrollBar < totalHeightWebView) {
             res = true;
         }
@@ -339,6 +345,20 @@ public class LectureLivreFragment extends Fragment {
         }
 
         return res;
+    }
+
+    /*
+        Appel DataManager, pour demander l'ajout dans la base du pourcentage
+        du livre lu par l'utilisateur
+     */
+    public void sauvegarder(float pourcent)
+    {
+        //On doit recuperer l'email de l'utilisateur connecté
+        SessionManager sessionManager = new SessionManager(getContext());
+        if(!sessionManager.isConnected()){
+            String email = sessionManager.getSessionEmail();
+            String adresse = Data.getData().getURLMarquePage();
+        }
     }
 
 }

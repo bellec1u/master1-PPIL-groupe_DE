@@ -213,7 +213,6 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 @Override
                 public void onClick(View v) {
                     if(!dansMaListe) {
-                        try {
                             File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
                             if (!direct.exists()) {
                                 direct.mkdir(); // repertoire créé
@@ -223,15 +222,11 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                             // email utilisateur et id du Livre, ainsi que chemin vers mem mobile
                             byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id, Environment.getDataDirectory().getAbsolutePath());
                             EPubDownloader epub = new EPubDownloader(getContext());
-                            String res = epub.execute(adresse, infos, id).get();
+                           epub.execute(adresse, infos, id);
                                 //refresh
                                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                                 ft.detach(DetailsLivreFragment.this).attach(DetailsLivreFragment.this).commit();
                                 Toast.makeText(getContext(), " Ce livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
-
-                        } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
-                        }
                     }else{
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 
