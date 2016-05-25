@@ -53,6 +53,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <b>Utilisateur</b> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            <li><a href="{{URL::route('showNotification', array())}}"><span class="glyphicon glyphicon-globe"></span> Notifications</a></li>
+                            <li role="separator" class="divider"></li>
                             <li><a href="{{URL::route('ConsultFollower', array())}}"><span class="glyphicon glyphicon-user"></span> Liste de Suivis</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{URL::route('showReading', array())}}"><span class="glyphicon glyphicon-book"></span> Liste de Lectures</a></li>

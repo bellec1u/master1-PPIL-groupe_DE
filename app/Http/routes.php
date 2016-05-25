@@ -85,6 +85,9 @@ Route::group(['middleware' => 'web'], function () {
         ['uses' => 'User\SubscriptionController@update', 'as' => 'updateFollower']);
 
 
+    // notidication
+    Route::get('notification/',
+        ['uses' => 'User\NotificationController@show', 'as' => 'showNotification']);
     // facebook and google+ users connection
     Route::get('/redirect/{provider}', 'Auth\SocialAuthController@redirect');
     Route::get('/callback/{provider}', 'Auth\SocialAuthController@callback');

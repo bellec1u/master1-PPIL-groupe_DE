@@ -25,13 +25,16 @@ class NotificationController extends Controller
     public function store(Array $request)
     {
         $user = Auth::user();
-        $listFolowee = $user->subscriptionsTo;
+        $listFolowee = $user->subscriptionsFrom;
         $request['notifier_user_id'] = $user->id;
 
         foreach($listFolowee as $followee){
-            echo "rentre";
-        $request['notified_user_id'] = $followee->followed_user_id;
-            $this->notifsRepository->store($request);
+
+           if($followee->notifications_accepted == 1){
+               $request['notified_user_id'] = $followee->user_id;
+               $this->notifsRepository->store($request);
+           }
+
         }
 
     }
@@ -39,18 +42,19 @@ class NotificationController extends Controller
     public function show(){
         if(Auth::check()){
             $user = Auth::user();
-            $listeNotifs = $user->notificationsTo;
-
-            return view('user\notification', compact('listeNotifs'));
+            $notifications = $user->notificationsFrom;
+            
+            return view('user\notification', compact('notifications'));
         }
     }
+    
     public function delete($id){
         $this->notifsRepository->destroy($id);
         if(Auth::check()){
             $user = Auth::user();
-            $listeFolower = $user->notificationsTo;
+            $notifications = $user->notificationsTo;
 
-            return view('user\notification', compact('listeFolower'));
+            return view('user\notification', compact('notifications'));
         }
 
     }

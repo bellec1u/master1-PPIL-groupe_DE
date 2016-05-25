@@ -127,6 +127,7 @@ function makeRating($rate, $bestvalue = 5) {
 							@endif
 							@if($rating->user != null)
 							<img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%" height="10%" />
+
 								<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" > {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
 							@else
 								Anonyme
