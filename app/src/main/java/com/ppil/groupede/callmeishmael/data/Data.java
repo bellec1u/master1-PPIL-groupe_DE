@@ -1,7 +1,5 @@
 package com.ppil.groupede.callmeishmael.data;
 
-import android.os.Environment;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
@@ -24,17 +22,10 @@ public class Data {
 
     public static Data data = new Data(); // instance de Data
 
-<<<<<<< HEAD
     private Data() {
 
         ipMachine = "http://192.168.43.7";
         port = "";
-=======
-    private Data()
-    {
-        ipMachine = "http://192.168.1.13" ;
-        port = "8888" ;
->>>>>>> a510afbdf38beddca80968430f6355d73be52d57
         adresse = ipMachine + ":" + port;
 
     }

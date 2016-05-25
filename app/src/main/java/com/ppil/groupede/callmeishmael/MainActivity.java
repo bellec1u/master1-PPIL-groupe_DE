@@ -357,6 +357,8 @@ public class MainActivity extends AppCompatActivity
         mi.setVisible(true);
         mi = m.getItem(2).getSubMenu().getItem(3);
         mi.setVisible(true);
+        mi = m.getItem(2).getSubMenu().getItem(4);
+        mi.setVisible(true);
 
         return true;
     }
@@ -372,12 +374,13 @@ public class MainActivity extends AppCompatActivity
         mi = m.getItem(2).getSubMenu().getItem(1);
         mi.setVisible(true);
 
-        // Hide "Deconnection"
+        // Hide "Deconnection" and "mon compte" and "utilisateur suivi"
         mi = m.getItem(2).getSubMenu().getItem(2);
         mi.setVisible(false);
         mi = m.getItem(2).getSubMenu().getItem(3);
         mi.setVisible(false);
-
+        mi = m.getItem(2).getSubMenu().getItem(4);
+        mi.setVisible(false);
         return true;
     }
 

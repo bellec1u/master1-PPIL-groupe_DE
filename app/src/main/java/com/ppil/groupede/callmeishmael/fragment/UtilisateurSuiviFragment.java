@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.R;
@@ -24,22 +25,26 @@ import java.util.concurrent.ExecutionException;
 
 public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
     private android.support.v4.app.FragmentTransaction ft;
+    private TextView liste;
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+    View view = inflater.inflate(R.layout.fragment_utilisateur_suivi, container, false);
+        liste = (TextView) view.findViewById(R.id.liste);
+
         final SessionManager sessionManager = new SessionManager(getContext());
         String adresse = Data.getData().getURLUtilisateurSuivi();
         byte[] infos = Data.getData().getPostUtilisayeurSuivi(sessionManager.getSessionEmail());
-        System.out.println(adresse);
         DataManager dataManager = new DataManager(UtilisateurSuiviFragment.this);
         dataManager.execute(adresse, infos);
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_utilisateur_suivi, container, false);
+        return view;
     }
 
 
@@ -55,6 +60,8 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
         try {
             JSONArray array = new JSONArray(resultat) ; // convertie le résultat en JSONArray
             if(array.length() > 0 ){
+                liste.setText("");
+                liste.setVisibility(View.GONE);
 
                 for(int i = 0 ; i  < array.length() ; i++) {
                     // On recupere le premier élement dans un Object, puis en JSONObject
@@ -64,8 +71,9 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
                    /* On récupère avant les attributs présent dans le JSONObject */
                     String first_name = jsonObject.getString("first_name");
                     String last_name = jsonObject.getString("last_name");
-                    String id = jsonObject.getString("id");
                     String date = jsonObject.getString("birth_date");
+                    String mail = jsonObject.getString("email");
+
 
                     /*
                     Utilisation de la classe BitmapManager pour charger dans un Bitmap
@@ -88,16 +96,17 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
                     }
 
 
-                    ResultatUtilisateurSuiviFragment com = new ResultatUtilisateurSuiviFragment(id, bitmap, image, first_name, last_name, date);
+                    ResultatUtilisateurSuiviFragment com = new ResultatUtilisateurSuiviFragment(bitmap, image, first_name, last_name, date,mail);
                     ft = getFragmentManager().beginTransaction();
                     ft.add(R.id.layout_suivi, com, "");
                     ft.commit();
                 }
             }else{
-                Toast.makeText(getContext(), "Vous ne suivez personne", Toast.LENGTH_SHORT).show();
+                liste.setText("Votre liste d'abonnement est vide");
+                liste.setVisibility(View.VISIBLE);
             }
                 } catch (JSONException e) {
-            Toast.makeText(getContext(), "Bonjour  !" + e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Erreur  !", Toast.LENGTH_SHORT).show();
 
             e.printStackTrace();
         } catch (InterruptedException e) {

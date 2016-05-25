@@ -6,7 +6,22 @@
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="39dp"
+        android:layout_marginTop="110dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorPrimary" />
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:layout_gravity="center_horizontal|top">
 
         <ImageView
             android:layout_width="66dp"
@@ -24,7 +39,7 @@
             android:layout_row="0"
             android:layout_column="1"
             android:maxLines="1"
-            android:maxLength="10"
+            android:maxLength="20"
             android:clickable="false" />
 
         <TextView
@@ -38,9 +53,9 @@
             android:maxLength="10" />
 
         <Button
-            android:layout_width="137dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+ d&apos;info"
+            android:text="plus d&apos;info        "
             android:id="@+id/info"
             android:layout_row="0"
             android:layout_column="14"
@@ -54,20 +69,6 @@
             android:layout_row="1"
             android:layout_column="14"
             android:layout_marginRight="5dp" />
-
-    </GridLayout>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:layout_marginTop="110dp">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/colorPrimary" />
 
     </GridLayout>
 </FrameLayout>
