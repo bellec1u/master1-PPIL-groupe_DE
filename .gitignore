@@ -4,3 +4,11 @@
 Homestead.yaml
 Homestead.json
 .env
+/.idea
+/nbproject
+.DS_Store
+*.DS_Store
+/public/imageUser/
+/public/image_uploads/
+/public/Books/
+*~
