@@ -30,26 +30,30 @@
                     </div>
                 {!! Form::close() !!}
             </div>
+            <div class="row">
+                <section class="col-sm-4">
+                    {{ count($books) }} résultat(s) trouvé(s)
+                    <hr>
+                </section>
+            </div>
             @foreach($books as $book)
-                @if($book != '')
-                    <div class="row">
-                        <section class="col-sm-2">
-                            <p class="text-center"><a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"><img class="cover" src="{{ $book->cover_url  }}" alt="img_cover" /></a></p>
-                        </section>
-                        <section class="col-sm-5">
-                            <p><b>Titre :</b>  {{ $book->title }}</p>
-                            <p><b>Genre :</b>  {{ $book->genre }}</p>
-                            <p><b>Auteur :</b> {{ $book->author }}</p>
-                        </section>
-                        <section class="col-sm-3">
-                            <p><b>Langue :</b> {{ $book->language }}</p>
-                            <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
-                            <p><b>Note moyenne : </b> {{ $book->stars_average }}/5</p>
-                            <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a>
-                        </section>
+                <div class="row">
+                    <section class="col-sm-2">
+                        <p class="text-center"><a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"><img class="cover" src="{{ $book->cover_url  }}" alt="img_cover" /></a></p>
+                    </section>
+                    <section class="col-sm-5">
+                        <p><b>Titre :</b>  {{ $book->title }}</p>
+                        <p><b>Genre :</b>  {{ $book->genre }}</p>
+                        <p><b>Auteur :</b> {{ $book->author }}</p>
+                    </section>
+                    <section class="col-sm-3">
+                        <p><b>Langue :</b> {{ $book->language }}</p>
+                        <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
+                        <p><b>Note moyenne : </b> {{ $book->stars_average }}/5</p>
+                        <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn bg-primary">Ouvrir</a>
+                    </section>
 
-                    </div><hr>
-                @endif
+                </div><hr>
             @endforeach
 
         </div>
