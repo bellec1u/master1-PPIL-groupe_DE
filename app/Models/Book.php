@@ -32,4 +32,7 @@ class Book extends Model
     {
         return $this->hasMany('App\Models\Reading');
     }
+    public function notifications(){
+        return $this->hasMany('App\Models\Notification');
+    }
 }
