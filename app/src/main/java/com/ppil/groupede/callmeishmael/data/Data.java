@@ -26,13 +26,8 @@ public class Data {
 
     private Data()
     {
-<<<<<<< HEAD
-        ipMachine = "http://192.168.1.20" ;
-        port = "" ;
-=======
         ipMachine = "http://192.168.1.13" ;
         port = "8888" ;
->>>>>>> a510afbdf38beddca80968430f6355d73be52d57
         adresse = ipMachine + ":" + port;
     }
 
@@ -689,6 +684,41 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("email", email);
         params.put("pourcent", pourcent);
+        params.put("idLivre", idLivre);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
+        Retourne l'URL nécessaire pour retourner la page courante d'un livre
+     */
+    public String getURLPageCourante()
+    {
+        return (adresse + "/requetes/getMarquePage.php");
+    }
+
+    /*
+        Remplie les informations nécessaires pour avoir la page courante d'un livre, par un utilisateur
+     */
+    public byte[] getPostPageCourante(String email, String idLivre)
+    {
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("email", email);
         params.put("idLivre", idLivre);
 
         /*

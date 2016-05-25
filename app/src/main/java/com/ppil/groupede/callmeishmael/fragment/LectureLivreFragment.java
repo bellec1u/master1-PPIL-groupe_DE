@@ -23,11 +23,9 @@ import android.webkit.WebViewClient;
 
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.Data;
-<<<<<<< HEAD
+import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
-=======
 import com.ppil.groupede.callmeishmael.data.DataManager;
->>>>>>> bb7484d7c48eeb2317cdc376f595f2a9cf069936
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -64,7 +62,7 @@ import nl.siegmann.epublib.service.MediatypeService;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LectureLivreFragment extends Fragment {
+public class LectureLivreFragment extends Fragment implements DataReceiver{
 
 
     private static final String TAG = "EpubBookContentActivity";
@@ -204,7 +202,16 @@ public class LectureLivreFragment extends Fragment {
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         System.out.println("- - - - -coucou");
-                        goToPart(14.561438f);
+                        /*
+                            ON recupere la page sauvegarder grace a Data et DataManager et SessionManager pour le mail
+                         */
+                        SessionManager sessionManager = new SessionManager(getContext());
+                        String email = sessionManager.getSessionEmail();
+                        String adresse = Data.getData().getURLPageCourante();
+                        byte[] infos = Data.getData().getPostPageCourante(email, idLivre);
+                        DataManager dataManager = new DataManager(LectureLivreFragment.this);
+                        dataManager.execute(adresse, infos);
+                        //goToPart(14.561438f);
                         System.out.println("- - - - -fin");
                     }
                 })
@@ -364,11 +371,7 @@ public class LectureLivreFragment extends Fragment {
 
         float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
         float cursor = webView.getScrollY();
-<<<<<<< HEAD
         System.out.println("- - - - - - - - - - - - - - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView);
-=======
-//        System.out.println("- - - - - - -- - - - -- - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView+" // "+calculateProgression());
->>>>>>> bb7484d7c48eeb2317cdc376f595f2a9cf069936
         if (cursor + heightScrollBar < totalHeightWebView) {
             res = true;
         }
@@ -388,20 +391,22 @@ public class LectureLivreFragment extends Fragment {
         return res;
     }
 
-<<<<<<< HEAD
     /*
         Appel DataManager, pour demander l'ajout dans la base du pourcentage
         du livre lu par l'utilisateur
      */
-    public void sauvegarder(float pourcent)
-    {
+    public void sauvegarder(float pourcent) {
         //On doit recuperer l'email de l'utilisateur connecté
         SessionManager sessionManager = new SessionManager(getContext());
-        if(!sessionManager.isConnected()){
+        if (!sessionManager.isConnected()) {
             String email = sessionManager.getSessionEmail();
             String adresse = Data.getData().getURLMarquePage();
-=======
-    //vas a un certain pourcentage du livre
+            byte[] infos = Data.getData().getPostMarquePage(email,pourcent, idLivre);
+            //vas a un certain pourcentage du livre
+            DataManager dataManager = new DataManager(null);
+            dataManager.execute(adresse,infos);
+        }
+    }
     private void goToPart(float percent) {
 
         //retourne la hauteur de la webView - 5% -> pour ne pas perdre de texte
@@ -410,8 +415,12 @@ public class LectureLivreFragment extends Fragment {
         //si c'est pas le bas du livre et on a tjrs pas atteint le bon % on continu de décendre
         while (havePageAfter(height) && calculateProgression() <= percent) {
             webView.scrollBy(0, height);
->>>>>>> bb7484d7c48eeb2317cdc376f595f2a9cf069936
         }
     }
 
+    @Override
+    public void receiveData(String resultat) {
+        float values = Float.valueOf(resultat);
+        goToPart(values);
+    }
 }
