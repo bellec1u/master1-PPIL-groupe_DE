@@ -1,49 +1,38 @@
 @extends('template')
 
 @section('titre')
-Call Me Ishmael | Référencement et Lecture d&#039;Ebooks
+    Profil de {{ $user->first_name }}
 @stop
 
 @section('contenu')
     <SCRIPT language="Javascript">
         function Desinscription() {
-            if (confirm ('Etes vous sûr de vous désinscrire ')){
+            if (confirm ('Etes vous sûr de vouloir vous désinscrire ?')){
                 document.forms["desinscrire"].submit();
             }
         }
-
     </script>
 <article class="panel panel-info">
     <h1 class="panel-heading">Profil</h1>
-    <div class="panel-body">
-
-        <div class="row">
-            <section class="col-sm-3">
-
+        <div class="panel-body">
+            <div class="col-sm-3">
                     @if($user->profile_image == '')
-                        <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="50%" height="50%" />
-
+                        <p class="text-center"></p><img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="50%" height="50%" /></p>
                     @else
-
-                               <img src="{{ URL($user->profile_image) }}" alt="" width="50%" height="50%" />
+                        <p class="text-center"><img class="text-center" src="{{ URL($user->profile_image) }}" alt="" width="50%" height="50%" /></p>
                     @endif
-            </section>
-            <section class="col-sm-9"><br>
+            </div>
+            <div class="col-sm-9">
                 <p><b>Nom :</b>  {{ $user->first_name }}</p>
                 <p><b>Email :</b>  {{ $user->email}}</p>
                 <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
                 </table>
 
-
                 {{ Form::open(array('route' => 'userDelete', 'method' => 'delete', 'name'=>'desinscrire')) }}
-                <a href="{{URL::route('userEdit')}}" class="btn bg-primary">modifier</a>
-                {!! Form::button('Desisncription', ['class' => 'btn btn-primary pull-right', 'onclick'=>"Desinscription()"]) !!}
+                <a href="{{URL::route('userEdit')}}" class="btn bg-primary">Modifier</a>
+                {!! Form::button('Désinscription', ['class' => 'btn btn-primary', 'onclick'=>"Desinscription()"]) !!}
                 {{ Form::close()}}
-
-            </section>
-
-        </div><hr>
-
-    </div>
+            </div>
+        </div>
 </article>
 @stop

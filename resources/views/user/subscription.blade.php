@@ -1,12 +1,12 @@
 @extends('template')
 
 @section('titre')
-    Liste de suivi
+    Liste de Membres Suivis
 @stop
 
 @section('contenu')
     <article class="panel panel-info">
-        <h1 class="panel-heading">Liste de suivi </h1>
+        <h1 class="panel-heading">Liste de Membres Suivis</h1>
         <div class="panel-body">
             @if(count($listeFolower) > 0 )
                 @foreach($listeFolower as $folower)
@@ -72,7 +72,7 @@
 
                 @endforeach
             @else
-                Aucun livre actuellement.
+                <p>Aucun membre suivi actuellement.</p>
             @endif
         </div>
     </article>

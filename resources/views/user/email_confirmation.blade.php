@@ -5,10 +5,9 @@
 </head>
 <body>
     <div>
-        Merci d'avoir créé un compte sur notre site. <br>
-        Vérifiez votre adresse mail en suivant le lien :<br>
-        {{ url('user/verify/' . $token) }}<br/>
+        <p>Merci d'avoir créé un compte sur notre site !</p>
+        <p>Vérifiez votre adresse mail en suivant le lien :</p>
+        <p><a href="{{ url('user/verify/' . $token) }}">{{ url('user/verify/' . $token) }}</a></p>
     </div>
-
 </body>
 </html>

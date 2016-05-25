@@ -1,15 +1,14 @@
 @extends('template')
 
 @section('titre')
-    Liste de suivi
+    Notifications
 @stop
 
 @section('contenu')
     <article class="panel panel-info">
-        <h1 class="panel-heading">Notifications </h1>
+        <h1 class="panel-heading">Notifications</h1>
         <div class="panel-body">
             @if(count($notifications) > 0 )
-
                 @foreach($notifications as $notification)
                     <div class="row">
                         <section class="col-sm-9"><br>
@@ -20,7 +19,7 @@
                 </div><hr>
                 @endforeach
             @else
-                Pas de notification.
+                <p>Pas de notifications en cours.</p>
             @endif
         </div>
     </article>
