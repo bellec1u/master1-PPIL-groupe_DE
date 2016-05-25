@@ -48,7 +48,7 @@ class RatingController extends Controller
 
         }
         else{
-            return redirect()->route('bookReturn', ['id' => $book]);
+             return redirect()->route('bookReturn', ['id' => $book]);
         }
 
     }
@@ -61,7 +61,7 @@ class RatingController extends Controller
      */
     public function store(RatingCreateRequest $request)
     {
-        if(Auth::chek()){
+        if(Auth::check()){
 
             $rating = $this->ratingRepository->getRatingIdEtUser($request->book_id,Auth::user()->id );
             if(count($rating) ==0){

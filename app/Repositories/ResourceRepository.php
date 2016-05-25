@@ -19,7 +19,7 @@ abstract class ResourceRepository
 
     public function getById($id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model->find($id);
     }
 
     public function update($id, Array $inputs)

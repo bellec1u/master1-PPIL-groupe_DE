@@ -76,4 +76,5 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Notification', 'notified_user_id')->orderBy('created_at', 'desc');
     }
+    
 }

@@ -102,12 +102,18 @@
                 </section>
 
                 <section class="col-sm-9"><br>
+                    @if(!$estSuivi)
                 {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
                 {{ Form::hidden("followed_user_id",$user->id ) }}
 
                     {!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
                     {!! Form::close() !!}
 
+                 @else
+                        {{ Form::open(array('route' => array('deleteFollower', 'id'=>$idFollower), 'method' => 'delete', 'name'=>'desinscrire')) }}
+
+                        {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+                @endif
                     <p><b>Nom :</b>  {{ $user->first_name }}</p>
                     <p><b>Email :</b>  {{ $user->email}}</p>
                     <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>

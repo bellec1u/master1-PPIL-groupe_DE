@@ -48,5 +48,6 @@ class UserRepository extends ResourceRepository
         $inputs = $this->emailConfService->sendConfirmationMail($inputs);
         return $this->model->create($inputs);
     }
+    
 
 }
