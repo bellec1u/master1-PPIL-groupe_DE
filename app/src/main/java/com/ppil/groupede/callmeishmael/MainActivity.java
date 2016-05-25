@@ -41,6 +41,7 @@ import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
 import com.ppil.groupede.callmeishmael.fragment.MonCompteFragment;
 import com.ppil.groupede.callmeishmael.fragment.RechercheFragment;
 import com.ppil.groupede.callmeishmael.fragment.ReglagesFragment;
+import com.ppil.groupede.callmeishmael.fragment.UtilisateurSuiviFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -229,6 +230,17 @@ public class MainActivity extends AppCompatActivity
             this.setTitle("Mon compte");
             // Set the fragment of view
             MonCompteFragment fragment = new MonCompteFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+
+        } else if (id == R.id.nav_suivi) {
+
+            // Set the page's title
+            this.setTitle("Utilisateur suivi");
+            // Set the fragment of view
+            UtilisateurSuiviFragment fragment = new UtilisateurSuiviFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment);

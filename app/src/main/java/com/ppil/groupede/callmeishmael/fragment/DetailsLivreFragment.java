@@ -1,6 +1,8 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
@@ -31,6 +35,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -67,6 +72,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     private Button ajouter; // permet à un utilisateur d'ajouter ce livre à sa liste de lecture
     private Button lire; // permet de lire un livre
     private Boolean dejaCommenter; // indique si l'utilisateur a déjà commenter ou non
+    private Boolean dansMaListe; // indique si le livre est dans la liste de lecture ou non
     private LinearLayout layoutCommentaire; // layout contenant les commentaires
 
     /*
@@ -140,6 +146,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         ajouter = (Button) view.findViewById(R.id.ajouterListe);
         layoutCommentaire = (LinearLayout) view.findViewById(R.id.layout_commentaires);
         dejaCommenter = false;
+        dansMaListe = false;
         lire = (Button) view.findViewById(R.id.lire);
         ft = getFragmentManager().beginTransaction();
 
@@ -150,7 +157,14 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             On demande au serveur les informations du livre d'id 'id'
          */
         String adresse = Data.getData().getURLDetails(); // adresse du serveur
-        byte[] infos = Data.getData().getPostDetails(id);
+        //On ajoute egalement l'adresse email de l'utilisateur si celui ci est connecté
+        SessionManager sessionManager = new SessionManager(getContext());
+        String email = "";
+        if(!sessionManager.isConnected())
+        {
+            email = sessionManager.getSessionEmail();
+        }
+        byte[] infos = Data.getData().getPostDetails(id,email);
 
         /*
             On instancie et execute DataManager avec adresse comme destination
@@ -193,29 +207,70 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                         /*
                     On demande à sessionManager si un utilisateur est log ou non
                  */
-        SessionManager sessionManager = new SessionManager(getContext());
+        sessionManager = new SessionManager(getContext());
         if(!sessionManager.isConnected()) {
             ajouter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        File direct = new File(Environment.getExternalStorageDirectory()+"/epub");
-                        if(!direct.exists()) {
-                            direct.mkdir(); // repertoire créé
-                        }
-                        SessionManager sessionManager = new SessionManager(getContext());
-                        String adresse = Data.getData().getURLAJouterLivre();
-                        byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id);
-                        EPubDownloader epub = new EPubDownloader(getContext());
-                        String res = epub.execute(adresse, infos).get();
-                        if (res.equals("false")) {
-                            Toast.makeText(getContext(), " Ce livre est déjà dans votre liste !", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), " Ce livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
-                        }
+                    if(!dansMaListe) {
+                        try {
+                            File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
+                            if (!direct.exists()) {
+                                direct.mkdir(); // repertoire créé
+                            }
+                            SessionManager sessionManager = new SessionManager(getContext());
+                            String adresse = Data.getData().getURLAJouterLivre();
+                            // email utilisateur et id du Livre, ainsi que chemin vers mem mobile
+                            byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id, Environment.getDataDirectory().getAbsolutePath());
+                            EPubDownloader epub = new EPubDownloader(getContext());
+                            String res = epub.execute(adresse, infos).get();
+                            System.out.println("RES "+res);
+                            if (res.equals("false")) {
+                                Toast.makeText(getContext(), " Ce livre est déjà dans votre liste !", Toast.LENGTH_SHORT).show();
+                            } else {
+                                //refresh
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                ft.detach(DetailsLivreFragment.this).attach(DetailsLivreFragment.this).commit();
+                                Toast.makeText(getContext(), " Ce livre a été ajouté avec succès !", Toast.LENGTH_SHORT).show();
+                            }
 
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
+                        } catch (ExecutionException | InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+
+                        // set title
+                        alertDialogBuilder.setTitle("Suppression");
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage("Voulez-vous vraiment supprimer ce livre de votre liste de lecture?")
+                                .setCancelable(false)
+                                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int idL) {
+                        /*
+                            On appel DataManager,
+                         */
+                                        SessionManager sessionManager = new SessionManager(getContext());
+                                        String email = sessionManager.getSessionEmail();
+                                        String adresse = Data.getData().getURLSupprimerLivre(id, email);
+                                        DataManager dataManager = new DataManager(null);
+                                        System.out.println(adresse);
+                                        dataManager.execute(adresse);
+                                        Toast.makeText(getContext()," Ce livre a été supprimé avec succès",Toast.LENGTH_SHORT).show();
+                                        setAccueil();
+                                    }
+                                })
+                                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int idL) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show it
+                        alertDialog.show();
                     }
                 }
             });
@@ -273,10 +328,11 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             lire.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(),"Vous devez être connecté pour lire un livre",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Vous devez être connecté pour lire un livre", Toast.LENGTH_SHORT).show();
                 }
             });
         }
+
         return view; // et on retourne la vue complétée de nos informations
     }
 
@@ -311,10 +367,24 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             getActivity().setTitle(o.getString("title"));
 
             /*
+                Je recupere la liste des utilisateurs que l'utilisateur connecté suit,
+                sous reserve qu'un utilisateur est connecté
+             */
+            ArrayList<String> emailSuivi = new ArrayList<String>();
+            if(object.has("suivre0")){
+                int j = 0;
+                while(object.has("suivre" + j))
+                {
+                    o = new JSONObject(object.getString("suivre" + j));
+                    emailSuivi.add(o.getString("email"));
+                    j++;
+                }
+            }
+
+            /*
                 On charge maintenant les commentaires du livre
              */
             int indice = object.getInt("counter");
-            System.out.println(indice);
             for(int i = 0 ; i < indice ; i++)
             {
                 ft = getFragmentManager().beginTransaction();
@@ -338,9 +408,31 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 /*
                     On instancie le nouveau Commentaire et on l'ajoute au layout
                  */
-                CommentaireFragment com = new CommentaireFragment(email,auteur,note,resume,follow,mine, idCom, this);
+                /*
+                    On regarde si le mail de cet utilisateur est present dans la liste
+                    des utilisateurs que follow actuellement l'utilisateur connecté
+                    si oui alors le boolean suivre sera a vrai, faux sinon
+                 */
+                boolean suivre = false;
+                if(!emailSuivi.isEmpty())
+                {
+                    if(emailSuivi.contains(email))
+                    {
+                        suivre = true;
+                    }
+                }
+                CommentaireFragment com = new CommentaireFragment(email,auteur,note,resume,follow,mine, idCom, this, suivre);
                 ft.add(R.id.layout_commentaires, com, "");
                 ft.commit();
+            }
+
+            boolean b = object.getBoolean("liste");
+            //SI le livre est dans la liste de lecture alors, on transforme le bouton en 'retirer de la liste'
+            dansMaListe = b;
+            if(dansMaListe){
+                ajouter.setText("Retirer de ma liste");
+            }else{
+                ajouter.setText("Ajouter dans ma liste");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -452,5 +544,20 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    /*
+Renvoie l'utilisateur vers le fragment Accueil, en vue cette fois ci connecté
+*/
+    public void setAccueil()
+    {
+        AccueilFragment fragment = new AccueilFragment();
+        getActivity().setTitle("Accueil");
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
     }
 }

@@ -24,12 +24,12 @@ public class Data {
 
     public static Data data = new Data(); // instance de Data
 
-    private Data()
-    {
-        ipMachine = "http://192.168.43.7" ;
-        port = "" ;
+    private Data() {
 
-    adresse = ipMachine + ":" + port;
+        ipMachine = "http://192.168.43.7";
+        port = "";
+        adresse = ipMachine + ":" + port;
+
     }
 
     /*
@@ -57,65 +57,29 @@ public class Data {
     /*
         Retourne l'URL pour s'inscrire
      */
-    public String getURLInscription()
-    {
-        return ( adresse + "/requetes/register.php" );
+    public String getURLInscription() {
+        return (adresse + "/requetes/register.php");
     }
 
     /*
         Prepare les arguments nécessaires pour une requete POST, pour inscription
      */
-    public byte[] getPostInscription(String nom, String prenom, String email, String password, String profile_image, String genre, String date)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostInscription(String nom, String prenom, String email, String password, String profile_image, String genre, String date) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email); // on associe au champs email = emailUser
         params.put("password", password); // password
         params.put("prenom", prenom);
         params.put("nom", nom);
         params.put("sexe", genre);
         params.put("date", date);
-        params.put("cover_url",profile_image);
-
-        /*
-            Charge les parametres
-        */
-        try {
-        StringBuilder postData = new StringBuilder();
-        for (Map.Entry<String,Object> para : params.entrySet()) {
-            if (postData.length() != 0) postData.append('&');
-                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
-            postData.append('=');
-            postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
-        }
-
-        return postData.toString().getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            return new byte[1]; // unreachable
-        }
-    }
-
-    /*
-    Prepare les arguments nécessaires pour une requete POST, pour modifier le profil
- */
-    public byte[] getPostProfile(String nom, String prenom, String email, String password, String profile_image, String genre, String date, String oldMail, String oldPwd)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
-        params.put("email", email); // on associe au champs email = emailUser
-        params.put("password", password); // password
-        params.put("prenom", prenom);
-        params.put("nom", nom);
-        params.put("sexe", genre);
-        params.put("date", date);
-        params.put("cover_url",profile_image);
-        params.put("oldemail", oldMail);
-        params.put("oldpwd", oldPwd);
+        params.put("cover_url", profile_image);
 
         /*
             Charge les parametres
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -127,6 +91,40 @@ public class Data {
             return new byte[1]; // unreachable
         }
     }
+
+    /*
+    Prepare les arguments nécessaires pour une requete POST, pour modifier le profil
+ */
+    public byte[] getPostProfile(String nom, String prenom, String email, String password, String profile_image, String genre, String date, String oldMail, String oldPwd) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("email", email); // on associe au champs email = emailUser
+        params.put("password", password); // password
+        params.put("prenom", prenom);
+        params.put("nom", nom);
+        params.put("sexe", genre);
+        params.put("date", date);
+        params.put("cover_url", profile_image);
+        params.put("oldemail", oldMail);
+        params.put("oldpwd", oldPwd);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
     /*
     Retourne l'URL nécessaire pour effectuer une modification des informations personnelles de l'utilisateur
     */
@@ -147,8 +145,7 @@ public class Data {
     /*
         URL pour la connexion
      */
-    public String getURLConnexion()
-    {
+    public String getURLConnexion() {
         return (adresse + "/requetes/login.php");
     }
 
@@ -156,7 +153,7 @@ public class Data {
 Prepare les arguments nécessaires pour une requete POST, pour modifier la connexion
 */
     public byte[] getPostConnexion(String email, String password) {
-        Map<String,Object> params = new LinkedHashMap<>();
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email); // on associe au champs email = emailUser
         params.put("password", password); // password
 
@@ -165,7 +162,7 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -177,6 +174,7 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
             return new byte[1]; // unreachable
         }
     }
+
     /*
         Retourne l'URL nécessaire pour obtenir le top 10 des meilleurs livres
      */
@@ -194,24 +192,24 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
     /*
         URL pour demander les details d'un livre
      */
-    public String getURLDetails()
-    {
+    public String getURLDetails() {
         return (adresse + "/requetes/bookDetails.php");
     }
+
     /*
 Prepare les arguments nécessaires pour une requete POST, pour avoir les details d'un livre
 */
-    public byte[] getPostDetails(String id)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostDetails(String id, String email) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", id); // on associe au champs id = id
+        params.put("email", email);
 
         /*
             Charge les parametres
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -234,9 +232,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Prepare les arguments nécessaires pour une requete POST, pour avoir supprimer un utilisateur
      */
-    public byte[] getPostDeleteUser(String email)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostDeleteUser(String email) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email); // on associe au champs id = id
 
         /*
@@ -244,7 +241,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -261,15 +258,14 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         Retourne l'URL nécessaire pour demander à la base d'insérer un commentaire
      */
     public String getURLCommentaire() {
-        return (adresse + "/requetes/commenter.php") ;
+        return (adresse + "/requetes/commenter.php");
     }
 
     /*
     Prepare les arguments nécessaires pour une requete POST, pour avoir commenter un livre
     */
-    public byte[] getPostCommenter(String idLivre, String emailUtilisateur, String commentaire, int note)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostCommenter(String idLivre, String emailUtilisateur, String commentaire, int note) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", idLivre); // on associe au champs id = idLivre
         params.put("email", emailUtilisateur);
         params.put("com", commentaire);
@@ -280,7 +276,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -306,9 +302,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Identique a getPostCommenter ...
      */
-    public byte[] getPostModifierCommentaire(String idLivre, String emailUtilisateur, String commentaire, int note)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostModifierCommentaire(String idLivre, String emailUtilisateur, String commentaire, int note) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", idLivre); // on associe au champs id = idLivre
         params.put("email", emailUtilisateur);
         params.put("com", commentaire);
@@ -319,7 +314,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -342,9 +337,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Requete POST, pour supprimer un commentaire
      */
-    public byte[] getPostSupprimerCommentaire(String emailUtilisateur, int idCommentaire)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostSupprimerCommentaire(String emailUtilisateur, int idCommentaire) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", idCommentaire); // on associe au champs id = idLivre
         params.put("email", emailUtilisateur);
 
@@ -353,7 +347,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -385,9 +379,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Requete POST pour supprimer un livre de la base
      */
-    public byte[] getPostSupprimerLivre(String id, String email)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostSupprimerLivre(String id, String email) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", id); // on associe au champs id = idLivre
         params.put("email", email);
 
@@ -396,7 +389,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -408,6 +401,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
             return new byte[1]; // unreachable
         }
     }
+
     /*
         Retourne l'URL pour demander l'ajout dans la liste de lecture de l'utilisateur ayant comme email 'email'
         le livre d'identifiant idLivre
@@ -419,18 +413,18 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Requete POST pour ajouter un livre dans la liste de lecture
      */
-    public byte[] getPostAjouterLivre(String email, String idLivre) {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostAjouterLivre(String email, String idLivre, String directory) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", idLivre); // on associe au champs id = idLivre
         params.put("email", email);
-        params.put("directory", Environment.getExternalStorageDirectory()+"/epub");
+        params.put("directory", directory);
 
         /*
             Charge les parametres
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -442,6 +436,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
             return new byte[1]; // unreachable
         }
     }
+
     /*
         Retourne l'instance de Data, car singleton
      */
@@ -461,30 +456,28 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Retourne l'URL permettant d'inscrire ou de connecter un utilisateur via facebook
      */
-    public String getFacebook(String idProvided, String email, String prenom, String nom, String genre, String cover, String date){
+    public String getFacebook(String idProvided, String email, String prenom, String nom, String genre, String cover, String date) {
         return (adresse + "/requetes/facebook.php?id=" + idProvided +
-                            "&nom=" + nom +
-                            "&prenom=" + prenom +
-                            "&genre=" + genre +
-                            "&cover=" + cover +
-                            "&email=" + email +
-                            "&date=" + date);
+                "&nom=" + nom +
+                "&prenom=" + prenom +
+                "&genre=" + genre +
+                "&cover=" + cover +
+                "&email=" + email +
+                "&date=" + date);
     }
 
     /*
         URL de connexion facebook
      */
-    public String getURLFacebook()
-    {
+    public String getURLFacebook() {
         return (adresse + "/requetes/facebook.php");
     }
 
     /*
         Requete POST, pour demander l'ajout d'un compte facebook
      */
-    public byte[] getPostFacebook(String idProvided, String email, String prenom, String nom, String genre, String cover, String date)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostFacebook(String idProvided, String email, String prenom, String nom, String genre, String cover, String date) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", idProvided); // on associe au champs id = idProvided
         params.put("email", email);
         params.put("prenom", prenom);
@@ -499,7 +492,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -511,6 +504,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
             return new byte[1]; // unreachable
         }
     }
+
     /*
         Retourne l'URL permettant de faire une recherche dans la base de donnée
      */
@@ -521,9 +515,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Permet de faire une requete POST, pour rechercher un livre, auteur etc...
      */
-    public byte[] getPostRechercher(String auteur, String ordre, String langue, String genre, String triPar, String recherche)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostRechercher(String auteur, String ordre, String langue, String genre, String triPar, String recherche) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("auteur", auteur);
         params.put("ordre", ordre);
         params.put("langue", langue);
@@ -537,7 +530,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -553,17 +546,15 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Retourne l'URL nécessaire pour modifier la portée follow de l'utilisateur
      */
-    public String getURLFollow()
-    {
+    public String getURLFollow() {
         return (adresse + "/requetes/follow.php");
     }
 
     /*
         On remplie les champs POST pour modifier le follow d'un utilisateur
      */
-    public byte[] getPostFollow(String email)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostFollow(String email) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email);
 
 
@@ -572,7 +563,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -602,9 +593,8 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
     /*
         Remplit le tableau de byte[] pour effectuer une requete POST pour suivre un utilisateur
      */
-    public byte[] getPostFollowUser(String emailSuivi, String emailSuiveur)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostFollowUser(String emailSuivi, String emailSuiveur) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("emailSuivi", emailSuivi);
         params.put("emailSuiveur", emailSuiveur);
 
@@ -614,7 +604,7 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');
@@ -638,16 +628,60 @@ Prepare les arguments nécessaires pour une requete POST, pour avoir les details
         Retourne le tableau de byte[] nécessaire pour effectuer une requete POST
         pour obtenir les informations de l'utilisateur ayat comme email 'email'
      */
-    public byte[] getPostDetailsUser(String email)
-    {
-        Map<String,Object> params = new LinkedHashMap<>();
+    public byte[] getPostDetailsUser(String email) {
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email);
         /*
             Charge les parametres
         */
         try {
             StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String,Object> para : params.entrySet()) {
+            for (Map.Entry<String, Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
+        Retourne l'URL nécessaire pour unfollow un utilisateur
+     */
+    public String getURLUnFollowUser() {
+        return (adresse + "/requetes/Plussuivre.php");
+    }
+
+
+    public String getUtilisateurSuivi(String email, String password) {
+        return (adresse + "/requetes/infosListeSuivi.php?" +
+                "email=" + email);
+    }
+
+    /*
+        URL pour la connexion
+     */
+    public String getURLUtilisateurSuivi() {
+        return (adresse + "/requetes/infosListeSuivi.php");
+    }
+
+    /*
+Prepare les arguments nécessaires pour une requete POST, pour modifier la connexion
+*/
+    public byte[] getPostUtilisayeurSuivi(String email) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("email", email); // on associe au champs email = emailUser
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> para : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
                 postData.append('=');

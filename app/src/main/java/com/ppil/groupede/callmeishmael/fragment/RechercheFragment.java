@@ -153,7 +153,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
                     bitmap = Bitmap.createScaledBitmap(bitmap, largeur, hauteur, true);
                 }
 
-                Resultat_RechercheFragment com = new Resultat_RechercheFragment(id, bitmap, image, titre, genre, note, this);
+                Resultat_RechercheFragment com = new Resultat_RechercheFragment(id, bitmap, image, titre, genre, note);
                 ft = getFragmentManager().beginTransaction();
                 ft.add(R.id.layout_recherche, com, "");
                 ft.commit();

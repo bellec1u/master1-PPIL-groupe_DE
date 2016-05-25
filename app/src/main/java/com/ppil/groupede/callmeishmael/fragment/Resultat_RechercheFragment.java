@@ -18,18 +18,16 @@ import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
 
 public class Resultat_RechercheFragment extends Fragment implements DataReceiver {
-    private TextView titre,genre,id,note;
+    private TextView titre,genre,note;
     private String titre_res,genre_res,id_res,note_res;
-    private RechercheFragment fragmentHome;
     private Button info;
     private ImageView img;
     private Bitmap img_res;
     private boolean image_res;
 
-    public Resultat_RechercheFragment(String id, Bitmap img,boolean image,String titre, String genre,String note, RechercheFragment frag) {
+    public Resultat_RechercheFragment(String id, Bitmap img,boolean image,String titre, String genre,String note) {
         titre_res = titre;
         genre_res = genre ;
-        fragmentHome = frag;
         id_res = id;
         if(image) {
             img_res = img;
