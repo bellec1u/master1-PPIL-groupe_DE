@@ -98,7 +98,7 @@ function makeRating($rate, $bestvalue = 5) {
 
                     @else
 
-                        <img src="{{ URL($user->profile_image) }}" alt="" width="50%" height="50%" />
+                        <img src="{{ URL($user->profile_image) }}" alt="" width="100%" height="30%" />
                     @endif
                 </section>
 
@@ -125,9 +125,10 @@ function makeRating($rate, $bestvalue = 5) {
 
             </div><hr>
             <h2 align="center" color="'green"> Liste de lecture : </h2>
-            <div class="row">
+
 
             @foreach($user->readings as $reading)
+                <div class="row">
                 <section class="col-sm-3">
                     <p><a href="{{ URL::route('bookReturn', array('id'=>$reading->book_id))}}"><img src="{{ $reading->book->cover_url  }}" alt="" /></a></p>
                 </section>
@@ -140,8 +141,9 @@ function makeRating($rate, $bestvalue = 5) {
                     <p><b>Note moyenne : </b> {{ $reading->book->stars_average  }}</p>
 
                 </section>
+                </div>
             @endforeach
-            </div><hr>
+          <hr>
             <h2 align="center">Dernières Evaluations : </h2>
 
             @foreach($user->ratings as $rating)
@@ -149,6 +151,7 @@ function makeRating($rate, $bestvalue = 5) {
            <p></p>
             <?php echo makeRating($rating->stars)  ?>
             Commentaire :  {{ $rating->comment }}
+                </br></br>
             @endforeach
         </div>
     </article>

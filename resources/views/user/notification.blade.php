@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    Liste de suivi
+   Notifications
 @stop
 
 @section('contenu')

@@ -12,6 +12,7 @@ use App\Repositories\User\UserRepository;
 use Auth;
 use Redirect;
 use Illuminate\Support\Facades\Response;
+use App\Http\Controllers\User\NotificationController;
 
 class RatingController extends Controller
 {
@@ -20,13 +21,15 @@ class RatingController extends Controller
     protected $bookRepository;
     protected $userRepository;
     protected $noteMoyenne = 0;
+    protected $notification;
 
-    public function __construct(RatingRepository $ratingRepository, BookRepository $bookRepository, UserRepository $userRepository)
+    public function __construct(RatingRepository $ratingRepository, BookRepository $bookRepository, UserRepository $userRepository, NotificationController $notificationController)
     {
 
         $this->bookRepository = $bookRepository;
         $this->ratingRepository = $ratingRepository;
         $this->userRepository = $userRepository;
+        $this->notification = $notificationController;
 
     }
 
@@ -95,6 +98,11 @@ class RatingController extends Controller
                 }
 
             }
+            $book = $this->bookRepository->getById( $request->book_id);
+            $notif['book_id'] = $request->book_id;
+            $notif['type'] = "Commentaire";
+            $notif['details'] = Auth::user()->last_name. " ".Auth::user()->first_name ." a commenté".$book->title." ";
+            $this->notification->store($notif);
         }
 
 
@@ -149,6 +157,12 @@ class RatingController extends Controller
 
                 // on enregistre la modification dans la base de données.
                 $this->bookRepository->update($request->book_id, $book->toArray());
+
+                $book = $this->bookRepository->getById( $request->book_id);
+                $notif['book_id'] = $request->book_id;
+                $notif['type'] = "Commentaire";
+                $notif['details'] = Auth::user()->last_name. " ".Auth::user()->first_name ." a modifié son commentaire sur : ".$book->title." ";
+                $this->notification->store($notif);
             }
         }
 
