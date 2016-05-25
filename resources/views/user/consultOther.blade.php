@@ -103,15 +103,17 @@ function makeRating($rate, $bestvalue = 5) {
                 </section>
 
                 <section class="col-sm-9"><br>
+                {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
+                {{ Form::hidden("followed_user_id",$user->id ) }}
+
+                    {!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
+                    {!! Form::close() !!}
+
                     <p><b>Nom :</b>  {{ $user->first_name }}</p>
                     <p><b>Email :</b>  {{ $user->email}}</p>
                     <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
 
 
-                    {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
-                        <input type="hidden" name="followed_user_id" value="{{ $user->id }}">
-                        <input type="submit" value="Follow">
-                    {!! Form::close() !!}
 
                 </section>
 

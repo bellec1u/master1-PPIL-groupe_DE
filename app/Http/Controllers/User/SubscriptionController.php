@@ -50,4 +50,15 @@ class SubscriptionController extends Controller
         }
         
     }
+    public function update($id){
+    $sub = $this->subsRepository->getById($id);
+        $sub->notifications_accepted = ! $sub->notifications_accepted;
+        $this->subsRepository->update($id,$sub->toArray());
+        if(Auth::check()){
+            $user = Auth::user();
+            $listeFolower = $user->subscriptionsTo;
+
+            return view('user\subscription', compact('listeFolower'));
+        }
+    }
 }

@@ -8,6 +8,8 @@ use App\Repositories\Book\ReadingRepository;
 use App\Http\Requests;
 use App\Repositories\Book\BookRepository;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\NotificationController;
+use  App\Repositories\User\NotificationRepository;
 use Auth;
 use App\Models\User;
 
@@ -15,11 +17,13 @@ class ReadingController extends Controller
 {
 	protected $bookRepository;
     protected $readingRepository;
+    protected $notification;
     
-    public function __construct(BookRepository $bookRepository, ReadingRepository $readingRepository)
+    public function __construct(BookRepository $bookRepository, ReadingRepository $readingRepository, NotificationController $notificationController)
     {
         $this->bookRepository = $bookRepository;
         $this->readingRepository = $readingRepository;
+        $this->notification = $notificationController;
     }
 
     /**
@@ -43,7 +47,13 @@ class ReadingController extends Controller
             $request['user_id'] = Auth::user()->id;
             $request['book_id'] = $id_book;
             $request['current_page'] = '0';
-            $this->readingRepository->store($request);
+            $reading = $this->readingRepository->store($request);
+
+
+            $notif['book_id'] = $id_book;
+            $notif['type'] = "Ajout liste de lecture";
+            $notif['details'] = $reading->user->first_name." à ajouter ".$reading->book->title." dans sa liste de lecture";
+            $this->notification->store($notif);
         }
 
         return redirect()->route('bookReturn', ['id' => $id_book]);

@@ -23,10 +23,36 @@
                             </section>
                             <section class="col-sm-9"><br>
                                 <div align="'right">
-                                    {{ Form::open(array('route' => array('deleteFollower', 'id'=>$folower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
+                                    <table>
+                                        <tr>
 
-                                    {!! Form::submit('Ne plus suivre', ['class' => 'btn btn-primary pull-right']) !!}
-                                    {{ Form::close()}}
+
+                                            {{ Form::open(array('route' => array('deleteFollower', 'id'=>$folower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
+
+                                            {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+
+
+
+                                            {{ Form::close()}}
+
+                                            {{ Form::open(array('route' => array('updateFollower', 'id'=>$folower->id), 'method' => 'put', 'name'=>'desinscrire')) }}
+                                            @if($folower->notifications_accepted)
+                                                {!! Form::submit('Ne plus notifier', ['class'=>"btn btn-danger pull-right"]) !!}
+                                            @else
+
+                                                {!! Form::submit('Notifier', ['class'=>"btn btn-info pull-right"]) !!}
+                                            @endif
+                                            {{ Form::close()}}
+
+
+
+
+
+                                        </tr>
+
+
+                                    </table>
+
                                 </div>
                                 <p><b>Nom :</b>  {{ $folower->followee->last_name}}</p>
                                 <p><b>Prenom :</b>  {{ $folower->followee->first_name}}</p>

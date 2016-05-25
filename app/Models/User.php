@@ -66,4 +66,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Subscription', 'followed_user_id');
     }
+
+    public function notificationsTo()
+    {
+        return $this->hasMany('App\Models\Notification', 'notifier_user_id');
+    }
+
+    public function notificationsFrom()
+    {
+        return $this->hasMany('App\Models\Notification', 'notified_user_id');
+    }
 }

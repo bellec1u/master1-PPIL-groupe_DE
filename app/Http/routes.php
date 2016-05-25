@@ -81,6 +81,8 @@ Route::group(['middleware' => 'web'], function () {
         ['uses' => 'User\SubscriptionController@show', 'as' => 'ConsultFollower']);
     Route::delete('follow/delete/{id}',
         ['uses' => 'User\SubscriptionController@delete', 'as' => 'deleteFollower']);
+    Route::put('follow/update/{id}',
+        ['uses' => 'User\SubscriptionController@update', 'as' => 'updateFollower']);
 
 
     // facebook and google+ users connection
