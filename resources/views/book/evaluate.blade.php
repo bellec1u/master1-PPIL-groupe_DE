@@ -35,17 +35,17 @@
                 {!! csrf_field() !!}
                 <div class="form-group {!! $errors->has('stars') ? 'has-error' : '' !!}">
                     <label class="col-sm-2">Votre note :</label>
-                    <div class="col-sm-12">
+                    <div class="col-sm-10">
                         <div id='A1'><script type='text/javascript'>CreateListeEtoile('A1',5);</script></div>
                         {!! Form::hidden('stars', null,['id'=>'etoile'] ) !!}
                     </div>
                 </div>
-                <div class="col-xs-12 form-group {!! $errors->has('comment') ? 'has-error' : '' !!}">
+                <div class="col-lg-10 col-xs-12 form-group {!! $errors->has('comment') ? 'has-error' : '' !!}">
                     <label>Votre commentaire :</label>
                         {!! Form::textarea ('comment', null, ['class' => 'form-control', 'placeholder' => 'Votre commentaire ici...']) !!}
                         {!! $errors->first('comment', '<small class="help-block">:message</small>') !!}
                 </div>
-                <div class="col-xs-12">
+                <div class="col-lg-10 col-xs-12">
                     {!! Form::submit('&Eacute;valuer', ['class' => 'btn btn-primary pull-right']) !!}
                 </div>
                 {!! Form::close() !!}
