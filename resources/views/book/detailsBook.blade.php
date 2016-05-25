@@ -4,6 +4,13 @@
 	 {{$book->title}}
 @stop
 
+
+@extends('template')
+
+@section('titre')
+	{{$book->title}}Call Me Ishmael
+@stop
+
 @section('head')
 	{!! Html::script('etoile/ListeEtoile.js') !!}
 	<style type="text/css">
@@ -42,7 +49,6 @@
 	//  si la note maximale n'est pas spécifiée elle sera de 5 par défaut
 	//  Exemples : makeRating(3.42); (note sur 5) ou makeRating(3.42, 10); (sur 10)
 	///////////////////////////////////////////////////////////////////////////////
-
 	function makeRating($rate, $bestvalue = 5) {
 		// extraction de la partie entière de la note (qu'elle soit décimale ou non)
 		$intrate=intval($rate);
@@ -87,92 +93,92 @@
 	?>
 	<article class="panel panel-info">
 		<h1 class="panel-heading">Détails du Livre</h1>
-			<div class="panel-body">
-				<div class="row">
-                    <section class="col-sm-3">
-                        <p><img src="{{ $book->cover_url  }}" alt="" /></p>
-                    </section>
-                    <section class="col-sm-9"><br>
-                        <p><b>Titre :</b>  {{ $book->title }}</p>
-                        <p><b>Genre :</b>  {{ $book->genre }}</p>
-                        <p><b>Auteur :</b> {{ $book->author }}</p>
-                        <p><b>Langue :</b> {{ $book->language }}</p>
-                        <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
-                        <p><b>Note moyenne : </b> {{ $book->stars_average  }}</p>
-                        <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
-                		
-                		@if(Auth::check())
-							@if(count($estEvalue) == 0)
+		<div class="panel-body">
+			<div class="row">
+				<section class="col-sm-3">
+					<p><img src="{{ $book->cover_url  }}" alt="" /></p>
+				</section>
+				<section class="col-sm-9"><br>
+					<p><b>Titre :</b>  {{ $book->title }}</p>
+					<p><b>Genre :</b>  {{ $book->genre }}</p>
+					<p><b>Auteur :</b> {{ $book->author }}</p>
+					<p><b>Langue :</b> {{ $book->language }}</p>
+					<p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
+					<p><b>Note moyenne : </b> {{ $book->stars_average  }}</p>
+					<a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
+
+					@if(Auth::check())
+						@if(count($estEvalue) == 0)
 							<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
 
-							@endif
-							<?php
-								$count = Auth::user()->readings()->where('book_id', '=', $book->id)->count();
-							?>
-							@if($count == 0)
-								<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ajouter à la liste de lecture</a>
-							@else
-									<a href="{{URL::route('deleteReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-danger">Supprimer de la liste de lecture</a>
-								@endif
 						@endif
-                    </section>
-				</div>
-				<section class="col-sm-3">
-
+						<?php
+						$count = Auth::user()->readings()->where('book_id', '=', $book->id)->count();
+						?>
+						@if($count == 0)
+							<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ajouter à la liste de lecture</a>
+						@else
+							<a href="{{URL::route('deleteReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-danger">Supprimer de la liste de lecture</a>
+						@endif
+					@endif
 				</section>
-				<section class="col-sm-6">
-                    <p>@foreach($data as $rating)
-						<p>
-							@if(Auth::Check())
-								@if(Auth::user()->id == $rating->user_id)
-								@endif
+			</div>
+			<section class="col-sm-3">
+
+			</section>
+			<section class="col-sm-6">
+				<p>@foreach($data as $rating)
+					<p>
+						@if(Auth::Check())
+							@if(Auth::user()->id == $rating->user_id)
 							@endif
-							@if($rating->user != null)
+						@endif
+						@if($rating->user != null)
 							<img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%" height="10%" />
-								@if(Auth::user()->id !=  $rating->user->id)
+							@if(Auth::user()->id !=  $rating->user->id)
 								<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" > {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
-									@else
-										{{ $rating->user->first_name }} {{ $rating->user->last_name }}
-									@endif
-
-									@else
-								Anonyme
+							@else
+								{{ $rating->user->first_name }} {{ $rating->user->last_name }}
 							@endif
 
-							<?php echo makeRating($rating->stars);
-								$test = true;
-								?>
-								@foreach($followers as $follower)
-									@if($follower->followed_user_id == $rating->user_id)
-										{{ Form::open(array('route' => array('deleteFollower', 'id'=>$follower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
+						@else
+							Anonyme
+						@endif
 
-										{!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
-									<?php $test =false; ?>
-									@endif
-								@endforeach
-								@if($test && $rating->user_id!= Auth::user()->id && $rating->user != null )
+						<?php echo makeRating($rating->stars);
+						$test = true;
+						?>
+						@foreach($followers as $follower)
+							@if($follower->followed_user_id == $rating->user_id)
+								{{ Form::open(array('route' => array('deleteFollower', 'id'=>$follower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
 
-									{!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
-									{{ Form::hidden("followed_user_id", $rating->user_id ) }}
+								{!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+								<?php $test =false; ?>
+							@endif
+						@endforeach
+						@if($test && $rating->user_id!= Auth::user()->id && $rating->user != null )
 
-									{!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
-									{!! Form::close() !!}
+							{!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
+							{{ Form::hidden("followed_user_id", $rating->user_id ) }}
 
-									@endif
+							{!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
+							{!! Form::close() !!}
 
-
-								@if(Auth::check() && Auth::user()->id == $rating->user_id)
-								{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
-								@endif
-
-
-					 				Commentaire :  {{ $rating->comment }}
+						@endif
 
 
-						</p><hr>																																															
+						@if(Auth::check() && Auth::user()->id == $rating->user_id)
+							{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+						@endif
+
+
+						Commentaire :  {{ $rating->comment }}
+
+
+					</p><hr>
 					@endforeach
 					</p>
-                </section>
-			</div>
+			</section>
+		</div>
 	</article>
 @stop

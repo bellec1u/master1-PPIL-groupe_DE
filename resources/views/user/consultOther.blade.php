@@ -23,7 +23,6 @@
             margin: 0;
             padding: 0;
         }
-
     </style>
 @stop
 
@@ -42,7 +41,6 @@
     //  si la note maximale n'est pas spécifiée elle sera de 5 par défaut
     //  Exemples : makeRating(3.42); (note sur 5) ou makeRating(3.42, 10); (sur 10)
     ///////////////////////////////////////////////////////////////////////////////
-
     function makeRating($rate, $bestvalue = 5) {
         // extraction de la partie entière de la note (qu'elle soit décimale ou non)
         $intrate=intval($rate);
@@ -103,17 +101,17 @@
 
                 <section class="col-sm-9"><br>
                     @if(!$estSuivi)
-                {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
-                {{ Form::hidden("followed_user_id",$user->id ) }}
+                        {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
+                        {{ Form::hidden("followed_user_id",$user->id ) }}
 
-                    {!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
-                    {!! Form::close() !!}
+                        {!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
+                        {!! Form::close() !!}
 
-                 @else
+                    @else
                         {{ Form::open(array('route' => array('deleteFollower', 'id'=>$idFollower), 'method' => 'delete', 'name'=>'desinscrire')) }}
 
                         {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
-                @endif
+                    @endif
                     <p><b>Nom :</b>  {{ $user->first_name }}</p>
                     <p><b>Email :</b>  {{ $user->email}}</p>
                     <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
@@ -126,28 +124,28 @@
             <h2 align="center" color="'green"> Liste de lecture : </h2>
             <div class="row">
 
-            @foreach($user->readings as $reading)
-                <section class="col-sm-3">
-                    <p><a href="{{ URL::route('bookReturn', array('id'=>$reading->book_id))}}"><img src="{{ $reading->book->cover_url  }}" alt="" /></a></p>
-                </section>
-                <section class="col-sm-9"><br>
-                    <p><b>Titre :</b>  {{ $reading->book->title }}</p>
-                    <p><b>Genre :</b>  {{ $reading->book->genre }}</p>
-                    <p><b>Auteur :</b> {{ $reading->book->author }}</p>
-                    <p><b>Langue :</b> {{ $reading->book->language }}</p>
-                    <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($reading->book->publication_date))  }}</p>
-                    <p><b>Note moyenne : </b> {{ $reading->book->stars_average  }}</p>
+                @foreach($user->readings as $reading)
+                    <section class="col-sm-3">
+                        <p><a href="{{ URL::route('bookReturn', array('id'=>$reading->book_id))}}"><img src="{{ $reading->book->cover_url  }}" alt="" /></a></p>
+                    </section>
+                    <section class="col-sm-9"><br>
+                        <p><b>Titre :</b>  {{ $reading->book->title }}</p>
+                        <p><b>Genre :</b>  {{ $reading->book->genre }}</p>
+                        <p><b>Auteur :</b> {{ $reading->book->author }}</p>
+                        <p><b>Langue :</b> {{ $reading->book->language }}</p>
+                        <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($reading->book->publication_date))  }}</p>
+                        <p><b>Note moyenne : </b> {{ $reading->book->stars_average  }}</p>
 
-                </section>
-            @endforeach
+                    </section>
+                @endforeach
             </div><hr>
             <h2 align="center">Dernières Evaluations : </h2>
 
             @foreach($user->ratings as $rating)
                 <p><a href="{{ URL::route('bookReturn', array('id'=>$rating->book_id))}}"> Livre : {{$rating->book->title  }}</a></p>
-           <p></p>
-            <?php echo makeRating($rating->stars)  ?>
-            Commentaire :  {{ $rating->comment }}
+                <p></p>
+                <?php echo makeRating($rating->stars)  ?>
+                Commentaire :  {{ $rating->comment }}
             @endforeach
         </div>
     </article>
