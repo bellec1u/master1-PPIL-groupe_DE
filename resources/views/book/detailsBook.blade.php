@@ -110,7 +110,7 @@ function makeRating($rate, $bestvalue = 5) {
 							@if($count == 0)
 								<a href="{{URL::route('addReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ajouter à la liste de lecture</a>
 							@else
-									<a href="{{URL::route('deleteReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Supprimer de la liste de lecture</a>
+									<a href="{{URL::route('deleteReading', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-danger">Supprimer de la liste de lecture</a>
 								@endif
 						@endif
                     </section>
@@ -126,18 +126,13 @@ function makeRating($rate, $bestvalue = 5) {
 								@endif
 							@endif
 							@if($rating->user != null)
-
-									<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" > {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
-								@else
+							<img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%" height="10%" />
+								<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" > {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
+							@else
 								Anonyme
 							@endif
 
-
-
-
-
-
-								<?php echo makeRating($rating->stars)  ?>
+							<?php echo makeRating($rating->stars)  ?>
 								@if(Auth::user()->id == $rating->user_id)
 								{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 								@endif
