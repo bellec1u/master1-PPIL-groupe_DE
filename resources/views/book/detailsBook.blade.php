@@ -127,17 +127,46 @@ function makeRating($rate, $bestvalue = 5) {
 							@endif
 							@if($rating->user != null)
 							<img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%" height="10%" />
-
+								@if(Auth::user()->id !=  $rating->user->id)
 								<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" > {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
-							@else
+									@else
+										{{ $rating->user->first_name }} {{ $rating->user->last_name }}
+									@endif
+
+									@else
 								Anonyme
 							@endif
 
-							<?php echo makeRating($rating->stars)  ?>
-								@if(Auth::user()->id == $rating->user_id)
+							<?php echo makeRating($rating->stars);
+								$test = true;
+								?>
+								@foreach($followers as $follower)
+									@if($follower->followed_user_id == $rating->user_id)
+										{{ Form::open(array('route' => array('deleteFollower', 'id'=>$follower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
+
+										{!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+									<?php $test =false; ?>
+									@endif
+								@endforeach
+								@if($test && $rating->user_id!= Auth::user()->id && $rating->user != null )
+
+									{!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
+									{{ Form::hidden("followed_user_id", $rating->user_id ) }}
+
+									{!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
+									{!! Form::close() !!}
+
+									@endif
+
+
+								@if(Auth::check() && Auth::user()->id == $rating->user_id)
 								{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 								@endif
+
+
 					 				Commentaire :  {{ $rating->comment }}
+
+
 						</p><hr>																																															
 					@endforeach
 					</p>

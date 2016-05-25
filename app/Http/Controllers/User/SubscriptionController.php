@@ -41,12 +41,17 @@ class SubscriptionController extends Controller
         }
     }
     public function delete($id){
-        $this->subsRepository->destroy($id);
-        if(Auth::check()){
-            $user = Auth::user();
-            $listeFolower = $user->subscriptionsTo;
 
-            return view('user\subscription', compact('listeFolower'));
+
+        if(Auth::check()){
+            if(count($this->subsRepository->getById($id)) != 0){
+                $this->subsRepository->destroy($id);
+            }
+
+
+
+            $status = ' Utilisateur supprimé de votre liste de suivi';
+              return redirect()->back()->with('status', $status);
         }
         
     }

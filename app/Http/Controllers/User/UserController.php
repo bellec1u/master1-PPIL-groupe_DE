@@ -103,7 +103,15 @@ class UserController extends Controller
 
     public function showOther($id){
         $user = $this->userRepository->getById($id);
-        return view('user\consultOther', compact('user'));
+        $followers = Auth::user()-> subscriptionsTo;
+        $estSuivi = false;
+        $idFollower = 0;
+        foreach ($followers as $follower){
+            if( $follower->followed_user_id == $id)
+           $estSuivi = true;
+            $idFollower = $follower->id;
+        }
+        return view('user\consultOther', compact('user', 'estSuivi', 'idFollower'));
     }
      
     
