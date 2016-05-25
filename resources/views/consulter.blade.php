@@ -1,7 +1,7 @@
 @extends('template')
 
 @section('titre')
-    Liste de lecture
+    Liste de lectures
 @stop
 
 @section('contenu')
@@ -30,7 +30,7 @@
                         @endif
                     @endforeach
                 @else
-                    Aucun livre actuellement.
+                    <p>Aucun livre actuellement.</p>
                 @endif
             </div>
         </article>

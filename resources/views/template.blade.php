@@ -53,18 +53,17 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <b>Utilisateur</b> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{URL::route('showNotification', array())}}"><span class="glyphicon glyphicon-globe"></span> Notifications</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{URL::route('ConsultFollower', array())}}"><span class="glyphicon glyphicon-user"></span> Liste de Suivis</a></li>
+                            <li><a href="{{url('user/profile')}}"><span class="glyphicon glyphicon-cog"></span> Profil</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{URL::route('showReading', array())}}"><span class="glyphicon glyphicon-book"></span> Liste de Lectures</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="{{url('user/profile')}}"><span class="glyphicon glyphicon-cog"></span> Paramètres</a></li>
+                            <li><a href="{{URL::route('showNotification', array())}}"><span class="glyphicon glyphicon-globe"></span> Notifications</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{URL::route('ConsultFollower', array())}}"><span class="glyphicon glyphicon-user"></span> Membres Suivis</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ url('logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('logout') }}"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <b>Connexion</b> <span class="caret"></span></a>
@@ -145,7 +144,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        @if (!$errors->isEmpty())
+        @if ($errors->has('email'))
             <div class="alert alert-danger text-center" style="margin-bottom: 0px;">
                 <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <b>Une erreur est survenue !</b> Cliquez sur l'onglet "Connexion" du menu pour plus de détails...

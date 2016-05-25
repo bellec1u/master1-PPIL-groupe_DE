@@ -42,10 +42,6 @@ Route::group(['middleware' => 'web'], function () {
         return view('user/create');
     });
 
-    Route::get('home', function () {
-        return view('home');
-    });
-
     Route::get('email_contact', function () {
         return view('user/email_contact');
     });

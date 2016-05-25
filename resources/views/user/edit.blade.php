@@ -1,12 +1,12 @@
 @extends('template')
 
 @section('titre')
-    Modifier | Call Me Ishmael
+    Modifier son Profil
 @stop
 
 @section('contenu')
     <article class="panel panel-info">
-        <h1 class="panel-heading">Modifier Profile</h1>
+        <h1 class="panel-heading">Modifier son Profil</h1>
         <div class="panel-body">
             <div class="form-horizontal">
                 {!! Form::open(array('route'=>'userUpdate', 'method'=>'PUT', 'files'=>'true')) !!}
@@ -76,9 +76,6 @@
                 </div>
                 <div class="col-lg-7 col-lg-offset-3">
                 {!! Form::submit('Modification', ['class' => 'btn btn-primary pull-right']) !!}
-                <!--<a href="javascript:history.back()" class="btn btn-primary pull-left">
-                            <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour
-                        </a>-->
                 </div>
                 {!! Form::close() !!}
             </div>

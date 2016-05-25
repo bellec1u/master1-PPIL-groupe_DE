@@ -1,25 +1,27 @@
 @extends('template')
 
-{!! Html::script('etoile/ListeEtoile.js') !!}
-<style type="text/css">
-    .listeEtoile ul {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
-    .listeEtoile ul li {
-        display:inline-block;
-        width: 16px;
-        text-align: left;
-        list-style-type: none;
-    }
-    .listeEtoile ul li img {
-        border: 0;
-        margin: 0;
-        padding: 0;
-    }
+@section('head')
+    {!! Html::script('etoile/ListeEtoile.js') !!}
+    <style type="text/css">
+        .listeEtoile ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+        .listeEtoile ul li {
+            display:inline-block;
+            width: 16px;
+            text-align: left;
+            list-style-type: none;
+        }
+        .listeEtoile ul li img {
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
 
-</style>
+    </style>
+@stop
 @section('contenu')
     <SCRIPT language="Javascript">
         function supprimer() {
