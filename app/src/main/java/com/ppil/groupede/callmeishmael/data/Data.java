@@ -24,8 +24,8 @@ public class Data {
 
     private Data() {
 
-        ipMachine = "http://192.168.43.7";
-        port = "";
+        ipMachine = "http://192.168.212.157";
+        port = "8888";
         adresse = ipMachine + ":" + port;
 
     }
@@ -740,6 +740,47 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email);
         params.put("idLivre", idLivre);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
+        Retourne l'URL nécessaire pour importer un epub dans sa bibliotheque personnelle
+     */
+    public String getURLImporterLivre() {
+        return ( adresse + "/requetes/importerLivre.php" );
+    }
+
+
+    /*
+        Remplie les champs POST
+        nécessaire à un utilisateur pour importer un epub dans sa bibliotheque personnelle
+     */
+    public byte[] getPostImporterLivre(String email, String epub_url, String image_url, String title, String author, String resum, String gender, String langage) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("email", email);
+        params.put("url", epub_url);
+        params.put("image", image_url);
+        params.put("titre", title);
+        params.put("auteur", author);
+        params.put("resume", resum);
+        params.put("genre", gender);
+        params.put("langue", langage);
 
         /*
             Charge les parametres

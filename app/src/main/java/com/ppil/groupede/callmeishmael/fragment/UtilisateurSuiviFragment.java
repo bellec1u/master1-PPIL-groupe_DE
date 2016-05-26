@@ -58,6 +58,7 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
             si ce dernier est vide alors s'est que le compte n'existe pas
          */
         try {
+            System.out.println(resultat);
             JSONArray array = new JSONArray(resultat) ; // convertie le résultat en JSONArray
             if(array.length() > 0 ){
                 liste.setText("");

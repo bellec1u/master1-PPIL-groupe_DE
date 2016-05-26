@@ -34,6 +34,14 @@
         <item>eo</item>
     </string-array>
 
+    <string-array name="importer_genre">
+        <item>Fantastic</item>
+        <item>Science Fiction</item>
+        <item>Romantic</item>
+        <item>Action</item>
+        <item>Adventure</item>
+    </string-array>
+
     <string-array name="genre">
         <item>Tous</item>
     </string-array>
