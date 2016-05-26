@@ -1,12 +1,14 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -213,6 +215,13 @@ public class RechercheFragment extends Fragment implements DataReceiver {
 
         @Override
         public void onClick(View v) {
+
+            //masquer le clavier
+            View view = getActivity().getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
 
             //ON efface les resultats precedents du layout
             lesResultats.removeAllViews(); // on efface ici...
