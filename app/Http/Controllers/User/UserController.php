@@ -111,7 +111,7 @@ class UserController extends Controller
            $estSuivi = true;
             $idFollower = $follower->id;
         }
-        return view('user\consultOther', compact('user', 'estSuivi', 'idFollower'));
+        return view('user/consultOther', compact('user', 'estSuivi', 'idFollower'));
     }
      
     

@@ -54,6 +54,10 @@ h1.panel-heading {
     margin-top: 0px
 }
 
+.form-horizontal .control-label {
+    text-align: left;
+}
+
 /* ---------- Connexion ---------- */
 
 #login-dp .bottom a {

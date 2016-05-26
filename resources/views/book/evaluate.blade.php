@@ -34,8 +34,8 @@
                 {!! Form::open(array('route'=>'storeRating','method'=>'POST', 'files'=>'true')) !!}
                 {!! csrf_field() !!}
                 <div class="form-group {!! $errors->has('stars') ? 'has-error' : '' !!}">
-                    <label class="col-sm-2">Votre note :</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-2 col-xs-4">Votre note :</label>
+                    <div class="col-sm-10 col-xs-8">
                         <div id='A1'><script type='text/javascript'>CreateListeEtoile('A1',5);</script></div>
                         {!! Form::hidden('stars', null,['id'=>'etoile'] ) !!}
                     </div>
