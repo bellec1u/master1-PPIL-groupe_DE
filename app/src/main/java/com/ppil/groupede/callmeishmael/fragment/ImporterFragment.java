@@ -127,7 +127,7 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                     resum = resume.getText().toString();
                     gender = genre.getSelectedItem().toString();
                     langage = langue.getSelectedItem().toString();
-                    if(title.equals("")){
+                    if(title.replaceAll("\\s","").equals("")){
                         Toast.makeText(getContext()," Vous devez choisir un titre !", Toast.LENGTH_SHORT).show();
                     }else{
                         /*
