@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+	Route::get('/index', 'HomeController@index');
+	Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
+
+	Route::auth();
+
+	// Book access
+    // details
+    Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');
+
+
