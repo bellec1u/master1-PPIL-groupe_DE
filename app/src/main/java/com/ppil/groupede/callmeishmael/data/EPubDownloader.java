@@ -16,6 +16,7 @@ import com.ppil.groupede.callmeishmael.fragment.DetailsLivreFragment;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -103,7 +104,11 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
             int lenght = urlConnection.getContentLength();
 
             in = new BufferedInputStream(serv.openStream(), 8192); // buffer de 8k
-            FileOutputStream output = new FileOutputStream(root + "/" + params[2] + ".epub");
+            File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/book");
+            if (!direct.exists()) {
+                direct.mkdir(); // repertoire créé
+            }
+            FileOutputStream output = new FileOutputStream(direct.toString() + "/" + params[2] + ".epub");
 
             byte data[] = new byte[1024];
 

@@ -139,7 +139,7 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                         }
-                        
+
                         /*
                             ON va maintenant demander à Data, DataManager, et Session
                             d'ajouter ce livre à la liste de lecture de l'utilisateur

@@ -1,5 +1,7 @@
 package com.ppil.groupede.callmeishmael.data;
 
+import android.os.Environment;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
@@ -22,8 +24,9 @@ public class Data {
 
     public static Data data = new Data(); // instance de Data
 
-    private Data() {
+    public String path;
 
+    private Data() {
         ipMachine = "http://10.10.177.42";
         port = "";
         adresse = ipMachine + ":" + port;
@@ -798,5 +801,10 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
         } catch (UnsupportedEncodingException e) {
             return new byte[1]; // unreachable
         }
+    }
+
+    public String getPath()
+    {
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/book" ;
     }
 }

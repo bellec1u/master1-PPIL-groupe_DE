@@ -214,16 +214,12 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 @Override
                 public void onClick(View v) {
                     if(!dansMaListe) {
-                            File direct = new File(Environment.getExternalStorageDirectory().getAbsolutePath());
-                            if (!direct.exists()) {
-                                direct.mkdir(); // repertoire créé
-                            }
                             SessionManager sessionManager = new SessionManager(getContext());
                             String adresse = Data.getData().getURLAJouterLivre();
                             // email utilisateur et id du Livre, ainsi que chemin vers mem mobile
                             byte[] infos = Data.getData().getPostAjouterLivre(sessionManager.getSessionEmail(), id, Environment.getDataDirectory().getAbsolutePath());
                             EPubDownloader epub = new EPubDownloader(getContext());
-                           epub.execute(adresse, infos, id);
+                            epub.execute(adresse, infos, id);
                                 //refresh
                                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                                 ft.detach(DetailsLivreFragment.this).attach(DetailsLivreFragment.this).commit();
@@ -248,7 +244,11 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                                         DataManager dataManager = new DataManager(null);
                                         System.out.println(adresse);
                                         dataManager.execute(adresse);
-                                        Toast.makeText(getContext()," Ce livre a été supprimé avec succès",Toast.LENGTH_SHORT).show();
+                                        File file = new File(Data.getData().getPath() + "/" + id + ".epub");
+                                        System.out.println(Data.getData().getPath() + "/" + id + ".epub");
+                                        if(file.delete()) {
+                                            Toast.makeText(getContext(), " Ce livre a été supprimé avec succès", Toast.LENGTH_SHORT).show();
+                                        }
                                         setAccueil();
                                     }
                                 })
@@ -268,44 +268,20 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             lire.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AssetManager assetManager = getActivity().getAssets();
-                    String[] files;
+                    if(!dansMaListe) {
+                        Toast.makeText(getContext(),"Vous n'avez pas téléchargé ce livre",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
                     /*
                         On va verifier que le livre est present ou non dans assets
                      */
-                    try {
-                        files = assetManager.list("book");
-                        List<String> list = Arrays.asList(files);
-                        /*
-                            On parcourt la liste des livres,
-                            et on regarde si un livre a l'id qui correspond sinon on print une erreur
-                         */
-                        boolean exist = false;
-                        /*
-                            On parcourt la liste et on regarde si le livre est present
-                         */
-                        for(String s : list){
-                            if(s.equals(id + ".epub")){
-                                exist = true;
-                                break;
-                            }
-                        }
-                        if(exist)
-                        {
-                            LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub");
-                            getActivity().setTitle("Lecture");
-                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.fragment_container, lecture);
-                            fragmentTransaction.addToBackStack(null);
-                            fragmentTransaction.commit();
-                        }
-                        else
-                        {
-                            Toast.makeText(getContext(),"Vous n'avez pas téléchargé ce livre",Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub");
+                        getActivity().setTitle("Lecture");
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, lecture);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                     }
                 }
             });
