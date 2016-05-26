@@ -37,7 +37,7 @@ class SubscriptionController extends Controller
             $user = Auth::user();
             $listeFolower = $user->subscriptionsTo;
 
-            return view('user\subscription', compact('listeFolower'));
+            return view('user/subscription', compact('listeFolower'));
         }
     }
     public function delete($id){
@@ -63,7 +63,7 @@ class SubscriptionController extends Controller
             $user = Auth::user();
             $listeFolower = $user->subscriptionsTo;
 
-            return view('user\subscription', compact('listeFolower'));
+            return view('user/subscription', compact('listeFolower'));
         }
     }
 }

@@ -44,7 +44,7 @@ class NotificationController extends Controller
             $user = Auth::user();
             $notifications = $user->notificationsFrom;
             
-            return view('user\notification', compact('notifications'));
+            return view('user/notification', compact('notifications'));
         }
     }
     
@@ -54,7 +54,7 @@ class NotificationController extends Controller
             $user = Auth::user();
             $notifications = $user->notificationsTo;
 
-            return view('user\notification', compact('notifications'));
+            return view('user/notification', compact('notifications'));
         }
 
     }
