@@ -11,14 +11,14 @@
 |
 */
 
+Route::get('/index', 'HomeController@index');
+Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
 
-	Route::get('/index', 'HomeController@index');
-	Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
+Route::auth();
+Route::resource('user', 'User\UserController',['except' => ['index', 'edit', 'update', 'show', 'destroy']]);
 
-	Route::auth();
-
-	// Book access
-    // details
-    Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');
+// Book access
+// details
+Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');
 
 

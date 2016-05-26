@@ -39,7 +39,7 @@
                     <div class="row">
                         <div class="col-sm-12  text">
                             <div class="span12">
-                                <form class="form-signin" role="form" method="POST" action="{{ url('/register') }}">
+                                {!! Form::open(array('route'=>'user.store', 'method'=>'POST', 'files'=>'true')) !!}
                                     <div class="clear-form two-col">
                                         <div class="form-heading">
                                             <h3 class="header">S'incrire</h3>
@@ -123,8 +123,15 @@
                                                             </span>
                                                         @endif
                                                     </div>
-                                                    {!! Form::file('profile_image') !!}
-                        {!! $errors->first('profile_image', '<small class="help-block">:message</small>') !!}
+                                                    <!--{!! Form::file('profile_image') !!}-->
+                                                    <div class="input-group input-file">
+                                                        <input type="text" class="form-control" placeholder='Choisir une photo de profile...' />
+                                                        <span class="input-group-btn ">
+                                                            <button class="btn btn-primary btn-choose" type="button">
+                                                                <span class="glyphicon glyphicon-picture"></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>                                 
                                             <div class="form-footer">     
@@ -132,7 +139,7 @@
                                             </div>    
                                         </div>          
                                     </div>
-                                </form>
+                                {!! Form::close() !!}
                             </div>
                         </div>          
                     </div>
@@ -163,25 +170,34 @@
                 $("#birthdayPicker").birthdayPicker();
             });
 
-            $(document).on('change', '.btn-file :file', function() {
-                var input = $(this),
-                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-                input.trigger('fileselect', [numFiles, label]);
-            });
-
-            $(document).ready( function() {
-                $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-                    console.log("teste");
-                    var input_label = $(this).closest('.input-group').find('.file-input-label'),
-                        log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-                    if( input_label.length ) {
-                        input_label.text(log);
-                    } else {
-                        if( log ) alert(log);
+            function bs_input_file() {
+                $(".input-file").before(
+                    function() {
+                        if ( ! $(this).prev().hasClass('input-ghost') ) {
+                            var element = $("<input type='file' class='input-ghost' name='profile_image' style='visibility:hidden; height:0'>");
+                            element.attr("name",$(this).attr("name"));
+                            element.change(function(){
+                                element.next(element).find('input').val((element.val()));
+                            });
+                            $(this).find("button.btn-choose").click(function(){
+                                element.click();
+                            });
+                            $(this).find("button.btn-reset").click(function(){
+                                element.val(null);
+                                $(this).parents(".input-file").find('input').val('');
+                            });
+                            $(this).find('input').css("cursor","pointer");
+                            $(this).find('input').mousedown(function() {
+                                $(this).parents('.input-file').prev().click();
+                                return false;
+                            });
+                            return element;
+                        }
                     }
-                });
+                );
+            }
+            $(function() {
+                bs_input_file();
             });
         </script>
     @stop

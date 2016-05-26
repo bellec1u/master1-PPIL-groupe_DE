@@ -37,7 +37,13 @@
                         @endif
                     </ul>
                 </div><!--/.nav-collapse -->
-          </div>
+            </div>
+            @if (session('status'))
+                <div class="alert alert-success text-center " id="messageAlert" style="margin-bottom: -10px;">
+                    <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ session('status') }}
+                </div>
+            @endif
         </div>
 
 @stop
