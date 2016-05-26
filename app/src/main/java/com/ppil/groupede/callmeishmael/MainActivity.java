@@ -37,6 +37,7 @@ import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConditionsFragment;
 import com.ppil.groupede.callmeishmael.fragment.FAQFragment;
+import com.ppil.groupede.callmeishmael.fragment.ImporterFragment;
 import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
 import com.ppil.groupede.callmeishmael.fragment.MonCompteFragment;
 import com.ppil.groupede.callmeishmael.fragment.RechercheFragment;
@@ -246,6 +247,17 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_container, fragment);
             fragmentTransaction.commit();
 
+        } else if (id == R.id.nav_importer) {
+
+            // Set the page's title
+            this.setTitle("Importer");
+            // Set the fragment of view
+            ImporterFragment fragment = new ImporterFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.commit();
+
         } else if (id == R.id.nav_reglages) {
             // Set the page's title
             this.setTitle("Reglages");
@@ -360,6 +372,9 @@ public class MainActivity extends AppCompatActivity
         mi = m.getItem(2).getSubMenu().getItem(4);
         mi.setVisible(true);
 
+        mi = m.getItem(2).getSubMenu().getItem(5);
+        mi.setVisible(true);
+
         return true;
     }
 
@@ -380,6 +395,8 @@ public class MainActivity extends AppCompatActivity
         mi = m.getItem(2).getSubMenu().getItem(3);
         mi.setVisible(false);
         mi = m.getItem(2).getSubMenu().getItem(4);
+        mi.setVisible(false);
+        mi = m.getItem(2).getSubMenu().getItem(5);
         mi.setVisible(false);
         return true;
     }

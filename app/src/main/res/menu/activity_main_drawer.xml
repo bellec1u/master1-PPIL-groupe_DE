@@ -35,6 +35,10 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Utilisateur suivi" />
             <item
+                android:id="@+id/nav_importer"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Importer" />
+            <item
                 android:id="@+id/nav_reglages"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Reglages" />
