@@ -9,8 +9,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Vous avez oublié votre mot de passe ?</div>
+                <div class="panel panel-info">
+                    <h1 class="panel-heading">Vous avez oublié votre mot de passe ?</h1>
                     <div class="panel-body">
                         @if (session('status'))
                             <div class="alert alert-success">

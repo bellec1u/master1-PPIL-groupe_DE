@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Repositories\UserRepository;
+use App\Repositories\User\UserRepository;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Validator;
