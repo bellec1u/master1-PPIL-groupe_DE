@@ -1,6 +1,7 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.ppil.groupede.callmeishmael.FileChooser.FileChooser;
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
@@ -130,6 +133,13 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                     if(title.equals("")){
                         Toast.makeText(getContext()," Vous devez choisir un titre !", Toast.LENGTH_SHORT).show();
                     }else{
+                        //masquer le clavier
+                        View view = getActivity().getCurrentFocus();
+                        if (view != null) {
+                            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                        }
+                        
                         /*
                             ON va maintenant demander à Data, DataManager, et Session
                             d'ajouter ce livre à la liste de lecture de l'utilisateur
@@ -146,6 +156,10 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                 }
             }
         });
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
+
         return view;
     }
 

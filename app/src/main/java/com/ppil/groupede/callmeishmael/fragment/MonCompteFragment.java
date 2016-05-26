@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
@@ -217,6 +218,10 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
                 account.execute(adresse,infos);
             }
         });
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
+
         return view;
     }
 

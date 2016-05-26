@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 
 
 /**
@@ -25,6 +26,9 @@ public class ReglagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
         return inflater.inflate(R.layout.fragment_conditions, container, false);
     }
 

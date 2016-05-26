@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
@@ -52,6 +53,9 @@ public class FAQFragment extends Fragment implements DataReceiver{
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
 
         return view;
     }

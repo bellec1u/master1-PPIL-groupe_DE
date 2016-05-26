@@ -21,6 +21,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
@@ -226,6 +227,9 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         alertDialog.show();
 
         // ---------- ---------- ---------- ---------- 
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(true);
 
         return view;
     }

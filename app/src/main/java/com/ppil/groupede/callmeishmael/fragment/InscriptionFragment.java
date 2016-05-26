@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.ppil.groupede.callmeishmael.FileChooser.FileChooser;
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
@@ -199,6 +200,10 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
 
             }
         });
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
+
         return view;
     }
 

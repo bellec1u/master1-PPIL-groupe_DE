@@ -19,6 +19,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
@@ -103,6 +104,10 @@ public class RechercheFragment extends Fragment implements DataReceiver {
 
         //lance la recherche
         recherche.setOnClickListener(new RechercheListener());
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
+
         return view;
     }
 
