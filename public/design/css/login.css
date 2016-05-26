@@ -99,6 +99,11 @@ html,body {min-height: 100vh;}
 	color: rgb(51, 51, 51);
 }
 
+.help-block strong{
+	color:red;
+	font-size: 14px;
+}
+
 .clear-form{
 	
 	display: block;
@@ -349,35 +354,42 @@ html,body {min-height: 100vh;}
 	border: 1px solid #cccccc;
 }
 
-.btn-file {
-  position: relative;
-  overflow: hidden;
-  height: 30px;
-  max-width: 50px;
+.input-ghost{
+	margin:0px;
+	padding:0;
 }
 
-.btn-file input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  background: red;
-  cursor: inherit;
-  display: block;
+.input-file{
+	margin-top:-25px;
+	padding:0;
 }
 
-.file-input-label {
-	padding: 0px 10px;
-	display: table-cell;
-	vertical-align: middle;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-   max-width: 50px;
+.input-file input{
+  	position: relative;
+  	overflow: hidden;
+  	height: 30px;
+}
+
+.input-file span > button{
+  	position: relative;
+  	overflow: hidden;
+  	height: 30px;
+	padding-top:5px;
+}
+
+.input-file input[type=file] {
+  	position: absolute;
+  	top: 0;
+  	right: 0;
+  	min-width: 100%;
+  	min-height: 100%;
+  	font-size: 100px;
+  	text-align: right;
+  	filter: alpha(opacity=0);
+  	opacity: 0;
+  	background: red;
+  	cursor: inherit;
+  	display: block;
 }
 
 input[readonly] {

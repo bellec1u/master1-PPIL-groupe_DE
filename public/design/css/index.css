@@ -16,10 +16,10 @@
 /*	################################################################
 	1. GENERAL STRUCTURES
 ################################################################# */
-	* {  
-		margin: 0;
-		padding: 0px;
-	} 
+* {  
+	margin: 0;
+	padding: 0px;
+} 
 
 body { 
 	background: #ffffff; 
@@ -28,8 +28,8 @@ body {
 	color: #384452;
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
-	padding-top: 70px; 
-	}
+	padding-top: 70px;
+}
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Raleway', sans-serif;

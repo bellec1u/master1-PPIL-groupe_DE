@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
+use Auth;
+use Socialite;
 use Validator;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Requests\loginRequest;
 
 class AuthController extends Controller
 {
@@ -49,13 +53,9 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'last_name'     => 'required|max:255|alpha',
-            'first_name'    => 'required|max:255|alpha',
-            'email'         => 'required|email|confirmed|max:255|unique:users',
-            'password'      => 'required|confirmed|min:3',
-            'sex'           => 'required',
-            'birth_date'    => 'required|date',
-            //'profile_image' => 'image',*/
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
         ]);
     }
 
@@ -68,14 +68,74 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            'name' => $data['name'],
             'email' => $data['email'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
             'password' => bcrypt($data['password']),
-            'sex' => $data['sex'],
-            'birth_date' => $data['birth_date'],
-            //$table->string('photo_profile')->nullable();
         ]);
     }
     
+    /**
+     * Redirect the user to the Facebook authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+ 
+    /**
+     * Obtain the user information from Facebook.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+        try {
+            $user = Socialite::driver('facebook')->user();
+        } catch (Exception $e) {
+            return redirect('auth/facebook');
+        }
+ 
+        $authUser = $this->findOrCreateUser($user);
+ 
+        Auth::login($authUser, true);
+ 
+        return redirect()->route('home');
+    }
+
+    public function logout()
+
+    {
+
+        Auth::guard($this->getGuard())->logout();
+
+
+        return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+
+    }
+ 
+    /**
+     * Return user if exists; create and return if doesn't
+     *
+     * @param $facebookUser
+     * @return User
+     */
+    private function findOrCreateUser($facebookUser)
+    {
+        $authUser = User::where('facebook_id', $facebookUser->id)->first();
+ 
+        if ($authUser){
+            return $authUser;
+        }
+ 
+        return User::create([
+            'email' => $facebookUser->email,
+            'first_name' => $facebookUser->name,
+            'profile_image' => $facebookUser->avatar
+        ]);
+    }
+
+
+
 }

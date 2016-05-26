@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\User;
 
 use App\Managers\ImageManager;
 use App\Models\User;
 use App\Services\EmailConfirmationService;
+use App\Repositories\ResourceRepository;
 
 class UserRepository extends ResourceRepository
 {
