@@ -27,8 +27,8 @@ public class Data {
     public String path;
 
     private Data() {
-        ipMachine = "http://10.10.177.42";
-        port = "";
+        ipMachine = "http://192.168.43.252";
+        port = "8888";
         adresse = ipMachine + ":" + port;
 
     }

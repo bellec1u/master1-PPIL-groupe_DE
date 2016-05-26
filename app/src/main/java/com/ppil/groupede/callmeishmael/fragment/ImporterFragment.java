@@ -3,9 +3,11 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,11 @@ import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -134,10 +141,10 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                         Toast.makeText(getContext()," Vous devez choisir un titre !", Toast.LENGTH_SHORT).show();
                     }else{
                         //masquer le clavier
-                        View view = getActivity().getCurrentFocus();
-                        if (view != null) {
+                        View view2 = getActivity().getCurrentFocus();
+                        if (view2 != null) {
                             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            imm.hideSoftInputFromWindow(view2.getWindowToken(), 0);
                         }
 
                         /*
@@ -152,6 +159,7 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                         String adresse = Data.getData().getURLImporterLivre();
                         byte[] infos = Data.getData().getPostImporterLivre(email, epub_url, image_url, title, author, resum, gender, langage);
                         DataManager dataManager = new DataManager(ImporterFragment.this);
+                        dataManager.execute(adresse,infos);
                     }
                 }
             }
@@ -171,6 +179,12 @@ public class ImporterFragment extends Fragment implements DataReceiver{
         if(resultat.equals("false")){
             Toast.makeText(getContext()," Ce livre est déjà dans votre liste de lecture !", Toast.LENGTH_SHORT).show();
         }else{
+            String idLivre = resultat;
+            System.out.println("URL EPub "+epub_url);
+            System.out.println("Path " + Data.getData().getPath());
+            System.out.println("nom livre : "+(idLivre + ".epub"));
+            copyFile(epub_url, Data.getData().getPath() ,idLivre + ".epub");
+            deleteFile(epub_url);
             AccueilFragment fragment = new AccueilFragment();
             getActivity().setTitle("Accueil");
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -181,5 +195,60 @@ public class ImporterFragment extends Fragment implements DataReceiver{
             ((MainActivity)getActivity()).setConnection(true); // l'utilisateur est connecté
         }
 
+    }
+
+/*
+    Permet de copier le contenu d'un livre contenu e dans inputPath avec comme nom
+    inputFile vers outputPath avec idLivre.epub comme nom
+ */
+    private void copyFile(String inputFile, String outputPath, String name) {
+
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+
+            //create output directory if it doesn't exist
+            File dir = new File (outputPath);
+            if (!dir.exists())
+            {
+                dir.mkdirs();
+            }
+
+
+            in = new FileInputStream(inputFile);
+            out = new FileOutputStream(outputPath + "/" + name);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+            in.close();
+            in = null;
+
+            // write the output file (You have now copied the file)
+            out.flush();
+            out.close();
+            out = null;
+
+        }  catch (FileNotFoundException fnfe1) {
+            Log.e("tag", fnfe1.getMessage());
+        }
+        catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
+
+    }
+
+    /*
+        Permet de supprimer un fihcier
+     */
+    private void deleteFile(String inputFile) {
+        try {
+            // delete the original file
+            new File(inputFile).delete();
+        } catch (Exception e) {
+            Log.e("tag", e.getMessage());
+        }
     }
 }
