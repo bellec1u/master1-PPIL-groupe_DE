@@ -125,6 +125,7 @@
 
 
                 @foreach($user->readings as $reading)
+                <div class="row">
                     <section class="col-sm-3">
                         <p><a href="{{ URL::route('bookReturn', array('id'=>$reading->book_id))}}"><img src="{{ $reading->book->cover_url  }}" alt="" /></a></p>
                     </section>
@@ -137,6 +138,7 @@
                         <p><b>Note moyenne : </b> {{ $reading->book->stars_average  }}</p>
 
                     </section>
+                    </div>
                 @endforeach
             </div><hr>
 

@@ -42,6 +42,7 @@
                 </div>
                 <div class="col-lg-10 col-xs-12 form-group {!! $errors->has('comment') ? 'has-error' : '' !!}">
                     <label>Votre commentaire :</label>
+                    {{ Form::hidden('book_id', $book) }}
                         {!! Form::textarea ('comment', null, ['class' => 'form-control', 'placeholder' => 'Votre commentaire ici...']) !!}
                         {!! $errors->first('comment', '<small class="help-block">:message</small>') !!}
                 </div>

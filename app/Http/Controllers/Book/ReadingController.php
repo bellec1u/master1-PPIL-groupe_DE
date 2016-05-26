@@ -52,7 +52,7 @@ class ReadingController extends Controller
 
             $notif['book_id'] = $id_book;
             $notif['type'] = "Ajout liste de lecture";
-            $notif['details'] = $reading->user->first_name." à ajouter ".$reading->book->title." dans sa liste de lecture";
+            $notif['details'] = $reading->user->first_name." a ajouté ".$reading->book->title." dans sa liste de lecture";
             $this->notification->store($notif);
         }
 
