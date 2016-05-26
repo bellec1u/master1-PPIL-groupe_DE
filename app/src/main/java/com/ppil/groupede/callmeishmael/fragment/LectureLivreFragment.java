@@ -101,13 +101,13 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                     case MotionEvent.ACTION_UP :
                         //retourne la hauteur de la webView - 5% -> pour ne pas perdre de texte
                         int height = (int)(webView.getMeasuredHeight() * 0.95);
-                        if (xChangePage > event.getX() && xChangePage - event.getX() > 50 && havePageAfter(height)) {
+                        if (xChangePage > event.getX() && xChangePage - event.getX() > 200 && havePageAfter(height)) {
                             //passer une page -> x > newX
                             //page suivante
                             float pourcent = calculateProgression(); // je recup position
                             sauvegarder(pourcent); // on sauvegarde
                             webView.scrollBy(0, height);
-                        } else if (xChangePage < event.getX() && event.getX() - xChangePage > 50 && havePageBefore(height)) {
+                        } else if (xChangePage < event.getX() && event.getX() - xChangePage > 200 && havePageBefore(height)) {
                             //retour d'une page -> x < newX
                             //page suivante
                             float pourcent = calculateProgression(); // je recup position
@@ -180,7 +180,6 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                 .setCancelable(false)
                 .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        System.out.println("- - - - -coucou");
                         /*
                             ON recupere la page sauvegarder grace a Data et DataManager et SessionManager pour le mail
                          */
@@ -351,7 +350,6 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
 
         float totalHeightWebView = (webView.getScale() * webView.getContentHeight())-webView.getHeight();
         float cursor = webView.getScrollY();
-        System.out.println("- - - - - - - - - - - - - - - "+cursor+" - "+heightScrollBar+" / "+totalHeightWebView);
         if (cursor + heightScrollBar < totalHeightWebView) {
             res = true;
         }

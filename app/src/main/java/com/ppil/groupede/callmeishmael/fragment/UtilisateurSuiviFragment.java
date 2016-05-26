@@ -36,7 +36,7 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-    View view = inflater.inflate(R.layout.fragment_utilisateur_suivi, container, false);
+        View view = inflater.inflate(R.layout.fragment_utilisateur_suivi, container, false);
         liste = (TextView) view.findViewById(R.id.liste);
 
         final SessionManager sessionManager = new SessionManager(getContext());
@@ -108,10 +108,10 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
                     ft.commit();
                 }
             }else{
-                liste.setText("Votre liste d'abonnement est vide");
-                liste.setVisibility(View.VISIBLE);
+                liste.setText("Oups, on dirait que vous ne suivez personne.");
+                //liste.setVisibility(View.VISIBLE);
             }
-                } catch (JSONException e) {
+        } catch (JSONException e) {
             Toast.makeText(getContext(), "Erreur  !", Toast.LENGTH_SHORT).show();
 
             e.printStackTrace();
