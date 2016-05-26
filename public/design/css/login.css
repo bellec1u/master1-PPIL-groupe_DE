@@ -1,0 +1,415 @@
+html,body {min-height: 100vh;}
+
+.navbar {
+	min-height: 70px;
+	padding-top: 10px;
+	margin-bottom: 0px;
+}
+
+.navbar-brand {
+	font-family: 'Raleway', sans-serif;
+	font-weight: 900;
+	font-size:24px;
+	z-index: 40;
+	display:inline-block;	
+	position: relative; 
+	text-decoration: none; 
+	-webkit-transition: background-color .4s linear, color .4s linear;
+	-moz-transition: background-color .4s linear, color .4s linear;
+	-o-transition: background-color .4s linear, color .4s linear;
+	-ms-transition: background-color .4s linear, color .4s linear;
+	transition: background-color .4s linear, color .4s linear;
+}
+
+.navbar-header .navbar-brand {
+	color: #23232d;
+}
+
+.navbar-default {
+	background:white;
+}
+
+.carousel { 
+	z-index: -99; 
+} 
+
+.carousel .item {
+    position: fixed; 
+    width: 100%; height: 100%;
+	-webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -ms-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+ 
+}
+.carousel .one {
+    background: url(../img/login/login1.jpg);
+    background-size: cover;
+    -moz-background-size: cover;
+}
+.carousel .two {
+    background: url(../img/login/login2.jpg);
+    background-size: cover;
+    -moz-background-size: cover;
+}
+.carousel .three {
+    background: url(../img/login/login3.jpg);
+    background-size: cover;
+    -moz-background-size: cover;
+}
+.carousel .four {
+    background: url(../img/login/login4.jpg);
+    background-size: cover;
+    -moz-background-size: cover;
+}
+.carousel .five {
+    background: url(../img/login/login5.jpg);
+    background-size: cover;
+    -moz-background-size: cover;
+}
+.carousel .six {
+    background: url(../img/login/login6.jpg);
+    background-size: cover;
+    -moz-background-size: cover;
+}
+.carousel .active.left {
+    left:0;
+    opacity:0;
+    z-index:2;
+}
+
+.container{
+	width: 100%;
+	margin: auto; 
+	height: 100%;
+	max-width: 640px;
+}
+
+.span12{
+	color: rgb(51, 51, 51);
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	float: left;
+	margin-top: 25%;
+	margin-bottom: 20%;
+	background-color: rgb(255, 255, 255);
+	border-radius: 20px;
+	color: rgb(51, 51, 51);
+}
+
+.clear-form{
+	
+	display: block;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	min-height: 430px;
+}
+
+.clear-form .form-heading{
+	color: rgb(51, 51, 51);
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 0px;
+	padding-bottom: 15px;
+	padding-left: 35px;
+	padding-right: 35px;
+	padding-top: 15px;
+}
+
+.form-heading h3{
+	text-rendering: optimizelegibility;
+	text-shadow: rgb(255, 255, 255) 0px 1px 0p;
+}
+
+.form-heading hr{
+	border-color:rgb(200, 200, 200);
+}
+
+.col1{
+	color: rgb(51, 51, 51);
+	display: block;
+	float:left;
+	font-size: 14px;
+	line-height: 20px;
+	padding-bottom: 35px;
+	padding-left: 35px;
+	padding-right: 35px;
+	width: 320px;
+}
+
+.col1 p{
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.col1 a{
+	color: white;
+	opacity:0.9;
+	margin-top: 10px;
+}
+.col1 a:hover {
+    color: white;
+	opacity:1;    	
+}
+
+.col1 .btn-fb {background: #3b5998;}
+.col1 .btn-google {background: #c32f10;}
+
+.col2{
+	border-left: 1px solid rgb(187, 187, 187);
+	color: rgb(51, 51, 51);
+	display: block;
+	float:left;
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 35px;
+	width: 320px;
+	padding-left: 35px;
+	padding-right:34px;
+}
+
+.col2 .form-heading{
+	padding: 0px;
+	padding-bottom: 15px;
+}
+
+.pair-group input{	
+	background-color: rgb(255, 255, 255);
+	border-bottom-color: rgb(204, 204, 204);
+	border-radius: 4px ;
+	color: rgb(85, 85, 85);
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 400;
+	height: 40px;
+	width: 100%;
+	line-height: 20px;
+	padding-bottom: 4px;
+	padding-left: 6px;
+	padding-right: 6px;
+	padding-top: 4px;
+}
+
+
+.checkbox {
+ 	margin-bottom: 15px;
+  	margin-left:5px;
+  	font-weight: normal;
+}
+
+.col2 .form-footer button{
+	width: 100%;
+	margin-top: 10px;
+	background: rgb(91, 183, 91);
+}
+
+.col2 a{
+	color: white;
+	opacity:0.9;
+	margin-top: 10px;
+}
+.col2 a:hover {
+    color: white;
+	opacity:1;    	
+}
+
+.col2 .center{
+	margin-top: 10px;
+}
+
+.col2 .center a{
+	color: rgb(0, 136, 204);
+	opacity:0.9;
+	font-size: 14px;
+	text-decoration: none;
+	padding-left: 60px;
+
+}
+
+@media (max-width: 640px) {
+	.col1{
+		width: 100%;
+	}
+
+	.col2{
+		width: 100%;
+		float: none;
+	}
+}
+
+.help-block strong{
+	font-size: 12px;
+}
+
+.radio{
+	margin:0;
+	padding-left: 20px;
+	
+
+}
+
+.radio label{
+	display: inline-block;
+	position: relative;
+	padding-left: 5px;
+}
+
+.radio label::before{
+	content: "";
+	display: inline-block;
+	position: absolute;
+	width: 17px;
+	height: 17px;
+	left: 0;
+	margin-left: -20px;
+	border: 1px solid #cccccc;
+	border-radius: 50%;
+	background-color: #fff;
+	-webkit-transition: border 0.15s ease-in-out;
+	-o-transition: border 0.15s ease-in-out;
+	transition: border 0.15s ease-in-out;
+}
+
+.radio label::after{
+	display: inline-block;
+	position: absolute;
+	content: " ";
+	width: 11px;
+	height: 11px;
+	left: 3px;
+	top: 3px;
+	margin-left: -20px;
+	border-radius: 50%;
+	background-color: #555555;
+	-webkit-transform: scale(0, 0);
+	-ms-transform: scale(0, 0);
+	-o-transform: scale(0, 0);
+	transform: scale(0, 0);
+	-webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+}
+
+.radio input[type="radio"]{
+	opacity: 0;
+	margin:0px;
+}
+
+.radio input[type="radio"]:focus + label::before{
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+.radio input[type="radio"]:checked + label::after{
+	-webkit-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	-o-transform: scale(1, 1);
+	transform: scale(1, 1);
+}
+
+.radio input[type="radio"]:disabled + label{
+	opacity: 0.65;
+}
+
+.radio input[type="radio"]:disabled + label::before{
+	cursor: not-allowed;
+}
+
+.radio.radio-inline{
+	margin-top: 0;
+}
+
+.radio-primary input[type="radio"] + label::after {
+  	background-color: #428bca; }
+.radio-primary input[type="radio"]:checked + label::before {
+  	border-color: #428bca; }
+.radio-primary input[type="radio"]:checked + label::after {
+  	background-color: #428bca; }
+
+.radio-danger input[type="radio"] + label::after {
+  	background-color: #d9534f; }
+.radio-danger input[type="radio"]:checked + label::before {
+  	border-color: #d9534f; }
+.radio-danger input[type="radio"]:checked + label::after {
+  	background-color: #d9534f; }
+
+.birthdayPicker select{
+	margin-right: 10px;
+	border-radius: 3px;
+	border: 1px solid #cccccc;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+  height: 30px;
+  max-width: 50px;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+
+.file-input-label {
+	padding: 0px 10px;
+	display: table-cell;
+	vertical-align: middle;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+   max-width: 50px;
+}
+
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+.form-footer {
+	margin-top: 10px;
+}
+
+.footerNewLogin {
+	background: white;
+    height: 70px;
+    width: 100%;
+    color: #23232d;
+    font-family: "Source Sans Pro",helvetica,arial,sans-serif;
+    text-align: center;
+    font-size: 17px;
+    padding-top:13px;
+}
+
+.footerNewLogin a{
+	color: white;
+	opacity:0.9;
+	margin-top: 10px;
+	margin:0;
+	margin-top: 7px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+.footerNewLogin a:hover {
+    color: white;
+	opacity:1;    	
+}
