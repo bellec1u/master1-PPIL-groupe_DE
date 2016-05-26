@@ -129,9 +129,9 @@
 							@if($rating->user != null)
 								
 								@if($rating->user->profile_image == '')
-	                        		<p class="text-center"></p><img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="15%" height="15%" /></p>
+	                        		<p class="text-center"></p><img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%" height="10%" /></p>
 	                    		@else
-	                        		<img src="{{ URL($rating->user->profile_image) }}" alt="" width="15%" height="15%" />	
+	                        		<img src="{{ URL($rating->user->profile_image) }}" alt="" width="10%" height="10%" />	
 	                        	@endif
 								@if(Auth::check())
 									<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" > {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
