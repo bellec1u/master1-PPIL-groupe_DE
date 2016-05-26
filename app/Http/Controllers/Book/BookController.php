@@ -87,15 +87,13 @@ class BookController extends Controller
 
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
-        if(Auth::check()){
+        if (Auth::check()) {
             $estEvalue = $this->ratingRapository->getRatingIdEtUser($id,Auth::user()->id );
             $user = Auth::user();
             $followers = $user->subscriptionsTo;
         }
 
-
-
-        return view('book/detailsBook', compact('book'), compact('estEvalue', 'followers'))->with('data',
+        return view('book/detailsBook', compact('book', 'estEvalue', 'followers'))->with('data',
             $ratings);
 
     }

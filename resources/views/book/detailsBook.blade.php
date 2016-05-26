@@ -129,7 +129,7 @@
 							@if($rating->user != null)
 								
 								@if($rating->user->profile_image == '')
-	                        		<p class="text-center"></p><img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%" height="10%" /></p>
+	                        		<p class="text-center"><img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%" height="10%" /></p>
 	                    		@else
 	                        		<img src="{{ URL($rating->user->profile_image) }}" alt="" width="10%" height="10%" />	
 	                        	@endif
@@ -155,17 +155,19 @@
 									@endforeach
 									@if($test && $rating->user_id!= Auth::user()->id && $rating->user != null )
 										{!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
-										{{ Form::hidden("followed_user_id", $rating->user_id ) }}
+										{!! Form::hidden("followed_user_id", $rating->user_id ) !!}
 										{!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
 										{!! Form::close() !!}
 									@endif
 								@endif
 								@if(Auth::check() && Auth::user()->id == $rating->user_id)
-								{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+									{!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
 								@endif
 									Commentaire :  {{ $rating->comment }}
-						</p><hr>
-					@endforeach </p>
+						</p>   <hr>
+                        @endforeach
+                        </p>
+
 				</section>
 			</div>
 	</article>

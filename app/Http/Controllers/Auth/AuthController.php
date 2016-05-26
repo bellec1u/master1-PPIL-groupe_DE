@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Services\EmailConfirmationService;
 use Auth;
 use Socialite;
 use Validator;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use App\Http\Requests\loginRequest;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -34,14 +36,16 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/';
 
+    protected $emailConfService;
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(EmailConfirmationService $emailConfService)
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->emailConfService = $emailConfService;
     }
 
     /**
@@ -136,6 +140,13 @@ class AuthController extends Controller
         ]);
     }
 
-
+    public function authenticated(Request $request, $user)
+    {
+        if (!$user->email_validated) {
+            Auth::logout();
+            return view('user.email_resend', compact('user'));
+        }
+        return redirect()->intended($this->redirectPath());
+    }
 
 }

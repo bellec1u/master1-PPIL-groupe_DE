@@ -68,8 +68,12 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'User\UserController@showOther',
         'as'   => 'showOtherUser'
     ])->where('id', '[0-9]+');
+    // email validation
     Route::get('user/verify/{token}', 'User\UserController@confirmEmail')
         ->where('token', '[a-zA-Z0-9]+');
+    Route::get('user/{id}/resend',
+        ['as' => 'resendEmail', 'uses' => 'User\UserController@resendEmail'])
+        ->where('id', '[0-9]+');
     //subscriptions
     Route::post('follow',
         ['uses' => 'User\SubscriptionController@store', 'as' => 'addFollower']);

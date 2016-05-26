@@ -74,7 +74,8 @@ class UserController extends Controller
         return view('user.profile', compact('user'));
     }
 
-    public function edit(){
+    public function edit()
+    {
         $user = Auth::user();
         return view('user.edit', compact('user'));
     }
@@ -90,6 +91,17 @@ class UserController extends Controller
         }
     }
 
+    public function resendEmail(EmailConfirmationService $emailConfService, $id)
+    {
+        $user = $this->userRepository->getById($id);
+        if ($user && !$user->email_validated) {
+            $emailConfService->resendConfirmationMail($id);
+            return redirect('/')->with('status', 'Email de validation à été envoyé');
+        } else {
+            return redirect()->back();
+        }
+    }
+
 
     public function delete()
     {
@@ -101,17 +113,20 @@ class UserController extends Controller
         }
     }
 
-    public function showOther($id){
+    public function showOther($id)
+    {
         $user = $this->userRepository->getById($id);
-        $followers = Auth::user()-> subscriptionsTo;
+        $followers = Auth::user()->subscriptionsTo;
         $estSuivi = false;
         $idFollower = 0;
-        foreach ($followers as $follower){
-            if( $follower->followed_user_id == $id)
-           $estSuivi = true;
+        foreach ($followers as $follower) {
+            if ($follower->followed_user_id == $id) {
+                $estSuivi = true;
+            }
             $idFollower = $follower->id;
         }
-        return view('user/consultOther', compact('user', 'estSuivi', 'idFollower'));
+        return view('user/consultOther',
+            compact('user', 'estSuivi', 'idFollower'));
     }
      
     
