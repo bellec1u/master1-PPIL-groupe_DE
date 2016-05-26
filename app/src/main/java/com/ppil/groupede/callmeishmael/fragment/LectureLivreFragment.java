@@ -121,30 +121,17 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
             }
         });
 
-
-
-
-        AssetManager assetManager = getActivity().getAssets();
-        String[] files;
-
         try {
-
-            files = assetManager.list("book");
-            List<String> list = Arrays.asList(files);
-
-            if (!this.makeDirectory("book")) {
-                debug("faild to make books directory");
+            String basePath = Data.getData().getPath() + "/" + idLivre;
+            System.out.println(basePath);
+            File test = new File(basePath);
+            if(test.exists())
+            {
+                System.out.println("OK");
             }
+            book = (new EpubReader()).readEpub(new FileInputStream(basePath));
 
-            copyBookToDevice(list.get(position));
-
-            String basePath = Environment.getExternalStorageDirectory() + "/book/";
-
-            InputStream epubInputStream = assetManager.open("book/" + list.get(position));
-
-            book = (new EpubReader()).readEpub(epubInputStream);
-
-            DownloadResource(basePath);
+            DownloadResource(Data.getData().getPath() + "/");
 
             String linez = "";
             Spine spine = book.getSpine();
@@ -168,7 +155,6 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                         e.printStackTrace();
                     }
 
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -176,13 +162,6 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
             }
 
             linez = linez.replace("../", "");
-
-//            File file = new File(Environment.getExternalStorageDirectory(),"test.html");
-//            file.createNewFile();
-//            FileOutputStream fileOutputStream = new FileOutputStream(file);
-//            fileOutputStream.write(linez.getBytes());
-//            fileOutputStream.close();
-
 
             webView.loadDataWithBaseURL("file://" + Environment.getExternalStorageDirectory() + "/book/", linez, "text/html", "utf-8", null);
 
@@ -211,8 +190,6 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                         byte[] infos = Data.getData().getPostPageCourante(email, idLivre);
                         DataManager dataManager = new DataManager(LectureLivreFragment.this);
                         dataManager.execute(adresse, infos);
-                        //goToPart(14.561438f);
-                        System.out.println("- - - - -fin");
                     }
                 })
                 .setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -311,14 +288,14 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
      */
     private void DownloadResource(String directory) {
         try {
-
+            System.out.println("URL " + directory);
             Resources rst = book.getResources();
             Collection<Resource> clrst = rst.getAll();
             Iterator<Resource> itr = clrst.iterator();
 
             while (itr.hasNext()) {
                 Resource rs = itr.next();
-
+                System.out.println(rs.toString());
                 if ((rs.getMediaType() == MediatypeService.JPG)
                         || (rs.getMediaType() == MediatypeService.PNG)
                         || (rs.getMediaType() == MediatypeService.GIF)) {
