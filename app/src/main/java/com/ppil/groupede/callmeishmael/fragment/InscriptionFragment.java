@@ -1,6 +1,7 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -170,6 +172,13 @@ public class InscriptionFragment extends Fragment implements DataReceiver {
                  */
                 if(ok1 && ok2 && ok3 && ok4 && ok5)
                 {
+                    //masquer le clavier
+                    View view = getActivity().getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+
                     /*
                         On instancie Data, pour récupérer le bon URL
                         puis on instanciera DataManager et on lancera la procedure d'inscription

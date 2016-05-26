@@ -3,6 +3,7 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -251,6 +253,13 @@ public class ConnexionFragment extends Fragment implements DataReceiver, View.On
  */
     public void setAccueil()
     {
+        //masquer le clavier
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
         AccueilFragment fragment = new AccueilFragment();
         getActivity().setTitle("Accueil");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
