@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 
 
 /**
@@ -30,6 +31,9 @@ public class ConditionsFragment extends Fragment {
 
         lire = (TextView) view.findViewById(R.id.idLire);
         lire.setText("conditions ...");
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
         return view;
     }
 

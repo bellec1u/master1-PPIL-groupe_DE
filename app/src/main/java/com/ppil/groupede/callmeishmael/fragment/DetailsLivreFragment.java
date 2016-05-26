@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
@@ -298,6 +299,9 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 }
             });
         }
+
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(true);
 
         return view; // et on retourne la vue complétée de nos informations
     }

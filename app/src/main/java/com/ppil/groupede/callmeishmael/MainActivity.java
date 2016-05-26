@@ -140,7 +140,9 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (SingletonBackPressed.getInstance().getCanBackView()) {
+                super.onBackPressed();
+            } //sinon on fait rien = blocker le back button
         }
     }
 

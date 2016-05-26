@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.R;
+import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
@@ -27,7 +28,9 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
     private android.support.v4.app.FragmentTransaction ft;
     private TextView liste;
 
-
+    public UtilisateurSuiviFragment() {
+        // Required empty public constructor
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +45,8 @@ public class UtilisateurSuiviFragment extends Fragment implements DataReceiver {
         DataManager dataManager = new DataManager(UtilisateurSuiviFragment.this);
         dataManager.execute(adresse, infos);
 
+        //change d'état le bouton de retour
+        SingletonBackPressed.getInstance().setCanBackView(false);
 
         // Inflate the layout for this fragment
         return view;
