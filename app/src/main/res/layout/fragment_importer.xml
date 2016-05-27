@@ -29,10 +29,12 @@
                 android:layout_gravity="left" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:id="@+id/afficher_epub" />
+                android:ellipsize="end"
+                android:id="@+id/afficher_epub"
+                android:maxLines="1"/>
 
             <TextView
                 android:layout_marginLeft="15dp"
@@ -57,9 +59,11 @@
                 android:layout_gravity="left" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:id="@+id/afficher_image" />
 
             <TextView
