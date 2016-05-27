@@ -52,6 +52,8 @@ public class ImporterFragment extends Fragment implements DataReceiver{
     private Spinner genre;
     private Spinner langue;
     private Button valider;
+    private TextView afficherEpub;
+    private TextView afficherImage;
 
     private String epub_url;
     private String image_url;
@@ -70,6 +72,8 @@ public class ImporterFragment extends Fragment implements DataReceiver{
         image_url = "";
         epub = (TextView) view.findViewById(R.id.lien_epub);
         image = (TextView) view.findViewById(R.id.lien_image);
+        afficherEpub = (TextView) view.findViewById(R.id.afficher_epub);
+        afficherImage = (TextView) view.findViewById(R.id.afficher_image);
         titre = (EditText) view.findViewById(R.id.titre);
         auteur = (EditText) view.findViewById(R.id.auteur);
         resume = (EditText) view.findViewById(R.id.resume);
@@ -86,6 +90,7 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                     @Override
                     public void fileSelected(final File file) {
                         epub_url = file.getAbsolutePath();
+                        afficherEpub.setText(epub_url);
                     }
                 });
                                                /*
@@ -107,6 +112,7 @@ public class ImporterFragment extends Fragment implements DataReceiver{
                     @Override
                     public void fileSelected(final File file) {
                         image_url = file.getAbsolutePath();
+                        afficherImage.setText(image_url);
                     }
                 });
                                                /*
