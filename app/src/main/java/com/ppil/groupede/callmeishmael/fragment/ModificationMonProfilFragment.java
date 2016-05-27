@@ -104,6 +104,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                         try {
                             bitmap = bitmapManager.execute(cover_url).get();
                             imageButton.setImageBitmap(bitmap);
+                            imageButton.setBackgroundColor( R.color.white );
                         } catch (ExecutionException |InterruptedException e) {
                             Toast.makeText(getContext()," Oups ! Une erreur s'est produite...",Toast.LENGTH_SHORT).show();
                         }
