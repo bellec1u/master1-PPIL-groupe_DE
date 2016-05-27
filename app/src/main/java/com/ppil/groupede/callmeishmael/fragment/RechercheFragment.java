@@ -224,12 +224,6 @@ public class RechercheFragment extends Fragment implements DataReceiver {
 
         @Override
         public void onClick(View v) {
-<<<<<<< HEAD
-=======
-
-            new ProgressTask(getActivity()).execute();
-
->>>>>>> fdb90e25905e833f826f9ffe1354cd8bf3be3439
             //masquer le clavier
             View view = getActivity().getCurrentFocus();
             if (view != null) {
@@ -250,7 +244,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
                 On demande a Data l'URL pour cette recherche
              */
             if(recherche.length() != 0) {
-                new ProgressTask().execute();
+                new ProgressTask(getActivity()).execute();
                 String adresse = Data.getData().getURLRecherche();
                 byte[] infos = Data.getData().getPostRechercher(aut, ord, lan, gen, triPar, recherche);
                 System.out.println(adresse);
