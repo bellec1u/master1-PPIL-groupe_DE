@@ -25,4 +25,8 @@ Route::get('user/{id}/resend',['as' => 'resendEmail', 'uses' => 'User\UserContro
 // details
 Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');
 
+// Book modif
+Route::get('createRating/{id}',['uses' => 'Book\RatingController@create', 'as' => 'createRating'])->where('id', '[0-9]+');
+Route::post('storeRating', ['uses' => 'Book\RatingController@store', 'as' => 'storeRating']);
+
 

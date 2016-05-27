@@ -6,6 +6,7 @@
 
 @section('css')
 	{!! Html::style('design/css/index.css') !!}
+	{!! Html::style('design/css/navigation.css') !!}
     {!! Html::style('design/css/font-awesome.min.css') !!}
     {!! Html::style('design/css/jcarousel.responsive.css') !!}
 @stop
@@ -89,7 +90,7 @@
                                 <h3 class="a1" data-animate="fadeInDown">{{ $book->title }}</h3>
                                 <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}" class="dmbutton a2" data-animate="fadeInUp">
                                 	<i class="fa fa-search"></i></a>
-                                <a href="" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-link"></i></a>
+                                <a href="" class="dmbutton a2" data-animate="fadeInUp"><i class="fa fa-book"></i></a>
                         	</div><!-- he bg -->
 						</div><!-- he view -->		
 					</div><!-- he wrap -->

@@ -9,7 +9,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand " href="index.php">CALLMEISMAEL</a>
+                    <a class="navbar-brand " href="{{ url('/') }}">CALLMEISMAEL</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav  menuCenter">
@@ -39,16 +39,16 @@
                 </div><!--/.nav-collapse -->
             </div>
             @if (session('status'))
-                <div class="alert alert-success text-center " id="messageAlert" style="margin-bottom: -10px;">
+                <div class="alert alert-success text-center " id="messageAlert">
                     <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     {{ session('status') }}
                 </div>
             @endif
             @if (session('statusInvalidMail'))
-                <div class="alert alert-warning text-center " id="messageAlert" style="margin-bottom: -10px;">
+                <div class="alert alert-danger text-center " id="messageAlert">
                     <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    Veuillez valider votre mail avant de vous connecter. Vérifiez votre boîte mail.
-                    <a href="{{ route('resendEmail', session('statusInvalidMail')) }}" class="btn btn-primary">
+                    Veuillez valider votre mail avant de vous connecter. Vérifiez votre boîte mail.  
+                    <a href="{{ route('resendEmail', session('statusInvalidMail')) }}" class="btn btn-link btnRenvoiMail">
                         <span class="glyphicon glyphicon-send"></span> Renvoyer le mail de validation
                     </a>
                 </div>

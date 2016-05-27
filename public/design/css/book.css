@@ -1,0 +1,173 @@
+html, body {
+  height: 100%;
+}
+
+body{
+	padding-top: 70px;
+	background: red; 
+	margin: 0;
+	color: #384452;
+}
+
+.container{
+	margin:0;
+	width: 100%;
+	padding:0;
+}
+
+.detailBook {
+	padding-bottom: 20px;
+	width: 100%;
+	background: white;
+}
+
+.detailGroupBook{
+	float: none;
+	margin: 0 auto;
+    margin-top:50px;
+    max-width: 800px;
+    margin-bottom: 40px;
+}
+
+.detailBookImg {
+	border-right: 2px solid rgb(200,200,200);
+	min-height: 400px;
+    width: 350px;
+	margin: 0 auto;
+	margin-right:30px;
+	padding-right: 40px;
+
+}
+
+.detailBookImg img{
+	width: 100%;
+	height: 100%;
+}
+
+.descriptionBook{
+	line-height: 20px;
+	float: none;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.descriptionBook a{
+	font-size: 16px;
+	padding: 5px;
+    margin-left:10px;
+    margin-top: 20px;
+   
+}
+
+.descriptionBook .hline{
+	margin-left: 360px;
+	margin-bottom: 30px;
+}
+
+.descriptionBook h4{
+	font-size: 34px;
+}
+
+.descriptionBook p{
+	font-size: 16px;
+}
+
+.contenuComm{
+	background: rgb(240, 240, 245);
+	border-top:2px solid rgb(220, 220, 225);
+	margin:0px;
+	padding:0;
+}
+
+.CommentaireGroupBook{
+	float: none;
+	margin: 0 auto;
+    max-width: 1200px;
+}
+
+.CommentaireGroupBook h1{
+	display: block;
+	float: left;
+	font-size: 45px;
+}
+
+.CommentaireGroupBook a{
+	display: block;
+	float: right;
+	margin-top:30px;
+	font-size: 16px;
+}
+
+.CommentaireGroupBook label{
+	font-size: 20px;
+}
+
+.CommentaireGroupBook .hline{
+	clear: both;
+}
+
+.rating {
+	width: 226px;
+	margin-top:-37px;
+	margin-left:30px;
+	padding:0;
+}
+
+.rating a {
+	float:right;
+	color: #aaa;
+	text-decoration: none;
+	-webkit-transition: color .4s;
+	-moz-transition: color .4s;
+	-o-transition: color .4s;
+	transition: color .4s;
+	font-size: 30px;
+	margin:0;
+	padding:0;
+}
+.rating a:hover,
+.rating a:hover ~ a,
+.rating a:focus,
+.rating a:focus ~ a		{
+	color: orange;
+	cursor: pointer;
+}
+.rating2 {
+	direction: rtl;
+}
+
+.CommentaireGroupBook textarea{
+	height: 100px;
+	min-width: 100%;
+}
+
+/*	################################################################
+	Footer
+################################################################# */
+
+#footerwrap {
+	padding:0px;
+	margin:0;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	background: #23232d;
+    padding-top: 20px;
+    height: 200px;
+    width: 100%;
+    color: white;
+    font-family: "Source Sans Pro",helvetica,arial,sans-serif;
+    text-align: center;
+}
+
+#footerwrap p {
+	color: rgb(230,230,230);
+	font-size: 15px;
+}
+
+#footerwrap h4 {
+	color: white;
+	font-size: 28px;
+	padding-top: 30px;
+    padding-bottom: 30px;
+}
+
