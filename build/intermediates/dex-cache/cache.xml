@@ -5,7 +5,7 @@
         jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="fae33963dd8971a41c596e5331bebae0018d4dce">
+        sha1="b53eb837ac32ac2f84ac26f42c371dd975d5880a">
         <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_bf822c805f4b12c984fb6c2951187dda6f5b90c7\classes.dex" />
     </item>
     <item
@@ -89,7 +89,7 @@
         jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="2f96ccae8ae7f5dcf1b38f034a95352b24036004">
+        sha1="1ef6a7d55f281652e04c433a807ede321b97d146">
         <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1aa1b927108ad653dff5b29148423766d83c3e03\classes.dex" />
     </item>
     <item
@@ -107,18 +107,18 @@
         <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.0.0-beta1_0afe18801560881e83734422ffb50827deac5b4a\classes.dex" />
     </item>
     <item
-        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.12.0\jars\classes.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="384a601bf7671716768cc8586f39816a08ce74c3">
-        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.12.0_ae31f831cc222f0bd0996a45b1314460be19e404\classes.dex" />
-    </item>
-    <item
         jar="C:\Users\fenerli\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-applinks\1.4.0\8ad21bf21784dacce5f2043afb97218cc377e835\bolts-applinks-1.4.0.jar"
         jumboMode="true"
         revision="23.0.3"
         sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
         <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\bolts-applinks-1.4.0_552130d394139f4039f604ec3c46bd03c83ab70e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.12.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="26645b518694e20a97fc19a6a3c3933c0cc41bc1">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.12.1_6cec50982198709cbf7818eb274ba3cd8dbaa7dc\classes.dex" />
     </item>
     <item
         jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\design\24.0.0-beta1\jars\classes.jar"
