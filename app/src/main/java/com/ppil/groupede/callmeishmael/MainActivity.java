@@ -472,6 +472,7 @@ public class MainActivity extends AppCompatActivity
         sign_in.setReadPermissions(Arrays.asList("public_profile", "email"));
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         System.out.println("aaa"+accessToken);
+        //necessaire quand on relance l'appli
         if(accessToken != null)
             co_avec_facebook = true;
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -482,6 +483,7 @@ public class MainActivity extends AppCompatActivity
                 SessionManager sessionManager = new SessionManager(MainActivity.this);
                 boolean tmp = !sessionManager.isConnected();
                 getInfo(loginResult,tmp);
+                co_avec_facebook = true;
             }
 
             // connexion annulé
@@ -563,7 +565,7 @@ public class MainActivity extends AppCompatActivity
                         e.printStackTrace();
                     }
                   }else {
-                        co_avec_facebook = false;
+                        //co_avec_facebook = false;
                         Toast.makeText(MainActivity.this.getBaseContext(), "vous avez lier votre compte!", Toast.LENGTH_SHORT).show();
                     }
                 }

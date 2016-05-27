@@ -29,17 +29,20 @@
                 android:layout_gravity="left" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:id="@+id/afficher_epub" />
+                android:ellipsize="end"
+                android:id="@+id/afficher_epub"
+                android:maxLines="1"/>
 
             <TextView
                 android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Parcourir"
-                android:id="@+id/lien_epub" />
+                android:id="@+id/lien_epub"
+                android:maxLines="1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -56,9 +59,11 @@
                 android:layout_gravity="left" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:id="@+id/afficher_image" />
 
             <TextView
@@ -66,7 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Parcourir"
-                android:id="@+id/lien_image" />
+                android:id="@+id/lien_image"
+                android:maxLines="1"/>
 
         </LinearLayout>
 
@@ -155,7 +161,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/genre"
-                android:entries="@array/importer_genre"
+                android:entries="@array/genre"
                 android:spinnerMode="dialog"
                 android:layout_row="0"
                 android:layout_column="1" />

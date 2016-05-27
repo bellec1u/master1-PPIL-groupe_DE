@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.FileChooser.FileChooser;
 import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
@@ -84,11 +85,13 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         imageButton = (ImageButton) view.findViewById(R.id.imageButton11);
         save = (Button) view.findViewById(R.id.action_confirmer);
         cover_url = "";
+
         if(((MainActivity)getActivity()).getCoF()){
             view.findViewById(R.id.login_button).setVisibility(View.GONE);
         }else{
             view.findViewById(R.id.login_button).setVisibility(View.VISIBLE);
         }
+
         
         /*
             Ajout d'un onClickListener sur imageButton,
@@ -110,6 +113,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                         try {
                             bitmap = bitmapManager.execute(cover_url).get();
                             imageButton.setImageBitmap(bitmap);
+                            imageButton.setBackgroundColor( R.color.white );
                         } catch (ExecutionException |InterruptedException e) {
                             Toast.makeText(getContext()," Oups ! Une erreur s'est produite...",Toast.LENGTH_SHORT).show();
                         }
