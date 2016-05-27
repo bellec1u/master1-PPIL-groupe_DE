@@ -27,17 +27,13 @@
         <item>da</item>
     </string-array>
 
-    <string-array name="importer_genre">
-        <item>Fantastic</item>
-        <item>Science Fiction</item>
-        <item>Romantic</item>
-        <item>Action</item>
-        <item>Adventure</item>
-        <item>Autre</item>
-    </string-array>
-
     <string-array name="genre">
-        <item>Tous</item>
+        <item>Fiction</item>
+        <item>Science fiction</item>
+        <item>Children</item>
+        <item>Detective</item>
+        <item>Short stories</item>
+        <item>Autre</item>
     </string-array>
 
     <string-array name="tri">
