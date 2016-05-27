@@ -1,2 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="fae33963dd8971a41c596e5331bebae0018d4dce">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_bf822c805f4b12c984fb6c2951187dda6f5b90c7\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\libs\slf4j-android-1.6.1-RC1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a0b527e8aabcc1f1e97d1674dc3f4f0794ec5df1">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\2\slf4j-android-1.6.1-RC1_430cbe31bda94fa0c6a790771138103f8a72b493\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\24.0.0-beta1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="471ce760dbf7b784fd74892b5113bca4e0d8def7">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-24.0.0-beta1_4cf3721d8af09bce1d230d29688c4f811358f395\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="0af4f577b4a21eb9be2a7f52e33b077b67e6d9f8">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-plus-8.3.0_31f89b3f32b1806f7199e75ab5b93024e06d0294\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="01a90bbb9495a8bbf6f3cfdf12f1b35caaa9524b">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-8.3.0_429efe069bc77f783375622dddd1d21a4279bd9c\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.4.0_a18b67c3ad56a17668ab537391febf8a9b0e1048\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="345a1b5cf5b144ce18ba6962bc66a7e2f26c1c1b">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-8.3.0_c885bad61c948e000c27f3e9fe5d173487452bae\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\bolts-tasks-1.4.0_a5f98f5c462a58a29610a1d551d4751b599002cc\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\24.0.0-beta1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="3c0208faf42864e6695345e64d1b955070263819">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-24.0.0-beta1_b035ae189b33c93a54111a5f0d97bc7ed6a77993\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\24.0.0-beta1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8d3137a71200c47974c0454ae8ad272a09c533eb">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-24.0.0-beta1_4172780ba3d886a99d3872b7bb77e90b0fd8f67a\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-beta1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="f81eecb8d5e9e548f75f277830a94a9b37fbb987">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-24.0.0-beta1_3a773b7986639a265af28432811dd4f26e768637\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\libs\epublib-core-latest.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ca916295c8af907b0c2d877b5f3a392e5ceb80ea">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\2\epublib-core-latest_ecd105f51e27bfb5d23d2da8071fe8f5254bc246\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2f96ccae8ae7f5dcf1b38f034a95352b24036004">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_1aa1b927108ad653dff5b29148423766d83c3e03\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\customtabs\23.4.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="2d1eaa9e0b98f8fc4c2b989d9b30d4f1480648ac">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-customtabs-23.4.0_4e328e68f813405c2e2c476a915cc24228a195e5\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AppData\Local\Android\sdk1\extras\android\m2repository\com\android\support\support-annotations\24.0.0-beta1\support-annotations-24.0.0-beta1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="04705c19cdec60364bc04e2e928c274da1ba301b">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-24.0.0-beta1_0afe18801560881e83734422ffb50827deac5b4a\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.12.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="384a601bf7671716768cc8586f39816a08ce74c3">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.12.0_ae31f831cc222f0bd0996a45b1314460be19e404\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-applinks\1.4.0\8ad21bf21784dacce5f2043afb97218cc377e835\bolts-applinks-1.4.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\bolts-applinks-1.4.0_552130d394139f4039f604ec3c46bd03c83ab70e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\design\24.0.0-beta1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="6fd4eef51a55508bdf3f43f8ad96992e1da3850b">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-24.0.0-beta1_41f20440472f885dca02e400d42841843fed7ba9\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0-beta1\jars\libs\internal_impl-24.0.0-beta1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="23d564c059873f398dc5d967f56791a66472ce76">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0-beta1_b782cb5b89c365b5b9cfcbf71819d4c04b044bcd\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\24.0.0-beta1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="97f82fd0c185bd2881a93646954f2429be4baa86">
+        <dex dex="C:\Users\fenerli\AndroidStudioProjects\ppil_mobile\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-24.0.0-beta1_842f110d05fdaec3e8afc54b0f64c8f8b0f39ede\classes.dex" />
+    </item>
+
+</items>
