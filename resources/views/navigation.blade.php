@@ -44,6 +44,15 @@
                     {{ session('status') }}
                 </div>
             @endif
+            @if (session('statusInvalidMail'))
+                <div class="alert alert-warning text-center " id="messageAlert" style="margin-bottom: -10px;">
+                    <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    Veuillez valider votre mail avant de vous connecter. Vérifiez votre boîte mail.
+                    <a href="{{ route('resendEmail', session('statusInvalidMail')) }}" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-send"></span> Renvoyer le mail de validation
+                    </a>
+                </div>
+            @endif
         </div>
 
 @stop

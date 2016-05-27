@@ -40,7 +40,7 @@ class EmailConfirmationService
             $inputs['validation_code'] = $token;
         }
 
-        //$this->sendMail($inputs['email'], $token);
+        $this->sendMail($inputs['email'], $token);
 
         return $inputs;
     }
@@ -73,11 +73,11 @@ class EmailConfirmationService
         $this->sendMail($email, $token);
     }
 
-    /*private function sendMail($email, $token)
+    private function sendMail($email, $token)
     {
         Mail::send('user.email_confirmation', compact('token'), function($message) use ($email) {
             $message->to($email)->subject('Vérifiez votre adresse mail');
         });
-    }*/
+    }
 
 }

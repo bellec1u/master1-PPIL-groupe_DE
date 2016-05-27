@@ -17,6 +17,10 @@ Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
 Route::auth();
 Route::resource('user', 'User\UserController',['except' => ['index', 'edit', 'update', 'show', 'destroy']]);
 
+// email validation
+Route::get('user/verify/{token}', 'User\UserController@confirmEmail')->where('token', '[a-zA-Z0-9]+');
+Route::get('user/{id}/resend',['as' => 'resendEmail', 'uses' => 'User\UserController@resendEmail'])->where('id', '[0-9]+');
+
 // Book access
 // details
 Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');

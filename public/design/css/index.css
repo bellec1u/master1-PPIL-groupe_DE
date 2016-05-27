@@ -89,12 +89,16 @@ a:focus {
 
 .container{
 	width: 100%;
+	
 }
 
 .navbar {
-	min-height: 70px;
+	min-height: 50px;
 	padding-top: 10px;
 	margin-bottom: 0px;
+	border:none;
+	margin:0;
+	padding: 0;
 }
 
 .navbar-brand {
@@ -104,6 +108,8 @@ a:focus {
 	z-index: 40;
 	display:inline-block;	
 	position: relative;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .navbar-header .navbar-brand {
@@ -114,6 +120,7 @@ a:focus {
 	color: white;
 	font-weight: 700;
 	font-size: 14px;
+	margin-top: 10px;
 }
 
 .navbar-default .navbar-nav > li > a:hover {

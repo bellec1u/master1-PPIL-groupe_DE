@@ -33,7 +33,7 @@
         @yield('javascript')
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#messageAlert').delay(8000).slideUp("500");
+                $('#messageAlert').delay(8000).slideUp("600");
             });
         </script>
 
