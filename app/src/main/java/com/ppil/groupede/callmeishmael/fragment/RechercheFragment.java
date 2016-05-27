@@ -228,7 +228,7 @@ public class RechercheFragment extends Fragment implements DataReceiver {
 
             dialog = new ProgressDialog(getActivity());
             dialog.setTitle("Chargement");
-            dialog.setMessage("Chargement du livre ...");
+            dialog.setMessage("Recherche en cours ...");
             dialog.show();
 
             // ---------- ---------- ---------- ----------
