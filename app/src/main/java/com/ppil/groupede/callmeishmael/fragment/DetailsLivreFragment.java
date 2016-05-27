@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ppil.groupede.callmeishmael.MainActivity;
+import com.ppil.groupede.callmeishmael.ProgressTask;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.Data;
@@ -279,7 +280,8 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                     }
                     else{
 
-                        new ProgressTask().execute();
+                        new ProgressTask(getActivity()).execute();
+
 
                     /*
                         On va verifier que le livre est present ou non dans assets
@@ -313,52 +315,6 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         SingletonBackPressed.getInstance().setCanBackView(true);
 
         return view; // et on retourne la vue complétée de nos informations
-    }
-
-    private class ProgressTask extends AsyncTask<String, Void, Boolean> {
-        private ProgressDialog dialog;
-
-        public ProgressTask() {
-
-        }
-
-        /** progress dialog to show user that the backup is processing. */
-
-        protected void onPreExecute() {
-            // ---------- ---------- ---------- ---------- popup de chargement
-
-            dialog = new ProgressDialog(getActivity());
-            dialog.setTitle("Chargement");
-            dialog.setMessage("Chargement du livre ...");
-            dialog.show();
-
-            // ---------- ---------- ---------- ----------
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            if (dialog.isShowing()) {
-                dialog.dismiss();
-            }
-
-            if (success) {
-                System.out.println("- - - - - ok");
-            } else {
-                System.out.println("- - - - - pas ok");
-            }
-        }
-
-        protected Boolean doInBackground(final String... args) {
-            try{
-                Thread.sleep(3000);
-                return true;
-            } catch (Exception e){
-                Log.e("tag", "error", e);
-                return false;
-            }
-        }
-
-
     }
 
     /*
