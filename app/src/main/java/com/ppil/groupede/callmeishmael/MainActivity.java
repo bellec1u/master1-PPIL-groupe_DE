@@ -471,7 +471,6 @@ public class MainActivity extends AppCompatActivity
                LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
         sign_in.setReadPermissions(Arrays.asList("public_profile", "email"));
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        System.out.println("aaa"+accessToken);
         //necessaire quand on relance l'appli
         if(accessToken != null)
             co_avec_facebook = true;

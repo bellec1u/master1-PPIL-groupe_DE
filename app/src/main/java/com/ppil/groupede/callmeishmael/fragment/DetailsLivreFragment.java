@@ -2,17 +2,14 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -409,7 +406,8 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             }
             if(object.has("num")) {
                 System.out.println("NUM : " + object.getString("num"));
-                nbPage = Float.valueOf(object.getString("num"));
+                if(object.getString("num").length() != 0) // code ajouter par yasar
+                 nbPage = Float.valueOf(object.getString("num"));
             }else{
                 nbPage = 0.0f;
             }
