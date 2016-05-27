@@ -74,10 +74,12 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
     int position = 0;
     String line;
     float xChangePage = 0;
+    private float nbPage;
 
-    public LectureLivreFragment(String id) {
+    public LectureLivreFragment(String id, float page) {
         // Required empty public constructor
         idLivre = id;
+        nbPage = page; // pourcent du livre lu
     }
 
     @Override
@@ -171,36 +173,38 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
 
         // ---------- ---------- ---------- ---------- demande de reprise de lecture
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-        // set title
-        alertDialogBuilder.setTitle("Reprise de lecture");
-        // set dialog message
-        alertDialogBuilder
-                .setMessage("Voulez-vous reprendre la lecture au dernier point de sauvegarde ?")
-                .setCancelable(false)
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+        if(!(nbPage == 0.0f)) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+            // set title
+            alertDialogBuilder.setTitle("Reprise de lecture");
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage("Voulez-vous reprendre la lecture au dernier point de sauvegarde ?")
+                    .setCancelable(false)
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                         /*
                             ON recupere la page sauvegarder grace a Data et DataManager et SessionManager pour le mail
                          */
-                        SessionManager sessionManager = new SessionManager(getContext());
-                        String email = sessionManager.getSessionEmail();
-                        String adresse = Data.getData().getURLPageCourante();
-                        byte[] infos = Data.getData().getPostPageCourante(email, idLivre);
-                        DataManager dataManager = new DataManager(LectureLivreFragment.this);
-                        dataManager.execute(adresse, infos);
-                    }
-                })
-                .setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                            SessionManager sessionManager = new SessionManager(getContext());
+                            String email = sessionManager.getSessionEmail();
+                            String adresse = Data.getData().getURLPageCourante();
+                            byte[] infos = Data.getData().getPostPageCourante(email, idLivre);
+                            DataManager dataManager = new DataManager(LectureLivreFragment.this);
+                            dataManager.execute(adresse, infos);
+                        }
+                    })
+                    .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
 
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show it
-        alertDialog.show();
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
+        }
 
         // ---------- ---------- ---------- ---------- 
 
@@ -381,6 +385,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
             String adresse = Data.getData().getURLMarquePage();
             byte[] infos = Data.getData().getPostMarquePage(email,pourcent, idLivre);
             //vas a un certain pourcentage du livre
+            System.out.println("Pourcentage : "+pourcent);
             DataManager dataManager = new DataManager(null);
             dataManager.execute(adresse,infos);
         }

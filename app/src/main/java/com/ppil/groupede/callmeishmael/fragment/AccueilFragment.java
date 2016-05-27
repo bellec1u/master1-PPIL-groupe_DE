@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -375,12 +376,20 @@ public class AccueilFragment extends Fragment implements DataReceiver {
                     une image venant d'un URL
                 */
                     Bitmap bitmap = null; // parametre d'ImageManager
-                    BitmapManager bitmapManager = new BitmapManager(bitmap); // instanciation ici...
+                    if(jsonObject.getString("cover_url").startsWith("http")) {
+                        BitmapManager bitmapManager = new BitmapManager(bitmap); // instanciation ici...
                 /*
                     On execute bitmapManager, donc requete,
                     le get() fait en sorte que l'UIThread attend le resultat.
                  */
-                    bitmap = bitmapManager.execute(jsonObject.getString("cover_url")).get();
+                        bitmap = bitmapManager.execute(jsonObject.getString("cover_url")).get();
+                    }else{
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                        System.out.println(jsonObject.getString("cover_url"));
+                        bitmap = BitmapFactory.decodeFile(jsonObject.getString("cover_url"),options);
+                       // bitmap = Bitmap.createScaledBitmap(bitmap,48,48,true);
+                    }
 
                     if (bitmap != null) {
                 /*
