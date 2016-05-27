@@ -2,10 +2,14 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -274,6 +278,9 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                         Toast.makeText(getContext(),"Vous n'avez pas téléchargé ce livre",Toast.LENGTH_SHORT).show();
                     }
                     else{
+
+                        new ProgressTask().execute();
+
                     /*
                         On va verifier que le livre est present ou non dans assets
                      */
@@ -306,6 +313,52 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         SingletonBackPressed.getInstance().setCanBackView(true);
 
         return view; // et on retourne la vue complétée de nos informations
+    }
+
+    private class ProgressTask extends AsyncTask<String, Void, Boolean> {
+        private ProgressDialog dialog;
+
+        public ProgressTask() {
+
+        }
+
+        /** progress dialog to show user that the backup is processing. */
+
+        protected void onPreExecute() {
+            // ---------- ---------- ---------- ---------- popup de chargement
+
+            dialog = new ProgressDialog(getActivity());
+            dialog.setTitle("Chargement");
+            dialog.setMessage("Chargement du livre ...");
+            dialog.show();
+
+            // ---------- ---------- ---------- ----------
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+
+            if (success) {
+                System.out.println("- - - - - ok");
+            } else {
+                System.out.println("- - - - - pas ok");
+            }
+        }
+
+        protected Boolean doInBackground(final String... args) {
+            try{
+                Thread.sleep(3000);
+                return true;
+            } catch (Exception e){
+                Log.e("tag", "error", e);
+                return false;
+            }
+        }
+
+
     }
 
     /*

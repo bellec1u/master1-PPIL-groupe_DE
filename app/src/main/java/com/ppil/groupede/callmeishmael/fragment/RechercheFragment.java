@@ -1,10 +1,13 @@
 package com.ppil.groupede.callmeishmael.fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -211,6 +214,52 @@ public class RechercheFragment extends Fragment implements DataReceiver {
 
     }
 
+    private class ProgressTask extends AsyncTask<String, Void, Boolean> {
+        private ProgressDialog dialog;
+
+        public ProgressTask() {
+
+        }
+
+        /** progress dialog to show user that the backup is processing. */
+
+        protected void onPreExecute() {
+            // ---------- ---------- ---------- ---------- popup de chargement
+
+            dialog = new ProgressDialog(getActivity());
+            dialog.setTitle("Chargement");
+            dialog.setMessage("Chargement du livre ...");
+            dialog.show();
+
+            // ---------- ---------- ---------- ----------
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+
+            if (success) {
+                System.out.println("- - - - - ok");
+            } else {
+                System.out.println("- - - - - pas ok");
+            }
+        }
+
+        protected Boolean doInBackground(final String... args) {
+            try{
+                Thread.sleep(3000);
+                return true;
+            } catch (Exception e){
+                Log.e("tag", "error", e);
+                return false;
+            }
+        }
+
+
+    }
+
     /*
         Listener servant à gérer une recherche demandé par l"utilisateur,
         de ce faite, ce listener va charger tous les champs possibles,
@@ -220,6 +269,8 @@ public class RechercheFragment extends Fragment implements DataReceiver {
 
         @Override
         public void onClick(View v) {
+
+            new ProgressTask().execute();
 
             //masquer le clavier
             View view = getActivity().getCurrentFocus();
