@@ -79,6 +79,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
     private Boolean dejaCommenter; // indique si l'utilisateur a déjà commenter ou non
     private Boolean dansMaListe; // indique si le livre est dans la liste de lecture ou non
     private LinearLayout layoutCommentaire; // layout contenant les commentaires
+    private float nbPage;
 
     /*
         ImageView des étoiles correspondant à la note
@@ -154,6 +155,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
         dansMaListe = false;
         lire = (Button) view.findViewById(R.id.lire);
         ft = getFragmentManager().beginTransaction();
+        nbPage = 0.0f;
 
         //On affecte à l'imageView notre image Bitmap
         imageLivre.setImageBitmap(image);
@@ -282,7 +284,7 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                     /*
                         On va verifier que le livre est present ou non dans assets
                      */
-                        LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub");
+                        LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub", nbPage);
                         getActivity().setTitle("Lecture");
                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -456,6 +458,12 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                 ajouter.setText("Retirer de ma liste");
             }else{
                 ajouter.setText("Ajouter dans ma liste");
+            }
+            if(object.has("num")) {
+                System.out.println("NUM : " + object.getString("num"));
+                nbPage = Float.valueOf(object.getString("num"));
+            }else{
+                nbPage = 0.0f;
             }
         } catch (JSONException e) {
             e.printStackTrace();

@@ -30,7 +30,6 @@ public class Data {
         ipMachine = "http://192.168.43.15";
         port = "";
         adresse = ipMachine + ":" + port;
-
     }
 
     /*

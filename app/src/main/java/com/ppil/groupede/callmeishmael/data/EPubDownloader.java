@@ -108,6 +108,11 @@ public class EPubDownloader extends AsyncTask<Object,String,String>{
             if (!direct.exists()) {
                 direct.mkdir(); // repertoire créé
             }
+            /*File livre = new File (direct.toString() + "/" + params[2] + ".epub");
+            if(!livre.exists())
+            {
+                livre.createNewFile();
+            }*/
             FileOutputStream output = new FileOutputStream(direct.toString() + "/" + params[2] + ".epub");
 
             byte data[] = new byte[1024];
