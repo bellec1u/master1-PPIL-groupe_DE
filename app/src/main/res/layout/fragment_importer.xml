@@ -29,6 +29,12 @@
                 android:layout_gravity="left" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/afficher_epub" />
+
+            <TextView
                 android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,6 +54,12 @@
                 android:text="Lien image :"
                 android:id="@+id/importer_titre_lien_image"
                 android:layout_gravity="left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/afficher_image" />
 
             <TextView
                 android:layout_marginLeft="15dp"

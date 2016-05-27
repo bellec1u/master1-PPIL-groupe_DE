@@ -142,7 +142,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
             On verifie le sexe, et on coche la bonne case
          */
         String sexe = sessionManager.getSessionGenre();
-        if(sexe.equals("M"))
+        if(sexe.equals("M") || sexe.equals("m"))
         {
             genreM.setChecked(true);
         }else{

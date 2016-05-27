@@ -2,7 +2,6 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -87,8 +86,6 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lecture_livre, container, false);
 
-
-
         webView = (WebView) view.findViewById(R.id.webViewLectureLivre);
         webView.getSettings().setDefaultTextEncodingName("utf-8");
         webView.getSettings().setJavaScriptEnabled(true); // on rend actif le javaScript
@@ -126,11 +123,11 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
 
         try {
             String basePath = Data.getData().getPath() + "/" + idLivre;
-            //System.out.println(basePath);
+            System.out.println(basePath);
             File test = new File(basePath);
             if(test.exists())
             {
-                //System.out.println("OK");
+                System.out.println("OK");
             }
             book = (new EpubReader()).readEpub(new FileInputStream(basePath));
 
@@ -173,7 +170,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         }
 
         // ---------- ---------- ---------- ---------- demande de reprise de lecture
-/*
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
         // set title
         alertDialogBuilder.setTitle("Reprise de lecture");
@@ -186,7 +183,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                         /*
                             ON recupere la page sauvegarder grace a Data et DataManager et SessionManager pour le mail
                          */
- /*                       SessionManager sessionManager = new SessionManager(getContext());
+                        SessionManager sessionManager = new SessionManager(getContext());
                         String email = sessionManager.getSessionEmail();
                         String adresse = Data.getData().getURLPageCourante();
                         byte[] infos = Data.getData().getPostPageCourante(email, idLivre);
@@ -204,7 +201,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         AlertDialog alertDialog = alertDialogBuilder.create();
         // show it
         alertDialog.show();
-*/
+
         // ---------- ---------- ---------- ---------- 
 
         //change d'état le bouton de retour
@@ -259,7 +256,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         fileName est le nom du livre
      */
     public void copyBookToDevice(String fileName) {
-        //System.out.println("Copy Book to donwload folder in phone");
+        System.out.println("Copy Book to donwload folder in phone");
         try
         {
             InputStream localInputStream = getActivity().getAssets().open("book/"+fileName);
@@ -293,14 +290,14 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
      */
     private void DownloadResource(String directory) {
         try {
-            //System.out.println("URL " + directory);
+            System.out.println("URL " + directory);
             Resources rst = book.getResources();
             Collection<Resource> clrst = rst.getAll();
             Iterator<Resource> itr = clrst.iterator();
 
             while (itr.hasNext()) {
                 Resource rs = itr.next();
-                //System.out.println(rs.toString());
+                System.out.println(rs.toString());
                 if ((rs.getMediaType() == MediatypeService.JPG)
                         || (rs.getMediaType() == MediatypeService.PNG)
                         || (rs.getMediaType() == MediatypeService.GIF)) {
@@ -312,7 +309,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                     oppath1.getParentFile().mkdirs();
                     oppath1.createNewFile();
 
-                    //System.out.println("Path : " + oppath1.getParentFile().getAbsolutePath());
+                    System.out.println("Path : " + oppath1.getParentFile().getAbsolutePath());
 
 
                     FileOutputStream fos1 = new FileOutputStream(oppath1);

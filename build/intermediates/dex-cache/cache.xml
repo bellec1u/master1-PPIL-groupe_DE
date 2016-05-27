@@ -26,7 +26,7 @@
         jar="/Users/Leopold/Documents/l3/s6/PPIL/mobile/ppil_mobile/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="fb42f745966cf4a399fb0c162003fe38806492e7">
+        sha1="9d2b82fe6fd26f1808d4fac10addb5ee2bbdc13c">
         <dex dex="/Users/Leopold/Documents/l3/s6/PPIL/mobile/ppil_mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_9777fef1f35bd70c99eb0ddee60116d2083e2c33/classes.dex" />
     </item>
     <item
@@ -61,7 +61,7 @@
         jar="/Users/Leopold/Documents/l3/s6/PPIL/mobile/ppil_mobile/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         revision="23.0.3"
-        sha1="ae322e9459986231ba480f6a2f07c1f89df1d673">
+        sha1="768d7a2d193384f5eb9698902aa85e35ef3cbb94">
         <dex dex="/Users/Leopold/Documents/l3/s6/PPIL/mobile/ppil_mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_30ce5f5784c6e22572e5bf003f44bee94c9cc508/classes.dex" />
     </item>
     <item

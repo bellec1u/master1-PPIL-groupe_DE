@@ -14,24 +14,17 @@
     <string-array name="langue">
         <item>Tous</item>
         <item>en</item>
-        <item>fr</item>
-        <item>pt</item>
-        <item>de</item>
-        <item>tl</item>
-        <item>fi</item>
-        <item>la</item>
-        <item>nl</item>
-        <item>es</item>
-        <item>el</item>
-        <item>hu</item>
-        <item>sv</item>
-        <item>zh</item>
         <item>it</item>
-        <item>ga</item>
-        <item>pl</item>
-        <item>cs</item>
+        <item>tl</item>
+        <item>fr</item>
+        <item>nl</item>
+        <item>de</item>
+        <item>gla</item>
+        <item>sv</item>
+        <item>el</item>
+        <item>es</item>
+        <item>hu</item>
         <item>da</item>
-        <item>eo</item>
     </string-array>
 
     <string-array name="importer_genre">
@@ -40,6 +33,7 @@
         <item>Romantic</item>
         <item>Action</item>
         <item>Adventure</item>
+        <item>Autre</item>
     </string-array>
 
     <string-array name="genre">
