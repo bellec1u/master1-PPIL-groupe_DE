@@ -107,6 +107,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('editRating/{id}', 'Book\RatingController@edit')->where('id', '[0-9]+');
     Route::post('updateRating', ['uses' => 'Book\RatingController@update', 'as' => 'updateRating']);
 
+    // bookMarks
+    Route::get('addBookmarks/{idBook}/', ['uses' => 'Book\BookMarksController@add', 'as' => 'addBookmarks']);
 
     // liste de lecture.
     Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');

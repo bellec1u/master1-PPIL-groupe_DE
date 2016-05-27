@@ -52,6 +52,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Reading');
     }
 
+    public function bookmarks(){
+        return $this->hasMany('App\Models\Bookmark');
+    }
     public function socialAccount()
     {
         return $this->hasOne('App\Models\SocialAccount');

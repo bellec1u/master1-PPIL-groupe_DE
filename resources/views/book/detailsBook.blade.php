@@ -5,6 +5,25 @@
 @stop
 @section('head')
 {!! Html::script('etoile/ListeEtoile.js') !!}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+	var taChaineDeCaractere = "test";
+	var divOuAfficherLeRetour = "#result";
+
+	/*$.ajax({
+		type: 'GET',
+		url: '',
+		data: {},
+		success: function(data){
+			$(divOuAfficherLeRetour).html(data);
+		},
+		error : function(){
+			alert(' marche pas');
+		}
+	});*/
+
+</script>
+
 <style type="text/css">
 	.listeEtoile ul {
 		margin: 0;
@@ -105,8 +124,8 @@
 
                 		@if(Auth::check())
 							@if(count($estEvalue) == 0)
-							<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Évaluer</a>
-
+							<a href="{{URL::route('createRating', array('id'=>$book->id))}}" class="btn btn-primary">Évaluer</a>
+							<!-- , 'path'=>Request::url()-->
 							@endif
 
 							<?php
@@ -169,6 +188,8 @@
                         </p>
 
 				</section>
+				<div id="result"></div>
 			</div>
+
 	</article>
 @stop
