@@ -190,9 +190,6 @@
 				</section>
 				<div id="result"></div>
 			</div>
-		{!! Form::open(array('route'=>array('isBookmarks', 'idbook'=>$book->id , "path"=>'test'), 'method'=>'GET')) !!}
-
-		{!! Form::submit('testBookMark', ['class' => 'btn btn-info pull-right']) !!}
-		{!! Form::close() !!}
+		
 	</article>
 @stop
