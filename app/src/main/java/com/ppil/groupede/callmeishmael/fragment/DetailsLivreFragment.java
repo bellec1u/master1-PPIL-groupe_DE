@@ -2,20 +2,14 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,16 +29,11 @@ import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.EPubDownloader;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Pima on 16/05/16.
@@ -417,7 +406,8 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
             }
             if(object.has("num")) {
                 System.out.println("NUM : " + object.getString("num"));
-                nbPage = Float.valueOf(object.getString("num"));
+                if(object.getString("num").length() != 0) // code ajouter par yasar
+                 nbPage = Float.valueOf(object.getString("num"));
             }else{
                 nbPage = 0.0f;
             }

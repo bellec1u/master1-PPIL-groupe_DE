@@ -18,7 +18,9 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.FileChooser.FileChooser;
+import com.ppil.groupede.callmeishmael.MainActivity;
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
@@ -84,6 +86,13 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         save = (Button) view.findViewById(R.id.action_confirmer);
         cover_url = "";
 
+        if(((MainActivity)getActivity()).getCoF()){
+            view.findViewById(R.id.login_button).setVisibility(View.GONE);
+        }else{
+            view.findViewById(R.id.login_button).setVisibility(View.VISIBLE);
+        }
+
+        
         /*
             Ajout d'un onClickListener sur imageButton,
             pour ouvrir une fenetre de recherche d'image

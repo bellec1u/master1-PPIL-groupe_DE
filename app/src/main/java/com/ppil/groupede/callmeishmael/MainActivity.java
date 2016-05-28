@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -36,8 +37,8 @@ import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
-import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConditionsFragment;
+import com.ppil.groupede.callmeishmael.fragment.ConnexionFragment;
 import com.ppil.groupede.callmeishmael.fragment.FAQFragment;
 import com.ppil.groupede.callmeishmael.fragment.ImporterFragment;
 import com.ppil.groupede.callmeishmael.fragment.InscriptionFragment;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     private TextView adresseMail; // Permet de recupérer l'adresse mail dans notre nav_header_main
     private ImageView imagePerso; // Permet de recupérer l'image de l'utilisateur
     private CallbackManager callbackManager; // permet de gérer les callBacks lors de la connexion avec Facebook est établit.
-
+    private boolean co_avec_facebook; // permet de savoir si on c'est co avec facebook ou non pour désactiver le bouton lier compte dans la fenetre modification du profil
     /*
     Fonction permettant de créer et de retourner le Fragment avec les divers
     élements contenus dans ce dernier...
@@ -237,6 +238,7 @@ public class MainActivity extends AppCompatActivity
             LoginManager.getInstance().logOut();
             this.setConnection(false);
             this.setTitle("Accueil");
+            co_avec_facebook = false;
             // Set the fragment of view
             AccueilFragment fragment = new AccueilFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -462,16 +464,25 @@ public class MainActivity extends AppCompatActivity
             demir.yasar@sfr.fr
             Azerty123
          */
+
         //initialisation du sdk
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-        LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
+               LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
         sign_in.setReadPermissions(Arrays.asList("public_profile", "email"));
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        //necessaire quand on relance l'appli
+        if(accessToken != null)
+            co_avec_facebook = true;
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             //connexion avec succès
             @Override
             public void onSuccess(LoginResult loginResult) {
-                getInfo(loginResult);
+                //test si on est déjà co ce qui permet de faire la difference du bouton cliqué(celui de la page de co ou de lier compte fb)
+                SessionManager sessionManager = new SessionManager(MainActivity.this);
+                boolean tmp = !sessionManager.isConnected();
+                getInfo(loginResult,tmp);
+                co_avec_facebook = true;
             }
 
             // connexion annulé
@@ -484,11 +495,11 @@ public class MainActivity extends AppCompatActivity
             public void onError(FacebookException error) {
             }
         });
+
     }
 
     //recupération des infos de l'utilisateur
-      public void getInfo(LoginResult loginResult){
-        String accessToken = loginResult.getAccessToken().getToken();
+      public void getInfo(LoginResult loginResult, final boolean deja_co){
         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
@@ -510,6 +521,9 @@ public class MainActivity extends AppCompatActivity
                                     genre,
                                     bFacebookData.getString("profile_pic"),
                                     bFacebookData.getString("birthday"));
+                    //l'utilisateur se co avec fb
+                    if(deja_co==false) {
+
                     /*
                         On appelle data Manager
                      */
@@ -523,8 +537,8 @@ public class MainActivity extends AppCompatActivity
                 Si on ne rentre pas dans l'exception alors on a un résultat,
                 on va parcourir ce dernier et créé un sessionManager
              */
-                        SessionManager sessionManager = new SessionManager(MainActivity.this);
 
+                            SessionManager sessionManager = new SessionManager(MainActivity.this);
                         // On commence le parcour du jsonObject
                         sessionManager.createSession(json.getString("nom"),
                                 json.getString("prenom"),
@@ -536,20 +550,30 @@ public class MainActivity extends AppCompatActivity
                                 json.getString("sexe"));
                         Toast.makeText(MainActivity.this.getBaseContext(), "Bonjour " + json.getString("prenom") + " !", Toast.LENGTH_SHORT).show();
                         MainActivity.this.setTitle("Accueil");
-                        // Set the fragment of view
-                        setConnection(true);
-                        AccueilFragment fragment = new AccueilFragment();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                                getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, fragment);
-                        fragmentTransaction.commit();
+
+                            // Set the fragment of view
+                            setConnection(true);
+                            AccueilFragment fragment = new AccueilFragment();
+                            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                                    getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container, fragment);
+                            fragmentTransaction.commit();
+                            //on va lier le compte fb
+
                     } catch (ExecutionException | InterruptedException e) {
                         e.printStackTrace();
                     }
-                } catch (JSONException e) {
+                  }else {
+                        //co_avec_facebook = false;
+                        Toast.makeText(MainActivity.this.getBaseContext(), "vous avez lier votre compte!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                    catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
+
         });
         Bundle parameters = new Bundle();
         parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
@@ -606,6 +630,10 @@ public class MainActivity extends AppCompatActivity
     public void connexionGoogle()
     {
         //// TODO: 17/05/16
+    }
+
+    public boolean getCoF() {
+        return co_avec_facebook;
     }
 }
 

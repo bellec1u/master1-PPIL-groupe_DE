@@ -403,7 +403,8 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
 
     @Override
     public void receiveData(String resultat) {
-        float values = Float.valueOf(resultat);
+        //float values = Float.valueOf(resultat);
+        float values = Float.valueOf(nbPage);
         goToPart(values);
     }
 }
