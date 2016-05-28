@@ -21,11 +21,25 @@ class BookmarksController extends Controller
 
     public function add($idBook){
 
-        $test['user_id'] = Auth::user()->id;
-        $test['book_id'] = $idBook;
-        $test['page'] = $_GET['path'];
         
-        $this->bookmarksRepository->store($test);
+        $user =  Auth::user(); 
+        $bookmarks = $this->bookmarksRepository->getBookmarkIdAndUser($idBook,$user->id );
+        if(count($bookmarks) == 0){
+            $test['user_id'] =$user->id;
+            $test['book_id'] = $idBook;
+            $test['page'] =$_GET['path'];
+
+            $this->bookmarksRepository->store($test);
+        }
+        else{
+            foreach($bookmarks as $bookmark){
+                $bookmark->page = $_GET['path'];
+
+                 $this->bookmarksRepository->update($bookmark->id, array_merge($bookmark->toArray()) );
+            }
+
+        }
+
 
         return response()->json();
     }

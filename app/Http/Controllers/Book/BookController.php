@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Book;
 
+use App\Repositories\Book\BookmarksRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,17 +19,19 @@ class BookController extends Controller
     protected $bookRepository;
     protected $ratingRapository;
     protected $epubManager;
-
+    protected $bookmarkRepository;
 
     public function __construct(
         BookRepository $bookRepository,
         RatingRepository $ratingRepository,
+        BookmarksRepository $bookmarksRepository,
         EpubManager $epubMan
 
     ) {
         $this->bookRepository = $bookRepository;
         $this->ratingRapository = $ratingRepository;
         $this->epubManager = $epubMan;
+        $this->bookmarkRepository = $bookmarksRepository;
     }
 
 
@@ -106,13 +109,18 @@ class BookController extends Controller
     {
         $book = $this->bookRepository->getById($id);
         $id_book = basename($book->url);
+        $bookmarks = $this->bookmarkRepository->getBookmarkIdAndUser($id, Auth::user()->id);
+        $bookmark = null;
+        foreach($bookmarks as $bm){
+            $bookmark = $bm;
+        }
 
         $file_exists = Storage::disk('public')->exists('Books/Book' . $id_book . '.epub');
         if (!$file_exists) {
             $this->epubManager->download_book($id_book);
         }
 
-        return view('book/basic', compact('id_book'));
+        return view('book/basic', compact('id_book', 'bookmark', 'id'));
     }
 
     /**

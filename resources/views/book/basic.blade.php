@@ -112,6 +112,7 @@
         "use strict";
         var book = ePub("{!! URL::asset('Books/Book'.$id_book.'.epub') !!}", { width: 1076, height: 588 });
     </script>
+
 </head>
 <body>
 
@@ -131,8 +132,7 @@
 
 <div id="main">
     <div id="title-controls">
-        <a href="<?php URL::route('addBookmarks', array('idBook'=>$id_book, 'input'=>'tt'));?>" class="btn btn-primary">Ouvrir</a>
-        <button href="{{URL::route('addBookmarks', array('idBook'=>$id_book, 'input'=>'<script>book.getCurrentLocationCfi()</script>'))}}"> clique</button>
+
         <a href="#" onclick="test()"><img src="{{ URL::asset('bookmarks.png')}}"></a>
 
         <a href="{{ $_GET['path'] }}"> <img src="{{ URL::asset('fermer.png')}}"></a>
@@ -154,7 +154,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '<?php echo  URL::route('addBookmarks', array('idBook'=>$id_book)); ?>',
+            url: '<?php echo  URL::route('addBookmarks', array('idBook'=>$id)); ?>',
             data: 'path='+ book.getCurrentLocationCfi(),
             time : 5000,
             success: function(data){
@@ -176,5 +176,10 @@
     var rendered = book.renderTo("area");
 
 </script>
+@if($bookmark != null)
+    rentre  ici
+    <script>    book.gotoCfi("<?php echo $bookmark->page; ?>");</script>
+
+@endif
 </body>
 </html>
