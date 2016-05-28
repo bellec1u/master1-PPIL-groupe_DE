@@ -2,51 +2,35 @@ package com.ppil.groupede.callmeishmael.fragment;
 
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.ppil.groupede.callmeishmael.R;
 import com.ppil.groupede.callmeishmael.SingletonBackPressed;
 import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
-import com.ppil.groupede.callmeishmael.data.DataManager;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.concurrent.ExecutionException;
 
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
@@ -54,7 +38,6 @@ import nl.siegmann.epublib.domain.Resources;
 import nl.siegmann.epublib.domain.Spine;
 import nl.siegmann.epublib.domain.SpineReference;
 import nl.siegmann.epublib.domain.TOCReference;
-import nl.siegmann.epublib.domain.TableOfContents;
 import nl.siegmann.epublib.epub.EpubReader;
 import nl.siegmann.epublib.service.MediatypeService;
 
@@ -173,7 +156,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
 
         // ---------- ---------- ---------- ---------- demande de reprise de lecture
 
-        if(!(nbPage == 0.0f)) {
+        if((Float.compare(nbPage, 0.0f) != 0)) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             // set title
             alertDialogBuilder.setTitle("Reprise de lecture");
@@ -189,7 +172,8 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                             SessionManager sessionManager = new SessionManager(getContext());
                             String email = sessionManager.getSessionEmail();
                             String adresse = Data.getData().getURLPageCourante();
-                            byte[] infos = Data.getData().getPostPageCourante(email, idLivre);
+                            String idL[] = idLivre.split(".epub");
+                            byte[] infos = Data.getData().getPostPageCourante(email, idL[0]);
                             DataManager dataManager = new DataManager(LectureLivreFragment.this);
                             dataManager.execute(adresse, infos);
                         }
@@ -383,11 +367,19 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         if (!sessionManager.isConnected()) {
             String email = sessionManager.getSessionEmail();
             String adresse = Data.getData().getURLMarquePage();
-            byte[] infos = Data.getData().getPostMarquePage(email,pourcent, idLivre);
+            String id[] = idLivre.split(".epub");
+            byte[] infos = Data.getData().getPostMarquePage(email,pourcent, id[0]);
             //vas a un certain pourcentage du livre
             System.out.println("Pourcentage : "+pourcent);
             DataManager dataManager = new DataManager(null);
-            dataManager.execute(adresse,infos);
+            try {
+                String res = dataManager.execute(adresse,infos).get();
+                System.out.println("URLMARQUE PAGE : "+ res);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
     }
     private void goToPart(float percent) {
@@ -403,7 +395,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
 
     @Override
     public void receiveData(String resultat) {
-        //float values = Float.valueOf(resultat);
+        System.out.println("receiveData : " + resultat);
         float values = Float.valueOf(nbPage);
         goToPart(values);
     }
