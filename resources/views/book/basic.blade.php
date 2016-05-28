@@ -58,6 +58,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
+
             /* overflow: hidden; */
         }
         #area {
@@ -106,6 +107,15 @@
         #controls > input[type=range] {
             width: 400px;
         }
+        #fixe-haut
+        {
+
+            height          : 70px;
+            position        : fixed;
+            top             : 5px;
+            width           : 100%;
+            right            : 10px;
+        }
     </style>
 
     <script>
@@ -116,45 +126,41 @@
 </head>
 <body>
 
-<div id="sidebar">
-    <div id="panels">
-        <input id="searchBox" placeholder="search" type="search">
-
-        <a id="show-Search" class="show_view icon-search" data-view="Search">Search</a>
-        <a id="show-Toc" class="show_view icon-list-1 active" data-view="Toc">TOC</a>
-        <a id="show-Bookmarks" class="show_view icon-bookmark" data-view="Bookmarks">Bookmarks</a>
-        <a id="show-Notes" class="show_view icon-edit" data-view="Notes">Notes</a>
-
-
-    </div>
-    </div>
 
 
 <div id="main">
-    <div id="title-controls">
 
-        <a href="#" onclick="test()"><img src="{{ URL::asset('bookmarks.png')}}"></a>
+    <div id="fixe-haut">
+       <div align="center"><a href="#" align="center">{{$book->title}}</a></div>
+        <div id="title-controls">
 
-        <a href="{{ $_GET['path'] }}"> <img src="{{ URL::asset('fermer.png')}}"></a>
+            <a href="#" onclick="test(document.images['exemple'])"><img src="{{ URL::asset('bookmark-empty.png')}}" name="exemple" ></a>
+
+            <a href="{{ $_GET['path'] }}"> <img src="{{ URL::asset('fermer.png')}}"></a>
+
+        </div>
 
     </div>
-    <div id="prev" onclick="book.prevPage();" class="arrow">‹</div>
+    <!--<a href="#" align="center">/a>-->
+
+
+    <div id="prev" onclick="  isbookMark('prev');" class="arrow">‹</div>
     <div id="area"></div>
-    <div id="next" onclick="book.nextPage();" class="arrow">›</div>
+    <div id="next" onclick="isbookMark('next');" class="arrow">›</div>
     <div id="controls">
         <input id="current-percent" size="3" value="0" /> %
     </div>
 </div>
 
 <script>
-
-    function test(){
+    var full = true;
+    function test(img){
 
         var bookPath = book.getCurrentLocationCfi();
 
         $.ajax({
             type: 'GET',
-            url: '<?php echo  URL::route('addBookmarks', array('idBook'=>$id)); ?>',
+            url: '<?php echo  URL::route('addBookmarks', array('idBook'=>$book->id)); ?>',
             data: 'path='+ book.getCurrentLocationCfi(),
             time : 5000,
             success: function(data){
@@ -164,9 +170,49 @@
                 alert(' Une erreur est survenu lors de l\'enregistrement du marque page');
             }
         });
+        if(full){
+            img.src="{{ URL::asset('bookmark-empty.png')}}";
+            full = false;
+        }
+        else{
+            img.src="{{ URL::asset('bookmark-full.png')}}";
+            full = true;
+        }
 
         // book.gotoCfi("epubcfi(/6/2[coverpage-wrapper]!4/1:0)");
 
+    }
+
+    function isbookMark( prevOrnext){
+        if(prevOrnext == 'next'){
+            book.nextPage();
+        }
+        if(prevOrnext == 'prev'){
+            book.prevPage();
+        }
+
+
+        $.ajax({
+            type: 'GET',
+            url: '<?php echo  URL::route('isBookmarks', array('idBook'=>$book->id)); ?>',
+            data: 'bookMark='+ book.getCurrentLocationCfi(),
+            time : 5000,
+            datatype : 'json',
+            success: function(datas){
+                if(datas.datas == false){
+                    document.images['exemple'].src="{{ URL::asset('bookmark-empty.png')}}";
+                    full = false;
+                }
+                else{
+                    document.images['exemple'].src="{{ URL::asset('bookmark-full.png')}}";
+                    full = true;
+                }
+
+            },
+            error : function(){
+                alert(' Une erreur est survenu lors de l\'enregistrement du marque page');
+            }
+        });
     }
 
     var controls = document.getElementById("controls");
@@ -177,8 +223,11 @@
 
 </script>
 @if($bookmark != null)
-    rentre  ici
-    <script>    book.gotoCfi("<?php echo $bookmark->page; ?>");</script>
+
+    <script>    book.gotoCfi("<?php echo $bookmark->page; ?>");
+        document.images['exemple'].src="{{ URL::asset('bookmark-full.png')}}";
+        full = true;
+    </script>
 
 @endif
 </body>

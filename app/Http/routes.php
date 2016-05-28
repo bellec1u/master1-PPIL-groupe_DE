@@ -109,6 +109,7 @@ Route::group(['middleware' => 'web'], function () {
 
     // bookMarks
     Route::get('addBookmarks/{idBook}/', ['uses' => 'Book\BookMarksController@add', 'as' => 'addBookmarks']);
+    Route::get('isBookmarks/{idBook}/', ['uses' => 'Book\BookMarksController@isActualBookmark', 'as' => 'isBookmarks']);
 
     // liste de lecture.
     Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');

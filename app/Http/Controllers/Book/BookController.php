@@ -120,7 +120,7 @@ class BookController extends Controller
             $this->epubManager->download_book($id_book);
         }
 
-        return view('book/basic', compact('id_book', 'bookmark', 'id'));
+        return view('book/basic', compact('id_book', 'bookmark', 'book'));
     }
 
     /**
