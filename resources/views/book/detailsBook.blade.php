@@ -152,7 +152,7 @@
 	                    		@else
 	                        		<img src="{{ URL($rating->user->profile_image) }}" alt="" width="10%" height="10%" />	
 	                        	@endif
-								@if(Auth::check())
+								@if(Auth::check() && Auth::user()->id != $rating->user->id)
 									<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" > {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
 								@else
 									{{ $rating->user->first_name }} {{ $rating->user->last_name }}
@@ -190,6 +190,6 @@
 				</section>
 				<div id="result"></div>
 			</div>
-		
+
 	</article>
 @stop
