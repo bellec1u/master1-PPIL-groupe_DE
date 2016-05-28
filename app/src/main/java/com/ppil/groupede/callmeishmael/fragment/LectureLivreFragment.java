@@ -45,6 +45,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -173,7 +174,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
 
         // ---------- ---------- ---------- ---------- demande de reprise de lecture
 
-        if(!(nbPage == 0.0f)) {
+        if((Float.compare(nbPage, 0.0f) != 0)) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             // set title
             alertDialogBuilder.setTitle("Reprise de lecture");
@@ -189,7 +190,8 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
                             SessionManager sessionManager = new SessionManager(getContext());
                             String email = sessionManager.getSessionEmail();
                             String adresse = Data.getData().getURLPageCourante();
-                            byte[] infos = Data.getData().getPostPageCourante(email, idLivre);
+                            String idL[] = idLivre.split(".epub");
+                            byte[] infos = Data.getData().getPostPageCourante(email, idL[0]);
                             DataManager dataManager = new DataManager(LectureLivreFragment.this);
                             dataManager.execute(adresse, infos);
                         }
@@ -383,11 +385,19 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         if (!sessionManager.isConnected()) {
             String email = sessionManager.getSessionEmail();
             String adresse = Data.getData().getURLMarquePage();
-            byte[] infos = Data.getData().getPostMarquePage(email,pourcent, idLivre);
+            String id[] = idLivre.split(".epub");
+            byte[] infos = Data.getData().getPostMarquePage(email,pourcent, id[0]);
             //vas a un certain pourcentage du livre
             System.out.println("Pourcentage : "+pourcent);
             DataManager dataManager = new DataManager(null);
-            dataManager.execute(adresse,infos);
+            try {
+                String res = dataManager.execute(adresse,infos).get();
+                System.out.println("URLMARQUE PAGE : "+ res);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
     }
     private void goToPart(float percent) {
@@ -404,7 +414,8 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
     @Override
     public void receiveData(String resultat) {
         //float values = Float.valueOf(resultat);
-        float values = Float.valueOf(nbPage);
+        System.out.println("receiveData : " + resultat);
+        float values = Float.valueOf(resultat);
         goToPart(values);
     }
 }
