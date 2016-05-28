@@ -144,7 +144,7 @@
                 <span class="glyphicon glyphicon-ok"></span> {{ session('status') }}
             </div>
         @endif
-        @if ($errors->has('email'))
+        @if ($errors->has('email') && Request::is('/'))
             <div class="alert alert-danger text-center" style="margin-bottom: 0px;">
                 <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <b>Une erreur est survenue !</b> Cliquez sur l'onglet "Connexion" du menu pour plus de détails...
