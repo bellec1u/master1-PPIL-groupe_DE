@@ -30,9 +30,10 @@ class HomeController extends Controller
        $books = $this->bookRepository->getBestBook();
 
 
+        $top10 = [];
         for($i =0; $i < 10 ; $i++){
-            $liste[] = $books[$i];
+            $top10[] = $books[$i];
         }
-        return view('index')->with('liste', $liste);
+        return view('index', compact('top10'));
     }
 }

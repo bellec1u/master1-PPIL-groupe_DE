@@ -20,6 +20,7 @@ class BookController extends Controller
     protected $ratingRapository;
     protected $epubManager;
     protected $bookmarkRepository;
+    protected $nbPerPage = 10;
 
     public function __construct(
         BookRepository $bookRepository,
@@ -32,6 +33,8 @@ class BookController extends Controller
         $this->ratingRapository = $ratingRepository;
         $this->epubManager = $epubMan;
         $this->bookmarkRepository = $bookmarksRepository;
+        
+        $this->middleware('auth', ['only' => 'open']);
     }
 
 
@@ -43,8 +46,11 @@ class BookController extends Controller
      */
     public function search(Request $request)
     {
-        $books = $this->bookRepository->search($request->all());
-        return view('book.search', compact('books'));
+        $books = $this->bookRepository->search($request->all(), $this->nbPerPage);
+        $langs =$this->bookRepository->getLanguageListAsArray();
+
+        $request->flash();
+        return view('book.search', compact('books', 'langs'));
     }
 
     /**

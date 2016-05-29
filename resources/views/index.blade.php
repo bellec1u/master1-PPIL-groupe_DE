@@ -13,7 +13,7 @@
             <hr />
             <span style="text-decoration: underline;font-weight: bold;">Top 10</span> :<br />
             <p>
-                @foreach($liste as $book)
+                @foreach($top10 as $book)
                 <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"><img src="{{ $book->cover_url  }}" alt="" /></a>
                 @endforeach
             </p>
