@@ -178,23 +178,27 @@
 
 
     <article class="panel panel-info">
-        <h1 class="panel-heading">Bienvenue sur Call Me Ishmael !</h1>
+        <h1 class="panel-heading">Bienvenue !</h1>
         <div class="panel-body">
-            <p><strong>Call Me Ishmael</strong> est un site de référencement d'ebooks (format .epub) disponibles
-                librement sur internet et blablabla etc...
-                <br/><br/><br/><br/><br/><br/><br/><br/></p>
+            <div class="row">
+                <p class="text-center">
+                    <strong>Call Me Ishmael</strong> est un site de référencement d'ebooks au format <em>.epub</em>
+                    disponibles librement sur internet.
+                </p>
+            </div>
 
+            <hr>
+            <h3 class="text-center"><strong>Top 10</strong></h3>
+            <hr>
 
-            <hr/>
-            <span style="text-decoration: underline;font-weight: bold;">Top 10</span> :<br/>
             <p>
-            <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 809px; height: 150px; overflow: hidden; visibility: hidden;">
+            <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 809px; height: 250px; overflow: hidden; visibility: hidden;">
                 <!-- Loading Screen -->
                 <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
                     <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
                     <div style="position:absolute;display:block;background:{{ URL::asset('loading.gif')}} no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
                 </div>
-                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 809px; height: 150px; overflow: hidden;">
+                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 809px; height: 250px; overflow: hidden;">
                     @foreach($top10 as $book)
                         <div style="display: none;">
 
@@ -218,16 +222,18 @@
                 <span data-u="arrowright" class="jssora03r" style="top:0px;right:8px;width:55px;height:55px;" data-autocenter="2"></span>
             </div>
 
+            <hr>
+            <h3 class="text-center"><strong>À découvrir</strong></h3>
+            <hr>
 
-            <span style="text-decoration: underline;font-weight: bold;">&Agrave; Découvrir</span> :<br/>
             <p>
-            <div id="jssor_2" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 809px; height: 150px; overflow: hidden; visibility: hidden;">
+            <div id="jssor_2" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 809px; height: 250px; overflow: hidden; visibility: hidden;">
                 <!-- Loading Screen -->
                 <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
                     <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
                     <div style="position:absolute;display:block;background:{{ URL::asset('loading.gif')}} no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
                 </div>
-                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 809px; height: 150px; overflow: hidden;">
+                <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 809px; height: 250px; overflow: hidden;">
                     @foreach($latest as $book)
                         <div style="display: none;">
 
