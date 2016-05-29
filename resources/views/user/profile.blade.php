@@ -37,7 +37,7 @@
                         <td><a href="{{URL::route('userEdit')}}" class="btn btn-primary">Modifier</a></td>
                         @if($user->following_allowed)
                             <td>{{ Form::open(array('route' => 'following_allowed', 'method' => 'post', 'name'=>'following_allowed')) }}
-                                {!! Form::submit('Rendre profil privé', ['class' => 'btn btn-danger']) !!}
+                                {!! Form::submit('Rendre profil privé', ['class' => 'btn btn-warning']) !!}
                                 {{ Form::close()}} 
                             </td>
                         @else

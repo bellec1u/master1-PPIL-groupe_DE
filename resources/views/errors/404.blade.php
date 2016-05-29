@@ -28,7 +28,7 @@
                 <p>
                     Oops, cette page n'existe pas.<br>
                 </p>
-                <a href="{{ url('/') }}" class="btn btn-primary">Revenir au site</a>
+                <a href="{{ url('/') }}" class="btn btn-primary">Revenir en lieu sûr</a>
             </div>
         </div>
     </section>

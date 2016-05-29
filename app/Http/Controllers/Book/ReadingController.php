@@ -15,12 +15,15 @@ use App\Models\User;
 
 class ReadingController extends Controller
 {
-	protected $bookRepository;
+    protected $bookRepository;
     protected $readingRepository;
     protected $notification;
-    
-    public function __construct(BookRepository $bookRepository, ReadingRepository $readingRepository, NotificationController $notificationController)
-    {
+
+    public function __construct(
+        BookRepository $bookRepository,
+        ReadingRepository $readingRepository,
+        NotificationController $notificationController
+    ) {
         $this->bookRepository = $bookRepository;
         $this->readingRepository = $readingRepository;
         $this->notification = $notificationController;
@@ -45,24 +48,24 @@ class ReadingController extends Controller
      */
     public function add($id_book)
     {
-        if(Auth::check()){
-            $book = $this->readingRepository->getReadingIdAndUser($id_book, Auth::user()->id);
-            if($book->count() == 0 ){
-                $request['user_id'] = Auth::user()->id;
-                $request['book_id'] = $id_book;
-                $request['current_page'] = '0';
-                $reading = $this->readingRepository->store($request);
 
-                if(Auth::user()->following_allowed){
-                    $notif['book_id'] = $id_book;
-                    $notif['type'] = "Ajout liste de lecture";
-                    $notif['details'] = $reading->user->first_name." a ajouté ".$reading->book->title." dans sa liste de lecture";
-                    $this->notification->store($notif);
-                }
+        $book = $this->readingRepository->getReadingIdAndUser($id_book,
+            Auth::user()->id);
+        if ($book->count() == 0) {
+            $request['user_id'] = Auth::user()->id;
+            $request['book_id'] = $id_book;
+            $request['current_page'] = '0';
+            $reading = $this->readingRepository->store($request);
 
+            if (Auth::user()->following_allowed) {
+                $notif['book_id'] = $id_book;
+                $notif['type'] = "Ajout liste de lecture";
+                $notif['details'] = $reading->user->first_name . " a ajouté " . $reading->book->title . " dans sa liste de lecture";
+                $this->notification->store($notif);
             }
-        }
 
+        }
+        
 
         return redirect()->back();
     }
@@ -84,14 +87,14 @@ class ReadingController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    
+
     public function show()
     {
         $book = $this->readingRepository->getReadingId(Auth::user()->id);
 
-        $details[]= '';
-        
-        foreach($book as $bo){
+        $details[] = '';
+
+        foreach ($book as $bo) {
             $details[] = $this->bookRepository->getById($bo->book_id);
         }
         return view('consulter')->with('data', $details);

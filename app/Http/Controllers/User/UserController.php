@@ -25,6 +25,7 @@ class UserController extends Controller
             'update',
             'profile',
             'delete',
+            'showOther'
         ]]);
 	}
 
@@ -128,19 +129,23 @@ class UserController extends Controller
         return view('user/consultOther',
             compact('user', 'estSuivi', 'idFollower'));
     }
-    public function registration(){
-        if(Auth::check()){
-            return redirect('/')->with('status', 'Déjà connecté inscription abandonné !!');
-        }
-        else{
+
+    public function registration()
+    {
+        if (Auth::check()) {
+            return redirect('/')->with('status',
+                'Déjà connecté inscription abandonné !!');
+        } else {
             return view("user/inscription");
         }
     }
-    public function following_allowed(){
-        if(Auth::check()){
+
+    public function following_allowed()
+    {
+        if (Auth::check()) {
             $user = Auth::user();
             $user->following_allowed = !$user->following_allowed;
-            
+
             $this->userRepository->update($user->id, $user->toArray());
         }
 
