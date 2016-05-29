@@ -8,14 +8,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Connexion</div>
+            <div class="panel panel-info">
+                <h1 class="panel-heading">Connexion</h1>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Adresse email</label>
+                            <label class="col-md-4 control-label">Adresse email :</label>
 
                             <div class="col-md-6">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}">
@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Mot de passe</label>
+                            <label class="col-md-4 control-label">Mot de passe :</label>
 
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password">

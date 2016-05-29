@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Book;
 
+use App\Repositories\Book\BookmarksRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,17 +19,22 @@ class BookController extends Controller
     protected $bookRepository;
     protected $ratingRapository;
     protected $epubManager;
-
+    protected $bookmarkRepository;
+    protected $nbPerPage = 10;
 
     public function __construct(
         BookRepository $bookRepository,
         RatingRepository $ratingRepository,
+        BookmarksRepository $bookmarksRepository,
         EpubManager $epubMan
 
     ) {
         $this->bookRepository = $bookRepository;
         $this->ratingRapository = $ratingRepository;
         $this->epubManager = $epubMan;
+        $this->bookmarkRepository = $bookmarksRepository;
+        
+        $this->middleware('auth', ['only' => 'open']);
     }
 
 
@@ -40,8 +46,11 @@ class BookController extends Controller
      */
     public function search(Request $request)
     {
-        $books = $this->bookRepository->search($request->all());
-        return view('book.search', compact('books'));
+        $books = $this->bookRepository->search($request->all(), $this->nbPerPage);
+        $langs =$this->bookRepository->getLanguageListAsArray();
+
+        $request->flash();
+        return view('book.search', compact('books', 'langs'));
     }
 
     /**
@@ -87,15 +96,13 @@ class BookController extends Controller
 
         $book = $this->bookRepository->getById($id);
         $ratings = $this->ratingRapository->getRatingId($id);
-        if(Auth::check()){
+        if (Auth::check()) {
             $estEvalue = $this->ratingRapository->getRatingIdEtUser($id,Auth::user()->id );
             $user = Auth::user();
             $followers = $user->subscriptionsTo;
         }
 
-
-
-        return view('book/detailsBook', compact('book'), compact('estEvalue', 'followers'))->with('data',
+        return view('book/detailsBook', compact('book', 'estEvalue', 'followers'))->with('data',
             $ratings);
 
     }
@@ -106,15 +113,29 @@ class BookController extends Controller
      */
     public function open($id)
     {
+
         $book = $this->bookRepository->getById($id);
         $id_book = basename($book->url);
-
         $file_exists = Storage::disk('public')->exists('Books/Book' . $id_book . '.epub');
         if (!$file_exists) {
             $this->epubManager->download_book($id_book);
         }
+        if(Auth::check()){
+            $bookmarks = $this->bookmarkRepository->getBookmarkIdAndUser($id, Auth::user()->id);
+            $bookmark = null;
+            foreach($bookmarks as $bm){
+                $bookmark = $bm;
+            }
 
-        return view('book/basic', compact('id_book'));
+
+        }
+        else{
+            $bookmark = null;
+        }
+
+
+
+        return view('book/basic', compact('id_book', 'bookmark', 'book'));
     }
 
     /**

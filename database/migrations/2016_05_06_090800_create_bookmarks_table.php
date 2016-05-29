@@ -17,7 +17,7 @@ class CreateBookmarksTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('book_id')->unsigned();
-            $table->integer('page');
+            $table->string('page');
             $table->timestamps();
 
             $table->foreign('user_id')

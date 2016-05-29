@@ -20,6 +20,7 @@ class User extends Authenticatable
         'sex',
         'birth_date',
         'profile_image',
+        'following_allowed',
         'validation_code'
     ];
 
@@ -52,6 +53,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Reading');
     }
 
+    public function bookmarks(){
+        return $this->hasMany('App\Models\Bookmark');
+    }
     public function socialAccount()
     {
         return $this->hasOne('App\Models\SocialAccount');

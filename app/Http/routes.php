@@ -30,9 +30,7 @@ Route::group(['middleware' => 'web'], function () {
         return view('cgu');
     });
 
-    Route::get('inscription', function () {
-        return view('user/inscription');
-    });
+
 
     Route::get('connexion', function () {
         return view('user/connexion');
@@ -60,7 +58,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('user/profile', 'User\UserController@profile');
     Route::put('user/update',
         ['uses' => 'User\UserController@update', 'as' => 'userUpdate']);
-    Route::delete('user/desinscription',
+    Route::delete('user',
         ['uses' => 'User\UserController@delete', 'as' => 'userDelete']);
     Route::get('user/edit',
         ['uses' => 'User\UserController@edit', 'as' => 'userEdit']);
@@ -68,8 +66,17 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'User\UserController@showOther',
         'as'   => 'showOtherUser'
     ])->where('id', '[0-9]+');
+
+    Route::get('registration' , ['uses'=>'User\UserController@registration', 'as'=>'registration']);
+    Route::post('following_allowed' , ['uses'=>'User\UserController@following_allowed', 'as'=>'following_allowed']);
+
+
+    // email validation
     Route::get('user/verify/{token}', 'User\UserController@confirmEmail')
         ->where('token', '[a-zA-Z0-9]+');
+    Route::get('user/{id}/resend',
+        ['as' => 'resendEmail', 'uses' => 'User\UserController@resendEmail'])
+        ->where('id', '[0-9]+');
     //subscriptions
     Route::post('follow',
         ['uses' => 'User\SubscriptionController@store', 'as' => 'addFollower']);
@@ -103,6 +110,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('editRating/{id}', 'Book\RatingController@edit')->where('id', '[0-9]+');
     Route::post('updateRating', ['uses' => 'Book\RatingController@update', 'as' => 'updateRating']);
 
+    // bookMarks
+    Route::get('addBookmarks/{idBook}/', ['uses' => 'Book\BookMarksController@add', 'as' => 'addBookmarks']);
+    Route::get('isBookmarks/{idBook}/', ['uses' => 'Book\BookMarksController@isActualBookmark', 'as' => 'isBookmarks']);
 
     // liste de lecture.
     Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');

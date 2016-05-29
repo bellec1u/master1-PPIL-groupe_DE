@@ -12,6 +12,9 @@
                 @foreach($listeFolower as $folower)
 
                         <div class="row">
+
+
+
                             <section class="col-sm-3">
                             @if( $folower->followee->profile_image == '')
                                 <tr> 	<a href="{{URL::route('showOtherUser', array('id'=>  $folower->followee->id))}}" > <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="50%" height="50%" /></a></tr>
@@ -22,38 +25,8 @@
                             @endif
                             </section>
                             <section class="col-sm-9"><br>
-                                <div align="'right">
-                                    <table>
-                                        <tr>
 
 
-                                            {{ Form::open(array('route' => array('deleteFollower', 'id'=>$folower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
-
-                                            {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
-
-
-
-                                            {{ Form::close()}}
-
-                                            {{ Form::open(array('route' => array('updateFollower', 'id'=>$folower->id), 'method' => 'put', 'name'=>'desinscrire')) }}
-                                            @if($folower->notifications_accepted)
-                                                {!! Form::submit('Ne plus notifier', ['class'=>"btn btn-danger pull-right"]) !!}
-                                            @else
-
-                                                {!! Form::submit('Notifier', ['class'=>"btn btn-info pull-right"]) !!}
-                                            @endif
-                                            {{ Form::close()}}
-
-
-
-
-
-                                        </tr>
-
-
-                                    </table>
-
-                                </div>
                                 <p><b>Nom :</b>  {{ $folower->followee->last_name}}</p>
                                 <p><b>Prenom :</b>  {{ $folower->followee->first_name}}</p>
                                 <p><b>Date de naissance :</b>  {{ $folower->followee->birth_date}}</p>
@@ -64,6 +37,24 @@
                                     @else
                                     <p><b> Sex :</b> Femme </p>
                                 @endif
+
+
+                                    {{ Form::open(array('route' => array('deleteFollower', 'id'=>$folower->id), 'method' => 'delete', 'name'=>'deleteFollower')) }}
+
+                                    {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+
+
+
+                                    {{ Form::close()}}
+
+                                    {{ Form::open(array('route' => array('updateFollower', 'id'=>$folower->id), 'method' => 'put', 'name'=>'desinscrire')) }}
+                                    @if($folower->notifications_accepted)
+                                        {!! Form::submit('Ne plus notifier', ['class'=>"btn btn-danger pull-right"]) !!}
+                                    @else
+
+                                        {!! Form::submit('Notifier', ['class'=>"btn btn-info pull-right"]) !!}
+                                    @endif
+                                    {{ Form::close()}}
 
                             </section>
 

@@ -26,7 +26,9 @@ class Book extends Model
     {
         return $this->hasMany('App\Models\Rating');
     }
-
+    public function bookmarks(){
+        return $this->hasMany('App\Models\Bookmark');
+    }
 
     public function readings()
     {

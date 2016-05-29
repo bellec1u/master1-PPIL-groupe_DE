@@ -217,6 +217,7 @@ body {
 
 #title-controls {
   float: right;
+  min-height: 10%;
 }
 
 #panels a {
