@@ -72,8 +72,8 @@
                     </section>
                     <section class="col-sm-4">
                         <p><b>Titre :</b>  {{ $book->title }}</p>
-                        <p><b>Genre :</b>  {{ $book->genre }}</p>
                         <p><b>Auteur :</b> {{ $book->author }}</p>
+                        <p><b>Genre :</b>  {{ $book->genre }}</p>
                     </section>
                     <section class="col-sm-3">
                         <p><b>Langue :</b> {{ $book->language }}</p>

@@ -67,7 +67,7 @@ Route::group(['middleware' => 'web'], function () {
         'as'   => 'showOtherUser'
     ])->where('id', '[0-9]+');
 
-   Route::get('registration' , ['uses'=>'User\UserController@registration', 'as'=>'registration']);
+    Route::get('registration' , ['uses'=>'User\UserController@registration', 'as'=>'registration']);
     Route::post('following_allowed' , ['uses'=>'User\UserController@following_allowed', 'as'=>'following_allowed']);
 
 
