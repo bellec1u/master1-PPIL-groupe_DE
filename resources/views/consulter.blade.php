@@ -86,14 +86,15 @@
                                         <td><?php echo makeRating($book->stars_average);?></td>
                                     </tr>
                                 </table>
+                                <div class="pull-right">
+                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}"
+                                       class="btn btn-primary">Ouvrir</a>
 
-                                <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}"
-                                   class="btn btn-primary pull-right">Ouvrir</a>
-
-                                <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"
-                                   class="btn btn-primary pull-right"> Détails</a>
-                                <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}"
-                                   class="btn btn-danger pull-right">Supprimer</a>
+                                    <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"
+                                       class="btn btn-info"> Détails</a>
+                                    <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}"
+                                       class="btn btn-danger">Supprimer</a>
+                                </div>
                             </section>
                         </div>
                         <hr>
