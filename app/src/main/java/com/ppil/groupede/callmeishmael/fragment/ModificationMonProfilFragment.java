@@ -120,7 +120,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                         try {
                             bitmap = bitmapManager.execute(cover_url).get();
                             imageButton.setImageBitmap(bitmap);
-                            imageButton.setBackgroundColor( R.color.white );
+                            //imageButton.setBackgroundColor(R.color.white);
                         } catch (ExecutionException |InterruptedException e) {
                             Toast.makeText(getContext()," Oups ! Une erreur s'est produite...",Toast.LENGTH_SHORT).show();
                         }
@@ -177,6 +177,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                 BitmapManager bitmapManager = new BitmapManager(img);
                 try {
                     img = bitmapManager.execute(url).get();
+                    imageButton.setBackgroundResource(0);
                     imageButton.setImageBitmap(img); // on affecte l'image ici..
                 } catch (ExecutionException | InterruptedException e) {
                     //nothing
@@ -185,6 +186,7 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
                 BitmapFactory.Options bmOptions = new BitmapFactory.Options();
                 Bitmap bitmap = BitmapFactory.decodeFile(url,bmOptions);
                 bitmap = Bitmap.createScaledBitmap(bitmap,48,48,true);
+                imageButton.setBackgroundResource(0);
                 imageButton.setImageBitmap(bitmap);
             }
         }
