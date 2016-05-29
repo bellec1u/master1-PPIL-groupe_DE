@@ -88,6 +88,9 @@ class BookRepository extends ResourceRepository
     {
         return $this->model->orderBy('stars_average', 'DESC')->get();
     }
+    public function getLatestBook(){
+        return $this->model->orderBy('publication_date', 'DESC')->get();
+    }
 
 
 }
