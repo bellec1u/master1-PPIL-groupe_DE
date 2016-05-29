@@ -40,6 +40,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
@@ -248,7 +249,6 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
         DataManager dataManager = new DataManager(null);
         try {
             String reponse = dataManager.execute(adresse,infos).get();
-            System.out.println("reponse : " + reponse);
             JSONObject object = new JSONObject(reponse);
             //Si l'objet est vide alors on ne fait rien sinon on ajoute les elements
             if(object.length() != 0)
@@ -264,13 +264,24 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
                     img = bitmap.execute(ob.getString("cover_url")).get();
                     NotificationFragment notification = new NotificationFragment(img,
                             ob.getString("type"),
-                    ob.getString("notifier_user_id"),
+                            (ob.getString("first_name") + " " + ob.getString("last_name")),
                             ob.getString("title"),
                     ob.getString("details"));
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     ft.add(R.id.layout_notification, notification, "");
                     ft.commit();
                     i++;
+                }
+
+                Object o = object.get("facebook");
+                String count = o.toString();
+                if(count.equals("\"0\"")) // si egal a 0
+                {
+                    // si pas dans la base
+                }
+                else
+                {
+                    // si dans la base
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
