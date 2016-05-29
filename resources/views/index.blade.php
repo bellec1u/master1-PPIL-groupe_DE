@@ -195,7 +195,7 @@
                     <div style="position:absolute;display:block;background:{{ URL::asset('loading.gif')}} no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
                 </div>
                 <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 809px; height: 150px; overflow: hidden;">
-                    @foreach($liste as $book)
+                    @foreach($top10 as $book)
                         <div style="display: none;">
 
                             <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"><img data-u="image"
