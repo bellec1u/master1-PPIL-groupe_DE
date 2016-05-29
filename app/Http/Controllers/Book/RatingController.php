@@ -96,17 +96,20 @@ class RatingController extends Controller
                     // on enregistre la modification dans la base de données.
                     $this->bookRepository->update($request->book_id, $book->toArray());
                 }
-
+                if(Auth::user()->following_allowed) {
+                    $book = $this->bookRepository->getById($request->book_id);
+                    $notif['book_id'] = $request->book_id;
+                    $notif['type'] = "Commentaire";
+                    $notif['details'] = Auth::user()->last_name . " " . Auth::user()->first_name . " a commenté" . $book->title . " ";
+                    $this->notification->store($notif);
+                }
             }
+
         }
 
 
         return redirect()->route('bookReturn', ['id' => $request->book_id]);
-            /*$book = $this->bookRepository->getById( $request->book_id);
-            $notif['book_id'] = $request->book_id;
-            $notif['type'] = "Commentaire";
-            $notif['details'] = Auth::user()->last_name. " ".Auth::user()->first_name ." a commenté".$book->title." ";
-            $this->notification->store($notif);*/
+
         }
 
 

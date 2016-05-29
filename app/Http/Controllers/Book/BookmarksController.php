@@ -21,30 +21,32 @@ class BookmarksController extends Controller
 
     public function add($idBook){
 
-        
-        $user =  Auth::user(); 
-        $bookmarks = $this->bookmarksRepository->getBookmarkIdAndUser($idBook,$user->id );
-        if(count($bookmarks) == 0){
-            $test['user_id'] =$user->id;
-            $test['book_id'] = $idBook;
-            $test['page'] =$_GET['path'];
+        if(Auth::check()){
+            $user =  Auth::user();
+            $bookmarks = $this->bookmarksRepository->getBookmarkIdAndUser($idBook,$user->id );
+            if(count($bookmarks) == 0){
+                $test['user_id'] =$user->id;
+                $test['book_id'] = $idBook;
+                $test['page'] =$_GET['path'];
 
-            $this->bookmarksRepository->store($test);
-        }
-        else{
-            foreach($bookmarks as $bookmark){
+                $this->bookmarksRepository->store($test);
+            }
+            else{
+                foreach($bookmarks as $bookmark){
 
-               if($bookmark->page == $_GET['path']){
-                    $this->bookmarksRepository->destroy($bookmark->id);
-               }else{
-                   $bookmark->page = $_GET['path'];
-                   $this->bookmarksRepository->update($bookmark->id, array_merge($bookmark->toArray()) );
-               }
+                    if($bookmark->page == $_GET['path']){
+                        $this->bookmarksRepository->destroy($bookmark->id);
+                    }else{
+                        $bookmark->page = $_GET['path'];
+                        $this->bookmarksRepository->update($bookmark->id, array_merge($bookmark->toArray()) );
+                    }
 
+
+                }
 
             }
-
         }
+
 
 
         return response()->json();
