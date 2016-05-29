@@ -44,7 +44,7 @@ class UserController extends Controller
         } else {
             $this->userRepository->store($request->all());
         }
-      
+
 
 
         return redirect('/')
@@ -140,11 +140,11 @@ class UserController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $user->following_allowed = !$user->following_allowed;
-
+            
             $this->userRepository->update($user->id, $user->toArray());
         }
 
-      return redirect()->back();
+        return redirect()->back();
     }
 
     

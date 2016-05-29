@@ -6,23 +6,7 @@
 @section('head')
     {!! Html::script('etoile/ListeEtoile.js') !!}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script>
-        var taChaineDeCaractere = "test";
-        var divOuAfficherLeRetour = "#result";
 
-        /*$.ajax({
-         type: 'GET',
-         url: '',
-         data: {},
-         success: function(data){
-         $(divOuAfficherLeRetour).html(data);
-         },
-         error : function(){
-         alert(' marche pas');
-         }
-         });*/
-
-    </script>
 
     <style type="text/css">
         .listeEtoile ul {
@@ -157,8 +141,8 @@
                     @if($rating->user != null)
 
                         @if($rating->user->profile_image == '')
-                            <p class="text-center"><img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%"
-                                                        height="10%"/></p>
+                             <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%"
+                                                        height="10%"/>
                         @else
                             <img src="{{ URL($rating->user->profile_image) }}" alt="" width="10%" height="10%"/>
                         @endif
@@ -205,7 +189,7 @@
                     </p>
 
             </section>
-            <div id="result"></div>
+
         </div>
 
     </article>

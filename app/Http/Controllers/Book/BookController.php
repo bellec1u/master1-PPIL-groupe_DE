@@ -123,7 +123,10 @@ class BookController extends Controller
 
 
         }
-        $bookmark = null;
+        else{
+            $bookmark = null;
+        }
+
 
 
         return view('book/basic', compact('id_book', 'bookmark', 'book'));
