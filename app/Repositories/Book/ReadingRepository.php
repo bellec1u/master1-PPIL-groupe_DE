@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\book;
+namespace App\Repositories\Book;
 
 use App\Models\Reading;
 use App\Repositories\ResourceRepository;

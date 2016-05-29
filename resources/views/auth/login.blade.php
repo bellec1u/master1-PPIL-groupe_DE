@@ -43,8 +43,7 @@
                     <div class="row">
                         <div class="col-sm-12  text">
                             <div class="span12">
-                                <form class="form-signin" role="form" method="POST" action="{{ url('login') }}">
-                                    
+                                <form class="form-signin" id="log" role="form" method="POST" action="{{ url('login') }}">
                                     <div class="clear-form two-col">
                                         <div class="form-heading">
                                             <h3 class="header">Se connecter</h3>
@@ -65,19 +64,11 @@
                                                 <div class="pair-group">
                                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                                         <input class="form-control" name="email" placeholder="Adresse email" type="text" value="{{ old('email') }}"  required>
-                                                        @if ($errors->has('email'))
-                                                        <span class="help-block">
-                                                            <strong>{{ $errors->first('email') }}</strong>
-                                                        </span>
-                                                        @endif
+                                                        <small class="help-block"></small>
                                                     </div>
                                                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                                         <input class="form-control" name="password" placeholder="Mot de passe" type="password" required>     
-                                                        @if ($errors->has('password'))
-                                                           <span class="help-block">
-                                                            <strong>{{ $errors->first('password') }}</strong>
-                                                            </span>
-                                                        @endif    
+                                                        <small class="help-block"></small>   
                                                     </div>
 
                                                 </div>
@@ -107,6 +98,34 @@
     </div><! --/headerwrap -->
 
     @section('javascript')
+        <script>
+            $(function(){
+                var password = $("input[name='password']").parent();
+                var email = $("input[name='email']").parent();
+
+                $('form#log').submit(function(e) {
+                    e.preventDefault();
+                    password.removeClass('has-error');  
+                    email.removeClass('has-error'); 
+                    $.post($(this).attr('action'), $(this).serialize())
+                    .done(function(data) {
+                        if(data.ok) {
+                            $('ul.nav').removeClass('hidden');
+                            $('form#log').addClass('hidden');
+                            if(data.ok == 'admin') $('form#del').removeClass('hidden');
+                        } else if(data.require) {
+                            if(data.require.password)
+                                password.addClass('has-error'); 
+                            if(data.require.email) 
+                                email.addClass('has-error');
+                        } else if(data.response == 'fail') {
+                            password.addClass('has-error'); 
+                            email.addClass('has-error');
+                        }
+                    });
+                });
+            });
+        </script>
         <div class="footerNewLogin navbar-fixed-bottom">
             <div class="container">
                 <div class="row">

@@ -44,8 +44,6 @@ class UserController extends Controller
         } else {
             $this->userRepository->store($request->all());
         }
-      
-
 
         return redirect('/')
             ->with('status', 'Vous avez bien été enregistré.

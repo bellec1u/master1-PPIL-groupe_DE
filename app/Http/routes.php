@@ -29,4 +29,9 @@ Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@sh
 Route::get('createRating/{id}',['uses' => 'Book\RatingController@create', 'as' => 'createRating'])->where('id', '[0-9]+');
 Route::post('storeRating', ['uses' => 'Book\RatingController@store', 'as' => 'storeRating']);
 
+// liste de lecture.
+Route::get('bookshelf/add/{id}', ['uses' => 'Book\ReadingController@add', 'as' => 'addReading'])->where('id', '[0-9]+');
+Route::get('bookshelf', ['uses' => 'Book\ReadingController@show', 'as' => 'showReading']);
+Route::get('bookshelf/delete/{id}', ['uses' => 'Book\ReadingController@destroy', 'as' => 'deleteReading'])->where('id', '[0-9]+'); 
+
 

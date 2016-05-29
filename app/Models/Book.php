@@ -26,10 +26,15 @@ class Book extends Model
     {
         return $this->hasMany('App\Models\Rating');
     }
-
+    public function bookmarks(){
+        return $this->hasMany('App\Models\Bookmark');
+    }
 
     public function readings()
     {
         return $this->hasMany('App\Models\Reading');
+    }
+    public function notifications(){
+        return $this->hasMany('App\Models\Notification');
     }
 }

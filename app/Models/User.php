@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -34,7 +35,11 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($password)
     {
-        $this->attributes['password'] = bcrypt($password);
+        if (Hash::needsRehash($password)) {
+            $this->attributes['password'] = bcrypt($password);
+        } else {
+            $this->attributes['password'] = $password;
+        }
     }
 
     public function ratings()
@@ -47,4 +52,32 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Reading');
     }
 
+    public function bookmarks(){
+        return $this->hasMany('App\Models\Bookmark');
+    }
+    public function socialAccount()
+    {
+        return $this->hasOne('App\Models\SocialAccount');
+    }
+
+    public function subscriptionsTo()
+    {
+        return $this->hasMany('App\Models\Subscription', 'user_id');
+    }
+
+    public function subscriptionsFrom()
+    {
+        return $this->hasMany('App\Models\Subscription', 'followed_user_id');
+    }
+
+    public function notificationsTo()
+    {
+        return $this->hasMany('App\Models\Notification', 'notifier_user_id')->orderBy('created_at', 'desc');
+    }
+
+    public function notificationsFrom()
+    {
+        return $this->hasMany('App\Models\Notification', 'notified_user_id')->orderBy('created_at', 'desc');
+    }
+    
 }

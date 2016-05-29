@@ -4,7 +4,6 @@
 
 .container{
 	width: 100%;
-	
 }
 
 #messageAlert{
@@ -40,6 +39,7 @@
 
 .navbar-header .navbar-brand {
 	color: white;
+	padding-left: 30px;
 }
 
 .navbar-default .navbar-nav > li > a {

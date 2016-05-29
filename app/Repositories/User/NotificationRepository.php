@@ -2,18 +2,18 @@
 
 namespace App\Repositories\User;
 
-use App\Models\Subscription;
+use App\Models\Notification;
 use App\Repositories\ResourceRepository;
 
-class SubscriptionRepository extends ResourceRepository
+class NotificationRepository extends ResourceRepository
 {
 
-    public function __construct(Subscription $subs)
+    public function __construct(Notification $subs)
     {
         $this->model = $subs;
     }
 
-    public function addFollower(Array $inputs)
+   /* public function addFollower(Array $inputs)
     {
         $count = $this->model->where('user_id', '=', $inputs['user_id'])
             ->where('followed_user_id', '=', $inputs['followed_user_id'])->count();
@@ -23,7 +23,5 @@ class SubscriptionRepository extends ResourceRepository
         } else {
             return false;
         }
-    }
-
-   
+    }*/
 }

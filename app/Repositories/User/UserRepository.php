@@ -9,7 +9,6 @@ use App\Repositories\ResourceRepository;
 
 class UserRepository extends ResourceRepository
 {
-
     protected $imageManager;
     protected $emailConfService;
 
@@ -39,7 +38,6 @@ class UserRepository extends ResourceRepository
             $inputs['profile_image'] = $path;
             $this->update($id, $inputs);
         }
-
         return false;
     }
 
@@ -48,5 +46,4 @@ class UserRepository extends ResourceRepository
         $inputs = $this->emailConfService->sendConfirmationMail($inputs);
         return $this->model->create($inputs);
     }
-
 }

@@ -79,8 +79,6 @@ class ReadingController extends Controller
     
     public function show()
     {
-    
-        
         $book = $this->readingRepository->getReadingId(Auth::user()->id);
         $details[]= '';
         
@@ -131,7 +129,7 @@ class ReadingController extends Controller
     public function destroy($id)
     {
          $this->readingRepository->delete($id, Auth::user()->id);
-        return redirect()->route('showReading');
+        return redirect()->route('bookReturn', ['id' => $id]);
 
     }
 }
