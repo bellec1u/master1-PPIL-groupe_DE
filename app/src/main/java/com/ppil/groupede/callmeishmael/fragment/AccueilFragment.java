@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -597,6 +598,8 @@ class ImageSupprimable implements View.OnLongClickListener{
                         DataManager dataManager = new DataManager(null);
                         System.out.println(adresse);
                         dataManager.execute(adresse);
+                        File file = new File(Data.getData().getPath() + "/" + id + ".epub");
+                        file.delete();
                         /*
                             On demande a la page accueil de se recharger
                          */
