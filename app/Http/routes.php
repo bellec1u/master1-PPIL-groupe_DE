@@ -30,9 +30,7 @@ Route::group(['middleware' => 'web'], function () {
         return view('cgu');
     });
 
-    Route::get('inscription', function () {
-        return view('user/inscription');
-    });
+    
 
     Route::get('connexion', function () {
         return view('user/connexion');
@@ -68,6 +66,10 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'User\UserController@showOther',
         'as'   => 'showOtherUser'
     ])->where('id', '[0-9]+');
+
+   Route::get('registration' , ['uses'=>'User\UserController@registration', 'as'=>'registration']);
+
+
     // email validation
     Route::get('user/verify/{token}', 'User\UserController@confirmEmail')
         ->where('token', '[a-zA-Z0-9]+');

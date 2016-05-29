@@ -113,7 +113,7 @@
                                         </form>
                                         <hr id="bottom" />
                                         <div class="bottom text-center">
-                                            Nouveau ? <a href="{{ url('inscription') }}"><b>Inscription</b></a>
+                                            Nouveau ? <a href="{{URL::route('registration', array())}}"><b>Inscription</b></a>
                                         </div>
                                     </div>
                                 </div>

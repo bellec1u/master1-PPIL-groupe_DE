@@ -148,11 +148,18 @@ class AuthController extends Controller
 
     public function authenticated(Request $request, $user)
     {
-        if (!$user->email_validated) {
-            Auth::logout();
-            return view('user.email_resend', compact('user'));
-        }
-        return redirect()->intended($this->redirectPath());
+
+
+            if (!$user->email_validated) {
+                Auth::logout();
+                return view('user.email_resend', compact('user'));
+            }
+
+                return redirect()->intended($this->redirectPath());
+
+
+
+
     }
 
 }

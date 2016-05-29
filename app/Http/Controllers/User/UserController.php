@@ -128,6 +128,14 @@ class UserController extends Controller
         return view('user/consultOther',
             compact('user', 'estSuivi', 'idFollower'));
     }
+    public function registration(){
+        if(Auth::check()){
+            return redirect('/')->with('status', 'Déjà connecté inscription abandonné !!');
+        }
+        else{
+            return view("user/inscription");
+        }
+    }
      
     
 

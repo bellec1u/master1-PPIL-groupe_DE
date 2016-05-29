@@ -168,13 +168,16 @@
 									@foreach($followers as $follower)
 										@if($follower->followed_user_id == $rating->user_id)
 											{{ Form::open(array('route' => array('deleteFollower', 'id'=>$follower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
-											{!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+												suivi :{{$follower->id  }}
+												{!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+									{!! Form::close() !!}
 											<?php $test =false; ?>
 										@endif
 									@endforeach
 									@if($test && $rating->user_id!= Auth::user()->id && $rating->user != null )
 										{!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
 										{!! Form::hidden("followed_user_id", $rating->user_id ) !!}
+										{{$rating->user_id}}
 										{!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
 										{!! Form::close() !!}
 									@endif
