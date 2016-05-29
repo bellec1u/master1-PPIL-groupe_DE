@@ -106,8 +106,11 @@ class UserController extends Controller
     public function delete()
     {
         $user = $this->userRepository->getById(Auth::user()->id);
-        Auth::logout();
 
+        Auth::logout();
+        $user->socialAccount()->delete();
+        $user->subscriptionsTo()->delete();
+        $user->readings()->delete();
         if ($user->delete()) {
             return redirect('/')->with('status', 'Votre compte a été supprimé');
         }
@@ -140,7 +143,7 @@ class UserController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $user->following_allowed = !$user->following_allowed;
-            
+
             $this->userRepository->update($user->id, $user->toArray());
         }
 
