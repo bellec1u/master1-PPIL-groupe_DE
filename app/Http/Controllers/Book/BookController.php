@@ -107,18 +107,24 @@ class BookController extends Controller
      */
     public function open($id)
     {
+
         $book = $this->bookRepository->getById($id);
         $id_book = basename($book->url);
-        $bookmarks = $this->bookmarkRepository->getBookmarkIdAndUser($id, Auth::user()->id);
-        $bookmark = null;
-        foreach($bookmarks as $bm){
-            $bookmark = $bm;
-        }
-
         $file_exists = Storage::disk('public')->exists('Books/Book' . $id_book . '.epub');
         if (!$file_exists) {
             $this->epubManager->download_book($id_book);
         }
+        if(Auth::check()){
+            $bookmarks = $this->bookmarkRepository->getBookmarkIdAndUser($id, Auth::user()->id);
+            $bookmark = null;
+            foreach($bookmarks as $bm){
+                $bookmark = $bm;
+            }
+
+
+        }
+        $bookmark = null;
+
 
         return view('book/basic', compact('id_book', 'bookmark', 'book'));
     }

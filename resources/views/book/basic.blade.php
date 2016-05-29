@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Basic ePubJS Example</title>
+    <title> Lecture </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -137,6 +137,11 @@
             margin: 40px 0 0 0;
             list-style: none;
         }
+        #titleBook {
+            font-family:"times new roman", times, serif;
+            color : blue;
+            font-size: 22px;
+        }
     </style>
 
     <script>
@@ -145,14 +150,14 @@
     </script>
 
 </head>
-<body>
+<body onkeydown="f11(event)">
 
 
 
 <div id="main">
 
     <div id="fixe-haut">
-       <div align="center"><a href="#" align="center">{{$book->title}}</a></div>
+       <div id="titleBook" align="center"  >{{$book->title}}</div>
         <div id="title-controls">
             <table>
                 <tr>
@@ -280,6 +285,23 @@
     $('#exit').click(function () {
         screenfull.exit();
     });
+    var count = 0;
+    function f11(event)
+    {
+        if(event.keyCode == 122){
+            if(!screenfull.isFullscreen){
+                fullscreen = true;
+                document.images['fullscreen'].src="{{ URL::asset('exitFullscreen.png')}}";
+                count ++;
+            }
+            if(screenfull.isFullscreen){
+                fullscreen = false;
+                document.images['fullscreen'].src="{{ URL::asset('fullscreen.png')}}";
+                count ++;
+            }
+        }
+
+    }
 </script>
 
 @if($bookmark != null)
