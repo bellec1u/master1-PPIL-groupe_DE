@@ -3,8 +3,19 @@
 @section('titre')
     Liste de lectures
 @stop
+@section('head')
 
+
+@stop
 @section('contenu')
+    <SCRIPT language="Javascript">
+        function Desinscription() {
+            if (confirm ('Etes vous sûr de vouloir supprimer votre livre de votre bibliothèque personnel ?')){
+                document.forms["desinscrire"].submit();
+            }
+        }
+    </script>
+
     <?php
     ///////////////////////////////////////////////////////////////////////////////
     //  Fonction de génération de note en étoiles
@@ -70,8 +81,8 @@
                     @if($book != '')
                         <div class="row">
                             <section class="col-sm-3">
-                                <p> <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}">
-                                    <img src="{{ $book->cover_url  }}" alt=""/></a>
+                                <p><a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}">
+                                        <img src="{{ $book->cover_url  }}" alt=""/></a>
                                 </p>
                             </section>
                             <section class="col-sm-9"><br>
@@ -87,15 +98,18 @@
                                         <td valign="bottom"><?php echo makeRating($book->stars_average);?></td>
                                     </tr>
                                 </table>
-                                <div class="pull-right">
-                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}"
-                                       class="btn btn-primary">Ouvrir</a>
 
-                                    <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"
-                                       class="btn btn-info"> Détails</a>
-                                    <a href="{{URL::route('deleteReading', array('id'=> $book->id))}}"
-                                       class="btn btn-danger">Supprimer</a>
-                                </div>
+                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}"
+                                       class="btn btn-info pull-right">Ouvrir</a>
+
+
+                                <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"
+                                   class="btn btn-info pull-right"> Détails</a>
+                                {{ Form::open(array('route' => array('deleteReading', 'id'=>$book->id), 'method' => 'get', 'name'=>'desinscrire')) }}
+                                {!! Form::button('Supprimer', ['class' => 'btn btn-danger pull-right', 'onclick'=>"Desinscription()"]) !!}
+                                {{ Form::close()}}
+
+
                             </section>
                         </div>
                         <hr>

@@ -119,12 +119,10 @@ class RatingController extends Controller
 
         $ratings = $this->ratingRepository->getById($id);
         if (Auth::user()->id == $ratings->user_id) {
-
             return view('book/editRating', compact('ratings'));
         } else {
             return redirect()->route('bookReturn', ['id' => $ratings->book_id]);
         }
-
 
     }
 
@@ -158,11 +156,13 @@ class RatingController extends Controller
             // on enregistre la modification dans la base de données.
             $this->bookRepository->update($request->book_id, $book->toArray());
 
-            $book = $this->bookRepository->getById($request->book_id);
+
+            $book = $this->bookRepository->getById( $request->book_id);
             $notif['book_id'] = $request->book_id;
-            $notif['type'] = "Commentaire";
-            $notif['details'] = Auth::user()->last_name . " " . Auth::user()->first_name . " a modifié son commentaire sur : " . $book->title . " ";
+            $notif['type'] = " Modification Commentaire";
+            $notif['details'] = Auth::user()->last_name. " ".Auth::user()->first_name ." a modifié son commentaire sur : ".$book->title." ";
             $this->notification->store($notif);
+            
         }
 
         return redirect()->route('bookReturn', ['id' => $request->book_id]);
