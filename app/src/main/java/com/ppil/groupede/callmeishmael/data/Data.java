@@ -806,4 +806,37 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
     {
         return Environment.getExternalStorageDirectory().getAbsolutePath() + "/book" ;
     }
+
+    /*
+        Retourne l'URL afin de lier un compte Facebook à un compte standard
+     */
+    public String getURLLieFacebook() {
+        return (adresse + "/requetes/lieFacebook.php");
+    }
+
+    /*
+        Remplie les informations nécessaire pour lier un compte standard à un compte facebook
+     */
+    public byte[] getPostLieFacebook(String email, String idFacebook) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("email", email);
+        params.put("id",idFacebook);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
 }

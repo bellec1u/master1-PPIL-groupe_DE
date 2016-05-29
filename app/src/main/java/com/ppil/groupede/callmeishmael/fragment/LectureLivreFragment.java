@@ -416,6 +416,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
         //float values = Float.valueOf(resultat);
         System.out.println("receiveData : " + resultat);
         float values = Float.valueOf(resultat);
+        System.out.println("values : " + values);
         goToPart(values);
     }
 }

@@ -35,6 +35,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
+import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConditionsFragment;
@@ -565,6 +566,20 @@ public class MainActivity extends AppCompatActivity
                     }
                   }else {
                         //co_avec_facebook = false;
+                        adresse = Data.getData().getURLLieFacebook();
+                        SessionManager sessionManager = new SessionManager(getBaseContext());
+                        String email = sessionManager.getSessionEmail();
+                        DataManager dataManager = new DataManager(null);
+                        byte[] infos = Data.getData().getPostLieFacebook(email,bFacebookData.getString("idFacebook"));
+                        try {
+                            String s = dataManager.execute(adresse,infos).get();
+                            System.out.println("liaison ? " + s);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+
                         Toast.makeText(MainActivity.this.getBaseContext(), "vous avez lier votre compte!", Toast.LENGTH_SHORT).show();
                     }
                 }
