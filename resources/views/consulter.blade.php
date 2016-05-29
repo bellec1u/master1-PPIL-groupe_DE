@@ -108,7 +108,7 @@
                                 {{ Form::open(array('route' => array('deleteReading', 'id'=>$book->id), 'method' => 'get', 'name'=>'desinscrire')) }}
                                 {!! Form::button('Supprimer', ['class' => 'btn btn-danger pull-right', 'onclick'=>"Desinscription()"]) !!}
                                 {{ Form::close()}}
-                            
+
 
                             </section>
                         </div>

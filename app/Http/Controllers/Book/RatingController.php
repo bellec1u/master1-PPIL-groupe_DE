@@ -123,12 +123,13 @@ class RatingController extends Controller
             if (Auth::user()->id == $ratings->user_id) {
 
                 return view('book/editRating', compact('ratings'));
+
             } else {
                 return redirect()->route('bookReturn', ['id' => $ratings->book_id]);
             }
         }
         else{
-            return redirect()->route('bookReturn', ['id' => $ratings->book_id]);
+            return redirect()->route('bookReturn', ['id' => $id]);
         }
 
 
@@ -167,7 +168,7 @@ class RatingController extends Controller
 
                 $book = $this->bookRepository->getById( $request->book_id);
                 $notif['book_id'] = $request->book_id;
-                $notif['type'] = "Commentaire";
+                $notif['type'] = " Modification Commentaire";
                 $notif['details'] = Auth::user()->last_name. " ".Auth::user()->first_name ." a modifié son commentaire sur : ".$book->title." ";
                 $this->notification->store($notif);
             }
