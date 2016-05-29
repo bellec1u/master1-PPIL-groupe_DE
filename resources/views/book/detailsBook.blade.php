@@ -184,7 +184,10 @@
                                 <?php $test = false; ?>
                             @endif
                         @endforeach
-                        @if($test && $rating->user_id!= Auth::user()->id && $rating->user != null )
+                        <?php $userFollow = $rating->user;
+
+                            ?>
+                        @if($test && $rating->user_id!= Auth::user()->id && $rating->user != null  && $userFollow->following_allowed ==true)
                             {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
                             {!! Form::hidden("followed_user_id", $rating->user_id ) !!}
                             {{$rating->user_id}}

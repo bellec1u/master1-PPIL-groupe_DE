@@ -136,7 +136,17 @@ class UserController extends Controller
             return view("user/inscription");
         }
     }
-     
+    public function following_allowed(){
+        if(Auth::check()){
+            $user = Auth::user();
+            $user->following_allowed = !$user->following_allowed;
+
+            $this->userRepository->update($user->id, $user->toArray());
+        }
+
+      return redirect()->back();
+    }
+
     
 
 }

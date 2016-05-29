@@ -30,7 +30,7 @@ Route::group(['middleware' => 'web'], function () {
         return view('cgu');
     });
 
-    
+
 
     Route::get('connexion', function () {
         return view('user/connexion');
@@ -68,6 +68,7 @@ Route::group(['middleware' => 'web'], function () {
     ])->where('id', '[0-9]+');
 
    Route::get('registration' , ['uses'=>'User\UserController@registration', 'as'=>'registration']);
+    Route::post('following_allowed' , ['uses'=>'User\UserController@following_allowed', 'as'=>'following_allowed']);
 
 
     // email validation

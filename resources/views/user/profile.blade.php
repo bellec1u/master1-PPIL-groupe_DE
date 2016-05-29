@@ -27,11 +27,30 @@
                 <p><b>Email :</b>  {{ $user->email}}</p>
                 <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
                 </table>
+                <table>
+                    <tr>
+                        <td>  <a href="{{URL::route('userEdit')}}" class="btn btn-primary">Modifier</a></td>
+                        @if($user->following_allowed)
+                            <td>{{ Form::open(array('route' => 'following_allowed', 'method' => 'post', 'name'=>'desinscrire')) }}
 
-                {{ Form::open(array('route' => 'userDelete', 'method' => 'delete', 'name'=>'desinscrire')) }}
-                <a href="{{URL::route('userEdit')}}" class="btn bg-primary">Modifier</a>
-                {!! Form::button('Désinscription', ['class' => 'btn btn-primary', 'onclick'=>"Desinscription()"]) !!}
-                {{ Form::close()}}
+                            {!! Form::submit('Rendre profil privé', ['class' => 'btn btn-primary']) !!}
+                            {{ Form::close()}} </td>
+                        @else
+                            <td>{{ Form::open(array('route' => 'following_allowed', 'method' => 'post', 'name'=>'desinscrire')) }}
+
+                                {!! Form::submit('Rendre profil publique', ['class' => 'btn btn-primary']) !!}
+                                {{ Form::close()}} </td>
+                        @endif
+
+                        <td>{{ Form::open(array('route' => 'userDelete', 'method' => 'delete', 'name'=>'desinscrire')) }}
+
+                            {!! Form::button('Désinscription', ['class' => 'btn btn-primary', 'onclick'=>"Desinscription()"]) !!}
+                            {{ Form::close()}}</td>
+                    </tr>
+
+
+                </table>
+
             </div>
         </div>
 </article>

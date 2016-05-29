@@ -42,19 +42,25 @@ class ReadingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function add($id_book)
-    {   $book = $this->readingRepository->getReadingIdAndUser($id_book, Auth::user()->id);
-        if($book->count() == 0 ){
-            $request['user_id'] = Auth::user()->id;
-            $request['book_id'] = $id_book;
-            $request['current_page'] = '0';
-            $reading = $this->readingRepository->store($request);
+    {
+        if(Auth::check()){
+            $book = $this->readingRepository->getReadingIdAndUser($id_book, Auth::user()->id);
+            if($book->count() == 0 ){
+                $request['user_id'] = Auth::user()->id;
+                $request['book_id'] = $id_book;
+                $request['current_page'] = '0';
+                $reading = $this->readingRepository->store($request);
 
+                if(Auth::user()->following_allowed){
+                    $notif['book_id'] = $id_book;
+                    $notif['type'] = "Ajout liste de lecture";
+                    $notif['details'] = $reading->user->first_name." a ajouté ".$reading->book->title." dans sa liste de lecture";
+                    $this->notification->store($notif);
+                }
 
-            $notif['book_id'] = $id_book;
-            $notif['type'] = "Ajout liste de lecture";
-            $notif['details'] = $reading->user->first_name." a ajouté ".$reading->book->title." dans sa liste de lecture";
-            $this->notification->store($notif);
+            }
         }
+
 
         return redirect()->back();
     }
@@ -82,7 +88,7 @@ class ReadingController extends Controller
     
         
         $book = $this->readingRepository->getReadingId(Auth::user()->id);
-       
+
         $details[]= '';
         
         foreach($book as $bo){
