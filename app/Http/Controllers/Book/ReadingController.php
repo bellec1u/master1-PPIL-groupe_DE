@@ -56,7 +56,7 @@ class ReadingController extends Controller
             $this->notification->store($notif);
         }
 
-        return redirect()->route('bookReturn', ['id' => $id_book]);
+        return redirect()->back();
     }
 
     /**
@@ -131,7 +131,7 @@ class ReadingController extends Controller
     public function destroy($id)
     {
          $this->readingRepository->delete($id, Auth::user()->id);
-        return redirect()->route('showReading');
+        return redirect()->back();
 
     }
 }
