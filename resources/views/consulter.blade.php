@@ -70,8 +70,9 @@
                     @if($book != '')
                         <div class="row">
                             <section class="col-sm-3">
-                                <p><a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"><img
-                                                src="{{ $book->cover_url  }}" alt=""/></a></p>
+                                <p> <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}">
+                                    <img src="{{ $book->cover_url  }}" alt=""/></a>
+                                </p>
                             </section>
                             <section class="col-sm-9"><br>
                                 <p><b>Titre :</b> {{ $book->title }}</p>
@@ -82,8 +83,8 @@
                                 </p>
                                 <table>
                                     <tr>
-                                        <td><b> Note moyenne :</b></td>
-                                        <td><?php echo makeRating($book->stars_average);?></td>
+                                        <td valign="top"><b> Note moyenne :</b></td>
+                                        <td valign="bottom"><?php echo makeRating($book->stars_average);?></td>
                                     </tr>
                                 </table>
 
