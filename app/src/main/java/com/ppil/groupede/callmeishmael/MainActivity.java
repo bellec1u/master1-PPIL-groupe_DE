@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity
     private TextView adresseMail; // Permet de recupérer l'adresse mail dans notre nav_header_main
     private ImageView imagePerso; // Permet de recupérer l'image de l'utilisateur
     private CallbackManager callbackManager; // permet de gérer les callBacks lors de la connexion avec Facebook est établit.
-    private boolean co_avec_facebook; // permet de savoir si on c'est co avec facebook ou non pour désactiver le bouton lier compte dans la fenetre modification du profil
+    private boolean connexionFacebook; // permet de savoir si on c'est co avec facebook ou non pour désactiver le bouton lier compte dans la fenetre modification du profil
+    private LoginButton sign_in; // bouton de connexion facebook
     /*
     Fonction permettant de créer et de retourner le Fragment avec les divers
     élements contenus dans ce dernier...
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        connexionFacebook = false;
         connexionFacebook(); // initialise la connexion à Facebook
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         if (SDK_INT > 8) {
@@ -239,7 +241,7 @@ public class MainActivity extends AppCompatActivity
             LoginManager.getInstance().logOut();
             this.setConnection(false);
             this.setTitle("Accueil");
-            co_avec_facebook = false;
+            connexionFacebook = false;
             // Set the fragment of view
             AccueilFragment fragment = new AccueilFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -469,21 +471,21 @@ public class MainActivity extends AppCompatActivity
         //initialisation du sdk
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-               LoginButton sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
+        sign_in = (LoginButton) getLayoutInflater().inflate(R.layout.fragment_connexion, null).findViewById(R.id.login_button);
         sign_in.setReadPermissions(Arrays.asList("public_profile", "email"));
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
         //necessaire quand on relance l'appli
-        if(accessToken != null)
-            co_avec_facebook = true;
         sign_in.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             //connexion avec succès
             @Override
             public void onSuccess(LoginResult loginResult) {
                 //test si on est déjà co ce qui permet de faire la difference du bouton cliqué(celui de la page de co ou de lier compte fb)
-                SessionManager sessionManager = new SessionManager(MainActivity.this);
-                boolean tmp = !sessionManager.isConnected();
-                getInfo(loginResult,tmp);
-                co_avec_facebook = true;
+                SessionManager sessionManager = new SessionManager(getBaseContext());
+                if (!isLogWithFacebook() && sessionManager.isConnected()) {
+                    getInfo(loginResult);
+                    connexionFacebook = true;
+                } else {
+                    linkAccount(loginResult); // permet de lier un compte facebook
+                }
             }
 
             // connexion annulé
@@ -500,11 +502,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     //recupération des infos de l'utilisateur
-      public void getInfo(LoginResult loginResult, final boolean deja_co){
+      public void getInfo(LoginResult loginResult){
         GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
-                Log.i("LoginActivity", response.toString());
                 // Get facebook data from login
                 try {
                     Bundle bFacebookData = getFacebookData(object);
@@ -513,7 +514,6 @@ public class MainActivity extends AppCompatActivity
                         on recupere l'url avec data avant
                      */
                     String genre = bFacebookData.getString("gender").charAt(0) + "";
-                    System.out.println(genre);
                     String adresse = Data.getData().getFacebook(
                             bFacebookData.getString("idFacebook"),
                             bFacebookData.getString("email"),
@@ -522,13 +522,9 @@ public class MainActivity extends AppCompatActivity
                             genre,
                             bFacebookData.getString("profile_pic"),
                             bFacebookData.getString("birthday"));
-                    //l'utilisateur se co avec fb
-                    if (deja_co == false) {
-
-                    /*
-                        On appelle data Manager
-                     */
-                        System.out.println(adresse);
+                        /*
+                            On appelle data Manager
+                         */
                         SocialFacebook facebook = new SocialFacebook();
                         String res = null; // on lance la requete ici
                         res = facebook.execute(adresse).get();
@@ -548,6 +544,7 @@ public class MainActivity extends AppCompatActivity
                                 json.getString("image"),
                                 json.getString("follow"),
                                 json.getString("sexe"));
+                        // On fait pop-up une fenetre de bienvenue
                         Toast.makeText(MainActivity.this.getBaseContext(), "Bonjour " + json.getString("prenom") + " !", Toast.LENGTH_SHORT).show();
                         MainActivity.this.setTitle("Accueil");
 
@@ -558,14 +555,42 @@ public class MainActivity extends AppCompatActivity
                                 getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.fragment_container, fragment);
                         fragmentTransaction.commit();
-                        //on va lier le compte fb
-                    } else {
-                        /*
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+          /*
+            On remplie maintenant les informations de l'utilisateur
+           */
+          Bundle parameters = new Bundle();
+          parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
+          request.setParameters(parameters);
+          request.executeAsync();
+    }
+
+    /*
+        Fonction appelée lorsque l'utilisateur est connecté avec un compte standard et que
+        ce dernier clique sur le bouton connexion situé dans le Profil,
+        de ce fait cette fonction appelera par la suite le php pour lier
+        un compte Facebook, et non plus celui pour inscrire un compte
+     */
+    private void linkAccount(LoginResult loginResult){
+        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                // Get facebook data from login
+                try {
+                    Bundle bFacebookData = getFacebookData(object);
+
+                     /*
                             Cas ou l'utilisateur ne s'est pas déjà connecté avec facebook,
                             donc on sera surement dans la fonctionnalité lier un compte
                             à Facebook
                          */
-                        adresse = Data.getData().getURLLieFacebook();
+                        String adresse = Data.getData().getURLLieFacebook();
                         SessionManager sessionManager = new SessionManager(getBaseContext());
                         String email = sessionManager.getSessionEmail();
                         DataManager dataManager = new DataManager(null);
@@ -577,23 +602,27 @@ public class MainActivity extends AppCompatActivity
                             si cet id n'est lié à rien alors
                             on va ajouter dans la table social_accounts l'id User à cet idProvider
                          */
-                        byte[] infos = Data.getData().getPostLieFacebook(email, bFacebookData.getString("idFacebook"));
+                         byte[] infos = Data.getData().getPostLieFacebook(email, bFacebookData.getString("idFacebook"));
                         /*
                             Reponse contient le resultat retourné par le scripte php
                             on va ensuite réagir différemment selon ce résultat
                          */
-                        //PAS BESOIN DE FAIRE IMPLEMENT DATARECEIVER TU PEUX DIRECTEMENT RECUPERER LE RESULTAT ICI AVEC GET()
-                        String reponse = dataManager.execute(adresse, infos).get();
-                        // si reponse == true, alors la liaison s'est bien effectué
-                        System.out.println("RESPONSE : " + reponse);
+                                            /*
+                            Reponse contient le resultat retourné par le scripte php
+                            on va ensuite réagir différemment selon ce résultat
+                         */
+                     String reponse = dataManager.execute(adresse, infos).get();
+                     //si reponse == true, alors la liaison s'est bien effectué
+                    System.out.println("REPONSE : " + reponse);
                         if(reponse.equals("true")){
-                            co_avec_facebook = true;
+                            connexionFacebook = true;
+                            sign_in.setVisibility(View.GONE);
                             Toast.makeText(MainActivity.this.getBaseContext(), "Compte lié avec succès !", Toast.LENGTH_SHORT).show();
                         }
                         else{
+                            LoginManager.getInstance().logOut();
                             Toast.makeText(MainActivity.this.getBaseContext(), "Oups ! Il semble que ce compte Facebook est déjà lié...", Toast.LENGTH_SHORT).show();
                         }
-                    }
                 } catch (ExecutionException | InterruptedException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
@@ -601,6 +630,13 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+          /*
+            On remplie maintenant les informations de l'utilisateur
+           */
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
+        request.setParameters(parameters);
+        request.executeAsync();
     }
 
     //recupération des infos de l'utilisateur à partir de facebook
@@ -653,8 +689,8 @@ public class MainActivity extends AppCompatActivity
         //// TODO: 17/05/16
     }
 
-    public boolean getCoF() {
-        return co_avec_facebook;
+    public boolean isLogWithFacebook() {
+        return connexionFacebook;
     }
 }
 

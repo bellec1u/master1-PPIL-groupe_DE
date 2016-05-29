@@ -55,9 +55,11 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
     private EditText nom; // nom de l'utilisateur
     private EditText prenom; // prenom de l'utilisateur
     private String cover_url; // url de l'image choisi par l'utilisateur.
+    private boolean alreadyLinkToFacebook;
 
-    public ModificationMonProfilFragment() {
+    public ModificationMonProfilFragment(boolean liaisonFacebook) {
         // Required empty public constructor
+        alreadyLinkToFacebook = liaisonFacebook;
     }
 
 
@@ -86,10 +88,15 @@ public class ModificationMonProfilFragment extends Fragment implements DataRecei
         save = (Button) view.findViewById(R.id.action_confirmer);
         cover_url = "";
 
-        if(((MainActivity)getActivity()).getCoF()){
+        if(((MainActivity)getActivity()).isLogWithFacebook()){
             view.findViewById(R.id.login_button).setVisibility(View.GONE);
+            System.out.println("GONE");
         }else{
-            view.findViewById(R.id.login_button).setVisibility(View.VISIBLE);
+            if(!alreadyLinkToFacebook) {
+                view.findViewById(R.id.login_button).setVisibility(View.VISIBLE);
+            }else{
+                view.findViewById(R.id.login_button).setVisibility(View.GONE);
+            }
         }
 
         

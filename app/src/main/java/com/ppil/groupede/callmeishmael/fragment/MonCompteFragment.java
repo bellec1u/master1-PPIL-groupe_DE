@@ -63,6 +63,7 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
     private TextView ddn; // date de naissance de l'utilisateur
     private TextView sexe; // genre de l'utilisateur
     private LinearLayout notifications; // layout contenant les notifications recus
+    private boolean liaisonFacebook; // indique si l'utilisateur est déjà lié à un compte Facebook ou non
 
     public MonCompteFragment() {
         // Required empty public constructor
@@ -278,10 +279,14 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
                 if(count.equals("\"0\"")) // si egal a 0
                 {
                     // si pas dans la base
+                    System.out.println("JAMAIS LIEE");
+                    liaisonFacebook = false;
                 }
                 else
                 {
                     // si dans la base
+                    System.out.println("DEJA LIEE");
+                    liaisonFacebook = true;
                 }
             }
         } catch (ExecutionException | InterruptedException e) {
@@ -295,7 +300,7 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
         Redirige l'utilisateur vers la fragment de modification de compte
      */
     public void setMonCompteModification() {
-        ModificationMonProfilFragment fragment = new ModificationMonProfilFragment();
+        ModificationMonProfilFragment fragment = new ModificationMonProfilFragment(liaisonFacebook);
         getActivity().setTitle("Modification du compte");
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
