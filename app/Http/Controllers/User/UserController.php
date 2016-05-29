@@ -148,7 +148,9 @@ class UserController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $user->following_allowed = !$user->following_allowed;
-
+            if(!$user->following_allowed){
+                $user->subscriptionsFrom()->delete();
+            }
             $this->userRepository->update($user->id, $user->toArray());
         }
 

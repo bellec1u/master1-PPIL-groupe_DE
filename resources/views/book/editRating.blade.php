@@ -33,39 +33,43 @@
 
         </script>
     <br>
-    <div class="col-sm-offset-3 col-sm-6">
+
         <div class="panel panel-info">
-            <div class="panel-heading">Modifier note </div>
+
+            <h1 class="panel-heading">Modification de votre commentaire </h1>
             <div class="panel-body">
 
 
-                <div class="panel-heading"> </div>
-                <div class="panel-body">
+
                 {!! Form::open(array('route'=>'updateRating','method'=>'POST', 'files'=>'true')) !!}
                 {!! csrf_field() !!}
+                <div class="form-group {!! $errors->has('stars') ? 'has-error' : '' !!}">
+                    <label class="col-sm-2 col-xs-4">Votre note :</label>
+                    <div class="col-sm-10 col-xs-8">
 
                     <div id='A1'><script type='text/javascript'>CreateListeEtoile('A1',5);</script></div>
 
                     {!! Form::hidden('stars', $ratings->stars,['id'=>'etoile'] ) !!}
-
+                    </div>
                 </div>
-            </div>
-        </div>
-            <div class="panel panel-info">
-                <div class="panel-heading">Modifier un commentaire </div>
-                <div class="panel-body">
+
+
+
+
                 {{ Form::hidden('id', $ratings->id) }}
                 {{ Form::hidden('book_id', $ratings->book_id) }}
-                <div class="form-group {!! $errors->has('comment') ? 'has-error' : '' !!}">
+                <div class="col-lg-10 col-xs-12 form-group {!! $errors->has('comment') ? 'has-error' : '' !!}">
+                <label>Votre commentaire :</label>
                     {!! Form::textarea ('comment', $ratings->comment, ['class' => 'form-control']) !!}
                     {!! $errors->first('comment', '<small class="help-block">:message</small>') !!}
                 </div>
-                    <A href="javascript:;" onClick="supprimer();">Supprimer</A>
+                <div class="col-lg-10 col-xs-12">
+                    <A href="javascript:;" onClick="supprimer();" class="btn btn-danger pull-right">Supprimer</A>
                 {!! Form::submit('Envoyer !', ['class' => 'btn btn-info pull-right']) !!}
                 {!! Form::close() !!}
-            </div>
+                </div>
+
         </div>
-
-
     </div>
+
 @stop
