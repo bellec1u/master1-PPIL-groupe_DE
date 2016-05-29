@@ -58,7 +58,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('user/profile', 'User\UserController@profile');
     Route::put('user/update',
         ['uses' => 'User\UserController@update', 'as' => 'userUpdate']);
-    Route::delete('user/desinscription',
+    Route::delete('user',
         ['uses' => 'User\UserController@delete', 'as' => 'userDelete']);
     Route::get('user/edit',
         ['uses' => 'User\UserController@edit', 'as' => 'userEdit']);

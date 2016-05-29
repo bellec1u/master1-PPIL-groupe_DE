@@ -2,7 +2,7 @@ body {
     min-height: 100vh;
     background: linear-gradient(
             to bottom,
-            rgb(48, 158, 185),
+            rgb(9, 137, 169),
             rgb(234, 236, 198));
     padding-bottom: 0px;
 }
@@ -56,6 +56,10 @@ h1.panel-heading {
 
 .form-horizontal .control-label {
     text-align: left;
+}
+
+td {
+    padding-right: 10px;
 }
 
 /* ---------- Connexion ---------- */
