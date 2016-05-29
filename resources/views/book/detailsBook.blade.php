@@ -32,6 +32,7 @@
 @stop
 
 @section('contenu')
+
     <?php
     ///////////////////////////////////////////////////////////////////////////////
     //  Fonction de génération de note en étoiles
@@ -86,7 +87,6 @@
         $ratingBox .= '						<!-- end of item -->' . PHP_EOL;
         return $ratingBox;
     }
-    //  echo(makeRating(3.42));		// code de test
     ?>
 
 
@@ -96,22 +96,24 @@
         <div class="panel-body">
             <div class="row">
                 <section class="col-sm-3">
-                    <p><img src="{{ $book->cover_url  }}" alt=""/></p>
+                    <p><img src="{{ $book->cover_url }}" alt=""/></p>
                 </section>
                 <section class="col-sm-9"><br>
                     <p><b>Titre :</b> {{ $book->title }}</p>
                     <p><b>Genre :</b> {{ $book->genre }}</p>
                     <p><b>Auteur :</b> {{ $book->author }}</p>
                     <p><b>Langue :</b> {{ $book->language }}</p>
-                    <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
+                    <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date)) }}</p>
                     <table>
                         <tr>
-                            <td><b> Note moyenne :</b></td>
-                            <td><?php echo makeRating($book->stars_average);?></td>
+                            <td valign="top"><b> Note moyenne :</b></td>
+                            <td valign="bottom"><?php echo makeRating($book->stars_average);?></td>
                         </tr>
                     </table>
+
                     <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}"
-                       class="btn btn-primary">Ouvrir</a>
+                       class="btn btn-primary">Ouvrir
+                    </a>
 
                     @if(Auth::check())
                         @if(count($estEvalue) == 0)
@@ -133,64 +135,62 @@
                 </section>
             </div>
             <section class="col-sm-3">
-
+                <!--Section Vide-->
             </section>
             <section class="col-sm-6">
                 <p>@foreach($data as $rating)
                     <p>
-                    @if($rating->user != null)
+                        @if($rating->user != null)
 
-                        @if($rating->user->profile_image == '')
-                             <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%"
-                                                        height="10%"/>
-                        @else
-                            <img src="{{ URL($rating->user->profile_image) }}" alt="" width="10%" height="10%"/>
-                        @endif
-                        @if(Auth::check() && Auth::user()->id != $rating->user->id)
-                            <a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}"> {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
-                        @else
-                            {{ $rating->user->first_name }} {{ $rating->user->last_name }}
-                        @endif
-                    @else
-                        Anonyme
-                    @endif
 
-                    <?php echo makeRating($rating->stars);
-                    $test = true;
-                    ?>
-                    @if(Auth::check())
-                        @foreach($followers as $follower)
-                            @if($follower->followed_user_id == $rating->user_id)
-                                {{ Form::open(array('route' => array('deleteFollower', 'id'=>$follower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
-                                suivi :{{$follower->id  }}
-                                {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
-                                {!! Form::close() !!}
-                                <?php $test = false; ?>
+                            @if($rating->user->profile_image == '')
+                                <img src="{{ URL('image_uploads/default.jpg') }}" alt="" width="10%"
+                                     height="10%"/>
+                            @else
+                                <img src="{{ URL($rating->user->profile_image) }}" alt="" width="10%" height="10%"/>
                             @endif
-                        @endforeach
-                        <?php $userFollow = $rating->user;
+                            @if(Auth::check() && Auth::user()->id != $rating->user->id)
+                                <a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}"> {{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
 
-                            ?>
-                        @if($test && $rating->user_id!= Auth::user()->id && $rating->user != null  && $userFollow->following_allowed ==true)
-                            {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
-                            {!! Form::hidden("followed_user_id", $rating->user_id ) !!}
-                            {{$rating->user_id}}
-                            {!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
-                            {!! Form::close() !!}
+                            @else
+                                {{ $rating->user->first_name }} {{ $rating->user->last_name }}
+                            @endif
+                        @else
+                            Anonyme
                         @endif
-                    @endif
-                    @if(Auth::check() && Auth::user()->id == $rating->user_id)
-                        {!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
-                    @endif
-                    Commentaire :  {{ $rating->comment }}
+
+                        <?php echo makeRating($rating->stars);
+                        $test = true;
+                        ?>
+
+                        @if(Auth::check())
+                            @foreach($followers as $follower)
+                                @if($follower->followed_user_id == $rating->user_id)
+                                    {{ Form::open(array('route' => array('deleteFollower', 'id'=>$follower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
+                                    {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+                                    {!! Form::close() !!}
+                                    <?php $test = false; ?>
+                                @endif
+                            @endforeach
+                            <?php
+                            $userFollow = $rating->user;
+                            ?>
+                            @if($test && $rating->user_id!= Auth::user()->id && $rating->user != null  && $userFollow->following_allowed ==true)
+                                {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
+                                {!! Form::hidden("followed_user_id", $rating->user_id ) !!}
+                                {!! Form::submit('Suivre', ['class' => 'btn btn-info pull-right']) !!}
+                                {!! Form::close() !!}
+                            @endif
+                        @endif
+                        @if(Auth::check() && Auth::user()->id == $rating->user_id)
+                            {!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+                        @endif
+                        Commentaire : {{ $rating->comment }}
                     </p>
                     <hr>
-                    @endforeach
-                    </p>
-
+                    @endforeach</p>
             </section>
 
         </div>
-
     </article>
 @stop

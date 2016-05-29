@@ -26,31 +26,33 @@
                 <p><b>Nom :</b>  {{ $user->first_name }}</p>
                 <p><b>Email :</b>  {{ $user->email}}</p>
                 <p><b>Date de naissance :</b> {{ $user->birth_date}}</p>
-                </table>
+                <p><b>Etat du profil :</b> 
+                        @if($user->following_allowed)
+                            publique
+                        @else 
+                            privé
+                        @endif </p>
                 <table>
                     <tr>
-                        <td>  <a href="{{URL::route('userEdit')}}" class="btn btn-primary">Modifier</a></td>
+                        <td><a href="{{URL::route('userEdit')}}" class="btn btn-primary">Modifier</a></td>
                         @if($user->following_allowed)
-                            <td>{{ Form::open(array('route' => 'following_allowed', 'method' => 'post', 'name'=>'following_allowed')) }}
 
-                            {!! Form::submit('Rendre profil privé', ['class' => 'btn btn-primary']) !!}
-                            {{ Form::close()}} </td>
+                            <td>{{ Form::open(array('route' => 'following_allowed', 'method' => 'post', 'name'=>'following_allowed')) }}
+                                {!! Form::submit('Rendre profil privé', ['class' => 'btn btn-danger']) !!}
+                                {{ Form::close()}} 
+                            </td>
                         @else
                             <td>{{ Form::open(array('route' => 'following_allowed', 'method' => 'post', 'name'=>'following_allowed')) }}
+                                {!! Form::submit('Rendre profil publique', ['class' => 'btn btn-success']) !!}
 
-                                {!! Form::submit('Rendre profil publique', ['class' => 'btn btn-primary']) !!}
                                 {{ Form::close()}} </td>
                         @endif
-
                         <td>{{ Form::open(array('route' => 'userDelete', 'method' => 'delete', 'name'=>'desinscrire')) }}
-
                             {!! Form::button('Désinscription', ['class' => 'btn btn-primary', 'onclick'=>"Desinscription()"]) !!}
-                            {{ Form::close()}}</td>
+                            {{ Form::close()}}
+                        </td>
                     </tr>
-
-
                 </table>
-
             </div>
         </div>
 </article>

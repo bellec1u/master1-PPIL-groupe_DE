@@ -34,13 +34,13 @@ class BookRepository extends ResourceRepository
      * Builds proper closure for search query depending on the existence of
      * 'author' parameter
      *
-     * @param $has_author boolean
+     * @param $hasAuthor boolean
      * @param $author author value
      * @return \Closure
      */
-    private function make_closure($has_author, $author)
+    private function make_closure($hasAuthor, $author)
     {
-        if ($has_author) {
+        if ($hasAuthor) {
             return function ($query) use ($author) {
                 $query->where('author', 'LIKE', $author)
                     ->where('title', 'LIKE', $this->param('query'));
@@ -53,12 +53,12 @@ class BookRepository extends ResourceRepository
         }
     }
 
-    public function search($inputs)
+    public function search($inputs, $nbPerPage)
     {
         $inputs = array_only($inputs, ['query', 'author', 'genre', 'lang']);
         // check if all values are empty
         if (!array_filter($inputs, function($val) {return trim($val);})) {
-            return [];
+            return $this->model->where('id', '=', '')->paginate(1);
         }
 
         // prepare values for search query
@@ -79,7 +79,7 @@ class BookRepository extends ResourceRepository
         $books = $this->model
             ->orWhere($closure)
             ->where('genre', 'LIKE', $this->param('genre'))
-            ->where('language', 'LIKE', $this->param('lang'))->get();
+            ->where('language', 'LIKE', $this->param('lang'))->paginate($nbPerPage);
 
 		return $books;
 	}
@@ -90,6 +90,17 @@ class BookRepository extends ResourceRepository
     }
     public function getLatestBook(){
         return $this->model->orderBy('publication_date', 'DESC')->get();
+    }
+
+    public function getLanguageListAsArray()
+    {
+        $langs = $this->model->select('language')->groupBy('language')->get();
+        $lang_arr = ['' => '-'];
+        foreach ($langs as $lang) {
+            $lang_str = $lang['language'];
+            $lang_arr[$lang_str] = $lang_str;
+        }
+        return $lang_arr;
     }
 
 

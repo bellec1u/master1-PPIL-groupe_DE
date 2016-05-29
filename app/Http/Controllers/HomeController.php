@@ -27,16 +27,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $books = $this->bookRepository->getBestBook();
+        $books = $this->bookRepository->getBestBook();
         $booksLatest = $this->bookRepository->getLatestBook();
 
-        for($i =0; $i < 10 ; $i++){
-            $liste[] = $books[$i];
+        $top10 = [];
+        for ($i = 0; $i < 10; $i++) {
+            $top10[] = $books[$i];
         }
-        for($i =0; $i < 20 ; $i++){
+
+        for ($i = 0; $i < 20; $i++) {
             $latest[] = $booksLatest[$i];
         }
 
-        return view('index' , compact('latest'))->with('liste', $liste);
+        return view('index', compact('top10', 'latest'));
     }
 }
