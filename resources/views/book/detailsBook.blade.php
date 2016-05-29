@@ -100,8 +100,8 @@
                 </section>
                 <section class="col-sm-9"><br>
                     <p><b>Titre :</b> {{ $book->title }}</p>
-                    <p><b>Genre :</b> {{ $book->genre }}</p>
                     <p><b>Auteur :</b> {{ $book->author }}</p>
+                    <p><b>Genre :</b> {{ $book->genre }}</p>
                     <p><b>Langue :</b> {{ $book->language }}</p>
                     <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date)) }}</p>
                     <table>

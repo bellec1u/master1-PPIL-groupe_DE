@@ -87,8 +87,8 @@
                             </section>
                             <section class="col-sm-9"><br>
                                 <p><b>Titre :</b> {{ $book->title }}</p>
-                                <p><b>Genre :</b> {{ $book->genre }}</p>
                                 <p><b>Auteur :</b> {{ $book->author }}</p>
+                                <p><b>Genre :</b> {{ $book->genre }}</p>
                                 <p><b>Langue :</b> {{ $book->language }}</p>
                                 <p><b>Date de Parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}
                                 </p>
@@ -99,16 +99,13 @@
                                     </tr>
                                 </table>
 
-                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}"
-                                       class="btn btn-info pull-right">Ouvrir</a>
-
-
-                                <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}"
-                                   class="btn btn-info pull-right"> Détails</a>
-                                {{ Form::open(array('route' => array('deleteReading', 'id'=>$book->id), 'method' => 'get', 'name'=>'desinscrire')) }}
-                                {!! Form::button('Supprimer', ['class' => 'btn btn-danger pull-right', 'onclick'=>"Desinscription()"]) !!}
-                                {{ Form::close()}}
-
+                                <div class="pull-right">
+                                    <a href="{{URL::route('bookOpen', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-primary">Ouvrir</a>
+                                    <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}" class="btn btn-info"> Détails</a>
+                                    {{ Form::open(array('route' => array('deleteReading', 'id'=>$book->id), 'method' => 'get', 'name'=>'desinscrire', 'style' => 'display:inline')) }}
+                                    {!! Form::button('Supprimer', ['class' => 'btn btn-danger', 'onclick'=>"Desinscription()"]) !!}
+                                    {{ Form::close()}}
+                                </div>
 
                             </section>
                         </div>
