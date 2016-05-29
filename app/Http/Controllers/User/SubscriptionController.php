@@ -44,8 +44,9 @@ class SubscriptionController extends Controller
 
 
         if(Auth::check()){
-            if(count($this->subsRepository->getById($id)) != 0){
-                $this->subsRepository->destroy($id);
+            $idSub = $this->subsRepository->getById($id);
+            if(count($idSub) != 0){
+                $this->subsRepository->destroy($idSub->id);
             }
 
 
