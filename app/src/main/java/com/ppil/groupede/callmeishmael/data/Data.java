@@ -27,8 +27,8 @@ public class Data {
     public String path;
 
     private Data() {
-        ipMachine = "http://192.168.0.45";
-        port = "8888";
+        ipMachine = "http://192.168.1.88";
+        port = "";
         adresse = ipMachine + ":" + port;
     }
 
@@ -807,20 +807,38 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
         return Environment.getExternalStorageDirectory().getAbsolutePath() + "/book" ;
     }
 
+<<<<<<< HEAD
     /*
         Retourne l'URL afin de lier un compte Facebook à un compte standard
      */
     public String getURLLieFacebook() {
+=======
+
+    /*
+        Retourne l'URL nécessaire pour lier le compte fb
+     */
+    public String getURLLierFb() {
+>>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
         return (adresse + "/requetes/lieFacebook.php");
     }
 
     /*
+<<<<<<< HEAD
         Remplie les informations nécessaire pour lier un compte standard à un compte facebook
      */
     public byte[] getPostLieFacebook(String email, String idFacebook) {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email);
         params.put("id",idFacebook);
+=======
+        Remplie le formulaire POST nécessaire pour permettre à un
+        utilisateur de lier son compte fb
+     */
+    public byte[] getPostLierFb(String email,String idFacebook) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("email", email);
+        params.put("id", idFacebook);
+>>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
 
         /*
             Charge les parametres
@@ -839,4 +857,9 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
             return new byte[1]; // unreachable
         }
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
 }
