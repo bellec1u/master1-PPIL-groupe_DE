@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ URL::asset('epub/reader/css/normalize.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('epub/reader/css/main.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('epub/reader/css/popup.css')}}">
+
+
     {!! Html::script('epub/build/epub.js') !!}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
@@ -21,8 +23,10 @@
 
 
 
+    {!! Html::script('screenfull/src/screenfull.js') !!}
     {!! Html::script('epub/reader/js/libs/jquery.min.js') !!}
     {!! Html::script('epub/reader/js/libs/zip.min.js') !!}
+
 <!-- File Storage -->
     <!-- <script src="js/libs/localforage.min.js"></script> -->
 
@@ -116,6 +120,23 @@
             width           : 100%;
             right            : 10px;
         }
+
+        #container {
+            width: 500px;
+            padding: 30px 20px;
+            margin: 0 auto 50px auto;
+            background: #fcfcfc;
+            text-align: center;
+            border: 1px solid #b3b3b3;
+            border-radius: 4px;
+            box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
+        }
+
+        #container ul {
+            padding: 0;
+            margin: 40px 0 0 0;
+            list-style: none;
+        }
     </style>
 
     <script>
@@ -133,10 +154,17 @@
     <div id="fixe-haut">
        <div align="center"><a href="#" align="center">{{$book->title}}</a></div>
         <div id="title-controls">
+            <table>
+                <tr>
+                    <td id="Mark"><a href="#" onclick="goToMark()">Acceder au marque page</a></td>
+                   <td><a href="#" onclick="test(document.images['exemple'])"><img src="{{ URL::asset('bookmark-empty.png')}}" name="exemple" ></a></td>
+                   <td><a href="#" id="request"><img src="{{ URL::asset('fullscreen.png')}}" name="fullscreen" ></a></td>
 
-            <a href="#" onclick="test(document.images['exemple'])"><img src="{{ URL::asset('bookmark-empty.png')}}" name="exemple" ></a>
+                   <td><a href="{{ $_GET['path'] }}"> <img src="{{ URL::asset('fermer.png')}}"></a></td>
+                </tr>
+            </table>
+            <div id="Mark"></div>
 
-            <a href="{{ $_GET['path'] }}"> <img src="{{ URL::asset('fermer.png')}}"></a>
 
         </div>
 
@@ -153,11 +181,18 @@
 </div>
 
 <script>
+
     var full = true;
     function test(img){
 
         var bookPath = book.getCurrentLocationCfi();
-
+        if(full == true){
+           document.getElementById('Mark').style.visibility = 'hidden';
+        }
+        else{
+            document.getElementById('Mark').style.visibility = 'visible';
+            MarkPage = book.getCurrentLocationCfi();
+        }
         $.ajax({
             type: 'GET',
             url: '<?php echo  URL::route('addBookmarks', array('idBook'=>$book->id)); ?>',
@@ -183,11 +218,16 @@
 
     }
 
+    function goToMark(){
+        book.gotoCfi(MarkPage);
+        document.images['exemple'].src="{{ URL::asset('bookmark-full.png')}}";
+        full = true;
+    }
     function isbookMark( prevOrnext){
         if(prevOrnext == 'next'){
             book.nextPage();
         }
-        if(prevOrnext == 'prev'){
+        else{
             book.prevPage();
         }
 
@@ -220,15 +260,38 @@
     var slider = document.createElement("input");
 
     var rendered = book.renderTo("area");
+    var fullscreen = false;
+    $('#request').click(function () {
+        if(fullscreen == false){
+            screenfull.request($('#container')[0]);
+            fullscreen = true;
 
+            document.images['fullscreen'].src="{{ URL::asset('exitFullscreen.png')}}";
+        }
+        else{
+            screenfull.exit();
+            fullscreen = false;
+            document.images['fullscreen'].src="{{ URL::asset('fullscreen.png')}}";
+        }
+
+// does not require jQuery, can be used like this too:
+// screenfull.request(document.getElementById('container'));
+    });
+    $('#exit').click(function () {
+        screenfull.exit();
+    });
 </script>
+
 @if($bookmark != null)
 
     <script>    book.gotoCfi("<?php echo $bookmark->page; ?>");
-        document.images['exemple'].src="{{ URL::asset('bookmark-full.png')}}";
-        full = true;
-    </script>
+    document.images['exemple'].src="{{ URL::asset('bookmark-full.png')}}";
+    full = true;
+        var MarkPage = "{{$bookmark->page}}";
 
+    </script>
+    @else
+    <script>    document.getElementById('Mark').style.visibility = 'hidden';</script>
 @endif
 </body>
 </html>
