@@ -269,19 +269,69 @@ public class DetailsLivreFragment extends Fragment implements DataReceiver{
                     }
                     else{
 
-                        new ProgressTask(getActivity()).execute();
+                        /*
+                            ON va verifier que le livre
+                            est present dans le dossier /book/ de device de l'utilisateur
+                            si oui, on lancera la lecture
+                            si non, on demandera a l'utilisateur s'il souhaite le DL
+                         */
+                        File exist = new File(Data.getData().getPath() + "/" + id + ".epub");
+                        //Si le livre est dans le device alors ...
+                        if(exist.exists()) {
+                            new ProgressTask(getActivity()).execute();
+                            LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub", nbPage);
+                            getActivity().setTitle("Lecture");
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container, lecture);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                        else
+                        {
+                            //le livre n'est pas dans le device de l'utilisateur
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
 
+                            // set title
+                            alertDialogBuilder.setTitle("Information");
+                            // set dialog message
+                            alertDialogBuilder
+                                    .setMessage("Ce livre n'est pas present dans votre device." +
+                                            "\nVoulez-vous le télécharger ?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int idL) {
+                                            /*
+                                                On appel DataManager,
+                                             */
+                                            SessionManager sessionManager = new SessionManager(getContext());
+                                            String adresse = Data.getData().getURLTelechargerLivre();
+                                            // email utilisateur et id du Livre, ainsi que chemin vers mem mobile
+                                            byte[] infos = Data.getData().getPostTelechargerLivre(id, Environment.getDataDirectory().getAbsolutePath());
+                                            EPubDownloader epub = new EPubDownloader(getContext());
+                                            epub.execute(adresse, infos, id);
+                                            //refresh
+                                            new ProgressTask(getActivity()).execute();
+                                            LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub", nbPage);
+                                            getActivity().setTitle("Lecture");
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            fragmentTransaction.replace(R.id.fragment_container, lecture);
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.commit();
+                                        }
+                                    })
+                                    .setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int idL) {
+                                            dialog.cancel();
+                                        }
+                                    });
 
-                    /*
-                        On va verifier que le livre est present ou non dans assets
-                     */
-                        LectureLivreFragment lecture = new LectureLivreFragment(id + ".epub", nbPage);
-                        getActivity().setTitle("Lecture");
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, lecture);
-                        fragmentTransaction.addToBackStack(null);
-                        fragmentTransaction.commit();
+                            // create alert dialog
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            // show it
+                            alertDialog.show();
+                        }
                     }
                 }
             });

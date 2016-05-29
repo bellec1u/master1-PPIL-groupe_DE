@@ -27,8 +27,8 @@ public class Data {
     public String path;
 
     private Data() {
-        ipMachine = "http://192.168.1.88";
-        port = "";
+        ipMachine = "http://192.168.1.13";
+        port = "8888";
         adresse = ipMachine + ":" + port;
     }
 
@@ -807,38 +807,20 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
         return Environment.getExternalStorageDirectory().getAbsolutePath() + "/book" ;
     }
 
-<<<<<<< HEAD
     /*
         Retourne l'URL afin de lier un compte Facebook à un compte standard
      */
     public String getURLLieFacebook() {
-=======
-
-    /*
-        Retourne l'URL nécessaire pour lier le compte fb
-     */
-    public String getURLLierFb() {
->>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
         return (adresse + "/requetes/lieFacebook.php");
     }
 
     /*
-<<<<<<< HEAD
         Remplie les informations nécessaire pour lier un compte standard à un compte facebook
      */
     public byte[] getPostLieFacebook(String email, String idFacebook) {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("email", email);
         params.put("id",idFacebook);
-=======
-        Remplie le formulaire POST nécessaire pour permettre à un
-        utilisateur de lier son compte fb
-     */
-    public byte[] getPostLierFb(String email,String idFacebook) {
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("email", email);
-        params.put("id", idFacebook);
->>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
 
         /*
             Charge les parametres
@@ -857,9 +839,39 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
             return new byte[1]; // unreachable
         }
     }
-<<<<<<< HEAD
-=======
 
+    /*
+        Retourne l'URL nécessaire pour effectuer JUSTE un téléchargement sur le device
 
->>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
+     */
+    public String getURLTelechargerLivre() {
+        return (adresse + "/requetes/telecharger.php");
+    }
+
+    /*
+        Permet d'enclencher le téléchargement d'un livre si ce dernier n'est pas
+        sur le device du client
+     */
+    public byte[] getPostTelechargerLivre(String id, String absolutePath) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("id", id); // on associe au champs id = idLivre
+        params.put("directory", absolutePath);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
 }

@@ -396,12 +396,7 @@ public class LectureLivreFragment extends Fragment implements DataReceiver{
     @Override
     public void receiveData(String resultat) {
         System.out.println("receiveData : " + resultat);
-<<<<<<< HEAD
         float values = Float.valueOf(resultat);
-        System.out.println("values : " + values);
-=======
-        float values = Float.valueOf(nbPage);
->>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
         goToPart(values);
     }
 }

@@ -36,10 +36,6 @@ import com.facebook.login.widget.LoginButton;
 import com.ppil.groupede.callmeishmael.data.BitmapManager;
 import com.ppil.groupede.callmeishmael.data.Data;
 import com.ppil.groupede.callmeishmael.data.DataManager;
-<<<<<<< HEAD
-=======
-import com.ppil.groupede.callmeishmael.data.DataReceiver;
->>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 import com.ppil.groupede.callmeishmael.fragment.AccueilFragment;
 import com.ppil.groupede.callmeishmael.fragment.ConditionsFragment;
@@ -72,7 +68,7 @@ import java.util.concurrent.ExecutionException;
     On peut également avoir accès à un menu sur le côté à partir du clic sur l'icone en haut à gauche
  */
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,DataReceiver {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView = null; // attribut pour recuperer le NavigationView
     private Toolbar toolbar = null; // toolbar
@@ -520,14 +516,14 @@ public class MainActivity extends AppCompatActivity
                     System.out.println(genre);
                     String adresse = Data.getData().getFacebook(
                             bFacebookData.getString("idFacebook"),
-                                    bFacebookData.getString("email"),
-                                    bFacebookData.getString("first_name"),
-                                    bFacebookData.getString("last_name"),
-                                    genre,
-                                    bFacebookData.getString("profile_pic"),
-                                    bFacebookData.getString("birthday"));
+                            bFacebookData.getString("email"),
+                            bFacebookData.getString("first_name"),
+                            bFacebookData.getString("last_name"),
+                            genre,
+                            bFacebookData.getString("profile_pic"),
+                            bFacebookData.getString("birthday"));
                     //l'utilisateur se co avec fb
-                    if(deja_co==false) {
+                    if (deja_co == false) {
 
                     /*
                         On appelle data Manager
@@ -535,89 +531,76 @@ public class MainActivity extends AppCompatActivity
                         System.out.println(adresse);
                         SocialFacebook facebook = new SocialFacebook();
                         String res = null; // on lance la requete ici
-                        try {
-                            res = facebook.execute(adresse).get();
-                            JSONObject json = new JSONObject(res);
+                        res = facebook.execute(adresse).get();
+                        JSONObject json = new JSONObject(res);
                          /*
                 Si on ne rentre pas dans l'exception alors on a un résultat,
                 on va parcourir ce dernier et créé un sessionManager
              */
 
-                            SessionManager sessionManager = new SessionManager(MainActivity.this);
-                            // On commence le parcour du jsonObject
-                            sessionManager.createSession(json.getString("nom"),
-                                    json.getString("prenom"),
-                                    json.getString("email"),
-                                    json.getString("password"),
-                                    json.getString("ddn"),
-                                    json.getString("image"),
-                                    json.getString("follow"),
-                                    json.getString("sexe"));
-                            Toast.makeText(MainActivity.this.getBaseContext(), "Bonjour " + json.getString("prenom") + " !", Toast.LENGTH_SHORT).show();
-                            MainActivity.this.setTitle("Accueil");
+                        SessionManager sessionManager = new SessionManager(MainActivity.this);
+                        // On commence le parcours du jsonObject
+                        sessionManager.createSession(json.getString("nom"),
+                                json.getString("prenom"),
+                                json.getString("email"),
+                                json.getString("password"),
+                                json.getString("ddn"),
+                                json.getString("image"),
+                                json.getString("follow"),
+                                json.getString("sexe"));
+                        Toast.makeText(MainActivity.this.getBaseContext(), "Bonjour " + json.getString("prenom") + " !", Toast.LENGTH_SHORT).show();
+                        MainActivity.this.setTitle("Accueil");
 
-                            // Set the fragment of view
-                            setConnection(true);
-                            AccueilFragment fragment = new AccueilFragment();
-                            android.support.v4.app.FragmentTransaction fragmentTransaction =
-                                    getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.fragment_container, fragment);
-                            fragmentTransaction.commit();
-                            //on va lier le compte fb
-
-<<<<<<< HEAD
-                    } catch (ExecutionException | InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                  }else {
-                        //co_avec_facebook = false;
+                        // Set the fragment of view
+                        setConnection(true);
+                        AccueilFragment fragment = new AccueilFragment();
+                        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                                getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment_container, fragment);
+                        fragmentTransaction.commit();
+                        //on va lier le compte fb
+                    } else {
+                        /*
+                            Cas ou l'utilisateur ne s'est pas déjà connecté avec facebook,
+                            donc on sera surement dans la fonctionnalité lier un compte
+                            à Facebook
+                         */
                         adresse = Data.getData().getURLLieFacebook();
                         SessionManager sessionManager = new SessionManager(getBaseContext());
                         String email = sessionManager.getSessionEmail();
                         DataManager dataManager = new DataManager(null);
-                        byte[] infos = Data.getData().getPostLieFacebook(email,bFacebookData.getString("idFacebook"));
-                        try {
-                            String s = dataManager.execute(adresse,infos).get();
-                            System.out.println("liaison ? " + s);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
+                        /*
+                            On recupere ici l'idProvider afin de verifier si ce dernier est
+                            deja present ou non dans la base
+                            s'il est déjà present alors on ne peut pas lier le compte
+                            car le compte doit déjà etre lier,
+                            si cet id n'est lié à rien alors
+                            on va ajouter dans la table social_accounts l'id User à cet idProvider
+                         */
+                        byte[] infos = Data.getData().getPostLieFacebook(email, bFacebookData.getString("idFacebook"));
+                        /*
+                            Reponse contient le resultat retourné par le scripte php
+                            on va ensuite réagir différemment selon ce résultat
+                         */
+                        //PAS BESOIN DE FAIRE IMPLEMENT DATARECEIVER TU PEUX DIRECTEMENT RECUPERER LE RESULTAT ICI AVEC GET()
+                        String reponse = dataManager.execute(adresse, infos).get();
+                        // si reponse == true, alors la liaison s'est bien effectué
+                        System.out.println("RESPONSE : " + reponse);
+                        if(reponse.equals("true")){
+                            co_avec_facebook = true;
+                            Toast.makeText(MainActivity.this.getBaseContext(), "Compte lié avec succès !", Toast.LENGTH_SHORT).show();
                         }
-
-                        Toast.makeText(MainActivity.this.getBaseContext(), "vous avez lier votre compte!", Toast.LENGTH_SHORT).show();
-=======
-                        } catch (ExecutionException | InterruptedException e) {
-                            e.printStackTrace();
+                        else{
+                            Toast.makeText(MainActivity.this.getBaseContext(), "Oups ! Il semble que ce compte Facebook est déjà lié...", Toast.LENGTH_SHORT).show();
                         }
->>>>>>> 5f88c70a48a7fe966b5908ddda5132b2635fcf4b
                     }
-                }
-                    catch (JSONException e) {
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
-
         });
-          if(deja_co == false) {
-              Bundle parameters = new Bundle();
-              parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
-              request.setParameters(parameters);
-              request.executeAsync();
-              System.out.println(parameters);
-          }else{
-              String adresse = Data.getData().getURLLierFb();
-              System.out.println(adresse);
-              SessionManager sessionManager = new SessionManager(MainActivity.this);
-              byte[] infos = Data.getData().getPostLierFb(sessionManager.getSessionEmail(),AccessToken.getCurrentAccessToken().getUserId());
-              System.out.println("maillllllllllll" +sessionManager.getSessionEmail() +AccessToken.getCurrentAccessToken().getUserId() );
-                    /*
-                        On instancie DataManager pour effectuer une requete à la base
-                     */
-              DataManager dataManager = new DataManager(MainActivity.this);
-              dataManager.execute(adresse, infos); // execution ici...
-          }
     }
 
     //recupération des infos de l'utilisateur à partir de facebook
@@ -672,16 +655,6 @@ public class MainActivity extends AppCompatActivity
 
     public boolean getCoF() {
         return co_avec_facebook;
-    }
-
-    @Override
-    public void receiveData(String resultat) {
-        if(resultat.equals('"'+"1"+'"')) {
-            LoginManager.getInstance().logOut();
-            Toast.makeText(MainActivity.this.getBaseContext(), "Ce compte existe déjà dans la bdd ! Essayez avec un autre compte", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(MainActivity.this.getBaseContext(), "Vous avez lié votre compte!", Toast.LENGTH_SHORT).show();
-        }
     }
 }
 
