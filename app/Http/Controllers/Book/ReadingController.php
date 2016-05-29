@@ -82,6 +82,7 @@ class ReadingController extends Controller
     
         
         $book = $this->readingRepository->getReadingId(Auth::user()->id);
+       
         $details[]= '';
         
         foreach($book as $bo){

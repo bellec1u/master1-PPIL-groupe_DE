@@ -26,7 +26,7 @@
                             </section>
                             <section class="col-sm-9"><br>
 
-                               
+
                                 <p><b>Nom :</b>  {{ $folower->followee->last_name}}</p>
                                 <p><b>Prenom :</b>  {{ $folower->followee->first_name}}</p>
                                 <p><b>Date de naissance :</b>  {{ $folower->followee->birth_date}}</p>
