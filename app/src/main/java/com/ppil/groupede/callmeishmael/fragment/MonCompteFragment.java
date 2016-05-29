@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.ppil.groupede.callmeishmael.data.DataManager;
 import com.ppil.groupede.callmeishmael.data.DataReceiver;
 import com.ppil.groupede.callmeishmael.data.SessionManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +61,7 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
     private TextView mail; // affichera l'adresse mail de l'utilisateur
     private TextView ddn; // date de naissance de l'utilisateur
     private TextView sexe; // genre de l'utilisateur
+    private LinearLayout notifications; // layout contenant les notifications recus
 
     public MonCompteFragment() {
         // Required empty public constructor
@@ -89,6 +92,7 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
         mail = (TextView) view.findViewById(R.id.textView5);
         ddn = (TextView) view.findViewById(R.id.textView6);
         sexe = (TextView) view.findViewById(R.id.textView8);
+        notifications = (LinearLayout) view.findViewById(R.id.layout_notification);
 
         /*
             On récupère les informations via SessionManager
@@ -219,10 +223,61 @@ public class MonCompteFragment extends Fragment implements DataReceiver{
             }
         });
 
+        chargerNotification();
         //change d'état le bouton de retour
         SingletonBackPressed.getInstance().setCanBackView(false);
 
         return view;
+    }
+
+    /*
+        Fonction appelée pour charger les notifications de l'utilisateur
+        de ce fait, on va tout simplements ajouter au layout notifications
+        des NotificationFragments
+     */
+    private void chargerNotification() {
+        //On recupere l'adresse email de l'utilisateur
+        SessionManager sessionManager = new SessionManager(getContext());
+        String email = sessionManager.getSessionEmail(); // email ici
+        String adresse = Data.getData().getURLNotifications();
+        byte[] infos = Data.getData().getPostNotification(email);
+
+        /*
+            DataManager maintenant
+         */
+        DataManager dataManager = new DataManager(null);
+        try {
+            String reponse = dataManager.execute(adresse,infos).get();
+            System.out.println("reponse : " + reponse);
+            JSONObject object = new JSONObject(reponse);
+            //Si l'objet est vide alors on ne fait rien sinon on ajoute les elements
+            if(object.length() != 0)
+            {
+                //
+                int i = 0;
+                while(object.has("notification" + i))
+                {
+                    Object o = object.get("notification" + i);
+                    JSONObject ob = new JSONObject(o.toString());
+                    Bitmap img = null;
+                    BitmapManager bitmap = new BitmapManager(img);
+                    img = bitmap.execute(ob.getString("cover_url")).get();
+                    NotificationFragment notification = new NotificationFragment(img,
+                            ob.getString("type"),
+                    ob.getString("notifier_user_id"),
+                            ob.getString("title"),
+                    ob.getString("details"));
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(R.id.layout_notification, notification, "");
+                    ft.commit();
+                    i++;
+                }
+            }
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /*

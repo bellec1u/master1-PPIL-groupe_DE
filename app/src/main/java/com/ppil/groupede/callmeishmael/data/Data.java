@@ -25,6 +25,7 @@ public class Data {
     public static Data data = new Data(); // instance de Data
 
     public String path;
+    private String URLNotifications;
 
     private Data() {
         ipMachine = "http://192.168.1.13";
@@ -856,6 +857,37 @@ Prepare les arguments nécessaires pour une requete POST, pour modifier la conne
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", id); // on associe au champs id = idLivre
         params.put("directory", absolutePath);
+
+        /*
+            Charge les parametres
+        */
+        try {
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> para : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(para.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(para.getValue()), "UTF-8"));
+            }
+
+            return postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new byte[1]; // unreachable
+        }
+    }
+
+    /*
+        Retourne l'URL nécessaire pour recuperer les notifications
+        pour l'utilisateur actuellement connecté
+     */
+    public String getURLNotifications() {
+        return ( adresse + "/requetes/notification.php" );
+    }
+
+
+    public byte[] getPostNotification(String email) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("email", email); // on associe au champs id = idLivre
 
         /*
             Charge les parametres
