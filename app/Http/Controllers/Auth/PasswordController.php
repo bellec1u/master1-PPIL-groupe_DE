@@ -31,4 +31,14 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+
+    protected function getResetValidationRules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:8',
+        ];
+    }
 }
