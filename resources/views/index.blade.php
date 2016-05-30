@@ -28,6 +28,7 @@
                 },
                 $BulletNavigatorOptions: {
                     $Class: $JssorBulletNavigator$,
+                    $AutoCenter: 1,
                     $SpacingX: 1,
                     $SpacingY: 1
                 }
@@ -47,6 +48,11 @@
                     window.setTimeout(ScaleSlider, 30);
                 }
             }
+            ScaleSlider();
+            $(window).bind("load", ScaleSlider);
+            $(window).bind("resize", ScaleSlider);
+            $(window).bind("orientationchange", ScaleSlider);
+            //responsive code end
 
             var jssor_2_options = {
                 $AutoPlay: true,
@@ -61,6 +67,7 @@
                 },
                 $BulletNavigatorOptions: {
                     $Class: $JssorBulletNavigator$,
+                    $AutoCenter: 1,
                     $SpacingX: 1,
                     $SpacingY: 1
                 }
@@ -70,20 +77,20 @@
 
             //responsive code begin
             //you can remove responsive code if you don't want the slider scales while window resizing
-            function ScaleSlider() {
+            function ScaleSlider2() {
                 var refSize = jssor_2_slider.$Elmt.parentNode.clientWidth;
                 if (refSize) {
                     refSize = Math.min(refSize, 809);
                     jssor_2_slider.$ScaleWidth(refSize);
                 }
                 else {
-                    window.setTimeout(ScaleSlider, 30);
+                    window.setTimeout(ScaleSlider2, 30);
                 }
             }
-            ScaleSlider();
-            $(window).bind("load", ScaleSlider);
-            $(window).bind("resize", ScaleSlider);
-            $(window).bind("orientationchange", ScaleSlider);
+            ScaleSlider2();
+            $(window).bind("load", ScaleSlider2);
+            $(window).bind("resize", ScaleSlider2);
+            $(window).bind("orientationchange", ScaleSlider2);
             //responsive code end
         });
     </script>
@@ -191,7 +198,6 @@
             <h3 class="text-center"><strong>Top 10</strong></h3>
             <hr>
 
-            <p>
             <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 809px; height: 250px; overflow: hidden; visibility: hidden;">
                 <!-- Loading Screen -->
                 <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
@@ -226,7 +232,6 @@
             <h3 class="text-center"><strong>À découvrir</strong></h3>
             <hr>
 
-            <p>
             <div id="jssor_2" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 809px; height: 250px; overflow: hidden; visibility: hidden;">
                 <!-- Loading Screen -->
                 <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
@@ -243,7 +248,6 @@
                         </div>
 
                     @endforeach
-                    <a data-u="ad" href="http://www.jssor.com" style="display:none">Bootstrap Slider</a>
                 </div>
                 <!-- Bullet Navigator -->
                 <div data-u="navigator" class="jssorb03" style="bottom:10px;right:10px;">
