@@ -48,10 +48,10 @@
             <div class="jcarousel-wrapper">
                 <div class="jcarousel">
                     <ul>
-                     	@foreach($liste as $book)
+                     	@foreach($top10 as $book)
 		                <li>
 		                	<a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}">
-		                		<img src="{{ $book->cover_url  }}" alt="" />
+		                		<img data-u="image" src="{{ $book->cover_url  }}" alt="" />
 		                	</a>
 		                </li>
 		                @endforeach
@@ -81,7 +81,7 @@
     <div id="newRelease">
         <div class="portfolio-centered">
             <div class="recentitems listBook">
-            	@foreach($liste as $book)
+            	@foreach($latest as $book)
 				<div class="listBook-item graphic-design">
 					<div class="he-wrap tpl6">
 						<img src="{{ $book->cover_url  }}" alt="">

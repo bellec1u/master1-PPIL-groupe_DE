@@ -98,34 +98,6 @@
     </div><! --/headerwrap -->
 
     @section('javascript')
-        <script>
-            $(function(){
-                var password = $("input[name='password']").parent();
-                var email = $("input[name='email']").parent();
-
-                $('form#log').submit(function(e) {
-                    e.preventDefault();
-                    password.removeClass('has-error');  
-                    email.removeClass('has-error'); 
-                    $.post($(this).attr('action'), $(this).serialize())
-                    .done(function(data) {
-                        if(data.ok) {
-                            $('ul.nav').removeClass('hidden');
-                            $('form#log').addClass('hidden');
-                            if(data.ok == 'admin') $('form#del').removeClass('hidden');
-                        } else if(data.require) {
-                            if(data.require.password)
-                                password.addClass('has-error'); 
-                            if(data.require.email) 
-                                email.addClass('has-error');
-                        } else if(data.response == 'fail') {
-                            password.addClass('has-error'); 
-                            email.addClass('has-error');
-                        }
-                    });
-                });
-            });
-        </script>
         <div class="footerNewLogin navbar-fixed-bottom">
             <div class="container">
                 <div class="row">

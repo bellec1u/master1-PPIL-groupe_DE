@@ -28,7 +28,7 @@ $(function ($)
             $year = $("<select class='birthYear "+options.sizeClass+"' name='"+parentId+"_birth[year]'></select>"),
               $month = $("<select class='birthMonth "+options.sizeClass+"' name='"+parentId+"_birth[month]'></select>"),
               $day = $("<select class='birthDate "+options.sizeClass+"' name='"+parentId+"_birth[day]'></select>")
-              $birthday = $("<input class='birthDay' name='birth_date' type='hidden'/>");
+              $birthday = $("<input class='birthDay' id='birthDay' name='birth_date' type='hidden'/>");
 
          // Add the option placeholders if specified
           if (options.placeholder) {

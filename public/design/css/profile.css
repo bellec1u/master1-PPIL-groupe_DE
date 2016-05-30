@@ -1,0 +1,464 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,700,900);
+@import url(http://fonts.googleapis.com/css?family=Lato:400,900);
+@import url("prettyPhoto.css") screen;
+@import url("hoverex-all.css") screen;
+
+html, body {
+  height: 100%;
+}
+
+body{
+	padding-top: 70px;
+	margin: 0;
+	color: #474d5d;
+}
+
+.container{
+	margin:0;
+	width: 100%;
+	padding:0;
+}
+
+.detailBook {
+	padding-bottom: 20px;
+	width: 100%; 
+	background: white;
+}
+
+#headerwrap {
+	background: url(../img/flou6.jpg) no-repeat center top;
+	margin-top: 0px;
+	padding-top:60px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 560px;
+	width: 100%;
+	
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.detailGroupProfile{
+	float: none;
+	margin: 0 auto;
+	max-width: 950px;
+	margin-top:30px;
+	max-height: 550px;
+}
+
+.detailProfileImg {
+	text-align: center;
+	margin: 0 auto;
+}
+
+.detailProfileImg img{
+	background-attachment: relative;
+	background-position: center center;
+	width: 220px;
+	height: 220px;
+	
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    box-shadow: 0px 0px 10px 4px rgb(20,20,20);
+}
+
+.img-sm img{
+	width: 120px;
+	height: 120px;
+	margin-bottom: 20px;
+}
+
+.descriptionProfile{
+	display: inline;
+	line-height: 34px;
+	float: left;
+    margin: 0 auto;
+    margin-top: 50px;
+    font-size: 18px;
+    color:rgb(40,40,40);
+    font-family: Comic Sans, Comic Sans MS, cursive;
+}
+
+
+.descriptionProfile > p > input{
+	max-width:300px; 
+	display: inline;
+	padding:0;
+	padding-left: 5px;
+	font-size: 15px;
+	height: 28px;
+}
+
+.radio{
+	margin:0;
+	padding-left: 20px;
+}
+
+.radio label{
+	display: inline-block;
+	position: relative;
+	padding-left: 5px;
+}
+
+.radio label::before{
+	content: "";
+	display: inline-block;
+	position: absolute;
+	width: 17px;
+	height: 17px;
+	left: 0;
+	margin-left: -20px;
+	border: 1px solid #cccccc;
+	border-radius: 50%;
+	background-color: #fff;
+	-webkit-transition: border 0.15s ease-in-out;
+	-o-transition: border 0.15s ease-in-out;
+	transition: border 0.15s ease-in-out;
+}
+
+.radio label::after{
+	display: inline-block;
+	position: absolute;
+	content: " ";
+	width: 11px;
+	height: 11px;
+	left: 3px;
+	top: 3px;
+	margin-left: -20px;
+	border-radius: 50%;
+	background-color: #555555;
+	-webkit-transform: scale(0, 0);
+	-ms-transform: scale(0, 0);
+	-o-transform: scale(0, 0);
+	transform: scale(0, 0);
+	-webkit-transition: -webkit-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-moz-transition: -moz-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	-o-transition: -o-transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+	transition: transform 0.1s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+}
+
+.radio input[type="radio"]{
+	opacity: 0;
+	margin:0px;
+}
+
+.radio input[type="radio"]:focus + label::before{
+	outline: thin dotted;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+.radio input[type="radio"]:checked + label::after{
+	-webkit-transform: scale(1, 1);
+	-ms-transform: scale(1, 1);
+	-o-transform: scale(1, 1);
+	transform: scale(1, 1);
+}
+
+.radio input[type="radio"]:disabled + label{
+	opacity: 0.65;
+}
+
+.radio input[type="radio"]:disabled + label::before{
+	cursor: not-allowed;
+}
+
+.radio.radio-inline{
+	margin-top: 0;
+}
+
+.radio-primary input[type="radio"] + label::after {
+  	background-color: #428bca; }
+.radio-primary input[type="radio"]:checked + label::before {
+  	border-color: #428bca; }
+.radio-primary input[type="radio"]:checked + label::after {
+  	background-color: #428bca; }
+
+.radio-danger input[type="radio"] + label::after {
+  	background-color: #d9534f; }
+.radio-danger input[type="radio"]:checked + label::before {
+  	border-color: #d9534f; }
+.radio-danger input[type="radio"]:checked + label::after {
+  	background-color: #d9534f; }
+
+.profilRightGenre, .profilLeftDate{
+	margin:0;
+	padding:0;
+}
+
+.birthdayPicker select{
+	margin-right: 5px;
+	border-radius: 3px;
+	border: 1px solid #cccccc;
+	font-size: 16px;
+}
+
+.descriptionProfile > p > b{
+	font-size: 22px;
+	color:rgb(40,100,200);
+}
+
+.input-ghost{
+	margin:0px;
+	padding:0;
+}
+
+.input-file{
+	margin-top:0px;
+	padding:0;
+	margin-bottom: 20px;
+}
+
+.input-file input{
+  	position: relative;
+  	overflow: hidden;
+  	height: 30px;
+}
+
+.input-file span > button{
+  	position: relative;
+  	overflow: hidden;
+  	height: 30px;
+	padding-top:5px;
+}
+
+.input-file input[type=file] {
+  	position: absolute;
+  	top: 0;
+  	right: 0;
+  	min-width: 100%;
+  	min-height: 100%;
+  	font-size: 100px;
+  	text-align: right;
+  	filter: alpha(opacity=0);
+  	opacity: 0;
+  	background: red;
+  	cursor: inherit;
+  	display: block;
+}
+
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+#descriptionProfileRight button{
+	margin-top: 30px;
+}
+
+
+.descriptionProfileBtn{
+	margin: 0 auto;
+	padding-bottom: 20px;
+	float: right;
+	margin-top: 75px;
+}
+
+.descriptionProfileBtn a{
+	font-size: 14px;
+}
+
+.descriptionProfileBtn input{
+	margin-top: 20px;
+	color:white;
+	font-size: 14px;
+}
+
+.descriptionProfileBtn button{
+	margin-top: 20px;
+	color:white;
+	font-size: 14px;
+}
+
+/*	################################################################
+	Contenu autre utilisateurs
+################################################################# */
+
+#titleNewRelease{
+	background: #333333;
+}
+
+#titleDetailComment{
+	background:rgb(71, 77, 93);
+}
+
+.titleStyle{ 
+	box-sizing:border-box;
+	color: white;
+	display: inline-block;
+	font-family: "Oswald",helvetica,arial,sans-serif;
+	font-size: 46px;
+	font-weight: 700;
+	letter-spacing 2px;
+	line-height: 73.6px;
+	margin-top: 40px;
+	padding-left: 40px;
+	padding-right: 40px;
+	position: relative;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%; 
+}
+
+.titleStyle::before{ 
+	background-color: white;
+	content: "";
+	height: 4px;
+	margin-left:-40px;
+	left: auto; 
+	position: absolute;
+	top: 35px;
+	width:30px;
+}
+
+.titleStyle::after{ 
+	background-color: white;
+	content: "";
+	height: 4px;
+	left: auto;
+	position: absolute;
+	top: 35px;
+	width:30px;
+}
+
+@media (max-width: 500px) {
+  	.titleStyle{ 
+		font-size: 30px;
+		padding:0px;
+	}
+
+	.titleStyle::before{ 
+		width:0px;
+	}
+
+	.titleStyle::after{ 
+		width:0px;
+	}
+
+	.titleStyle span{ 
+		font-size: 30px;
+	}
+}
+
+.sousTitle{ 
+	background-color:  #333333;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	box-sizing: border-box;
+	color: white;
+	font-family: "Oswald",helvetica,arial,sans-serif;
+	font-size: 46px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	line-height: 73.6px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 0px;
+	margin-left:10px;
+	margin-right:10px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+#detailBookComment{
+	background:rgb(71, 77, 93);
+}
+
+.panel{
+	margin-top:30px;
+	background:rgb(71, 77, 93);
+}
+
+.speech {
+    background: white;
+}
+
+.speech:before {
+	background: border-right: 7px solid white;
+}
+
+#detailBookComment .img-sm {
+    width: 60px;
+    height: 80px;
+     box-shadow: 0px 0px 10px 4px rgb(20,20,20);
+}
+
+#detailBookComment .img-sm:hover {
+    box-shadow: 0px 0px 10px 4px rgb(200,200,200);
+}
+
+#privateProfile {
+	background: url(../img/private.jpg) no-repeat center top;
+	margin-top: 0px;
+	padding-top:60px;
+	background-attachment: relative;
+	background-position: center center;
+	min-height: 560px;
+	width: 100%;
+	height: 100%;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#privateProfile h1{
+	font-size: 60px;
+	min-height: 500px;
+	color:white;
+}
+
+
+
+/*	################################################################
+	Footer
+################################################################# */
+
+#footerwrap {
+	padding:0px;
+	margin:0;
+	padding-top: 60px;
+	padding-bottom: 60px;
+	background: #23232d;
+    padding-top: 20px;
+    height: 200px;
+    width: 100%;
+    color: white;
+    font-family: "Source Sans Pro",helvetica,arial,sans-serif;
+    text-align: center;
+}
+
+#footerwrap p {
+	color: rgb(230,230,230);
+	font-size: 15px;
+}
+
+#footerwrap h4 {
+	color: white;
+	font-size: 28px;
+	padding-top: 30px;
+    padding-bottom: 30px;
+}
+

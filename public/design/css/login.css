@@ -210,6 +210,16 @@ html,body {min-height: 100vh;}
   	font-weight: normal;
 }
 
+.checkboxCond label{
+	font-size: 11px;
+	margin-top:15px;
+	padding:0;
+}
+
+.checkboxCond2{
+	height: 10px;
+}
+
 .col2 .form-footer button{
 	width: 100%;
 	margin-top: 10px;
@@ -356,7 +366,7 @@ html,body {min-height: 100vh;}
 
 .input-ghost{
 	margin:0px;
-	padding:0;
+	padding:0; 
 }
 
 .input-file{

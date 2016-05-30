@@ -68,8 +68,10 @@ class EmailConfirmationService
     public function resendConfirmationMail($user_id)
     {
         $user = $this->userModel->find($user_id);
-        $token = $user->validation_code;
+        $token = $this->getToken();
+        $user->validation_code = $token;
         $email = $user->email;
+        $user->save();
         $this->sendMail($email, $token);
     }
 

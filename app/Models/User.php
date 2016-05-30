@@ -20,6 +20,7 @@ class User extends Authenticatable
         'sex',
         'birth_date',
         'profile_image',
+        'following_allowed',
         'validation_code'
     ];
 

@@ -34,7 +34,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'post';
+    protected $redirectTo = '/';
 
     protected $emailConfService;
     /**
@@ -45,7 +45,6 @@ class AuthController extends Controller
     public function __construct(EmailConfirmationService $emailConfService)
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-        $this->middleware('ajax', ['only' => ['postLogin', 'getLogout']]);
         $this->emailConfService = $emailConfService;
     }
 
@@ -77,28 +76,6 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-    }
-
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        $validator = Validator::make($credentials, 
-            ['email' => 'required', 'password' => 'required']);  
-        if ($validator->fails())
-        {
-            return response()->json(['require' => $validator->errors()]);
-        }
-        if (auth()->attempt($credentials, $request->has('remember')))
-        {
-            return response()->json(['ok' => (auth()->user()->admin)? 'admin' : 'user']);
-        }
-        return response()->json(['response' => 'fail']);
     }
 
     

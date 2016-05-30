@@ -7,7 +7,7 @@
 @section('css')
 	{!! Html::style('design/css/book.css') !!}
 	{!! Html::style('design/css/navigation.css') !!}
-	{!! Html::style('design/css/styleLoginBook.css') !!}
+	{!! Html::style('design/css/comment.css') !!}
 @stop
 
 @include('navigation')
@@ -24,7 +24,7 @@
 	@yield('navigation')
 
     <div id="detailBook" class="detailBook">
-		<div class="container">
+		<div class="container"> 
 		 	<div id="headerwrap">
 			 	<div class="row detailGroupBook">
 				 	<div class="detailBookImg col-sm-6">
@@ -37,7 +37,18 @@
 				 		<p><b>Auteur :</b> {{ $book->author }}</p>
 				 		<p><b>Langue :</b> {{ $book->language }}</p>
 				 		<p><b>Date de parution :</b> {{ date('d-m-Y', strtotime($book->publication_date))  }}</p>
-				 		<p><b>Note moyenne :</b> {{ $book->stars_average  }}</p>
+				 		<p class="rating3"><b>Note moyenne :</b> 
+				 			<div class="rating justStart rating4">
+                        		<?php 
+                        			for ($i=1; $i<=5; $i++){
+                        				if($i <= $book->stars_average){
+                        					?><p class="isStart" href="#">★</p><?php 
+                        				}else{
+                        					?><p href="#">★</p><?php 
+                        				}
+                        			}
+								?>
+							</div></p>
 				 		@if(Auth::check())
 							@if(count($estEvalue) == 0)
 				 				<a href="{{URL::route('createRating', array('id'=>$book->id, 'path'=>Request::url()))}}" class="btn btn-large btn-blue btn-primary">Ouvrir</a>
@@ -67,8 +78,6 @@
 						@if(count($estEvalue) == 0)
 							<a href="#MonCollapse"  class="btn btn-large btn-blue btn-primary btComm" data-toggle="collapse" aria-expanded="false" aria-controls="MonCollapse">Evaluer le livre</a>
 						@endif
-					@else
-						<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Lancer la modal</button>
 					@endif
 			 		<div id="MonCollapse" class="collapse col-sm-12">
 		                {!! Form::open(array('route'=>'storeRating','method'=>'POST', 'files'=>'true')) !!}
@@ -76,17 +85,18 @@
 		                <div class="form-group {!! $errors->has('stars') ? 'has-error' : '' !!}">
 		                    <label class="col-sm-12 col-xs-12">Votre note :
 	                        	<div class="rating rating2">
-									<a href="#5" title="Give 5 stars">★</a>
-									<a href="#4" title="Give 4 stars">★</a>
-									<a href="#3" title="Give 3 stars">★</a>
-									<a href="#2" title="Give 2 stars">★</a>
-									<a href="#1" title="Give 1 stars">★</a>
+									<a onclick="setStart(5)" href="#5">★</a>
+									<a onclick="setStart(4)" href="#4">★</a>
+									<a onclick="setStart(3)" href="#3">★</a>
+									<a onclick="setStart(2)" href="#2">★</a>
+									<a onclick="setStart(1)" href="#1">★</a>
 								</div>
+								{!! Form::hidden('stars', null,['id'=>'etoile'] ) !!}
 							</label>
 		                </div>
 		                <div class="col-sm-12 form-group {!! $errors->has('comment') ? 'has-error' : '' !!}">
 		                    <label>Votre commentaire :</label>
-		                     <label>{{ $book->book_id }}</label>
+		                    {{ Form::hidden('book_id', $book->id) }}
 		                        {!! Form::textarea ('comment', null, ['class' => 'form-control', 'placeholder' => 'Votre commentaire ici...']) !!}
 		                        {!! $errors->first('comment', '<small class="help-block">:message</small>') !!}
 		                </div>
@@ -96,52 +106,6 @@
 		                {!! Form::close() !!}
 		        	</div>
 
-		        	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			        	<div class="modal-dialog">
-			        		<div class="modal-content">
-			        			<div class="modal-header">
-			        				<button type="button" class="close" data-dismiss="modal">
-			        					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-			        				</button>
-			        				<h3 class="modal-title" id="modal-login-label">Se connecter</h3>
-			        			</div>
-			        			
-			        			<div class="modal-body">
-				                    <form class="form-signin" role="form" id="log" method="POST" action="{{ url('login') }}">
-				                    {!! csrf_field() !!}
-				                    	<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-				                    		<input class="form-control" name="email" placeholder="Adresse email" type="text" value="{{ old('email') }}"  required>
-				                        	<small class="help-block"></small>
-				                        </div>
-				                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <input class="form-control" name="password" placeholder="Mot de passe" type="password" required>     
-                                            <small class="help-block"></small>
-				                        </div>
-
-			                            <div class="checkbox">
-			                                <label>
-			                                    <input type="checkbox" name="remember"> Se souvenir de moi
-			                                </label>
-			                                <a href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>
-			                            </div>
-
-			                            <button type="submit" class="btn btn-blue btn-success">Se connecter</button>
-			                            <div class="division">
-			                                <div class="line l"></div>
-			                                <span>OU</span>
-			                                <div class="line r"></div>
-			                            </div>
-
-			                            <div class="social-login-buttons">
-			                                <a class="btn btn-fb" href="#">Facebook</a>
-			                                <a class="btn btn-google" href="#">Google</a>
-			                            </div>
-				                    </form>
-			        			</div>
-			        		</div>
-			        	</div>
-			        </div>
-
 			        <div class="col-sm-12">
 				        <div class="panel">
 				    		<!--Widget body-->
@@ -149,34 +113,67 @@
 				    			<div class="nano has-scrollbar">
 				    				<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
 				    					<ul class="list-unstyled media-block">
-				    						<li class="mar-btm">
-				    							<div class="media-left">
-				    								<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
-				    							</div>
-				    							<div class="media-body pad-hor">
-				    								<div class="speech">
-				    									<a href="#" class="media-heading">John Doe</a>
-				    									<p>Hello Lucy, how can I help you today ?</p>
+				    						@foreach($data as $rating) 
+	    									<li class="mar-btm">
+	    										<div class="media-left">
+	    											<img src="{{ URL($rating->user->profile_image) }}" class="img-circle img-sm" alt="Profile Picture">
+	    										</div>
+		    									<div class="media-body pad-hor">
+			    									<div class="speech">
+			    									@if($rating->user != null)
+				    									@if(Auth::check() && Auth::user()->id != $rating->user->id)
+				    										<a href="{{URL::route('showOtherUser', array('id'=> $rating->user->id))}}" class="media-heading">{{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
+				    									@else
+				    										<a href="{{url('user/profile')}}" class="media-heading">
+				    										{{ $rating->user->first_name }} {{ $rating->user->last_name }}</a>
+				    									@endif
+
+				    										
+							    					@else
+							                            Anonyme
+							                        @endif
+							                        	<div class="rating justStart">
+						                        		<?php 
+						                        			for ($i=1; $i<=5; $i++){
+						                        				if($i <= $rating->stars){
+						                        					?><p class="isStart" href="#">★</p><?php 
+						                        				}else{
+						                        					?><p href="#">★</p><?php 
+						                        				}
+						                        			}
+														?>
+														</div>
+				    									<p>{{ $rating->comment }}</p>
 				    									<p class="speech-time">
-				    									<i class="fa fa-clock-o fa-fw"></i>09:23AM
+				    									<?php $test = true;
+								                        ?>
+				    									@if(Auth::check())
+								                            @foreach($followers as $follower)
+								                                @if($follower->followed_user_id == $rating->user_id)
+								                                    {{ Form::open(array('route' => array('deleteFollower', 'id'=>$follower->id), 'method' => 'delete', 'name'=>'desinscrire')) }}
+								                                    {!! Form::submit('Ne plus suivre', ['class'=>"btn btn-danger pull-right"]) !!}
+								                                    {!! Form::close() !!}
+								                                    <?php $test = false; ?>
+								                                @endif
+								                            @endforeach
+								                            <?php 
+								                                $userFollow = $rating->user;
+								                            ?>
+								                            @if($test && $rating->user_id!= Auth::user()->id && $rating->user != null  && $userFollow->following_allowed ==true)
+								                                {!! Form::open(array('route'=>'addFollower', 'method'=>'POST')) !!}
+								                                {!! Form::hidden("followed_user_id", $rating->user_id ) !!}
+								                                {!! Form::submit('Suivre', ['class' => 'btn btn-success pull-right']) !!}
+								                                {!! Form::close() !!}
+								                            @endif
+								                        @endif
+								                        @if(Auth::check() && Auth::user()->id == $rating->user_id)
+								                            {!! link_to('editRating/'.$rating->id, 'Modifier', $attribute = array(), $secrure = null ) !!}
+								                        @endif
 				    									</p>
-				    								</div>
-				    							</div>
-				    						</li>
-				    						<li class="mar-btm">
-				    							<div class="media-left">
-				    								<img src="http://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
-				    							</div>
-				    							<div class="media-body pad-hor">
-				    								<div class="speech">
-				    									<a href="#" class="media-heading">Lucy Doe</a>
-				    									<p>Hi, I want to buy a new shoes.</p>
-				    									<p class="speech-time">
-				    										<i class="fa fa-clock-o fa-fw"></i> 09:23AM
-				    									</p>
-				    								</div>
-				    							</div>
-				    						</li>
+			    									</div>
+		    									</div>
+		    								</li>
+				    						@endforeach</p>
 				    					</ul>
 				    				</div>
 				    			<div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div></div>
@@ -192,6 +189,9 @@
 
 	@section('javascript')
         <script>
+        	function setStart(id){
+			    $('#etoile').val(id);
+			}
             $(function(){
                 var password = $("input[name='password']").parent();
                 var email = $("input[name='email']").parent();

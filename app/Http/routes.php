@@ -15,11 +15,24 @@ Route::get('/index', 'HomeController@index');
 Route::get('/', array('uses'=>'HomeController@index', 'as' =>'/'));
 
 Route::auth();
+// standard
+Route::get('user/profile', 'User\UserController@profile');
 Route::resource('user', 'User\UserController',['except' => ['index', 'edit', 'update', 'show', 'destroy']]);
+Route::get('user/consult/{id}', ['uses' => 'User\UserController@showOther','as'   => 'showOtherUser'])->where('id', '[0-9]+');
+Route::put('user/update',['uses' => 'User\UserController@update', 'as' => 'userUpdate']);
+Route::delete('user/desinscription',['uses' => 'User\UserController@delete', 'as' => 'userDelete']);
+Route::get('user/edit',['uses' => 'User\UserController@edit', 'as' => 'userEdit']);
+Route::post('following_allowed' , ['uses'=>'User\UserController@following_allowed', 'as'=>'following_allowed']);
 
 // email validation
 Route::get('user/verify/{token}', 'User\UserController@confirmEmail')->where('token', '[a-zA-Z0-9]+');
 Route::get('user/{id}/resend',['as' => 'resendEmail', 'uses' => 'User\UserController@resendEmail'])->where('id', '[0-9]+');
+
+//subscriptions
+Route::post('follow',['uses' => 'User\SubscriptionController@store', 'as' => 'addFollower']);
+Route::get('follow',['uses' => 'User\SubscriptionController@show', 'as' => 'ConsultFollower']);
+Route::delete('follow/delete/{id}',['uses' => 'User\SubscriptionController@delete', 'as' => 'deleteFollower']);
+Route::put('follow/update/{id}', ['uses' => 'User\SubscriptionController@update', 'as' => 'updateFollower']);
 
 // Book access
 // details

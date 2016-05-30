@@ -25,6 +25,7 @@ class UserController extends Controller
             'update',
             'profile',
             'delete',
+            'showOther'
         ]]);
 	}
 
@@ -32,7 +33,7 @@ class UserController extends Controller
 
 	public function create()
 	{
-		return view('auth.register');
+		return view('user.register');
 	}
 
 
@@ -45,6 +46,8 @@ class UserController extends Controller
             $this->userRepository->store($request->all());
         }
 
+
+
         return redirect('/')
             ->with('status', 'Vous avez bien été enregistré.
                               Un mail de confirmation vous a été envoyé.');
@@ -53,6 +56,7 @@ class UserController extends Controller
 
     public function update(UserUpdateRequest $request)
     {
+
         $id = Auth::user()->id;
         if ($request->hasFile('profile_image')) {
             $image = $request->file('profile_image');
@@ -103,8 +107,11 @@ class UserController extends Controller
     public function delete()
     {
         $user = $this->userRepository->getById(Auth::user()->id);
-        Auth::logout();
 
+        Auth::logout();
+        $user->socialAccount()->delete();
+        $user->subscriptionsTo()->delete();
+        $user->readings()->delete();
         if ($user->delete()) {
             return redirect('/')->with('status', 'Votre compte a été supprimé');
         }
@@ -122,10 +129,34 @@ class UserController extends Controller
             }
             $idFollower = $follower->id;
         }
-        return view('user/consultOther',
+        return view('user/profile',
             compact('user', 'estSuivi', 'idFollower'));
     }
-     
+
+    public function registration()
+    {
+        if (Auth::check()) {
+            return redirect('/')->with('status',
+                'Déjà connecté inscription abandonné !!');
+        } else {
+            return view("user/register");
+        }
+    }
+
+    public function following_allowed()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user->following_allowed = !$user->following_allowed;
+            if(!$user->following_allowed){
+                $user->subscriptionsFrom()->delete();
+            }
+            $this->userRepository->update($user->id, $user->toArray());
+        }
+
+        return redirect()->back();
+    }
+
     
 
 }

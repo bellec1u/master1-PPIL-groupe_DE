@@ -75,7 +75,7 @@ body{
 	font-size: 16px;
 	padding: 5px;
     margin-left:10px;
-    margin-top: 20px;
+    margin-top: 15px;
     color:white;
 }
 
@@ -90,6 +90,11 @@ body{
 
 .descriptionBook p{
 	font-size: 16px;
+}
+
+.descriptionBook a{
+	font-size: 16px;
+	border-radius: 5px;
 }
 
 #titleDetailComment{
@@ -154,7 +159,7 @@ body{
 		font-size: 30px;
 	}
 }
-
+ 
 .sousTitle{ 
 	background-color: #474d5d;
 	border-bottom-left-radius: 6px;
@@ -176,197 +181,6 @@ body{
 	margin-right:10px;
 	text-align: center;
 	text-transform: uppercase;
-}
-
-#detailBookComment{
-	background: rgb(247, 247, 247);
-}
-
-.contenuComm{
-	margin:0px;
-	padding:0;
-}
-
-.contenuComm{
-	float: none;
-	margin: 0 auto;
-    max-width: 1200px;
-
-}
-
-.contenuComm h1{
-	display: block;
-	float: left;
-	font-size: 45px;
-}
-
-.contenuComm .btComm {
-	display: block;
-	margin-top:30px;
-	margin-bottom: 20px;
-	font-size: 16px;
-	padding:2px;
-	width: 200px;
-	margin: 0 auto;
-	margin-top:20px;
-	margin-bottom: 20px;
-}
-
-#MonCollapse textarea{
-	font-size: 14px;
-	height: 100px;
-}
-
-#MonCollapse input{
-	margin-bottom: 20px;
-}
-
-.contenuComm label{
-	font-size: 18px;
-}
-
-.rating {
-	width: 226px;
-	margin-top:-37px;
-	margin-left:30px;
-	padding:0;
-}
-
-.rating a {
-	float:right;
-	color: #aaa;
-	text-decoration: none;
-	-webkit-transition: color .4s;
-	-moz-transition: color .4s;
-	-o-transition: color .4s;
-	transition: color .4s;
-	font-size: 30px;
-	margin:0;
-	padding:0;
-}
-.rating a:hover,
-.rating a:hover ~ a,
-.rating a:focus,
-.rating a:focus ~ a		{
-	color: orange;
-	cursor: pointer;
-}
-.rating2 {
-	direction: rtl;
-}
-
-.CommentaireGroupBook textarea{
-	height: 100px;
-	min-width: 100%;
-}
-
-.nano>.nano-content {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-.pad-all {
-    padding: 15px;
-}
-.mar-btm {
-    margin-bottom: 15px;
-}
-.media-block .media-left {
-    display: block;
-    float: left;
-}
-.img-sm {
-    width: 55px;
-    height: 55px;
-}
-.media-block .media-body {
-    display: block;
-    overflow: hidden;
-    width: auto;
-}
-.pad-hor {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-.speech {
-    position: relative;
-    background: rgb(200,200,200);
-    color: #317787;
-    display: inline-block;
-    border-radius: 0;
-    padding: 12px 20px;
-}
-.speech:before {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 0;
-    height: 0;
-    left: 0;
-    top: 0;
-    border-top: 7px solid transparent;
-    border-bottom: 7px solid transparent;
-    border-right: 7px solid #b7dcfe;
-    margin: 15px 0 0 -6px;
-}
-.speech .media-heading {
-    font-size: 1.2em;
-    color: #317787;
-    display: block;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    font-weight: 300;
-}
-.speech-time {
-    margin-top: 20px;
-    margin-bottom: 0;
-    font-size: .8em;
-    font-weight: 300;
-}
-.pad-hor {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.btn-primary, .btn-primary:focus, .btn-hover-primary:hover, .btn-hover-primary:active, .btn-hover-primary.active, .btn.btn-active-primary:active, .btn.btn-active-primary.active, .dropdown.open>.btn.btn-active-primary, .btn-group.open .dropdown-toggle.btn.btn-active-primary {
-    background-color: #579ddb;
-    border-color: #5fa2dd;
-    color: #fff !important;
-}
-.btn {
-    cursor: pointer;
-    /* background-color: transparent; */
-    color: inherit;
-    padding: 6px 12px;
-    border-radius: 0;
-    border: 1px solid 0;
-    font-size: 11px;
-    line-height: 1.42857;
-    vertical-align: middle;
-    -webkit-transition: all .25s;
-    transition: all .25s;
-}
-.form-control {
-    font-size: 11px;
-    height: 100%;
-    border-radius: 0;
-    box-shadow: none;
-    border: 1px solid #e9e9e9;
-    transition-duration: .5s;
-}
-.nano>.nano-pane {
-    background-color: rgba(0,0,0,0.1);
-    position: absolute;
-    width: 5px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    opacity: 0;
-    -webkit-transition: all .7s;
-    transition: all .7s;
 }
 
 /*	################################################################

@@ -28,37 +28,37 @@ class NotificationController extends Controller
         $listFolowee = $user->subscriptionsFrom;
         $request['notifier_user_id'] = $user->id;
 
-        foreach($listFolowee as $followee){
+        foreach ($listFolowee as $followee) {
 
-           if($followee->notifications_accepted == 1){
-               $request['notified_user_id'] = $followee->user_id;
-               $this->notifsRepository->store($request);
-           }
+            if ($followee->notifications_accepted == 1) {
+                $request['notified_user_id'] = $followee->user_id;
+                $this->notifsRepository->store($request);
+            }
 
         }
 
     }
 
-    public function show(){
-        if(Auth::check()){
-            $user = Auth::user();
-            $notifications = $user->notificationsFrom;
-            
-            return view('user/notification', compact('notifications'));
-        }
+    public function show()
+    {
+        $user = Auth::user();
+        $notifications = $user->notificationsFrom;
+
+        return view('user/notification', compact('notifications'));
     }
-    
-    public function delete($id){
+
+    public function delete($id)
+    {
         $this->notifsRepository->destroy($id);
-        if(Auth::check()){
-            $user = Auth::user();
-            $notifications = $user->notificationsTo;
 
-            return view('user/notification', compact('notifications'));
-        }
+        $user = Auth::user();
+        $notifications = $user->notificationsTo;
 
+        return view('user/notification', compact('notifications'));
     }
-    public function update($id){
+
+    public function update($id)
+    {
 
     }
 }

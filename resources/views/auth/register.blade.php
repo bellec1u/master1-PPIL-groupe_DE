@@ -33,7 +33,7 @@
                             <div class="item three"></div>
                             <div class="item four"></div>
                             <div class="item five"></div>
-                            <div class="item six"></div>
+                            <div class="item six"></div> 
                         </div>
                     </div>
                     <div class="row">
@@ -132,6 +132,17 @@
                                                             </button>
                                                         </span>
                                                     </div>
+                                                    <div class="form-group checkboxCond {!! $errors->has('condition') ? 'has-error' : '' !!}">
+                                                        <label class="col-sm-10 control-label ">Conditions Générales d'Utilisation</label>
+                                                        <div class="col-sm-2 checkboxCond2">
+                                                            {!! Form::checkbox('condition') !!}
+                                                        </div>
+                                                        @if ($errors->has('condition'))
+                                                            <span class="help-block col-sm-12">
+                                                                <small>Vous devez accepter les conditions d'utilisation</small>
+                                                            </span>
+                                                        @endif
+                                                    </div>                        
                                                 </div>
                                             </div>                                 
                                             <div class="form-footer">     
