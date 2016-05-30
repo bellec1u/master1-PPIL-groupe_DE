@@ -1,5 +1,21 @@
 html,body {min-height: 100vh;}
 
+.container{
+	width: 100%;
+}
+
+#messageAlert{
+	position: absolute;
+	width: 100%;
+	display: block;
+	margin-top:60px;
+}
+
+
+.btnRenvoiMail{
+	font-size: 14px;
+}
+
 .navbar {
 	min-height: 70px;
 	padding-top: 10px;

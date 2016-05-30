@@ -20,7 +20,23 @@
                 <a class="navbar-brand" href="{{ url('index') }}">CALLMEISMAEL</a>
             </div>
         </div>
+        @if (session('status'))
+            <div class="alert alert-success text-center " id="messageAlert">
+                <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ session('status') }}
+            </div>
+        @endif
+        @if (session('statusInvalidMail'))
+            <div class="alert alert-danger text-center " id="messageAlert">
+                <a href="#" title="Fermer" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                Veuillez valider votre mail avant de vous connecter. Vérifiez votre boîte mail.  
+                <a href="{{ route('resendEmail', session('statusInvalidMail')) }}" class="btn btn-link btnRenvoiMail">
+                    <span class="glyphicon glyphicon-send"></span> Renvoyer le mail de validation
+                </a>
+            </div>
+        @endif
     </div>
+
 
     <!-- *****************************************************************************************************************
      HEADER
@@ -41,7 +57,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12  text">
+                        <div class="col-sm-12  text ">
                             <div class="span12">
                                 <form class="form-signin" id="log" role="form" method="POST" action="{{ url('login') }}">
                                     <div class="clear-form two-col">
@@ -82,8 +98,8 @@
                                                 <button class="btn btn-large btn-blue btn-success" type="submit">
                                                     Se connecter
                                                 </button> 
-                                                <p class="center">
-                                                    <a href="{{ url('/password/reset') }}">Mot de passe oublié ?</a>
+                                                <p class="center container">
+                                                    <a href="#" data-target="#pwdModal" data-toggle="modal">Mot de passe oublié ?</a>
                                                 </p>
                                             </div>    
                                         </div>          
@@ -96,6 +112,50 @@
             </div>
         </div>
     </div><! --/headerwrap -->
+
+    <!--modal-->
+    <div id="pwdModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h1 class="text-center">Récupérer mon mot de passe </h1>
+          </div>
+          <div class="modal-body">
+              <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="text-center">
+                              <p>Vous avez oublié votre mot de passe ?</p>
+                                <div class="panel-body">
+                                    <fieldset>
+                                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
+                                            {!! csrf_field() !!}
+                                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                                <input class="form-control input-lg" placeholder="Adresse Email" name="email" type="email" value="{{ old('email') }}" required>
+                                            </div>
+                                            @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                            @endif
+                                            <input class="btn btn-lg btn-primary btn-block" value="Envoyer un lien de réinitialisation" type="submit">
+                                        </form>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+              <div class="col-md-12">
+              <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+              </div>    
+          </div>
+      </div>
+      </div>
+    </div>
 
     @section('javascript')
         <div class="footerNewLogin navbar-fixed-bottom">
