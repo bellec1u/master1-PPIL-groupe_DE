@@ -79,7 +79,7 @@
 						<div class="he-view">
 							<div class="bg a0" data-animate="fadeIn">
                                 <h3 class="a1" data-animate="fadeInDown">{{ $book->title }}</h3>
-                                <a href="{{ URL::route('bookReturn', array('id'=>$book->book_id))}}" class="dmbutton a2" data-animate="fadeInUp">
+                                <a href="{{ URL::route('bookReturn', array('id'=>$book->id))}}" class="dmbutton a2" data-animate="fadeInUp">
                                 	<i class="fa fa-search"></i></a>
                                 <a href="" class="dmbutton a2 lookNote" data-animate="fadeInUp"><i class="fa fa-book"></i></a>
                         	</div><!-- he bg -->
