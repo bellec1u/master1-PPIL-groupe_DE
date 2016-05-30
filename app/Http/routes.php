@@ -37,6 +37,7 @@ Route::put('follow/update/{id}', ['uses' => 'User\SubscriptionController@update'
 // Book access
 // details
 Route::get('book/{id}', ['as' => 'bookReturn', 'uses' => 'Book\BookController@show'])->where('id', '[0-9]+');
+Route::get('book/search', ['as' => 'bookSearch', 'uses' => 'Book\BookController@search']);
 
 // Book modif
 Route::get('createRating/{id}',['uses' => 'Book\RatingController@create', 'as' => 'createRating'])->where('id', '[0-9]+');

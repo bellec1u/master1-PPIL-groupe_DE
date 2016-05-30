@@ -14,7 +14,7 @@
         <div id="testMenu" class="navbar-collapse collapse">
             <ul class="nav navbar-nav  menuCenter">
                 <li><a href="#">FAQ</a></li>
-                <li><a href="#"><img src="{{url('design/img/icon-search.png')}}" alt="picture"></a></li>
+                <li><a href="{{ route('bookSearch') }}"><img src="{{url('design/img/icon-search.png')}}" alt="picture"></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right  menuRight">
                 @if(Auth::check())
@@ -22,8 +22,6 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>Utilisateur<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{url('user/profile')}}"><span class="glyphicon glyphicon-cog"></span> Profil</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{{URL::route('showReading', array())}}"><span class="glyphicon glyphicon-book"></span> Liste de Lectures</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{URL::route('ConsultFollower', array())}}"><span class="glyphicon glyphicon-user"></span> Membres Suivis</a></li>
                             <li role="separator" class="divider"></li>

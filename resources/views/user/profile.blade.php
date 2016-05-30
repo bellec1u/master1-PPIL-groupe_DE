@@ -117,7 +117,8 @@
 			            </div><!-- portfolio -->
 			        </div><!-- portfolio container -->
 				</div><!--/Portfoliowrap -->
-
+				
+				@if(Auth::user()->id != $user->id)
 				<div id="titleDetailComment">
 			    	<div class="container">
 						<div class="row centered col-sm-12 ">
@@ -125,7 +126,7 @@
 			    		</div>
 			        </div>
 			    </div>
-				@if(Auth::user()->id != $user->id)
+				
 				    <div id="detailBookComment">
 						<div class="row centered contenuComm col-sm-12" id="test">
 							<div class="col-sm-12">
