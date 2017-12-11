@@ -94,8 +94,7 @@ Si vous avez une base qui s'appelle 'ppil' et une configuration par défaut.
 
 - Laravel peut démarrer le serveur de développement fourni avec PHP avec la commande :  
   `php artisan serve`  
-  Page de démarrage accessible avec l'url : `http://localhost:8000`  
-  En revanche, la base de données ne sera pas accessible.
+  Page de démarrage accessible avec l'url : `http://localhost:8000`
 
 - Laravel vous permet d'interagir avec votre application via la console lancée par la commande :  
   `php artisan tinker` fonctionne comme une console Python
@@ -123,10 +122,10 @@ git config --global core.editor nano : idiquer l'éditeur que vous voulez utilis
 git status                    : informations sur l'état courant
 git add fichier [fichier ..]  : ajoute des fichiers au suivi ou valide les modifications de fichiers déjà suivis
 git commit -m '{message}'     : enregistre les changements de fichiers validés
-git commit -am '{message}'    : valide et enregistrer les fichiers déjà suivis ('git add' inutile pour valider les changements)
+git commit -am '{message}'    : valide et enregistre les fichiers déjà suivis ('git add' inutile pour valider les changements)
 
-git pull [origin master] : récupére depuis le dépôt distant et fusionne en local
-git push [origin master] : envoye au dépôt distant les changements enregistrés
+git pull [origin master] : récupère depuis le dépôt distant et fusionne en local
+git push [origin master] : envoie au dépôt distant les changements enregistrés
 
 
 Résoudre les conflits :
